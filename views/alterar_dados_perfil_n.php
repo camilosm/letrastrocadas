@@ -1,9 +1,13 @@
 <?php
 	//Verifica se o botão foi acionado
+	
 	if(isset($_POST['alterarDados']))
 	{
+		session_start();
+		
 		include("class_editar_caracteres.php");
 		include("classes/class_update.php");
+				
 		//Repassa os valores enviados pelo formulário para uma variável
 		$nome = $_POST['nome'];
 		$data_nasc = $_POST['data_nascimento'];
@@ -20,6 +24,7 @@
 		//Instancia a classe que tenta evitar o MySql Inject
 		$editar_nome = new EditarCaracteres($nome);
 		$nome = $editar_nome->sanitizeStringNome($_POST['nome']);
+
 		
 		//Instancia e passa os valores para a classe de Update 
 		$valores_altera_dados_perfil = "nome = '" .$nome. "',
@@ -33,18 +38,18 @@
 		uf = '".$uf."',
 		complemento = '".$complemento."'";
 		
-		$condicao = "id_usuario = 1";
+		$condicao = "id_usuario =".$id."";
 		$alterar_dados = new Alterar("tbl_usuario",$valores_altera_dados_perfil, $condicao);
 		$resposta = $alterar_dados->alterar();
-		
+		echo $resposta;
 		//Confere se houve resposta e envia mensagem de erro ou sucesso.
 		if($resposta)
 		{
-			echo "OK";
+			$resultado =  "OK";
 		}
 		else
 		{
-			echo "Erro ao alterar os dados";
+			$resultado = "Erro";
 		}
 	}
 

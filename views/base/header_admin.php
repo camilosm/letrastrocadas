@@ -8,7 +8,18 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand">Bem vindo, <?php session_start(); echo utf8_encode($_SESSION['email']); ?>!</a>
+			<a class="navbar-brand">Bem vindo, <?php
+													session_start();
+													if(empty($_SESSION['nome']))
+													{
+														echo utf8_encode($_SESSION['email']); 
+													}
+													else
+													{
+														echo utf8_encode($_SESSION['nome']); 
+													}
+												?>!
+			</a>
 		</section>
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<section class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
