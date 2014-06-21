@@ -19,7 +19,6 @@
 		//Pegando a imagem enviada pelo formulário
 		$imagem_primeira = $_FILES['primeira_foto'];
 		//Não entendi isso mas eu sei que precisa 
-		//Caminho do arquivo que vai ser feito upload. Está em cache
 		$destino_primeira = $imagem_primeira['tmp_name'];
 		//Nome do arquivo
 		$nome_primeira = $imagem_primeira['name'];
@@ -41,7 +40,7 @@
 		
 		if(!empty($nome_primeira) && in_array($tipo_primeira, $permite))
 		{
-			//Efetua o upload
+			//Evetua o upload
 			upload($destino_primeira, $nome_primeira, 120, $pasta);
 			
 			if(!empty($nome_segunda) && in_array($tipo_segunda, $permite))

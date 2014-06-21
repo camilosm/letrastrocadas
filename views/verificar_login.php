@@ -4,10 +4,9 @@ if(isset($_POST['entrar']))
 {	
 	//Inclui classes de nome auto-explicativos
 	include("class_editar_caracteres.php");
-	include ("classes/class_pesquisar.php");
+	include("classes/class_pesquisar.php");
 	
 	session_start();
-	
 	//Coloca em variaveis os valores passados pelo formulário
 	$login = $_POST['email'];
 	$senha = $_POST['senha'];
@@ -47,7 +46,7 @@ if(isset($_POST['entrar']))
 	else
 	{
 		// Verifica se o usuário existe
-		$pesquisar_usuario = new Pesquisar("tbl_usuario","id_usuario,nivel_acesso,status,nome,email,logradouro,genero_favorito,cidade,uf,cep,complemento,bairro,numero,data_nasc"," email = '".$login."' AND senha = '".$senha."' LIMIT 1");
+		$pesquisar_usuario = new Pesquisar("tbl_usuario","id_usuario,nivel_acesso,status,nome,email"," email = '".$login."' AND senha = '".$senha."' LIMIT 1");
 		$resultado_pesquisa = $pesquisar_usuario->pesquisar();
 		if(mysql_num_rows($resultado_pesquisa) == 1)
 		{
@@ -61,8 +60,7 @@ if(isset($_POST['entrar']))
 				$_SESSION["nivel_acesso"] = $dadosusu["nivel_acesso"];
 				$_SESSION["id"] = $dadosusu["id_usuario"];
 				$_SESSION["nome"] = $dadosusu["nome"];
-				$_SESSION["email"] = $dadosusu["email"];
-				
+				$_SESSION["email"]=$dadosusu["email"];
 				// Redireciona para a página de usário
 				//header("Location:/Letras_Trocadas/views/menu_usuario.php");
 				header("Location:?url=index_usuario");

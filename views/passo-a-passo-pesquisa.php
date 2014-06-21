@@ -1,6 +1,5 @@
 <?php
 	
-	//Inicia a sessão
 	session_start();
 	
 	
@@ -13,7 +12,7 @@
 			include("class_editar_caracteres.php");
 			include("classes/class_pesquisar.php");
 			
-			$bd = new Banco();
+			$bd = new Banco();		
 			
 			$nome = $_POST['pesquisa'];
 			
