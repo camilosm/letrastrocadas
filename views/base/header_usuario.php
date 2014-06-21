@@ -1,12 +1,3 @@
-<?php
-
-     if(isset($_POST['btnPesquisar']))
-	 {
-	    include('php_pesquisa_geral.php');	
-	 }
-
-?>
-
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
 	<section class="container-fluid">
 		<!-- Brand and toggle get grouped for better mobile display -->
@@ -18,24 +9,25 @@
 				<span class="icon-bar"></span>
 			</button>
 			<a class="navbar-brand">Bem vindo, <?php
-													session_start(); 
-													if(empty($_SESSION['nome']))
-													{
-														echo utf8_encode($_SESSION['email']); 
-													}
-													else
-													{
-														echo utf8_encode($_SESSION['nome']);
-													}
-												?>!</a>
+			session_start(); 
+			if(empty($_SESSION['nome']))
+			{
+				echo utf8_encode($_SESSION['email']);
+			}
+			else
+			{
+				echo utf8_encode($_SESSION['nome']);
+			}
+			?>!</a>
+			
 		</section>
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<section class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-			<form class="navbar-form navbar-left" role="search">
+			<form class="navbar-form navbar-left" role="search" method= "post" action = "?url=pesquisa">
 				<section class="form-group">
-					<input type="text" name = "conteudo_text" class="form-control" placeholder="Procurar">
+					<input type="text" class="form-control" placeholder="Procurar">
 				</section>
-				<button type="submit" class="btn btn-default" name = "btnPesquisar">
+				<button type="submit" class="btn btn-default">
 					<span class="glyphicon glyphicon-search"></span>
 				</button>
 			</form>
@@ -50,7 +42,6 @@
 							  <li><a href="?url=livros_lidos">Lidos</a></li>
 							  <li><a href="?url=livros_disponibilizados">Disponibilizados</a></li>
 							  <li><a href="?url=livros_em_leitura">Lendo</a></li>
-							  <li><a href="?url=livros_quero_ler">Quero ler</a></li>
 							  <li><a href="?url=passo-a-passo-pesquisa">Cadastrar novo livro</a></li>
 						  </ul>
 				   </li>
