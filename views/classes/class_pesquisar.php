@@ -22,14 +22,5 @@ class Pesquisar
 		return $resultado;
 	}
 	
-	public function pesquisar_sc()
-	{
-		$sql = "SELECT $this->campos FROM $this->tabela";
-
-		$resultado = mysql_query($sql) or die(mysql_error());
-		
-		return $resultado;
-	}
-	
 }
 ?>

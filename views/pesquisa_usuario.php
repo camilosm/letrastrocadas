@@ -1,3 +1,4 @@
+<title>ó</title> <!-- Esse título ? -->
 <section id = "body_pesquisa">
 	<section class="panel panel-default" style="width: 70%; margin-left: 15%;">
 		<section class="panel-heading">

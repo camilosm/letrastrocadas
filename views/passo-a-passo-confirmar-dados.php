@@ -5,6 +5,7 @@
 	include("classes/class_banco.php");
 	
 	$bd = new Banco();
+	
 	if(isset($_POST['confirmaLivroUsuario']))
 	{
 		
@@ -115,8 +116,8 @@
 							<p align="center"></p> 
 					</section>
 				</section>
-			</section>
-			<section class="form-group">
+			
+			
 				<label for="Nome" class="col-lg-2 control-label">Nome:</label>
 				<section class="col-lg-10">
 					<input type="text" class="form-control" value="<?php echo $nome ;?>" rows="3" name = "nome" required style = "width: 50%;"id="Nome" readonly ></input> 
