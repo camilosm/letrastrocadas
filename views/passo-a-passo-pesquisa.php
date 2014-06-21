@@ -60,7 +60,7 @@
 			<?php
 				if(isset($_POST['pesquisar_livro']))
 				{
-					while($dados=mysql_fetch_array($resultado))
+					while($dados=mysql_fetch_assoc($resultado))
 					{
 						echo 
 						'<section class="col-lg-10">

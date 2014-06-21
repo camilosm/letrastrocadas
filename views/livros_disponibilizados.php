@@ -29,7 +29,7 @@
 			$pesquisar_quantidade = new Pesquisar($tabelas,"COUNT(id_lista_livros) As quantidade","usuario_id =".$_SESSION['id']);
 			$resultado_quantidade = $pesquisar_quantidade->pesquisar();
 			
-			$pesquisa_quantidade=mysql_fetch_array($resultado_quantidade);
+			$pesquisa_quantidade=mysql_fetch_assoc($resultado_quantidade);
 			$quantidade = $pesquisa_quantidade['quantidade'];
 			
 			$id =array();
@@ -39,7 +39,7 @@
 			$autor = array();
 			$sinopse = array();
 			
-			while($pesquisa=mysql_fetch_array($resultado))
+			while($pesquisa=mysql_fetch_assoc($resultado))
 			{
 				$id[] = $pesquisa['id_lista_livros'];
 				$nome[] = $pesquisa['Livro'];

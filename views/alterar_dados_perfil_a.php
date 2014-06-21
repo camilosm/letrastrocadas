@@ -14,11 +14,11 @@
 		
 		$pesquisa_dados = new Pesquisar("tbl_usuario","data_nasc,foto,nome,genero_favorito,logradouro,cidade,bairro,cep,uf,complemento,numero"," id_usuario = $id;");
 		$resultado_pesquisa_dados = $pesquisa_dados->pesquisar();
-		$dados_usu = mysql_fetch_array($resultado_pesquisa_dados);
+		$dados_usu = mysql_fetch_assoc($resultado_pesquisa_dados);
 		
 		$pesquisa_generos = new Pesquisar("tbl_categoria","*");
 		$resul_pesq_genero = $pesquisa_generos->pesquisar_sc();
-		$generos = mysql_fetch_array($resul_pesq_genero);
+		$generos = mysql_fetch_assoc($resul_pesq_genero);
 		
 		$foto_p = $dados_usu["foto"];
 		$nome_p = $dados_usu["nome"];
@@ -94,7 +94,7 @@
 				<label for="inputGeneroFav" class="col-lg-2 control-label">Gênero favorito</label>
 				<section class="col-lg-10">
 					<select type="text" class="form-control" name = "genero" id="genero" required>	
-							<?php while ($generos = mysql_fetch_array($resul_pesq_genero)){
+							<?php while ($generos = mysql_fetch_assoc($resul_pesq_genero)){
 							echo '<option value = '.$generos['nome']. '>' .$generos["nome"]. '</option>';
 							}
 							?>				
