@@ -15,7 +15,7 @@
 		<script src="scripts/bootstrap.min.js"></script>
 		
 		<style>
-			body { margin-left: 2%; width: 96%; padding-top: 70px; }
+			body { padding-top: 70px; }
 			footer { background-color: #dd4814; }
 		</style>
 		
@@ -24,7 +24,7 @@
 	<header>   
 		<?php 
 	
-	
+		
 
 			session_start();
 			
@@ -67,7 +67,7 @@
 				{
 					if($_SESSION["nivel_acesso"] == 1)
 					{
-						@include("views/home_usuario.php");
+						@include("views/index_usuario.php");
 					}
 					else
 					{

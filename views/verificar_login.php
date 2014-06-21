@@ -27,7 +27,7 @@ if(isset($_POST['entrar']))
 		// Verifica se tem retorno
 		if(mysql_num_rows($resultado_adm) == 1)
 		{
-			$dadosadm = mysql_fetch_array($resultado_adm);
+			$dadosadm = mysql_fetch_assoc($resultado_adm);
 			//Preenche a session com dados do usuário
 			$_SESSION["nivel_acesso"]=$dadosadm["nivel_acesso"];
 			$_SESSION["id"]=$dadosadm["id_administrador"];
@@ -52,7 +52,7 @@ if(isset($_POST['entrar']))
 		{
 		
 			// Interpreta a busca
-			$dadosusu = mysql_fetch_array($resultado_pesquisa);
+			$dadosusu = mysql_fetch_assoc($resultado_pesquisa);
 			// Verifica o status do usuário 
 			if($dadosusu["status"] == 1)
 			{

@@ -35,18 +35,16 @@ function CriaRequest(){
  * Função para enviar os dados
 */
 function getDadosQueroLer(){ // Declaração de Variáveis
-	alert("Oi");
 	var xmlreq = CriaRequest();
 	// Exibi a imagem de progresso
 	// Iniciar uma requisição
-	xmlreq.open("GET", "algumacoisa.php?acao=queroler&usuario=<?php echo $_SESSION['id'];?>", true);
+	xmlreq.open("GET", "algumacoisa.php", true);
 	// Atribui uma função para ser executada sempre que houver uma mudança de ado
 	xmlreq.onreadystatechange = function(){
 		// Verifica se foi concluído com sucesso e a conexão fechada
-		(readyState=4) 
-		if (xmlreq.readyState == 4)
+		if (xmlreq.readyState == 4) 
 		{ // Verifica se o arquivo foi encontrado com sucesso
-			if (xmlreq.status == 200)
+			if (xmlreq.status == 200) 
 			{
 				result.innerHTML = xmlreq.responseText;
 			}
@@ -163,7 +161,7 @@ function getDadosQueroLer(){ // Declaração de Variáveis
 	
 	<header>
 		
-		<?php session_start(); @include("views/base/header_usuario.php") ?>
+		<?php @include("views/base/header_usuario.php") ?>
 	
 	</header>
 	

@@ -135,7 +135,7 @@
 		$pesquisar_livro = new Pesquisar($tabelas,$campos,"id_livro = $id LIMIT 1");
 		$resultado = $pesquisar_livro->pesquisar();
 		
-		$dados=mysql_fetch_array($resultado);
+		$dados=mysql_fetch_assoc($resultado);
 		
 		$imagem = $dados['imagem_livros'];
 		$num_paginas = $dados['numero_paginas'];

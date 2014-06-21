@@ -92,7 +92,7 @@
 	$pesquisar_livro = new Pesquisar("tbl_livro","nome,edicao,isbn"," id_livro = '$id' LIMIT 1");
 	$resultado = $pesquisar_livro->pesquisar();
 	
-	while($resposta=mysql_fetch_array($resultado))
+	while($resposta=mysql_fetch_assoc($resultado))
 	{
 		$nome = $resposta['nome'];
 		$edicao = $resposta['edicao'];

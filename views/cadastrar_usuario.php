@@ -54,7 +54,7 @@
 					// Confere se foi retornado alguma coisa pela pesquisa
 					if(mysql_num_rows($resultado_pesquisa) == 1)
 					{	
-							$dadosusu = mysql_fetch_array($resultado_pesquisa);
+							$dadosusu = mysql_fetch_assoc($resultado_pesquisa);
 							//Preenche a session com dados do usuário
 							$_SESSION["nivel_acesso"]=$dadosusu["nivel_acesso"];
 							$_SESSION["id"]=$dadosusu["id_usuario"];
