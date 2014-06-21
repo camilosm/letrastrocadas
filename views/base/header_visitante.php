@@ -26,7 +26,7 @@
 					<li><a href="?url=sobre"><span class="glyphicon glyphicon-info-sign"></span> Quem somos</a></li>
 					<li><a href="?url=contato"><span class="glyphicon glyphicon-envelope"></span> Contato</a></li>
 					<li><a href="?url=cadastro_usuario"><span class="glyphicon glyphicon-plus"></span> Cadastre-se</a></li>
-					<li><a href="?url=login"><span class="glyphicon glyphicon-log-in"></span> Entrar</a></li>
+					<li><a href="?url=login"><span class="glyphicon glyphicon-log-in"></span>&nbsp Entrar</a></li>
 				</ul>
 			</section><!-- /.navbar-collapse -->
 		</section><!-- /.container-fluid -->

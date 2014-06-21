@@ -12,11 +12,10 @@
 		<link rel="stylesheet" type="text/css" href="bootstrap/bootstrap.min.css"/>
 		<!-- Include all compiled plugins (below), or include insectionidual files as needed -->
 		<script src="scripts/jquery.min.js"></script>
-		<script src="scripts/jquery.forms.min.js"></script>
 		<script src="scripts/bootstrap.min.js"></script>
 		
 		<style>
-			body { padding-top: 70px; }
+			body { margin-left: 2%; width: 96%; padding-top: 70px; }
 			footer { background-color: #dd4814; }
 		</style>
 		
@@ -24,7 +23,9 @@
    
 	<header>   
 		<?php 
-		
+	
+	
+
 			session_start();
 			
 			if(empty($_SESSION['email']))
@@ -59,21 +60,21 @@
 			else
 			{
 				if(empty($_SESSION['email']))
-			{
-				@include("views/home_visitante.php");
-			}
-			else
-			{
-				if($_SESSION["nivel_acesso"] == 1)
 				{
-					@include("views/index_usuario.php");
+					@include("views/home_visitante.php");
 				}
 				else
 				{
-					@include("views/home_admin.php");
+					if($_SESSION["nivel_acesso"] == 1)
+					{
+						@include("views/home_usuario.php");
+					}
+					else
+					{
+						@include("views/home_admin.php");
+					}
+					
 				}
-				
-			}
 			}
 		?>
 		
