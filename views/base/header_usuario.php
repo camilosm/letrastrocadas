@@ -42,6 +42,7 @@
 							  <li><a href="?url=livros_lidos">Lidos</a></li>
 							  <li><a href="?url=livros_disponibilizados">Disponibilizados</a></li>
 							  <li><a href="?url=livros_em_leitura">Lendo</a></li>
+							  <li><a href="?url=livros_quero_ler">Quer Ler</a></li>
 							  <li><a href="?url=passo-a-passo-pesquisa">Cadastrar novo livro</a></li>
 						  </ul>
 				   </li>
