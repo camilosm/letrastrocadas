@@ -134,9 +134,9 @@
 													<input type = "submit" class="btn btn-primary btn-sm" name = "botao_solicitar_livro" value = "Solicitar Livro" disabled />
 													<input type = "submit" class="btn btn-primary btn-sm" name = "botao_disponibilizar_livro" value = "Disponibilizar Livro" />															 
 													<section class = "btn-group">
-														<button id = "Resultado" name = "QueroLer" type="button" class="btn btn-primary btn-sm">Quero Ler</button>
+														<button id = "Resultado" value = "a" name = "QueroLer" type="button" class="btn btn-primary btn-sm">Quero Ler</button>
 														<button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
-														<ul class="dropdown-menu">
+														<ul id = "acoes" class="dropdown-menu">
 															<li name = "Desmarcar" id = "'.$lista_desejo['id_livro'].'" ><a>Desmarcar</a></li>
 															<li name = "JaLi" id = "'.$lista_desejo['id_livro'].'" ><a>Já li</a></li>
 															<li name = "Lendo" id = "'.$lista_desejo['id_livro'].'" ><a>Estou lendo</a></li>

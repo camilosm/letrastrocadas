@@ -32,14 +32,14 @@
 	$cidade_p = $dados_usu["cidade"];
 	$bairro_p = $dados_usu["bairro"];
 	
-	/* Aline o erro está aqui onde está comentado
+
 	$foto = $foto != "" ? $foto : "content/imagens/fotos_perfil/avatar-250.png";
 	// Verifica se o botão foi acionado
 	
 	if(isset($_POST['alterarDados']))
 	{
 		include("alterar_dados_perfil_n.php");
-	}}*/
+	}
 ?>
 <script>
 	var UploadFoto = function()

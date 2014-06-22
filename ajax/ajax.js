@@ -28,12 +28,13 @@ function CriaRequest()
 }
 
 $(document).ready(function(){
-	$('li').click(function(){
+	$('#acoes > li').click(function(){
 		var acao= $(this).attr("name");
 		var id = $(this).attr("id");
 		var result = document.getElementById("Resultado");
+		var tabela = document.getElementById("Resultado").value;
 		alert(tabela);
-		/*var xmlreq = CriaRequest();
+		var xmlreq = CriaRequest();
 		// Iniciar uma requisição
 		xmlreq.open("GET", "ajax/acoes_livros.php?acao="+acao+"&id="+id, true); 
 		// Atribui uma função para ser executada sempre que houver uma mudança de ado
@@ -53,7 +54,7 @@ $(document).ready(function(){
 				}
 			} 
 		};
-		xmlreq.send(null);*/
+		xmlreq.send(null);
 	});
 })
 
