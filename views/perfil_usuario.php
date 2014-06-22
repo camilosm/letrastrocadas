@@ -7,7 +7,7 @@
 		
 		$id = $_SESSION['id'];
 		
-		$pesquisa_dados = new Pesquisar("tbl_usuario","nome,foto,idade,avaliacoes_negativas,avaliacoes_negativas,uf,cidade,genero_favorito", " id_usuario = $id");
+		$pesquisa_dados = new Pesquisar("tbl_usuario","nome,foto,idade,avaliacoes_negativas,avaliacoes_positivas,uf,cidade,genero_favorito", " id_usuario = $id");
 		$resul_pesquisa = $pesquisa_dados->pesquisar();
 		$pesq = mysql_fetch_array($resul_pesquisa);
 		
@@ -31,10 +31,9 @@
 		$uf = $pesq['uf'];
 		$complemento = $pesq['complemento'];
 		$cidade = $pesq['cidade'];
-		$bairro = $pesq['bairro'];
-		
-		$avaliacoes_negativas = mysql_query("SELECT COUNT(avaliacoes_negativas) FROM tbl_usuario WHERE id_usuario = $id)";
-		$avaliacoes_positivas = mysql_query("SELECT COUNT(avaliacoes_positivas) FROM tbl_usuario WHERE id_usuario = $id)";
+		$bairro = $pesq['bairro'];		
+		$avaliacoes_negativas = $pesq['avaliacoes_negativas'];
+		$avaliacoes_positivas = $pesq['avaliacoes_positivas'];
 		
 		
 
