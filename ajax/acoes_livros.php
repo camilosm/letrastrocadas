@@ -20,7 +20,7 @@
 				$resultado = $cadastrar_quero_ler->inserir();
 				if($resultado != 0)
 				{
-					$alterar_quantidade_livros = new Alterar("tbl_livro","lido = (lido - 1)")
+					echo "OI";
 				}
 				break;
 			case "Lendo":
