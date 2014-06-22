@@ -5,41 +5,41 @@
 	include("classes/class_pesquisar.php");
 	include("classes/class_banco.php");
 	
-	//Instancia e faz conexão com o banco de dados
 	$banco = new Banco();
 	
 	$id = $_SESSION['id'];
+
+	//Pega os dados para mostrar no formulário
 	
-		//Pega os dados para mostrar no formulário
-		
-		$pesquisa_dados = new Pesquisar("tbl_usuario","data_nasc,foto,nome,genero_favorito,logradouro,cidade,bairro,cep,uf,complemento,numero"," id_usuario = $id;");
-		$resultado_pesquisa_dados = $pesquisa_dados->pesquisar();
-		$dados_usu = mysql_fetch_assoc($resultado_pesquisa_dados);
-		
-		$pesquisa_generos = new Pesquisar("tbl_categoria","*");
-		$resul_pesq_genero = $pesquisa_generos->pesquisar_sc();
-		$generos = mysql_fetch_assoc($resul_pesq_genero);
-		
-		$foto_p = $dados_usu["foto"];
-		$nome_p = $dados_usu["nome"];
-		$data_nasc_p = $dados_usu["data_nasc"];
-		$genero_fav_p = $dados_usu["genero_favorito"];
-		$logradouro_p = $dados_usu["logradouro"];
-		$numero_p = $dados_usu["numero"];
-		$cep_p = $dados_usu["cep"];
-		$uf_p = $dados_usu["uf"];
-		$complemento_p = $dados_usu["complemento"];
-		$cidade_p = $dados_usu["cidade"];
-		$bairro_p = $dados_usu["bairro"];
+	$pesquisa_dados = new Pesquisar("tbl_usuario","data_nasc,foto,nome,genero_favorito,logradouro,cidade,bairro,cep,uf,complemento,numero"," id_usuario = $id;");
+	$resultado_pesquisa_dados = $pesquisa_dados->pesquisar();
+	$dados_usu = mysql_fetch_assoc($resultado_pesquisa_dados);
 	
 	
+	$pesquisa_generos = new Pesquisar("tbl_categoria","*","1=1");
+	$resul_pesq_genero = $pesquisa_generos->pesquisar();
+	$generos = mysql_fetch_assoc($resul_pesq_genero);
+	
+	$foto_p = $dados_usu["foto"];
+	$nome_p = $dados_usu["nome"];
+	$data_nasc_p = $dados_usu["data_nasc"];
+	$genero_fav_p = $dados_usu["genero_favorito"];
+	$logradouro_p = $dados_usu["logradouro"];
+	$numero_p = $dados_usu["numero"];
+	$cep_p = $dados_usu["cep"];
+	$uf_p = $dados_usu["uf"];
+	$complemento_p = $dados_usu["complemento"];
+	$cidade_p = $dados_usu["cidade"];
+	$bairro_p = $dados_usu["bairro"];
+	
+	/* Aline o erro está aqui onde está comentado
 	$foto = $foto != "" ? $foto : "content/imagens/fotos_perfil/avatar-250.png";
 	// Verifica se o botão foi acionado
 	
 	if(isset($_POST['alterarDados']))
 	{
 		include("alterar_dados_perfil_n.php");
-	}
+	}}*/
 ?>
 <script>
 	var UploadFoto = function()
@@ -121,8 +121,8 @@
 
 				<label for="inputUF" class="col-lg-2 control-label">UF</label>
 				<section class="col-lg-10">
-					<select class="form-control" id="inputUF" name = "uf" value = "<?php echo utf8_encode($uf_p);?>">
-						<option>Selecione um estado...</option>
+					<select class="form-control" id="inputUF" name = "uf">
+						<?php echo '<option value = "">'.utf8_encode($uf_p).'</option>';?>"
 						<option value = "AC">AC</option>
 						<option value = "AL">AL</option>
 						<option value = "AP">AP</option>

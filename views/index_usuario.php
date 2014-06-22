@@ -1,63 +1,4 @@
-<script type="text/javascript">
-
-/**
- * Função para criar um objeto XMLHTTPRequest
-*/
-function CriaRequest(){ 
-	try
-	{
-		request = new XMLHttpRequest();
-	}
-	catch (IEAtual)
-	{
-		try
-		{
-			request = new ActiveXObject("Msxml2.XMLHTTP");
-		}
-		catch(IEAntigo)
-		{
-			try
-			{
-				request = new ActiveXObject("Microsoft.XMLHTTP");
-			}
-			catch(falha)
-			{
-				request = false;
-			}
-		}
-	} 
-	if (!request)
-		alert("Seu Navegador não suporta Ajax!");
-	else
-		return request;
-}
-/**
- * Função para enviar os dados
-*/
-function getDadosQueroLer(){ // Declaração de Variáveis
-	var xmlreq = CriaRequest();
-	// Exibi a imagem de progresso
-	// Iniciar uma requisição
-	xmlreq.open("GET", "algumacoisa.php", true);
-	// Atribui uma função para ser executada sempre que houver uma mudança de ado
-	xmlreq.onreadystatechange = function(){
-		// Verifica se foi concluído com sucesso e a conexão fechada
-		if (xmlreq.readyState == 4) 
-		{ // Verifica se o arquivo foi encontrado com sucesso
-			if (xmlreq.status == 200) 
-			{
-				result.innerHTML = xmlreq.responseText;
-			}
-			else
-			{ 
-				result.innerHTML = "Erro: " + xmlreq.statusText;
-			}
-		} 
-	};
-	xmlreq.send(null); 
-}
-
-</script>
+<script type="text/javascript" src="ajax/ajax.js"></script>
 <?php
 	
 	//Inicia a sessão
@@ -144,16 +85,6 @@ function getDadosQueroLer(){ // Declaração de Variáveis
 	<head>
 
 	<head>
-		<meta charset="utf-8"/>
-		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-		<meta name="viewport" content="width=device-width, initial-scale=1"/>
-		<title>Teste com bootstrap</title>
-
-		<!-- Bootstrap -->
-		<link rel="stylesheet" type="text/css" href="../bootstrap/bootstrap.min.css"/>
-		<!-- Include all compiled plugins (below), or include insectionidual files as needed -->
-		<script src="../scripts/jquery.min.js"></script>
-		<script src="../scripts/bootstrap.min.js"></script>
 		<style>
 			body { padding-top: 70px; }
 		</style>
@@ -203,12 +134,12 @@ function getDadosQueroLer(){ // Declaração de Variáveis
 													<input type = "submit" class="btn btn-primary btn-sm" name = "botao_solicitar_livro" value = "Solicitar Livro" disabled />
 													<input type = "submit" class="btn btn-primary btn-sm" name = "botao_disponibilizar_livro" value = "Disponibilizar Livro" />															 
 													<section class = "btn-group">
-														<button type="button" class="btn btn-primary btn-sm">Eu...</button>
+														<button id = "Resultado" name = "QueroLer" type="button" class="btn btn-primary btn-sm">Quero Ler</button>
 														<button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
 														<ul class="dropdown-menu">
-															<li><a onclick="getDadosQueroLer();">Quero ler</a></li>
-															<li><a href="">Já li</a></li>
-															<li><a href="">Estou lendo</a></li>
+															<li name = "Desmarcar" id = "'.$lista_desejo['id_livro'].'" ><a>Desmarcar</a></li>
+															<li name = "JaLi" id = "'.$lista_desejo['id_livro'].'" ><a>Já li</a></li>
+															<li name = "Lendo" id = "'.$lista_desejo['id_livro'].'" ><a>Estou lendo</a></li>
 														</ul>
 													</section>
 												</section>
