@@ -27,6 +27,7 @@
 	
 	$pesquisa_estado = new Pesquisar("tbl_estados","*"," 1=1");
 	$resul_pesq_estado = $pesquisa_estado->pesquisar();
+	$estados = mysql_fetch_assoc($resul_pesq_estado);
 	
 	$foto_p = $dados_usu["foto"];
 	$nome_p = $dados_usu["nome"];
@@ -41,7 +42,7 @@
 	$bairro_p = $dados_usu["bairro"];
 	
 	
-	$foto = $foto != "" ? $foto : "content/imagens/fotos_perfil/avatar-250.png";
+	$foto = $foto_p != "" ? $foto_p : "content/imagens/fotos_perfil/avatar-250.png";
 	// Verifica se o botão foi acionado
 	
 ?>
@@ -53,14 +54,14 @@
 				url: 'ajax/upload.php', 
 				type: 'post',					
 				dataType  : "json",
-				success : function( data ){RetornaImagem(data);},
+				success : function( data ){RetornaImagem(data.caminho);},
 				resetForm : false
 			}
 		);	
 	}
 	var RetornaImagem = function(caminho){
 		$.post("ajax/abre_imagem.php",{caminho : caminho}, function(data){
-				$("#img_perfil").attr("src", data)
+				$("#img_perfil").attr("src", data.imagem)
 			}
 		);
 	}
@@ -98,9 +99,20 @@
 				<label for="inputGeneroFav" class="col-lg-2 control-label">Gênero favorito</label>
 				<section class="col-lg-10">
 					<select type="text" class="form-control" name = "genero" id="genero" required>	
-					       <option> Escolha um gênero...</option>
-							<?php while ($generos = mysql_fetch_assoc($resul_pesq_genero)){
-							echo '<option>' .utf8_encode($generos["nome"]). '</option>';
+							<?php 
+							if ($genero_fav_p == "")
+							{
+							           echo '<option> Escolha um gênero... </option>';
+							        	while ($generos = mysql_fetch_assoc($resul_pesq_genero)){
+							        		echo '<option>' .utf8_encode($generos["nome"]). '</option>';						
+							        }
+							}
+							else
+							{
+							           echo utf8_encode($genero_fav_p);
+										while ($generos = mysql_fetch_assoc($resul_pesq_genero)){
+											echo '<option>' .utf8_encode($generos["nome"]). '</option>';						
+							        }
 							}
 							?>				
 					</select>
@@ -127,8 +139,21 @@
 				<label for="inputUF" class="col-lg-2 control-label">UF</label>
 				<section class="col-lg-10">
 					<select class="form-control" id="inputUF" name = "uf">
-							<?php while ($uf_p = mysql_fetch_assoc($resul_pesq_estado)){
-							echo '<option>' .$uf_p["nome"]. '</option>';
+							<?php 
+							
+							if ($uf_p == "")
+							{
+								echo '<option> Selecione um estado... </option>';
+									while ($estados = mysql_fetch_array($resul_pesq_estado)){
+										echo '<option>' .$estados["nome"]. '</option>';
+								
+									}
+							}
+							else{							    
+							    	while ($estados = mysql_fetch_array($resul_pesq_estado)){
+										$selected = $uf_p == $estados["nome"] ? 'selected="selected"' : '' ;
+							    		echo '<option '. $selected .' >' .$estados["nome"]. '</option>';
+									}
 							}
 							?>						
 					</select>
