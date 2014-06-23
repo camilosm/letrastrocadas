@@ -135,10 +135,10 @@
 				<section class="col-lg-10">
 					<input type="text" class="form-control" name = "cidade" id="inputCidade" required maxlength = "100" placeholder = "Cidade" value = "<?php echo utf8_encode($cidade_p); ?>">		  
 				</section>
-
-				<label for="inputComplemento" class="col-lg-2 control-label">Complemento</label>
 				
 				<section class="col-lg-10">
+
+				<label for="inputComplemento" class="col-lg-2 control-label">Complemento</label>
 					<input type="text" class="form-control" name = "complemento" id="complemento" required placeholder = "Complemento" maxlength = "100" value = "<?php echo utf8_encode($complemento_p); ?>">
 				</section>
 
