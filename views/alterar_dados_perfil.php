@@ -21,12 +21,12 @@
 	$resultado_pesquisa_dados = $pesquisa_dados->pesquisar();
 	$dados_usu = mysql_fetch_assoc($resultado_pesquisa_dados);
 	
-	$pesquisa_generos = new Pesquisar("tbl_categoria","*");
-	$resul_pesq_genero = $pesquisa_generos->pesquisar_sc();
+	$pesquisa_generos = new Pesquisar("tbl_categoria","*"," 1=1");
+	$resul_pesq_genero = $pesquisa_generos->pesquisar();
 	$generos = mysql_fetch_assoc($resul_pesq_genero);
 	
-	$pesquisa_estado = new Pesquisar("tbl_categoria","*");
-	$resul_pesq_estado = $pesquisa_estado->pesquisar_sc();
+	$pesquisa_estado = new Pesquisar("tbl_categoria","*"," 1=1");
+	$resul_pesq_estado = $pesquisa_estado->pesquisar();
 	
 	$foto_p = $dados_usu["foto"];
 	$nome_p = $dados_usu["nome"];
