@@ -19,6 +19,7 @@
 		$complemento = $_POST['complemento'];
 		$cidade = $_POST['cidade'];
 		$bairro = $_POST['bairro'];
+		$foto = $_POST['foto'];
 		
 		
 		//Instancia a classe que tenta evitar o MySql Inject
