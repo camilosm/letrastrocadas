@@ -53,12 +53,12 @@
 			      <td id = "nome_usuario" colspan = "4"><b>Nome:&nbsp;</b> <?php echo utf8_encode($nome); ?> </td>
             </tr>
             <tr>
-			      <td id = "cidade_usuario" colspan = "2"><b> Cidade:&nbsp;</b> <?php echo utf8_encode($cidade); ?> </td>
+			      <td id = "cidade_usuario" colspan = "2"><b> Cidade:&nbsp;</b> <?php echo ($cidade); ?> </td>
 			      <td id = "uf_usuario"><b>UF:&nbsp;</b> <?php echo utf8_encode($uf); ?></td>
 			      <td id = "idade_usuario"> <b>Idade:&nbsp;</b> <?php  echo utf8_encode($idade);?> </td>
             </tr>
             <tr>
-                  <td id = "generos_fav_usuario" colspan = "4" ><b> Gênero favorito: &nbsp;</b> <?php echo utf8_encode($genero_favorito); ?></td>
+                  <td id = "generos_fav_usuario" colspan = "4" ><b> Gênero favorito: &nbsp;</b> <?php echo ($genero_favorito); ?></td>
             </tr>
             <tr>
 		          <td colspan="5">
