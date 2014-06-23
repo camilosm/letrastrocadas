@@ -98,7 +98,7 @@
 				<label for="inputGeneroFav" class="col-lg-2 control-label">Gênero favorito</label>
 				<section class="col-lg-10">
 					<select type="text" class="form-control" name = "genero" id="genero" required>	
-					       <option> </option>
+					       <option> Escolha um gênero...</option>
 							<?php while ($generos = mysql_fetch_assoc($resul_pesq_genero)){
 							echo '<option>' .utf8_encode($generos["nome"]). '</option>';
 							}
