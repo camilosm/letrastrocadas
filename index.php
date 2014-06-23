@@ -13,6 +13,7 @@
 		<!-- Include all compiled plugins (below), or include insectionidual files as needed -->
 		<script src="scripts/jquery.min.js"></script>
 		<script src="scripts/bootstrap.min.js"></script>
+		<script src="scripts/jquery.forms.min.js"></script>
 		
 		<style>
 			body { padding-top: 70px; }
