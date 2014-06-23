@@ -31,12 +31,11 @@ $(document).ready(function(){
 	$('#acoes > li').click(function(){
 		var acao= $(this).attr("name");
 		var id = $(this).attr("id");
-		var result = document.getElementById("Resultado");
-		var tabela = document.getElementById("Resultado").value;
-		alert(tabela);
+		var result = document.getElementById("Resultado"+id);
+		var tabela = document.getElementById("Resultado"+id).value;
 		var xmlreq = CriaRequest();
 		// Iniciar uma requisição
-		xmlreq.open("GET", "ajax/acoes_livros.php?acao="+acao+"&id="+id, true); 
+		xmlreq.open("GET", "ajax/acoes_livros.php?acao="+acao+"&id="+id+"&tabela="+tabela, true); 
 		// Atribui uma função para ser executada sempre que houver uma mudança de ado
 		xmlreq.onreadystatechange = function()
 		{
