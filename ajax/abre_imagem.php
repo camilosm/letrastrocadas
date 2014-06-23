@@ -1,9 +1,11 @@
 <?php
+	header('Content-Type: application/json');
 	if(isset($_POST["caminho"]))
 	{
-		$ext =  end($_POST["caminho"].split('.'));
-		$imagem = base64_encode(fopen ( $_POST["caminho"] , 'r',false));
-		echo "data:image/".$ext.";base64,".$imagem;
+		$caminho = $_POST["caminho"];
+		$ext =  explode(".",$caminho)[0];
+		$imagem = base64_encode(file_get_contents ( $caminho ));
+		echo json_encode(array("imagem" => ("data:image/".$ext.";base64,".$imagem)));
 		
 	}
 ?>
