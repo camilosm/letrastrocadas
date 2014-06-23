@@ -45,11 +45,11 @@
 		//Confere se houve resposta e envia mensagem de erro ou sucesso.
 		if($resposta)
 		{
-			$resultado =  "OK";
+			ECHO "OK";
 		}
 		else
 		{
-			$resultado = "Erro";
+			ECHO "Erro";
 		}
 	}
 
