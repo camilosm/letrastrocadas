@@ -134,7 +134,7 @@
 													<input type = "submit" class="btn btn-primary btn-sm" name = "botao_solicitar_livro" value = "Solicitar Livro" disabled />
 													<input type = "submit" class="btn btn-primary btn-sm" name = "botao_disponibilizar_livro" value = "Disponibilizar Livro" />															 
 													<section class = "btn-group">
-														<button id = "Resultado" value = "a" name = "QueroLer" type="button" class="btn btn-primary btn-sm">Quero Ler</button>
+														<button id = "Resultado'.$lista_desejo['id_livro'].'" value = "QueroLer" name = "QueroLer" type="button" class="btn btn-primary btn-sm">Quero Ler</button>
 														<button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
 														<ul id = "acoes" class="dropdown-menu">
 															<li name = "Desmarcar" id = "'.$lista_desejo['id_livro'].'" ><a>Desmarcar</a></li>
@@ -203,13 +203,13 @@
 													<input type = "submit" class="btn btn-primary btn-sm" name = "botao_solicitar_livro" value = "Solicitar Livro" disabled />
 													<input type = "submit" class="btn btn-primary btn-sm" name = "botao_disponibilizar_livro" value = "Disponibilizar Livro" />															 
 													<section class = "btn-group">
-														<button type="button" class="btn btn-primary btn-sm" disabled>Eu...</button>
-														<button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" disabled><span class="caret"></span></button>
-														<ul class="dropdown-menu">
-															<li>Quero ler</li>
-															<li>Já li</li>
-															<li>Estou lendo</li>
-														</ul>	
+														<button id = "Resultado'.$destaques['id_livro'].'" value = "QueroLer" name = "QueroLer" type="button" class="btn btn-primary btn-sm">Quero Ler</button>
+														<button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+														<ul id = "acoes" class="dropdown-menu">
+															<li name = "Desmarcar" id = "'.$destaques['id_livro'].'" ><a>Desmarcar</a></li>
+															<li name = "JaLi" id = "'.$destaques['id_livro'].'" ><a>Já li</a></li>
+															<li name = "Lendo" id = "'.$destaques['id_livro'].'" ><a>Estou lendo</a></li>
+														</ul>
 													</section>
 												</section>
 											</form>	
