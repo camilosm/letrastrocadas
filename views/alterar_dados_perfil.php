@@ -21,11 +21,11 @@
 	$resultado_pesquisa_dados = $pesquisa_dados->pesquisar();
 	$dados_usu = mysql_fetch_assoc($resultado_pesquisa_dados);
 	
-	$pesquisa_generos = new Pesquisar("tbl_categoria","*"," 1=1");
+	$pesquisa_generos = new Pesquisar("tbl_categoria","*"," 1=1 GROUP BY nome ASC");
 	$resul_pesq_genero = $pesquisa_generos->pesquisar();
 	$generos = mysql_fetch_assoc($resul_pesq_genero);
 	
-	$pesquisa_estado = new Pesquisar("tbl_categoria","*"," 1=1");
+	$pesquisa_estado = new Pesquisar("tbl_estados","*"," 1=1");
 	$resul_pesq_estado = $pesquisa_estado->pesquisar();
 	
 	$foto_p = $dados_usu["foto"];
@@ -98,8 +98,9 @@
 				<label for="inputGeneroFav" class="col-lg-2 control-label">Gênero favorito</label>
 				<section class="col-lg-10">
 					<select type="text" class="form-control" name = "genero" id="genero" required>	
+					       <option> </option>
 							<?php while ($generos = mysql_fetch_assoc($resul_pesq_genero)){
-							echo '<option>' .$generos["nome"]. '</option>';
+							echo '<option>' .utf8_encode($generos["nome"]). '</option>';
 							}
 							?>				
 					</select>
@@ -126,7 +127,10 @@
 				<label for="inputUF" class="col-lg-2 control-label">UF</label>
 				<section class="col-lg-10">
 					<select class="form-control" id="inputUF" name = "uf">
-						<option><?php echo utf8_encode($uf_p);?></option>
+							<?php while ($uf_p = mysql_fetch_assoc($resul_pesq_estado)){
+							echo '<option>' .$uf_p["nome"]. '</option>';
+							}
+							?>						
 					</select>
 				</section>
 				
@@ -136,9 +140,8 @@
 					<input type="text" class="form-control" name = "cidade" id="inputCidade" required maxlength = "100" placeholder = "Cidade" value = "<?php echo utf8_encode($cidade_p); ?>">		  
 				</section>
 				
-				<section class="col-lg-10">
-
 				<label for="inputComplemento" class="col-lg-2 control-label">Complemento</label>
+				<section class="col-lg-10">
 					<input type="text" class="form-control" name = "complemento" id="complemento" required placeholder = "Complemento" maxlength = "100" value = "<?php echo utf8_encode($complemento_p); ?>">
 				</section>
 
