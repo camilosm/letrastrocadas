@@ -87,7 +87,7 @@
 				<label for="inputNome" class="col-lg-2 control-label">Nome</label>
 
 				<section class="col-lg-10">	 
-					<input type="text" class="form-control"  name = "nome" id="nome" required  placeholder = "Nome"  maxlength = "100" value = "<?php echo $nome_p; ?>">			  
+					<input type="text" class="form-control"  name = "nome" id="nome" required  placeholder = "Nome"  maxlength = "100" value = "<?php echo utf8_encode($nome_p); ?>">			  
 				</section>
 
 				<label for="inputDataNasc" class="col-lg-2 control-label">Data Nascimento</label>
