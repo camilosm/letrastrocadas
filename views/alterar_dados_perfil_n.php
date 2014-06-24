@@ -27,16 +27,16 @@
 		$nome = $editar_nome->sanitizeStringNome($_POST['nome']);
 		
 		//Instancia e passa os valores para a classe de Update 
-		$valores_altera_dados_perfil = "nome = '" .$nome. "',
+		$valores_altera_dados_perfil = "nome = '" .utf8_decode($nome). "',
         data_nasc = '".$data_nasc."',
-        genero_favorito = '".$genero_fav."',
-		logradouro = '".$logradouro."',
+        genero_favorito = '".utf8_decode($genero_fav)."',
+		logradouro = '".utf8_decode($logradouro)."',
 		numero = ".$numero.",
 		cep = '".$cep."',
-		cidade = '".$cidade."',
-		bairro = '".$bairro."',
+		cidade = '".utf8_decode($cidade)."',
+		bairro = '".utf8_decode($bairro)."',
 		uf = '".$uf."',
-		complemento = '".$complemento."'";
+		complemento = '".utf8_decode($complemento)."'";
 		
 		$condicao = "id_usuario =".$id."";
 		$alterar_dados = new Alterar("tbl_usuario",$valores_altera_dados_perfil, $condicao);
