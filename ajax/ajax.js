@@ -45,11 +45,14 @@ $(document).ready(function(){
 				// Verifica se o arquivo foi encontrado com sucesso
 				if (xmlreq.status == 200)
 				{ 
-					result.innerHTML = xmlreq.responseText;
+					var texto = xmlreq.responseText;
+					$('button#Resultado'+id).text(texto).attr({
+						title:texto
+					});
 				}
 				else
 				{ 
-					result.innerHTML = "Erro: " + xmlreq.statusText;
+					$("#Resultado"+id).innerHTML = "Erro: " + xmlreq.statusText;
 				}
 			} 
 		};
