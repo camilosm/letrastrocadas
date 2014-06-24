@@ -237,6 +237,22 @@ CREATE TABLE tbl_avaliacao(
 
 );
 
+CREATE TABLE tbl_solicitacao_troca(
+
+	id_solicitacao INT UNSIGNED AUTO_INCREMENT NOT NULL,
+	lista_id INT UNSIGNED NOT NULL,
+	usuario_solicitador INT UNSIGNED NOT NULL,
+	usuario_dono_lista INT UNSIGNED NOT NULL,
+	aceito CHAR(3) NULL, /* Não e Sim*/ 
+	data_solicitacao DATE NOT NULL,
+	data_resposta DATE NULL,
+	PRIMARY KEY(id_solicitacao),
+	FOREIGN KEY(usuario_solicitador) REFERENCES tbl_usuario(id_usuario),
+	FOREIGN KEY(usuario_dono_lista) REFERENCES tbl_usuario(id_usuario),
+	FOREIGN KEY(lista_id) REFERENCES tbl_lista_livros(id_lista_livros)
+
+);
+
 CREATE TABLE tbl_denuncias(
 
 	id_denuncias INT UNSIGNED AUTO_INCREMENT NOT NULL,
@@ -255,32 +271,3 @@ CREATE TABLE tbl_motivos(
 	PRIMARY KEY(id_motivo)
 
 );
-
-INSERT INTO tbl_estados VALUES (NULL, 'AC'),
-(NULL, 'Al'),
-(NULL, 'AP'),
-(NULL, 'AM'),
-(NULL, 'BA'),
-(NULL, 'CE'),
-(NULL, 'DF'),
-(NULL, 'ES'),
-(NULL, 'GO'),
-(NULL, 'MA'),
-(NULL, 'MT'),
-(NULL, 'MS'),
-(NULL, 'MG'),
-(NULL, 'PA'),
-(NULL, 'PB'),
-(NULL, 'PR'),
-(NULL, 'PE'),
-(NULL, 'PI'),
-(NULL, 'RJ'),
-(NULL, 'RN'),
-(NULL, 'RS'),
-(NULL, 'RO'),
-(NULL, 'RR'),
-(NULL, 'SC'),
-(NULL, 'SP'),
-(NULL, 'SE'),
-(NULL, 'TO')
-;
