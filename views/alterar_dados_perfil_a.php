@@ -95,7 +95,7 @@
 				<section class="col-lg-10">
 					<select type="text" class="form-control" name = "genero" id="genero" required>	
 							<?php while ($generos = mysql_fetch_assoc($resul_pesq_genero)){
-							echo '<option value = '.$generos['nome']. '>' .$generos["nome"]. '</option>';
+							echo '<option value = '.utf8_encode($generos['nome']). '>' .utf8_encode($generos["nome"]). '</option>';
 							}
 							?>				
 					</select>

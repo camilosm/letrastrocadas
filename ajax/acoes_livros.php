@@ -95,7 +95,7 @@
 				}
 				break;
 			case "QueroLer":
-				$cadastrar_quero_ler = new Inserir("tbl_lendo","NULL,".$_SESSION['id'].",$id");
+				$cadastrar_quero_ler = new Inserir("tbl_lista_desejo","NULL,".$_SESSION['id'].",$id");
 				$resultado = $cadastrar_quero_ler->inserir();
 				if($resultado != 0)
 				{

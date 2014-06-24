@@ -203,10 +203,10 @@
 													<input type = "submit" class="btn btn-primary btn-sm" name = "botao_solicitar_livro" value = "Solicitar Livro" disabled />
 													<input type = "submit" class="btn btn-primary btn-sm" name = "botao_disponibilizar_livro" value = "Disponibilizar Livro" />															 
 													<section class = "btn-group">
-														<button id = "Resultado'.$destaques['id_livro'].'" value = "QueroLer" name = "QueroLer" type="button" class="btn btn-primary btn-sm">Quero Ler</button>
+														<button id = "Resultado'.$destaques['id_livro'].'" value = "" name = "QueroLer" type="button" class="btn btn-primary btn-sm">Eu...</button>
 														<button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
 														<ul id = "acoes" class="dropdown-menu">
-															<li name = "Desmarcar" id = "'.$destaques['id_livro'].'" ><a>Desmarcar</a></li>
+															<li name = "QueroLer" id = "'.$destaques['id_livro'].'" ><a>Quero Ler</a></li>
 															<li name = "JaLi" id = "'.$destaques['id_livro'].'" ><a>Já li</a></li>
 															<li name = "Lendo" id = "'.$destaques['id_livro'].'" ><a>Estou lendo</a></li>
 														</ul>
@@ -215,7 +215,6 @@
 											</form>	
 										</td>
 									</tr>';
-									
 								}
 								if($quantidade_destaque < 18)
 								{
