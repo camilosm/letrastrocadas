@@ -110,8 +110,8 @@
 							else
 							{
 										while ($generos = mysql_fetch_assoc($resul_pesq_genero)){
-										$selected = utf8_encode($genero_fav_p) == $generos["nome"] ? 'selected="selected"' : '' ;
-							    		echo '<option '. utf8_encode($selected) .' >' .$generos["nome"]. '</option>';					
+										$selected = $genero_fav_p == $generos["nome"] ? 'selected="selected"' : '' ;
+							    		echo '<option '. $selected .' >' .utf8_encode($generos["nome"]). '</option>';					
 							        }
 							}
 							?>				
