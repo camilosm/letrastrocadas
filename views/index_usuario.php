@@ -34,7 +34,7 @@
 			$ultimos = $editar_ultimos->sanitizeString($ultimos);
 			
 			//Pesquisa dos ultimos livros disponibilizados do site
-			$campos = "id_usuario,usuario.nome As usuario,id_livro,imagem_livros,livro.nome AS Livro,edicao,autor.nome AS Autor,editora.nome As Editora,primeira_foto,segunda_foto,terceira_foto";
+			$campos = "id_lista_livros,id_usuario,usuario.nome As usuario,id_livro,imagem_livros,livro.nome AS Livro,edicao,autor.nome AS Autor,editora.nome As Editora,primeira_foto,segunda_foto,terceira_foto";
 			$tabelas = "tbl_fotos_livros INNER JOIN tbl_lista_livros INNER JOIN tbl_usuario usuario INNER JOIN tbl_livro livro INNER JOIN tbl_editora editora INNER JOIN tbl_autor autor ON id_livro = livro_id AND id_usuario = usuario_id AND id_editora = editora_id AND id_autor = autor_id AND id_lista_livros = lista_livro_id";
 			$condição = "id_lista_livros > ".$ultimos." ORDER BY data_cadastro DESC LIMIT 6";
 			$pesquisar_ultimos = new Pesquisar($tabelas,$campos,$condição);
@@ -221,7 +221,7 @@
 												</section> 
 												
 												<section style="margin-left:10%;">
-													<input type = "button" class="btn btn-primary btn-sm" name = "botao_solicitar_livro" value = "Solicitar Livro"/>
+													<button type = "button" class="btn btn-primary btn-sm" id = "solicitar" name = "'.$ultimos['id_lista_livros'].'" value = "'.$ultimos['id_usuario'].'"/>Solicitar Livro</button>
 													<a href="?url=passo-a-passo-dados-usuario&cod='.$ultimos['id_livro'].'"><input type = "button" class="btn btn-primary btn-sm" name = "botao_disponibilizar_livro" value = "Disponibilizar Livro" /></a>															 
 													<section class = "btn-group">
 														<button id = "Resultado'.$ultimos['id_livro'].'" value = "" name = "QueroLer" type="button" class="btn btn-primary btn-sm">Eu...</button>
@@ -271,6 +271,24 @@
 						><a <?php if($quantidade_ultimos_resto > 7){echo 'href="?url=index_usuario&ultimo='.$id[$quantidade_pagina - 1];}?>>Nova →</a></li>
 					</ul>
 				</section>
+			</section>
+			
+			<section class="modal" id="myModal">
+			  <section class="modal-dialog">
+				<section class="modal-content">
+				  <section class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					<h4 class="modal-title">Solicitação de livro</h4>
+				  </section>
+				  <section class="modal-body">
+					<p id = "TextDialog">Você deseja solicitar este livro?</p>
+				  </section>
+				  <section class="modal-footer">
+					<button id = "cancelar" type="button" class="btn btn-default" data-dismiss="modal">Não</button>
+					<button name = "BotaoConfirmar" id = "confirmar_solicitação" type="button" class="btn btn-primary">Sim</button>
+				  </section>
+				</section>
+			  </section>
 			</section>
 	   
 		</article>
