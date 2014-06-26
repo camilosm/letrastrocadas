@@ -28,8 +28,6 @@ class EditarCaracteres
 		return $str;
 	}
 	
-	// Essa eu utilizo mais para campos numéricos por que só deixa letras e números e letras o próprio campo numérico não permite, mas eu usei
-	// outros casos que eu ao me lembro agora
 	function sanitizeString($str)
 	{
 		$str = preg_replace('/[áàãâä]/ui', 'a', $str);
@@ -47,8 +45,8 @@ class EditarCaracteres
 	// Esse é para todos os campos que contenham nome ou textos
 	function sanitizeStringNome($str)
 	{
-		$str = preg_replace('/[,(),;:|!"#$%><ªº-]/', '', $str);
-		$str = preg_replace('/[^ÁÃÂÉÊÍÎÓÔÕÚÛáãâéêíîóõôúû a-z0-9]/i', '', $str);
+		$str = preg_replace('/[();:|!"#$%><ªº-]/', '', $str);
+		$str = preg_replace('/[^ÁÃÂÉÊÍÎÓÔÕÚÛáãâéêíîóõôúû., a-z0-9]/i', '', $str);
 		$str = preg_replace('/_+/', '', $str);
 		return $str;
 	}

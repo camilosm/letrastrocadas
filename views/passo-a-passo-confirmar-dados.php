@@ -42,7 +42,6 @@
 		$resposta = $cadastrar_livros->inserir();
 		if($resposta == 1)
 		{
-			echo "Deu certo";
 			$campos = "NULL,'$imagem1','$imagem2','$imagem3',(SELECT id_lista_livros FROM tbl_lista_livros WHERE livro_id = $id AND usuario_id = ".$_SESSION['id']." LIMIT 1)";	
 			$cadastrar_fotos = new Inserir("tbl_fotos_livros",$campos);	
 			$resposta_fotos = $cadastrar_fotos->inserir();
@@ -120,12 +119,12 @@
 			
 				<label for="Nome" class="col-lg-2 control-label">Nome:</label>
 				<section class="col-lg-10">
-					<input type="text" class="form-control" value="<?php echo $nome ;?>" rows="3" name = "nome" required style = "width: 50%;"id="Nome" readonly ></input> 
+					<input type="text" class="form-control" value="<?php echo utf8_encode($nome) ;?>" rows="3" name = "nome" required style = "width: 50%;"id="Nome" readonly ></input> 
 				</section>
 				
 				<label for="Edicao" class="col-lg-2 control-label">Edição:</label>
 				<section class="col-lg-10">
-					<input type="text" class="form-control" value="<?php echo $edicao ;?>" rows="3" name = "edicao" required style = "width: 50%;"id="Edicao" readonly ></input> 
+					<input type="text" class="form-control" value="<?php echo utf8_encode($edicao) ;?>" rows="3" name = "edicao" required style = "width: 50%;"id="Edicao" readonly ></input> 
 				</section>
 				
 				<label for="Numero" class="col-lg-2 control-label">Nº Páginas:</label>
@@ -140,17 +139,17 @@
 				
 				<label for="Autor" class="col-lg-2 control-label">Autor:</label>
 				<section class="col-lg-10">
-					<input type="text" class="form-control" rows="3" value="<?php echo $autor ;?>" name = "autor" required style = "width: 50%;"id="ISBN" readonly ></input> 
+					<input type="text" class="form-control" rows="3" value="<?php echo utf8_encode($autor) ;?>" name = "autor" required style = "width: 50%;"id="ISBN" readonly ></input> 
 				</section>
 				
 				<label for="Editora" class="col-lg-2 control-label">Editora:</label>
 				<section class="col-lg-10">
-					<input type="text" class="form-control" rows="3" value="<?php echo $editora ;?>" name = "editora" required style = "width: 50%;"id="ISBN" readonly ></input> 
+					<input type="text" class="form-control" rows="3" value="<?php echo utf8_encode($editora) ;?>" name = "editora" required style = "width: 50%;"id="ISBN" readonly ></input> 
 				</section>
 				
 				<label for="Categoria" class="col-lg-2 control-label">Categoria:</label>
 				<section class="col-lg-10">
-					<input type="text" class="form-control" rows="3" value="<?php echo $categoria ;?>" name = "categoria" required style = "width: 50%;"id="ISBN" readonly ></input> 
+					<input type="text" class="form-control" rows="3" value="<?php echo utf8_encode($categoria) ;?>" name = "categoria" required style = "width: 50%;"id="ISBN" readonly ></input> 
 				</section>
 			
 				<label for="textArea" class="col-lg-2 control-label">Estado:</label>

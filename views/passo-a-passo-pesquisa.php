@@ -63,11 +63,11 @@
 					while($dados=mysql_fetch_assoc($resultado))
 					{
 						echo 
-						'<section class="col-lg-10">
+						'<br><br><section class="col-lg-8">
 							<section class="thumbnail">
 								<a href="?url=livro&&cod='.$dados['id_livro'].'" >
-									<img src="content/imagens/livros_gerais/o_morro_dos_ventos_uivantes.jpg" alt="" width="35%">
-									<p align="center">'.$dados['Livro'].'</p> 
+									<img src="'.$dados['imagem_livros'].'" alt="'.utf8_encode($dados['Livro']).'" width="35%">
+									<p align="center">'.utf8_encode($dados['Livro']).'</p> 
 								</a>
 								<section style="margin-left:10%;">
 									<form method="post" action="?url=passo-a-passo-dados-usuario&cod='.$dados['id_livro'].'">

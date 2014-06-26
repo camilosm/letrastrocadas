@@ -14,12 +14,4 @@ DELIMITER |
 |
 DELIMITER ;
 
-DELIMITER |
-
-	CREATE PROCEDURE atualiza_idade ()
-	BEGIN
-	
-	END ; 
-|
-DEMITER ; 
 
