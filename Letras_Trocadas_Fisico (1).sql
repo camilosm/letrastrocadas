@@ -175,6 +175,7 @@ CREATE TABLE tbl_lista_livros(
 	id_lista_livros INT UNSIGNED AUTO_INCREMENT NOT NULL,
 	livro_id INT UNSIGNED NOT NULL,
 	usuario_id INT UNSIGNED NOT NULL,
+	status INT NOT NULL, /* 1 = Disponivel, 2 = Trocado */
 	data_cadastro DATE NOT NULL,
 	ano CHAR(4) NOT NULL,
 	estado VARCHAR(100) NOT NULL,

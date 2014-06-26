@@ -36,7 +36,7 @@
 			//Pesquisa dos ultimos livros disponibilizados do site
 			$campos = "id_lista_livros,id_usuario,usuario.nome As usuario,id_livro,imagem_livros,livro.nome AS Livro,edicao,autor.nome AS Autor,editora.nome As Editora,primeira_foto,segunda_foto,terceira_foto";
 			$tabelas = "tbl_fotos_livros INNER JOIN tbl_lista_livros INNER JOIN tbl_usuario usuario INNER JOIN tbl_livro livro INNER JOIN tbl_editora editora INNER JOIN tbl_autor autor ON id_livro = livro_id AND id_usuario = usuario_id AND id_editora = editora_id AND id_autor = autor_id AND id_lista_livros = lista_livro_id";
-			$condição = "id_lista_livros > ".$ultimos." ORDER BY data_cadastro DESC LIMIT 6";
+			$condição = "id_lista_livros > ".$ultimos." AND tbl_lista_livros.status = 1 ORDER BY data_cadastro DESC LIMIT 6";
 			$pesquisar_ultimos = new Pesquisar($tabelas,$campos,$condição);
 			$resultado_ultimos = $pesquisar_ultimos->pesquisar();
 			
@@ -77,7 +77,7 @@
 		//Emite um alerta (não tá funcioando ¬¬) pois eles não tem acesso a essa página
 		echo "
 			<script type='text/javascript'>
-				alert('Você não tem permissão para acessar essa página');
+				confirm('Você não tem permissão para acessar essa página');
 			</script>";
 		
 		//Redireciona pra página principal
