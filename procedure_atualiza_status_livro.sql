@@ -17,8 +17,7 @@ DEMILITER |
 	FOR EACH ROW
 		BEGIN
 				UPDATE tbl_lista_livros SET status = 2
-				WHERE id_lista_livros  = OLD.id_lista_livros;
+				WHERE id_lista_livros = NEW.id_lista_livros;
 		END ;
-
 |
 DELIMITER ;
