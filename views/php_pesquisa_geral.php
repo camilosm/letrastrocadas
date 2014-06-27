@@ -42,7 +42,8 @@ SELECT livro.nome,autor.nome FROM tbl_livro livro JOIN tbl_autor autor;	*/
 
 ?>
 
-SELECT livro.nome AS NomeLivro, autor.nome AS AutorNome, 
+SELECT livro.nome AS NomeLivro, imagem_livros AS imagem_livro, 
+autor.nome AS AutorNome, 
 editora.nome AS EditoraNome, usuario.nome AS UsuarioNome, 
 ft_livro.primeira_foto AS PrimeiraFoto,
 ft_livro.segunda_foto AS SegundaFoto, 
@@ -56,9 +57,9 @@ AND lista.livro_id = id_livro
 AND lista.usuario_id = id_usuario
 AND ft_livro.lista_livro_id = id_lista_livros
 WHERE livro.nome LIKE '%a%' OR
-autor.nome LIKE '%a%' OR
-usuario.nome LIKE '%a%' OR
-editora.nome LIKE '%a%'
+autor.nome LIKE '%%' OR
+usuario.nome LIKE '%%' OR
+editora.nome LIKE '%%'
 ORDER BY livro.nome;
 
 
