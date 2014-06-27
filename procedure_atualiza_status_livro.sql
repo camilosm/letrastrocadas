@@ -10,3 +10,15 @@ DELIMITER |
 		END ;
 |
 DELIMITER ;
+
+DEMILITER |
+
+	CREATE TRIGGER TG_atualiza_status_livro AFTER INSERT ON tbl_cambio
+	FOR EACH ROW
+		BEGIN
+				UPDATE tbl_lista_livros SET status = 2
+				WHERE id_lista_livros  = OLD.id_lista_livros;
+		END ;
+
+|
+DELIMITER ;
