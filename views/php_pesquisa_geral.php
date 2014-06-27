@@ -42,7 +42,24 @@ SELECT livro.nome,autor.nome FROM tbl_livro livro JOIN tbl_autor autor;	*/
 
 ?>
 
-
+SELECT livro.nome AS NomeLivro, autor.nome AS AutorNome, 
+editora.nome AS EditoraNome, usuario.nome AS UsuarioNome, 
+ft_livro.primeira_foto AS PrimeiraFoto,
+ft_livro.segunda_foto AS SegundaFoto, 
+ft_livro.terceira_foto AS TerceiraFoto
+FROM tbl_livro livro INNER JOIN tbl_autor autor INNER JOIN tbl_editora editora
+INNER JOIN tbl_usuario usuario INNER JOIN tbl_lista_livros lista
+INNER JOIN tbl_fotos_livros ft_livro
+ON livro.editora_id = id_editora
+AND livro.autor_id = id_autor
+AND lista.livro_id = id_livro
+AND lista.usuario_id = id_usuario
+AND ft_livro.lista_livro_id = id_lista_livros
+WHERE livro.nome LIKE '%a%' OR
+autor.nome LIKE '%a%' OR
+usuario.nome LIKE '%a%' OR
+editora.nome LIKE '%a%'
+ORDER BY livro.nome;
 
 
 
