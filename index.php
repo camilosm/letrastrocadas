@@ -18,6 +18,7 @@
 		<style>
 			body { padding-top: 70px; }
 			footer { background-color: #dd4814; }
+			div { max-height: 10px; }
 		</style>
 		
 	</head>
