@@ -38,3 +38,5 @@ O garoto-problema Percy Jackson é um deles. Tem experiências estranhas em que 
 1,0,0,0,400,1,5,10);
 
 INSERT INTO tbl_livros_trocados VALUES (NULL,9,1),(NULL,11,2),(NULL,1,3),(NULL,8,4),(NULL,15,5),(NULL,11,6);
+
+INSERT INTO tbl_lista_livros VALUES(NULL,1, 1, 1,DATE(NOW()), '2013', 'Bem conservado'),(NULL,2, 2, 1,DATE(NOW()), '2013', 'Bem conservado');
