@@ -47,9 +47,9 @@ editora.nome AS EditoraNome, usuario.nome AS UsuarioNome,
 ft_livro.primeira_foto AS PrimeiraFoto,
 ft_livro.segunda_foto AS SegundaFoto, 
 ft_livro.terceira_foto AS TerceiraFoto
-FROM tbl_livro livro INNER JOIN tbl_autor autor INNER JOIN tbl_editora editora
-INNER JOIN tbl_usuario usuario INNER JOIN tbl_lista_livros lista
-INNER JOIN tbl_fotos_livros ft_livro
+FROM tbl_livro livro JOIN tbl_autor autor JOIN tbl_editora editora
+JOIN tbl_usuario usuario JOIN tbl_lista_livros lista
+JOIN tbl_fotos_livros ft_livro
 ON livro.editora_id = id_editora
 AND livro.autor_id = id_autor
 AND lista.livro_id = id_livro
