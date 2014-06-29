@@ -27,37 +27,39 @@ function CriaRequest()
 	else return request; 
 }
 
-$(document).ready(function(){
-	$('#acoes > li').click(function(){
-		var acao= $(this).attr("name");
-		var id = $(this).attr("id");
-		var result = document.getElementById("Resultado"+id);
-		var tabela = document.getElementById("Resultado"+id).value;
-		var xmlreq = CriaRequest();
-		// Iniciar uma requisição
-		xmlreq.open("GET", "ajax/acoes_livros.php?acao="+acao+"&id="+id+"&tabela="+tabela, true); 
-		// Atribui uma função para ser executada sempre que houver uma mudança de ado
-		xmlreq.onreadystatechange = function()
-		{
-			// Verifica se foi concluído com sucesso e a conexão fechada (readyState=4) 
-			if (xmlreq.readyState == 4)
+function AcoesLivro(id,acao,section,tabela)
+{
+	var xmlreq = CriaRequest();
+	var a = "ajax/acoes_livros.php?acao="+acao+"&id="+id+"&tabela="+tabela;
+	// Iniciar uma requisição
+	xmlreq.open("GET", "ajax/acoes_livros.php?acao="+acao+"&id="+id+"&tabela="+tabela, true); 
+	// Atribui uma função para ser executada sempre que houver uma mudança de ado
+	xmlreq.onreadystatechange = function()
+	{
+		// Verifica se foi concluído com sucesso e a conexão fechada (readyState=4) 
+		if (xmlreq.readyState == 4)
+		{ 
+			// Verifica se o arquivo foi encontrado com sucesso
+			if (xmlreq.status == 200)
 			{ 
-				// Verifica se o arquivo foi encontrado com sucesso
-				if (xmlreq.status == 200)
-				{ 
-					var texto = xmlreq.responseText;
-					$('button#Resultado'+id).text(texto).attr({
-						title:texto
-					});
-				}
-				else
-				{ 
-					$("#Resultado"+id).innerHTML = "Erro: " + xmlreq.statusText;
-				}
-			} 
-		};
-		xmlreq.send(null);
-	});
+				var texto = xmlreq.responseText;
+				$(section).text(texto).attr({
+					title:texto
+				});
+			}
+			else
+			{ 
+				var texto = "Erro: " + xmlreq.statusText;
+				$(section).text(texto).attr({
+					title:texto
+				});
+			}
+		} 
+	};
+	xmlreq.send(null);
+}
+
+$(document).ready(function(){
 	
 	$('#solicitar').click(function(){
 		$('#myModal').modal('show');
