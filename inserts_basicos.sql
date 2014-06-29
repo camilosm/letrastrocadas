@@ -35,7 +35,7 @@ transformar em uma conquistadora impiedosa?',1,0,0,0,672,2,2,10),
 1,0,0,0,223,5,5,10),
 (NULL,'O Ladrão de Raios','content/imagens/livros_gerais/pj1.jpg',1,' 978-85-98078-39-7','Primeiro volume da saga Percy Jackson e os olimpianos, O ladrão de raios esteve entre os primeiros lugares na lista das séries mais vendidas do The New York Times. O autor conjuga lendas da mitologia grega com aventuras no século XXI. Nelas, os deuses do Olimpo continuam vivos, ainda se apaixonam por mortais e geram filhos metade deuses, metade humanos, como os heróis da Grécia antiga. Marcados pelo destino, eles dificilmente passam da adolescência. Poucos conseguem descobrir sua identidade. 
 O garoto-problema Percy Jackson é um deles. Tem experiências estranhas em que deuses e monstros mitológicos parecem saltar das páginas dos livros direto para a sua vida. Pior que isso: algumas dessas criaturas estão bastante irritadas. Um artefato precioso foi roubado do Monte Olimpo e Percy é o principal suspeito. Para restaurar a paz, ele e seus amigos - jovens heróis modernos - terão de fazer mais do que capturar o verdadeiro ladrão: precisam elucidar uma traição mais ameaçadora que a fúria dos deuses.',
-1,0,0,0,400,1,5,10);
+1,0,0,0,400,1,6,10);
 
 INSERT INTO tbl_livros_trocados VALUES (NULL,9,1),(NULL,11,2),(NULL,1,3),(NULL,8,4),(NULL,15,5),(NULL,11,6);
 

@@ -37,7 +37,7 @@
 		$editar_ano = new EditarCaracteres($ano);
 		$ano = $editar_ano->sanitizeString($ano);
 		
-		$campos = "NULL,$id,".$_SESSION['id'].",DATE(NOW()),'$ano','$estado'";	
+		$campos = "NULL,$id,".$_SESSION['id'].",1,DATE(NOW()),'$ano','$estado'";	
 		$cadastrar_livros = new Inserir("tbl_lista_livros",$campos);	
 		$resposta = $cadastrar_livros->inserir();
 		if($resposta == 1)
