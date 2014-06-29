@@ -1,3 +1,12 @@
+<?php
+
+		if(isset($_POST['btnPesquisa']))
+		{
+			include("php_pesquisa_geral.php");
+		}
+
+?>
+
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
 	<section class="container-fluid">
 		<!-- Brand and toggle get grouped for better mobile display -->
@@ -25,9 +34,9 @@
 		<section class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<form class="navbar-form navbar-left" role="search" method= "post" action = "?url=pesquisa">
 				<section class="form-group">
-					<input type="text" class="form-control" placeholder="Procurar">
+					<input type="text" class="form-control" placeholder="Procurar" name = "conteudo_text">
 				</section>
-				<button type="submit" class="btn btn-default">
+				<button type="submit" class="btn btn-default" name = "btnPesquisa">
 					<span class="glyphicon glyphicon-search"></span>
 				</button>
 			</form>
