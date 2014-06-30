@@ -1,7 +1,5 @@
 <?php
 
-	session_start();
-	$id = $_SESSION['id'];
 	$conteudo_text = $_POST['conteudo_text'];
 	
 	include("classes/class_pesquisar.php");
