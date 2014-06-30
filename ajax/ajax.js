@@ -30,7 +30,6 @@ function CriaRequest()
 function AcoesLivro(id,acao,section,tabela)
 {
 	var xmlreq = CriaRequest();
-	var a = "ajax/acoes_livros.php?acao="+acao+"&id="+id+"&tabela="+tabela;
 	// Iniciar uma requisição
 	xmlreq.open("GET", "ajax/acoes_livros.php?acao="+acao+"&id="+id+"&tabela="+tabela, true); 
 	// Atribui uma função para ser executada sempre que houver uma mudança de ado
@@ -57,6 +56,48 @@ function AcoesLivro(id,acao,section,tabela)
 		} 
 	};
 	xmlreq.send(null);
+}
+
+function NovaListaDesejo(id,id_antigo)
+{
+	
+	if(id !== "None")
+	{
+		// inicio uma requisição
+		$.ajax({
+		// url para o arquivo json.php
+			url : "ajax/lista_desejo.php?lista="+id+"&acao=Novo",
+		// dataType json
+			dataType : "json",
+		// função para o sucesso
+			success : function(data){
+				document.getElementById('pag_inicial_livros_desejados').innerHTML =  data.tabela;
+				$("#li_antigo").attr({"class" : "previous"});
+				$("#a_antigo").attr({"onClick" : "AntigaListaDesejo('"+id_antigo+"')"});
+				var novo = data.novo;
+				if(novo == "Sim")
+				{
+					$('#a_novo').attr({"onClick" : "NovaListaDesejo('"+data.ultimo_id+"','"+data.primeiro+"')"});
+				}
+				else
+				{
+					$('#a_novo').attr({
+					'onClick' : "NovaListaDesejo('None','None')"
+					});
+					$('#li_novo').attr({
+					'class' : "next disabled"
+					});
+				}
+				$('html,body').animate({scrollTop: 0},'slow');
+			},
+			// função para o erro
+			error : function(data){
+			alert(data.error);
+			}
+			
+		});//termina o ajax
+		
+	}
 }
 
 $(document).ready(function(){

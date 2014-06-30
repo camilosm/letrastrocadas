@@ -14,12 +14,6 @@
 			
 			$bd = new Banco();
 			
-			$editar_destaque = new EditarCaracteres($destaque);
-			$destaque = $editar_destaque->sanitizeString($destaque);
-			
-			$editar_ultimos = new EditarCaracteres($ultimos);
-			$ultimos = $editar_ultimos->sanitizeString($ultimos);
-			
 			//Pesquisa dos ultimos livros disponibilizados do site
 			$campos = "id_lista_livros,id_usuario,usuario.nome As usuario,id_livro,imagem_livros,livro.nome AS Livro,edicao,autor.nome AS Autor,editora.nome As Editora,primeira_foto,segunda_foto,terceira_foto";
 			$tabelas = "tbl_fotos_livros INNER JOIN tbl_lista_livros INNER JOIN tbl_usuario usuario INNER JOIN tbl_livro livro INNER JOIN tbl_editora editora INNER JOIN tbl_autor autor ON id_livro = livro_id AND id_usuario = usuario_id AND id_editora = editora_id AND id_autor = autor_id AND id_lista_livros = lista_livro_id";
@@ -33,26 +27,28 @@
 			$array_quantidade_ultimos = mysql_fetch_assoc($resultado_quantidade_ultimos);
 			$quantidade_ultimos = $array_quantidade_destaque['Quantidade'];
 			
+			
+			
 			//Pesquisa da lista de desejo do site
 			$campos_lista = "livros_desejo.id_lista_desejo As id_lista,id_livro,imagem_livros,livro.nome AS Livro,edicao,autor.nome AS Autor,editora.nome As Editora";
 			$tabelas_lista = "tbl_lista_desejo livros_desejo INNER JOIN tbl_livro livro INNER JOIN tbl_editora editora INNER JOIN tbl_autor autor ON id_livro = livro_id AND id_editora = editora_id AND id_autor = autor_id";
-			$condição_lista = "usuario_id = ".$_SESSION['id']." LIMIT 6";
+			$condição_lista = "usuario_id = ".$_SESSION['id']." ORDER BY livros_desejo.id_lista_desejo LIMIT 6";
 			
 			$pesquisar_lista_desejo = new Pesquisar($tabelas_lista,$campos_lista,$condição_lista);
 			$resultado_lista_desejo = $pesquisar_lista_desejo->pesquisar();
 			
+			//Pesquisa a quantidade de livros na lista de desejo no banco de dados
+			$pesquisar_quantidade_lista_desejo = new Pesquisar("tbl_lista_desejo ","COUNT(id_lista_desejo) As Quantidade","1=1");
+			$resultado_quantidade_lista_desejo = $pesquisar_quantidade_lista_desejo->pesquisar();			
+			$array_quantidade_lista_desejo = mysql_fetch_assoc($resultado_quantidade_lista_desejo);
+			$quantidade_lista_desejo = $array_quantidade_lista_desejo['Quantidade'];	
 			
 			/*//Pesquisa a quantidade de livros da lista de desejo que ainda restam no banco de dados/
 			$pesquisar_quantidade_resto = new Pesquisar("tbl_lista_desejo ","COUNT(id_lista_desejo) As Quantidade",$condição_lista);
 			$resultado_quantidade_resto = $pesquisar_quantidade_resto->pesquisar();			
 			$array_quantidade_resto = mysql_fetch_assoc($resultado_quantidade_resto);
-			$quantidade_resto = $array_quantidade_resto['Quantidade'];
+			$quantidade_resto = $array_quantidade_resto['Quantidade'];*/
 			
-			//Pesquisa a quantidade de livros na lista de desejo no banco de dados/
-			$pesquisar_quantidade_lista_desejo = new Pesquisar("tbl_lista_desejo ","COUNT(id_lista_desejo) As Quantidade","1=1");
-			$resultado_quantidade_lista_desejo = $pesquisar_quantidade_lista_desejo->pesquisar();			
-			$array_quantidade_lista_desejo = mysql_fetch_assoc($resultado_quantidade_ultimos);
-			$quantidade_lista_desejo = $array_quantidade_lista_desejo['Quantidade'];*/
 			
 			//Só pra uma futura concatenação
 			$aspas = "'";
@@ -103,9 +99,11 @@
 				<section class="panel-body">
 					<table id = "pag_inicial_livros_desejados" border = 0px >	
 					<?php
-					
+						
+						$id_ultima = array();
 						while($lista_desejo=mysql_fetch_assoc($resultado_lista_desejo))
 						{
+							$id_ultima[] = $lista_desejo['id_lista'];
 							echo '
 								<tr id = "desejados_linha">
 									<td> 
@@ -119,8 +117,8 @@
 													</section>
 													<section class="col-lg-4" style="margin-left:150%; margin-top:-200%; width:250%;">								
 														<a href="?url=livro" title = "Clique para ver mais informações sobre o livro"> <h3> '.utf8_encode($lista_desejo['Livro']).'</h3></a>				  
-														<a href="?url=livros_autores"> <h4> '.utf8_encode($lista_desejo['Autor']).' </h4></a>
-														<a href="?url=livros_editora"> <h5> '.utf8_encode($lista_desejo['Editora']).' </h5></a>
+														<a href="?url=livros_autores" title = "Clique para ver mais livros deste autor"> <h4> '.utf8_encode($lista_desejo['Autor']).' </h4></a>
+														<a href="?url=livros_editora" title = "Clique para ver mais livros desta editora"> <h5> '.utf8_encode($lista_desejo['Editora']).' </h5></a>
 													</section>
 												</section>
 											</section> 
@@ -142,13 +140,12 @@
 									</td>
 								</tr>';	
 						}
-					
 					?>
 					</table>
 						<br>
 					<ul class="pager">
-						<li class="previous disabled"><a href="">← Antigo</a></li>
-						<li class="next"><a href="">Nova →</a></li>
+						<li id = "li_antigo" class="previous disabled"><a id = "a_antigo" onClick = "" >← Antigo</a></li>
+						<li id = "li_novo" class="<?php echo ($quantidade_lista_desejo >= 7) ? "next" : "next disabled"; ?>"><a id = "a_novo" onClick="NovaListaDesejo('<?php echo ($quantidade_lista_desejo >= 7) ? "$id_ultima[5]','$id_ultima[0]" : "None','None";?>');">Nova →</a></li>
 					</ul>
 				</section>
 			</section>
