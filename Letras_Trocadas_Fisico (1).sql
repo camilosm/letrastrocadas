@@ -176,7 +176,7 @@ CREATE TABLE tbl_lista_livros(
 	livro_id INT UNSIGNED NOT NULL,
 	usuario_id INT UNSIGNED NOT NULL,
 	status INT NOT NULL, /* 1 = Disponivel, 2 = Trocado */
-	data_cadastro DATE NOT NULL,
+	data_cadastro DATETIME NOT NULL,
 	ano CHAR(4) NOT NULL,
 	estado VARCHAR(100) NOT NULL,
 	PRIMARY KEY(id_lista_livros),
@@ -184,6 +184,8 @@ CREATE TABLE tbl_lista_livros(
 	FOREIGN KEY(usuario_id) REFERENCES tbl_usuario(id_usuario)
 	
 );
+
+/* Ai pra mudar o banco sem precisar deletar ALTER TABLE tbl_lista_livros CHANGE data_cadastro data_cadastro  DATETIME NOT NULL;*/
 
 CREATE TABLE tbl_fotos_livros(
 

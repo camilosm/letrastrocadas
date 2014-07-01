@@ -15,17 +15,19 @@
 			$bd = new Banco();
 			
 			//Pesquisa dos ultimos livros disponibilizados do site
-			$campos = "id_lista_livros,id_usuario,usuario.nome As usuario,id_livro,imagem_livros,livro.nome AS Livro,edicao,autor.nome AS Autor,editora.nome As Editora,primeira_foto,segunda_foto,terceira_foto";
+			$campos = "DISTINCT id_lista_livros,id_usuario,usuario.nome As usuario,id_livro,imagem_livros,livro.nome AS Livro,edicao,autor.nome AS Autor,editora.nome As Editora,primeira_foto,segunda_foto,terceira_foto";
 			$tabelas = "tbl_fotos_livros INNER JOIN tbl_lista_livros INNER JOIN tbl_usuario usuario INNER JOIN tbl_livro livro INNER JOIN tbl_editora editora INNER JOIN tbl_autor autor ON id_livro = livro_id AND id_usuario = usuario_id AND id_editora = editora_id AND id_autor = autor_id AND id_lista_livros = lista_livro_id";
 			$condição = "tbl_lista_livros.status = 1 ORDER BY data_cadastro DESC LIMIT 6";
 			$pesquisar_ultimos = new Pesquisar($tabelas,$campos,$condição);
 			$resultado_ultimos = $pesquisar_ultimos->pesquisar();
 			
+			//SELECT id_lista_livros,id_usuario,usuario.nome As usuario,id_livro,imagem_livros,livro.nome AS Livro,edicao,autor.nome AS Autor,editora.nome As Editora,primeira_foto,segunda_foto,terceira_foto FROM tbl_fotos_livros JOIN tbl_lista_livros JOIN tbl_usuario usuario JOIN tbl_livro livro JOIN tbl_editora editora JOIN tbl_autor autor ON id_livro = livro_id AND id_usuario = usuario_id AND id_editora = editora_id AND id_autor = autor_id AND id_lista_livros = lista_livro_id WHERE tbl_lista_livros.status = 1 ORDER BY data_cadastro DESC LIMIT 6;
+			
 			//Pesquisa a quantidade de livros no banco de dados
 			$pesquisar_quantidade_ultimos = new Pesquisar("tbl_lista_livros ","COUNT(id_lista_livros) As Quantidade","1=1");
 			$resultado_quantidade_ultimos = $pesquisar_quantidade_ultimos->pesquisar();			
 			$array_quantidade_ultimos = mysql_fetch_assoc($resultado_quantidade_ultimos);
-			$quantidade_ultimos = $array_quantidade_destaque['Quantidade'];
+			$quantidade_ultimos = $array_quantidade_ultimos['Quantidade'];
 			
 			
 			
@@ -41,14 +43,7 @@
 			$pesquisar_quantidade_lista_desejo = new Pesquisar("tbl_lista_desejo ","COUNT(id_lista_desejo) As Quantidade","1=1");
 			$resultado_quantidade_lista_desejo = $pesquisar_quantidade_lista_desejo->pesquisar();			
 			$array_quantidade_lista_desejo = mysql_fetch_assoc($resultado_quantidade_lista_desejo);
-			$quantidade_lista_desejo = $array_quantidade_lista_desejo['Quantidade'];	
-			
-			/*//Pesquisa a quantidade de livros da lista de desejo que ainda restam no banco de dados/
-			$pesquisar_quantidade_resto = new Pesquisar("tbl_lista_desejo ","COUNT(id_lista_desejo) As Quantidade",$condição_lista);
-			$resultado_quantidade_resto = $pesquisar_quantidade_resto->pesquisar();			
-			$array_quantidade_resto = mysql_fetch_assoc($resultado_quantidade_resto);
-			$quantidade_resto = $array_quantidade_resto['Quantidade'];*/
-			
+			$quantidade_lista_desejo = $array_quantidade_lista_desejo['Quantidade'];		
 			
 			//Só pra uma futura concatenação
 			$aspas = "'";
@@ -145,7 +140,7 @@
 						<br>
 					<ul class="pager">
 						<li id = "li_antigo" class="previous disabled"><a id = "a_antigo" onClick = "" >← Antigo</a></li>
-						<li id = "li_novo" class="<?php echo ($quantidade_lista_desejo >= 7) ? "next" : "next disabled"; ?>"><a id = "a_novo" onClick="NovaListaDesejo('<?php echo ($quantidade_lista_desejo >= 7) ? "$id_ultima[5]','$id_ultima[0]" : "None','None";?>');">Nova →</a></li>
+						<li id = "li_novo" class="<?php echo ($quantidade_lista_desejo >= 7) ? "next" : "next disabled"; ?>"><a id = "a_novo" onClick="NovaListaDesejo('<?php echo ($quantidade_lista_desejo >= 7) ? "$id_ultima[5]','$id_ultima[0]','1" : "None','None','1";?>');">Nova →</a></li>
 					</ul>
 				</section>
 			</section>
@@ -155,10 +150,12 @@
 				<section class="panel-body">
 					<table id = "pag_inicial_livros_destaques" border = 0px>
 						<?php
-								
+						
+								$id_ultima_ultimos = array();
 								while($ultimos=mysql_fetch_assoc($resultado_ultimos))
 								{
-									$quantidade_pagina++;
+									$id_ultima_ultimos[] = $ultimos['id_lista_livros'];
+									echo $ultimos['id_lista_livros'];
 									echo'
 									<tr id = "desejados_linha">
 										<td> 
@@ -179,7 +176,7 @@
 													</section>
 												</section> 
 												
-												<section style="margin-left:10%;">
+												<section>
 													<button type = "button" class="btn btn-primary btn-sm" id = "solicitar" name = "'.$ultimos['id_lista_livros'].'" value = "'.$ultimos['id_usuario'].'"/>Solicitar Livro</button>
 													<a href="?url=passo-a-passo-dados-usuario&cod='.$ultimos['id_livro'].'"><input type = "button" class="btn btn-primary btn-sm" name = "botao_disponibilizar_livro" value = "Disponibilizar Livro" /></a>															 
 													<section class = "btn-group">
@@ -216,18 +213,8 @@
 					<br>
 					
 					<ul class="pager">
-						<li class = "previous disabled"><a>← Antigo</a></li>
-						<li <?php
-								if($quantidade_ultimos_resto > 7)
-								{
-									echo 'class="next"';
-								}
-								else
-								{
-									echo 'class="next disabled"';
-								}
-								?>
-						><a <?php if($quantidade_ultimos_resto > 7){echo 'href="?url=index_usuario&ultimo='.$id[$quantidade_pagina - 1];}?>>Nova →</a></li>
+						<li id = "li_ultimos_antigo" class="previous disabled"><a id = "a_ultimos_antigo" onClick = "" >← Antigo</a></li>
+						<li id = "li_ultimos_novo" class="<?php echo ($quantidade_ultimos >= 7) ? "next" : "next disabled"; ?>"><a id = "a_ultimos_novo" onClick="NovaListaDesejo('<?php echo ($quantidade_ultimos >= 7) ? "$id_ultima_ultimos[5]','$id_ultima_ultimos[0]','1" : "None','None','1";?>');">Nova →</a></li>
 					</ul>
 				</section>
 			</section>

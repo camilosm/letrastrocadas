@@ -108,7 +108,7 @@
 			<section class="form-group">
 				<label for="Nome" class="col-lg-2 control-label">Nome:</label>
 				<section class="col-lg-10">
-					<input type="text" class="form-control" value="<?php echo $nome ;?>" rows="3" name = "nome" required style = "width: 50%;"id="Nome" readonly ></input> 
+					<input type="text" class="form-control" value="<?php echo utf8_encode($nome) ;?>" rows="3" name = "nome" required style = "width: 50%;"id="Nome" readonly ></input> 
 				</section>
 				
 				<label for="Edicao" class="col-lg-2 control-label">Edição:</label>

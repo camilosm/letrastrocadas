@@ -19,14 +19,14 @@
 		$imagem3 = $_SESSION['imagem3'];
 		
 		//Desfazer a minha gambiarra érr quer dizer meu recurso técnico
-		unset ($_POST['livro']);
-		unset ($_POST['edicao']);
-		unset ($_POST['isbn']);
-		unset ($_POST['ano']);
-		unset ($_POST['estado']);
-		unset ($_POST['imagem1']);
-		unset ($_POST['imagem2']);
-		unset ($_POST['imagem3']);
+		unset ($_SESSION['livro']);
+		unset ($_SESSION['edicao']);
+		unset ($_SESSION['isbn']);
+		unset ($_SESSION['ano']);
+		unset ($_SESSION['estado']);
+		unset ($_SESSION['imagem1']);
+		unset ($_SESSION['imagem2']);
+		unset ($_SESSION['imagem3']);
 		
 		$editar_id = new EditarCaracteres($id);
 		$id = $editar_id->sanitizeString($id);
@@ -36,8 +36,8 @@
 		
 		$editar_ano = new EditarCaracteres($ano);
 		$ano = $editar_ano->sanitizeString($ano);
-		
-		$campos = "NULL,$id,".$_SESSION['id'].",1,DATE(NOW()),'$ano','$estado'";	
+
+		$campos = "NULL,$id,".$_SESSION['id'].",1,NOW(),'$ano','$estado'";
 		$cadastrar_livros = new Inserir("tbl_lista_livros",$campos);	
 		$resposta = $cadastrar_livros->inserir();
 		if($resposta == 1)
@@ -119,7 +119,7 @@
 			
 				<label for="Nome" class="col-lg-2 control-label">Nome:</label>
 				<section class="col-lg-10">
-					<input type="text" class="form-control" value="<?php echo utf8_encode($nome) ;?>" rows="3" name = "nome" required style = "width: 50%;"id="Nome" readonly ></input> 
+					<input type="text" class="form-control" value="<?php echo $nome ;?>" rows="3" name = "nome" required style = "width: 50%;"id="Nome" readonly ></input> 
 				</section>
 				
 				<label for="Edicao" class="col-lg-2 control-label">Edição:</label>
