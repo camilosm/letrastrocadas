@@ -11,15 +11,15 @@
 	$pesquisa_dados = new Pesquisar("tbl_lista_livros lista
       LEFT JOIN tbl_livro livro 
       ON lista.livro_id = id_livro
-      JOIN tbl_fotos_livros
+      lEFT JOIN tbl_fotos_livros
       ON lista_livro_id = id_lista_livros
-      JOIN tbl_usuario usuario
+      LEFT JOIN tbl_usuario usuario
       ON usuario_id = id_usuario
-      JOIN tbl_editora editora 
+      LEFT JOIN tbl_editora editora 
       ON editora_id = id_editora
-      JOIN tbl_autor autor 
+      LEFT JOIN tbl_autor autor 
       ON autor_id = id_autor
-      JOIN tbl_categoria categoria
+      LEFT JOIN tbl_categoria categoria
       ON categoria_id = id_categoria",
 	  "lista.id_lista_livros,
       livro.nome AS NomeLivro, 
@@ -35,6 +35,7 @@
       OR editora.nome LIKE '%".$conteudo_text."%'
       OR usuario.nome LIKE '%".$conteudo_text."%'
       GROUP BY livro.nome");
+	 
 	$resultado_dados = $pesquisa_dados->pesquisar();
 	$dados_pesq = mysql_fetch_assoc($resultado_dados);
 	
