@@ -34,7 +34,8 @@
       OR autor.nome LIKE '%".$conteudo_text."%'
       OR editora.nome LIKE '%".$conteudo_text."%'
       OR usuario.nome LIKE '%".$conteudo_text."%'
-      GROUP BY livro.nome");
+      GROUP BY livro
+	  ORDER BY livro.nome");
 	 
 	$resultado_dados = $pesquisa_dados->pesquisar();
 	$dados_pesq = mysql_fetch_assoc($resultado_dados);
