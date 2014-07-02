@@ -1,9 +1,9 @@
 <?php
 
-		if(isset($_POST['btnPesquisa']))
+		if(isset($_GET['btnPesquisa']))
 		{
-			$conteudo_text = $_POST['conteudo_text'];
 			include("php_pesquisa_geral.php");
+			$conteudo_text = $_GET['conteudo_text'];
 		}
 
 ?>
@@ -33,11 +33,11 @@
 		</section>
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<section class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-			<form class="navbar-form navbar-left" role="search" method= "post" action = "?url=pesquisa">
+			<form class="navbar-form navbar-left" role="search" method= "get" action = "?url=pesquisa">
 				<section class="form-group">
 					<input type="text" class="form-control" placeholder="Procurar" name = "conteudo_text">
 				</section>
-				<button type="submit" class="btn btn-default" name = "btnPesquisa">
+				<button type="submit" class="btn btn-default" name = "btnPesquisa" href="?url=pesquisa">
 					<span class="glyphicon glyphicon-search"></span>
 				</button>
 			</form>
