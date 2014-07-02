@@ -1,6 +1,5 @@
 <?php
 		if(isset($_POST["btnPesquisa"])){
-			$conteudo_text = $_POST['conteudo_text'];
 			include("php_pesquisa_geral.php");
 		}
 ?>

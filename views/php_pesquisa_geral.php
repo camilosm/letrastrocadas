@@ -34,7 +34,7 @@
       OR autor.nome LIKE '%".$conteudo_text."%'
       OR editora.nome LIKE '%".$conteudo_text."%'
       OR usuario.nome LIKE '%".$conteudo_text."%'
-      GROUP BY livro
+	  GROUP BY livro.nome
 	  ORDER BY livro.nome");
 	 
 	$resultado_dados = $pesquisa_dados->pesquisar();
