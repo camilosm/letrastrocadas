@@ -33,7 +33,7 @@
 		</section>
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<section class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-			<form class="navbar-form navbar-left" role="search" method= "get" action = "?url=pesquisa">
+			<form class="navbar-form navbar-left" role="search" method= "post" action = "?url=pesquisa">
 				<section class="form-group">
 					<input type="text" class="form-control" placeholder="Procurar" name = "conteudo_text">
 				</section>
