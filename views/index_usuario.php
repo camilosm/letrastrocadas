@@ -148,14 +148,13 @@
 			<section class="panel panel-default" style="float: right; width:49%;">
 				<section class="panel-heading"><h4>Últimos livros disponibilizados:</h4></section>
 				<section class="panel-body">
-					<table id = "pag_inicial_livros_destaques" border = 0px>
+					<table id = "pag_inicial_livros_ultimos_disponibilizados" border = 0px>
 						<?php
 						
 								$id_ultima_ultimos = array();
 								while($ultimos=mysql_fetch_assoc($resultado_ultimos))
 								{
 									$id_ultima_ultimos[] = $ultimos['id_lista_livros'];
-									echo $ultimos['id_lista_livros'];
 									echo'
 									<tr id = "desejados_linha">
 										<td> 
@@ -214,27 +213,27 @@
 					
 					<ul class="pager">
 						<li id = "li_ultimos_antigo" class="previous disabled"><a id = "a_ultimos_antigo" onClick = "" >← Antigo</a></li>
-						<li id = "li_ultimos_novo" class="<?php echo ($quantidade_ultimos >= 7) ? "next" : "next disabled"; ?>"><a id = "a_ultimos_novo" onClick="NovaListaDesejo('<?php echo ($quantidade_ultimos >= 7) ? "$id_ultima_ultimos[5]','$id_ultima_ultimos[0]','1" : "None','None','1";?>');">Nova →</a></li>
+						<li id = "li_ultimos_novo" class="<?php echo ($quantidade_ultimos >= 7) ? "next" : "next disabled"; ?>"><a id = "a_ultimos_novo" onClick="NovaDisponibilizados('<?php echo ($quantidade_ultimos >= 7) ? "$id_ultima_ultimos[5]','$id_ultima_ultimos[0]','1" : "None','None','1";?>');">Nova →</a></li>
 					</ul>
 				</section>
 			</section>
 			
 			<section class="modal" id="myModal">
-			  <section class="modal-dialog">
-				<section class="modal-content">
-				  <section class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-					<h4 class="modal-title">Solicitação de livro</h4>
-				  </section>
-				  <section class="modal-body">
-					<p id = "TextDialog">Você deseja solicitar este livro?</p>
-				  </section>
-				  <section class="modal-footer">
-					<button id = "cancelar" type="button" class="btn btn-default" data-dismiss="modal">Não</button>
-					<button name = "BotaoConfirmar" id = "confirmar_solicitação" type="button" class="btn btn-primary">Sim</button>
-				  </section>
-				</section>
-			  </section>
+			<section class="modal-dialog">
+	<section class="modal-content">
+		<section class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h4 class="modal-title">Solicitação de livro</h4>
+		</section>
+		<section class="modal-body">
+			<p id = "TextDialog">Você deseja solicitar este livro?</p>
+		</section>
+		<section class="modal-footer">
+			<button id = "cancelar" type="button" class="btn btn-default" data-dismiss="modal">Não</button>
+			<button name = "BotaoConfirmar" id = "confirmar_solicitação" type="button" class="btn btn-primary">Sim</button>
+		</section>
+	</section>
+</section>
 			</section>
 	   
 		</article>

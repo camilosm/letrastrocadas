@@ -93,7 +93,7 @@ function NovaListaDesejo(id,id_antigo,pagina)
 			},
 			// função para o erro
 			error : function(data){
-			alert(data.error);
+			alert("Ops! Ocorreu um erro, contate nossos administradores para mais informações.");
 			}
 			
 		});//termina o ajax
@@ -130,7 +130,7 @@ function AntigaListaDesejo(id,paginas)
 		},
 		// função para o erro
 		error : function(data){
-		alert(data.error);
+		alert("Ops! Ocorreu um erro, contate nossos administradores para mais informações.");
 		}
 		
 	});//termina o ajax
@@ -138,7 +138,6 @@ function AntigaListaDesejo(id,paginas)
 
 function NovaDisponibilizados(id,id_antigo,pagina)
 {
-	
 	if(id !== "None")
 	{
 		// inicio uma requisição
@@ -150,7 +149,7 @@ function NovaDisponibilizados(id,id_antigo,pagina)
 		// função para o sucesso
 			success : function(data){
 				pagina++;
-				document.getElementById('pag_inicial_livros_destaques').innerHTML =  data.tabela;
+				document.getElementById('pag_inicial_livros_ultimos_disponibilizados').innerHTML =  data.tabela;
 				$("#li_ultimos_antigo").attr({"class" : "previous"});
 				$("#a_ultimos_antigo").attr({"onClick" : "AntigaDisponibilizados('"+id_antigo+"','"+pagina+"')"});
 				var novo = data.novo;
@@ -171,12 +170,84 @@ function NovaDisponibilizados(id,id_antigo,pagina)
 			},
 			// função para o erro
 			error : function(data){
-			alert(data.error);
+			alert("Ops! Ocorreu um erro, contate nossos administradores para mais informações.");
 			}
 			
 		});//termina o ajax
 		
 	}
+}
+
+function AntigaDisponibilizados(id,pagina)
+{
+	// inicio uma requisição
+	$.ajax({
+	// url para o arquivo json.php
+		url : "ajax/ultimos_disponibilizados.php?lista_lvro="+id+"&acao=Antigo",
+	// dataType json
+		dataType : "json",
+	// função para o sucesso
+		success : function(data){
+			pagina--;
+			$('#a_ultimos_novo').attr({"onClick" : "NovaDisponibilizados('"+data.ultimo_id+"','"+id+"','"+pagina+"')"});
+			$('#li_ultimos_novo').attr({"class" : "next"})
+			$('html,body').animate({scrollTop: 0},'slow');
+			document.getElementById('pag_inicial_livros_ultimos_disponibilizados').innerHTML =  data.tabela;
+			if(pagina > 1)
+			{
+				$("#li_ultimos_antigo").attr({"class" : "previous"});
+				$("#a_ultimos_antigo").attr({"onClick" : "AntigaDisponibilizados('"+data.primeiro+"','"+pagina+"')"});
+			}
+			else
+			{
+				$("#li_ultimos_antigo").attr({"class" : "previous disabled"});
+				$("#a_ultimos_antigo").attr({"onClick" : ""});
+			}
+				
+		},
+		// função para o erro
+		error : function(data){
+		alert("Ops! Ocorreu um erro, contate nossos administradores para mais informações.");
+		}
+		
+	});//termina o ajax
+}
+
+function SolicitarLivro(livro,usuario)
+{
+	// inicio uma requisição
+	$.ajax({
+	// url para o arquivo json.php
+		url : "ajax/ultimos_disponibilizados.php?lista_lvro="+id+"&acao=Antigo",
+	// dataType json
+		dataType : "json",
+	// função para o sucesso
+		success : function(data){
+			pagina--;
+			$('#a_ultimos_novo').attr({"onClick" : "NovaDisponibilizados('"+data.ultimo_id+"','"+id+"','"+pagina+"')"});
+			$('#li_ultimos_novo').attr({"class" : "next"})
+			$('html,body').animate({scrollTop: 0},'slow');
+			document.getElementById('pag_inicial_livros_ultimos_disponibilizados').innerHTML =  data.tabela;
+			if(pagina > 1)
+			{
+				$("#li_ultimos_antigo").attr({"class" : "previous"});
+				$("#a_ultimos_antigo").attr({"onClick" : "AntigaDisponibilizados('"+data.primeiro+"','"+pagina+"')"});
+			}
+			else
+			{
+				$("#li_ultimos_antigo").attr({"class" : "previous disabled"});
+				$("#a_ultimos_antigo").attr({"onClick" : ""});
+			}
+				
+		},
+		// função para o erro
+		error : function(data){
+		alert("Ops! Ocorreu um erro, contate nossos administradores para mais informações.");
+		}
+		
+	});//termina o ajax
+	
+	
 }
 
 $(document).ready(function(){
