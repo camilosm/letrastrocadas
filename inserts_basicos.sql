@@ -42,3 +42,5 @@ INSERT INTO tbl_livros_trocados VALUES (NULL,9,1),(NULL,11,2),(NULL,1,3),(NULL,8
 INSERT INTO tbl_lista_livros VALUES(NULL,1, 1, 1,DATE(NOW()), '2013', 'Bem conservado'),(NULL,2, 2, 1,DATE(NOW()), '2013', 'Bem conservado');
 
 INSERT INTO tbl_lista_desejo VALUES(null,1,1),(null,2,1);
+
+INSERT INTO tbl_denuncias VALUES(null, 1, 'Livro com mais danos que o previsto na descrição','Aberto'),(null, 2, 'Livro com mais danos que o previsto na descrição','Aberto'),(null, 2, 'Livro com mais danos que o previsto na descrição','Aberto'),(null, 3, 'Livro com mais danos que o previsto na descrição', 'Fechado'),(null, 3, 'Livro com mais danos que o previsto na descrição','Aberto'),(null, 2, 'Livro com mais danos que o previsto na descrição', 'Fechado'),(null, 3, 'Livro com mais danos que o previsto na descrição','Fechado');
