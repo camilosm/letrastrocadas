@@ -83,7 +83,7 @@ CREATE TABLE tbl_usuario(
 	creditos INT NOT NULL,
 	creditos_comprados_mes INT NULL, /*O usuário só vai poder comprar 2*/
 	qt_livros_solicitados INT NOT NULL,
-	qt_livros_disponibilizados INT NOT NULL,
+	qt_livros_solicitados INT NOT NULL,
 	data_criacao DATE NOT NULL,
 	trocas_realizadas_mes INT NOT NULL, 
 	limite_troca INT NOT NULL,
@@ -256,10 +256,13 @@ CREATE TABLE tbl_solicitacao_troca(
 
 );
 
-CREATE TABLE tbl_denuncias(
+/* ALTER TABLE tbl_denuncias ADD status VARCHAR(20) NOT NULL; */
+
+CREATE TABLE tbl_denuncias( 
 
 	id_denuncias INT UNSIGNED AUTO_INCREMENT NOT NULL,
 	usuario_denunciado_id INT UNSIGNED NOT NULL,
+	status VARCHAR(20) NOT NULL,
 	motivo VARCHAR(255) NOT NULL,
 	PRIMARY KEY(id_denuncias),
 	FOREIGN KEY(usuario_denunciado_id) REFERENCES tbl_usuario(id_usuario)
