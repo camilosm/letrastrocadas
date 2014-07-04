@@ -1,32 +1,3 @@
-/** * Função para criar um objeto XMLHTTPRequest */ 
-function CriaRequest()
-{
-	try
-	{ 
-		request = new XMLHttpRequest(); 
-	}
-	catch (IEAtual)
-	{ 
-		try
-		{
-			request = new ActiveXObject("Msxml2.XMLHTTP"); 
-		}
-		catch(IEAntigo)
-		{
-			try
-			{
-				request = new ActiveXObject("Microsoft.XMLHTTP"); 
-			}
-			catch(falha)
-			{
-				request = false;
-			}
-		} 
-	} 
-	if (!request) alert("Seu Navegador não suporta Ajax!");
-	else return request; 
-}
-
 function AcoesLivro(id,acao,section,tabela)
 {
 	var xmlreq = CriaRequest();
@@ -218,27 +189,13 @@ function SolicitarLivro(livro,usuario)
 	// inicio uma requisição
 	$.ajax({
 	// url para o arquivo json.php
-		url : "ajax/ultimos_disponibilizados.php?lista_lvro="+id+"&acao=Antigo",
+		url : "ajax/caixa_dialogo.php?livro="+livro+"&usuario="+usuario,
 	// dataType json
 		dataType : "json",
 	// função para o sucesso
 		success : function(data){
-			pagina--;
-			$('#a_ultimos_novo').attr({"onClick" : "NovaDisponibilizados('"+data.ultimo_id+"','"+id+"','"+pagina+"')"});
-			$('#li_ultimos_novo').attr({"class" : "next"})
-			$('html,body').animate({scrollTop: 0},'slow');
-			document.getElementById('pag_inicial_livros_ultimos_disponibilizados').innerHTML =  data.tabela;
-			if(pagina > 1)
-			{
-				$("#li_ultimos_antigo").attr({"class" : "previous"});
-				$("#a_ultimos_antigo").attr({"onClick" : "AntigaDisponibilizados('"+data.primeiro+"','"+pagina+"')"});
-			}
-			else
-			{
-				$("#li_ultimos_antigo").attr({"class" : "previous disabled"});
-				$("#a_ultimos_antigo").attr({"onClick" : ""});
-			}
-				
+		document.getElementById('myModal').innerHTML =  data.section;
+		$('#myModal').modal('show');
 		},
 		// função para o erro
 		error : function(data){
@@ -250,46 +207,22 @@ function SolicitarLivro(livro,usuario)
 	
 }
 
-$(document).ready(function(){
-	
-	$('#solicitar').click(function(){
-		$('#myModal').modal('show');
-		var id_lista = $(this).attr("name");
-		var id_usuario = $(this).attr("value");
-		$("#confirmar_solicitação").attr({
-										   'name': id_lista,
-										   'value': id_usuario
-										  });
-	});
-	
-	$('#confirmar_solicitação').click(function(){
-		var id = $(this).attr("name");
-		var id_usuario = $(this).attr("value");
-		var xmlreq = CriaRequest();
-		// Iniciar uma requisição
-		xmlreq.open("GET", "ajax/solicitar_livro.php?acao=solitar&id="+id+"&usuario="+id_usuario, true); 
-		// Atribui uma função para ser executada sempre que houver uma mudança de ado
-		xmlreq.onreadystatechange = function()
-		{
-			// Verifica se foi concluído com sucesso e a conexão fechada (readyState=4) 
-			if (xmlreq.readyState == 4)
-			{ 
-				// Verifica se o arquivo foi encontrado com sucesso
-				if (xmlreq.status == 200)
-				{ 
-					var texto = xmlreq.responseText;
-					$('#TextDialog').text(texto);
-					$('#confirmar_solicitação').hide();
-					$('button#cancelar').text('Ok');
-					
-				}
-				else
-				{ 
-					//$("#Resultado"+id).innerHTML = "Erro: " + xmlreq.statusText;
-				}
-			} 
-		};
-		xmlreq.send(null);
-	});
-})
+function ConfirmarSolicitacao(livro,usuario)
+{
 
+	$.ajax({
+		
+		url : "ajax/solicitar_livro.php?livro="+livro+"&usuario="+usuario,
+		dataType : "json",
+		success : function(data){
+		document.getElementById('TextDialog').innerHTML =  data.resposta;
+		$('#confirmar_solicitação').hide();
+		$('button#cancelar').text('Ok');
+		},
+		error : function(data){
+		alert("Ops! Ocorreu um erro, contate nossos administradores para mais informações.");
+		}
+	
+	});
+	
+}

@@ -26,7 +26,7 @@
 			$resultado_ultimos = $pesquisar_ultimos->pesquisar();
 			
 			//Pesquisa a quantidade de livros no banco de dados
-			$pesquisar_quantidade_ultimos = new Pesquisar("tbl_lista_livros ","COUNT(id_lista_livros) As Quantidade","1=1");
+			$pesquisar_quantidade_ultimos = new Pesquisar("tbl_lista_livros ","COUNT(id_lista_livros) As Quantidade","id_lista_livros > ".$id);
 			$resultado_quantidade_ultimos = $pesquisar_quantidade_ultimos->pesquisar();			
 			$array_quantidade_ultimos = mysql_fetch_assoc($resultado_quantidade_ultimos);
 			$quantidade_ultimos = $array_quantidade_ultimos['Quantidade'];
@@ -68,7 +68,7 @@
 							</section> 
 							
 							<section>
-								<button type = "button" class="btn btn-primary btn-sm" id = "solicitar" name = "'.$ultimos['id_lista_livros'].'" value = "'.$ultimos['id_usuario'].'"/>Solicitar Livro</button>
+								<button type = "button" class="btn btn-primary btn-sm" id = "solicitar" onClick="SolicitarLivro('.$aspas.''.$ultimos["id_lista_livros"].''.$aspas.','.$aspas.''.$ultimos['id_usuario'].''.$aspas.')">Solicitar Livro</button>
 								<a href="?url=passo-a-passo-dados-usuario&cod='.$ultimos['id_livro'].'"><input type = "button" class="btn btn-primary btn-sm" name = "botao_disponibilizar_livro" value = "Disponibilizar Livro" /></a>															 
 								<section class = "btn-group">
 									<button id = "Resultado'.$ultimos['id_livro'].'" value = "" name = "QueroLer" type="button" class="btn btn-primary btn-sm">Eu...</button>

@@ -8,6 +8,7 @@
 	//Verifica se o usuário tem acesso à essa página
 	if($_SESSION['nivel_acesso'] == 1)
 	{ 
+
 			include("classes/class_banco.php");
 			include("class_editar_caracteres.php");
 			include("classes/class_pesquisar.php");
@@ -176,7 +177,7 @@
 												</section> 
 												
 												<section>
-													<button type = "button" class="btn btn-primary btn-sm" id = "solicitar" name = "'.$ultimos['id_lista_livros'].'" value = "'.$ultimos['id_usuario'].'"/>Solicitar Livro</button>
+													<button type = "button" class="btn btn-primary btn-sm" id = "solicitar" onClick="SolicitarLivro('.$aspas.''.$ultimos["id_lista_livros"].''.$aspas.','.$aspas.''.$ultimos['id_usuario'].''.$aspas.')">Solicitar Livro</button>
 													<a href="?url=passo-a-passo-dados-usuario&cod='.$ultimos['id_livro'].'"><input type = "button" class="btn btn-primary btn-sm" name = "botao_disponibilizar_livro" value = "Disponibilizar Livro" /></a>															 
 													<section class = "btn-group">
 														<button id = "Resultado'.$ultimos['id_livro'].'" value = "" name = "QueroLer" type="button" class="btn btn-primary btn-sm">Eu...</button>
@@ -219,21 +220,6 @@
 			</section>
 			
 			<section class="modal" id="myModal">
-			<section class="modal-dialog">
-	<section class="modal-content">
-		<section class="modal-header">
-			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-			<h4 class="modal-title">Solicitação de livro</h4>
-		</section>
-		<section class="modal-body">
-			<p id = "TextDialog">Você deseja solicitar este livro?</p>
-		</section>
-		<section class="modal-footer">
-			<button id = "cancelar" type="button" class="btn btn-default" data-dismiss="modal">Não</button>
-			<button name = "BotaoConfirmar" id = "confirmar_solicitação" type="button" class="btn btn-primary">Sim</button>
-		</section>
-	</section>
-</section>
 			</section>
 	   
 		</article>
