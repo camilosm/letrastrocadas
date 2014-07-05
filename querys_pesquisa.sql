@@ -102,16 +102,16 @@ ORDER BY COUNT(livro_id) DESC;
 
 /* Denúncias pendentes */
 
-SELECT usuario.nome, usuario.email, den.motivo, den.status, 
+SELECT usuario.nome, status, usuario.email, den.motivo, den.status, 
 den.id_denuncias, COUNT(*) as Numero_Denuncias
 FROM tbl_usuario usuario JOIN tbl_denuncias den
 ON usuario_denunciado_id = id_usuario
-GROUP BY id_denuncias;
+WHERE 1=1 GROUP BY id_denuncias;
 
 /* Numero de denuncias por usuário */
 
-SELECT nome, COUNT(*) as Numero_Denuncias 
-FROM tbl_usuario JOIN tbl_denuncias 
+SELECT nome, den.status, COUNT(*) as Numero_Denuncias 
+FROM tbl_usuario JOIN tbl_denuncias den
 ON usuario_denunciado_id = id_usuario
 GROUP BY id_usuario
 ORDER BY COUNT(*) DESC;
@@ -134,8 +134,6 @@ GROUP BY id_usuario ;
 SELECT nome, avaliacoes_negativas
 FROM tbl_usuario 
 GROUP BY id_usuario ;
-
-
 
 
 
