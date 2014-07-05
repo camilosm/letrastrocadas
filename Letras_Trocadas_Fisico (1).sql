@@ -256,13 +256,14 @@ CREATE TABLE tbl_solicitacao_troca(
 
 );
 
-/* ALTER TABLE tbl_denuncias ADD status VARCHAR(20) NOT NULL; */
+/* ALTER TABLE tbl_denuncias CHANGE status status INT NOT NULL;
+1 = Caso Aberto, 2 = Caso Fechado */
 
 CREATE TABLE tbl_denuncias( 
 
 	id_denuncias INT UNSIGNED AUTO_INCREMENT NOT NULL,
 	usuario_denunciado_id INT UNSIGNED NOT NULL,
-	status VARCHAR(20) NOT NULL,
+	status INT NOT NULL,
 	motivo VARCHAR(255) NOT NULL,
 	PRIMARY KEY(id_denuncias),
 	FOREIGN KEY(usuario_denunciado_id) REFERENCES tbl_usuario(id_usuario)
