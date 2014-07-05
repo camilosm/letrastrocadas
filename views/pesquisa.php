@@ -1,6 +1,5 @@
 <?php
-	
-		
+
 		include("classes/class_pesquisar.php");
 		include("classes/class_banco.php");
 		
@@ -40,6 +39,7 @@
 		 
 		$resultado_dados = $pesquisa_dados->pesquisar();
 	
+
 ?>
 
 <section id = "body_pesquisa">
@@ -50,7 +50,7 @@
 		<section class="panel panel-body">
 			<section class="row">
 				<section class = "col-lg-6">
-				<form method = "post" action = "?url=cadastra_livro_usuario">
+				<form method = "get" action = "#">
 				<?php 
 				
 						while($dados_pesq = mysql_fetch_assoc($resultado_dados))
