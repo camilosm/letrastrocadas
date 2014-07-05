@@ -1,3 +1,24 @@
+<?php
+
+		include("classes/class_banco.php");
+		include("classes/class_pesquisar.php");
+		
+		$banco = new Banco();
+		
+		/* Pesquisa Denuncias recentes */ 
+		
+		$pesquisa_denuncias = new Pesquisar("tbl_usuario usuario JOIN tbl_denuncias den ON usuario_denunciado_id = id_usuario","usuario.nome, usuario.email, den.motivo, den.status, den.id_denuncias, COUNT(*) as Numero_Denuncias","1=1 GROUP BY id_denuncias");
+		$resul_pesquisa_den = $pesquisa_denuncias->pesquisar();		
+		$Denuncias = mysql_fetch_assoc($resul_pesquisa_den);
+		
+		/* Pesquisa o numero de denuncias por usuário */ 
+		
+		$pesquisa_numero_den_usu = new Pesquisar("tbl_usuario JOIN tbl_denuncias ON usuario_denunciado_id = id_usuario","nome,email, COUNT(*) as Numero_Denuncias","1=1 GROUP BY id_usuario ORDER BY COUNT(*) DESC");
+		$resul_pesquisa_n_den = $pesquisa_numero_den_usu->pesquisar();
+		$Num_Den = mysql_fetch_assoc($resul_pesquisa_n_den);		
+
+?>
+	
 	<header>
 		<?php  session_start(); @include('views/base/header_admin.php'); ?>
 	</header>
@@ -17,55 +38,56 @@
 				<section class="tab-pane fade active in" id="denuncias">
 					<section class="panel-body">
 						
-						<section class="panel-group" id="accordion">
+					<?php while($Denuncias = mysql_fetch_assoc($resul_pesquisa_den)) {
+			                            if ($Denuncias["status"] == 1)
+			                            {
+			                            	$status = "Caso Aberto";
+			                            }
+			                            else if ($Denuncias["status"] == 2)
+			                            {
+			                            	$status = "Caso Fechado";
+			                            }	
+										else
+										{
+											$status = "";
+										}
+						echo '<section class="panel-group" id="accordion">
 							<section class="panel panel-default">
 								<section class="panel-heading">
 									<h4 class="panel-title">
-										<a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
-											Carolina Almeida
+										<a data-toggle="collapse" data-parent="#accordion" href="#collapse1">'
+											 .$Denuncias["email"]. ' - ' .$Denuncias["nome"].
+										' - <a href = #>'	
+											.$status.
+										'</a>
 										</a>
 									</h4>
 								</section>
 								<section id="collapse1" class="panel-collapse collapse in">
-									<section class="panel-body">
-										Enviou um livro com mais danos que o previsto em sua descrição.
+									<section class="panel-body">'
+										. $Denuncias["motivo"].'
 									</section>
 								</section>
 							</section>
-						</section>
-					
-						<section class="panel panel-default">
-							<section class="panel-heading">
-								<h4 class="panel-title">
-									<a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-										Alexandre Marra
-									</a>
-								</h4>
-							</section>
-							<section id="collapseTwo" class="panel-collapse collapse">
-								<section class="panel-body">
-									Não enviou o livro
-								</section>
-							</section>
-						</section>
+						</section>';
+						}
+						
+					?>
 					
 					</section>
+					
+				
 				</section>
 				<section class="tab-pane fade" id="listanegra">		
 					<section class="panel-body">
 						<ul class="list-group">
-							<li class="list-group-item">
-								<span class="badge">3</span>
-								Alexandre Marra
-							</li>
-							<li class="list-group-item">
-								<span class="badge">2</span>
-								Helber Ramalho
-							</li>
-							<li class="list-group-item">
-								<span class="badge">3</span>
-								João Silva
-							</li>
+							<?php while($Num_Den = mysql_fetch_assoc($resul_pesquisa_n_den)){
+							echo '<li class="list-group-item">
+								  <span class="badge">'.$Num_Den["Numero_Denuncias"].'</span>'
+								  .$Num_Den["email"]. ' - '.$Num_Dem["nome"].
+							'</li>';
+							}
+							?>
 						</ul>
 					</section>
 				</section>
