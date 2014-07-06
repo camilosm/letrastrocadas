@@ -71,14 +71,13 @@ ORDER BY quantidade ASC;
 
 /* Gêneros favoritos */ 
 
-SELECT genero_favorito AS Nome_Genero,
-COUNT(*) AS NumeroDePessoasQueGostam
+SELECT genero_favorito AS Nome_Genero, COUNT(*) AS NumeroDePessoasQueGostam
 FROM tbl_usuario 
 GROUP BY genero_favorito;
 
 /* Autores favoritos */
 
-SELECT autor.nome, COUNT(*) 
+SELECT autor.nome, COUNT(*) AS NumLivrosTrocados
 FROM tbl_autor autor JOIN tbl_livros_trocados 
 JOIN tbl_livro
 ON livro_id = id_livro
@@ -88,7 +87,7 @@ ORDER BY COUNT(livro_id) DESC
 
 /* Editoras favoritas */
 
-SELECT editora.nome, COUNT(*)
+SELECT editora.nome, COUNT(*) AS NumeroLivrosEditores
 FROM tbl_editora editora  JOIN tbl_livros_trocados
 JOIN tbl_livro 
 ON livro_id = id_livro
@@ -121,15 +120,25 @@ ORDER BY COUNT(*) DESC;
 
 /* Usuários mais bem avaliados */ 
 
-SELECT nome, avaliacoes_positivas
+SELECT email,nome, avaliacoes_positivas
 FROM tbl_usuario 
-GROUP BY id_usuario ;
+ORDER BY avaliacoes_positivas DESC
+GROUP BY id_usuario  ;
 
 /* Usuários mais mal avaliados */ 
 
-SELECT nome, avaliacoes_negativas
+SELECT email,nome, avaliacoes_negativas
 FROM tbl_usuario 
+ORDER BY avaliacoes_negativas DESC
 GROUP BY id_usuario ;
+
+/* Tipos de gêneros mais trocados */
+
+/* Número de livros do site por editora */ 
+
+/* Número de livros do site por genero */ 
+
+/* Número de livro do site por autor */ 
 
 
 
