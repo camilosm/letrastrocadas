@@ -55,18 +55,14 @@ SELECT COUNT(id_usuario) AS Numero_Usuarios FROM tbl_usuario;
 SELECT COUNT(id_usuario) AS Numero_Usuarios_Cadastrados_Recentemente
 FROM tbl_usuario WHERE data_criacao = DATE(NOW());
 
-SELECT nome, email, idade, creditos, limite_troca, 
-qt_livros_solicitados, qt_livros_solicitados, 
-genero_favorito, uf, cidade, data_criacao FROM tbl_usuario
+SELECT nome, email, idade, uf, cidade, data_criacao FROM tbl_usuario
 WHERE DATE_FORMAT(data_criacao, '%m-%d') <= DATE_FORMAT(NOW(),'%m-%d') 
 ORDER BY data_criacao ASC;
 
 /* Livro mais trocados */
 
 SELECT nome, quantidade 
-FROM tbl_livro JOIN tbl_livros_trocados
-ON livro_id = id_livro 
-ORDER BY quantidade DESC;
+FROM tbl_livro JOIN tbl_livros_trocados ON livro_id = id_livro ORDER BY quantidade DESC;
 
 SELECT nome, quantidade 
 FROM tbl_livro JOIN tbl_livros_trocados
