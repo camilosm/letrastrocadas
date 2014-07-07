@@ -147,21 +147,35 @@ ON livro_id = id_livro
 GROUP BY id_categoria
 ORDER BY num_livros_trocados DESC;
 
-/* Número de livros do site por editora */ 
+/* Número de livros disponibilizados no site por editora */ 
 
 SELECT editora.nome, COUNT(*)
 FROM tbl_editora editora JOIN tbl_livro
 ON editora_id = id_editora
-JOIN tbl_livros_trocados
+JOIN tbl_lista_livros
 ON livro_id = id_livro
 GROUP BY editora.nome
 ORDER BY COUNT(*) DESC;
 
 /* Número de livros do site por genero */ 
 
+SELECT cat.nome, COUNT(*)
+FROM tbl_categoria cat JOIN tbl_livro
+ON categoria_id = id_categoria
+JOIN tbl_lista_livros
+ON livro_id = id_livro
+GROUP BY cat.nome 
+ORDER BY COUNT(*) DESC;
+
 /* Número de livro do site por autor */ 
 
-
+SELECT autor.nome, COUNT(*)
+FROM tbl_autor autor JOIN tbl_livro
+ON autor_id = id_autor
+JOIN tbl_lista_livros
+ON livro_id = id_livro
+GROUP BY autor.nome 
+ORDER BY COUNT(*) DESC;
 
 
 
