@@ -149,12 +149,20 @@ CREATE TABLE tbl_lista_desejo(
 CREATE TABLE tbl_notificacoes(
 
 	id_notificacoes INT UNSIGNED AUTO_INCREMENT NOT NULL,
-	mensagem TEXT NOT NULL,
+	tipo INT NOT NULL, /* 1 = Trocas aceitas; 2= Trocas recusadas; 3 = Solicitações recebidas; 4 = Livro chegou; 5 = Livro em transporte */
+	mensagem VARCHAR(50) NOT NULL,
 	usuario_id INT UNSIGNED NOT NULL,
+	data_enviada DATETIME NOT NULL,
+	visualizado CHAR(3) NOT NULL, /* true ou false (Escritos dessa forma mesmo) */
 	PRIMARY KEY(id_notificacoes),
 	FOREIGN KEY(usuario_id) REFERENCES tbl_usuario(id_usuario)
 	
 );
+
+/* ALTER TABLE tbl_notificacoes ADD visualizado CHAR(3) NOT NULL;
+   ALTER TABLE tbl_notificacoes ADD tipo INT NOT NULL AFTER id_notificacoes;
+   ALTER TABLE tbl_notificacoes CHANGE mensagem mensagem VARCHAR(50) NOT NULL; 
+   ALTER TABLE tbl_notificacoes ADD data_enviada DATETIME NOT NULL AFTER usuario_id;*/
 
 CREATE TABLE tbl_lista_banidos(
 
@@ -185,7 +193,7 @@ CREATE TABLE tbl_lista_livros(
 	
 );
 
-/* Ai pra mudar o banco sem precisar deletar ALTER TABLE tbl_lista_livros CHANGE data_cadastro data_cadastro  DATETIME NOT NULL;*/
+/* Ai pra mudar o banco sem precisar deletar ALTER TABLE tbl_lista_livros CHANGE data_cadastro data_cadastro DATETIME NOT NULL;*/
 
 CREATE TABLE tbl_fotos_livros(
 
@@ -202,6 +210,7 @@ CREATE TABLE tbl_fotos_livros(
 CREATE TABLE tbl_cambio(
 
 	id_cambio INT UNSIGNED AUTO_INCREMENT NOT NULL,
+	status INT NOT NULL, /* 1 = Em andamento(Esperando a cofirmação da entrega do livro); 2 = Livro já está em transporte; 3 = Feito; 4 = Livro não foi enviado dentro do prazo; 5 = Calote */
 	data_operacao DATE NOT NULL,
 	quantidade_livros INT NOT NULL,
 	data_entrega DATE NULL,
@@ -217,6 +226,8 @@ CREATE TABLE tbl_cambio(
 	FOREIGN KEY(lista_livros_id) REFERENCES tbl_lista_livros(id_lista_livros)
 
 );
+
+/* ALTER TABLE tbl_cambio ADD status INT NOT NULL AFTER id_cambio; */
 
 CREATE TABLE tbl_livros_trocados(
 
@@ -256,15 +267,14 @@ CREATE TABLE tbl_solicitacao_troca(
 
 );
 
-/* ALTER TABLE tbl_denuncias CHANGE status status INT NOT NULL;
-1 = Caso Aberto, 2 = Caso Fechado */
+/* ALTER TABLE tbl_denuncias ADD status INT NOT NULL; */
 
 CREATE TABLE tbl_denuncias( 
 
 	id_denuncias INT UNSIGNED AUTO_INCREMENT NOT NULL,
 	usuario_denunciado_id INT UNSIGNED NOT NULL,
-	status INT NOT NULL,
 	motivo VARCHAR(255) NOT NULL,
+	status INT NOT NULL,
 	PRIMARY KEY(id_denuncias),
 	FOREIGN KEY(usuario_denunciado_id) REFERENCES tbl_usuario(id_usuario)
 

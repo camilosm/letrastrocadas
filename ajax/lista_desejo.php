@@ -25,7 +25,7 @@
 			$resultado_lista_desejo = $pesquisar_lista_desejo->pesquisar();
 			
 			//Pesquisa a quantidade de livros na lista de desejo no banco de dados
-			$pesquisar_quantidade_lista_desejo = new Pesquisar("tbl_lista_desejo ","COUNT(id_lista_desejo) As Quantidade","id_lista_desejo > ".$id);
+			$pesquisar_quantidade_lista_desejo = new Pesquisar("tbl_lista_desejo ","COUNT(id_lista_desejo) As Quantidade","id_lista_desejo > ".$id." AND usuario_id = ".$_SESSION['id']);
 			$resultado_quantidade_lista_desejo = $pesquisar_quantidade_lista_desejo->pesquisar();			
 			$array_quantidade_lista_desejo = mysql_fetch_assoc($resultado_quantidade_lista_desejo);
 			$quantidade_lista_desejo = $array_quantidade_lista_desejo['Quantidade'];
@@ -82,7 +82,7 @@
 							</td>
 						</tr>';	
 			}
-			
+		
 			$lista_desejo = array('tabela'=> $return,'ultimo_id'=> $id_ultima[$ct -1], 'novo'=> $resto, 'primeiro' => $id_ultima[0]);
 			
 			echo json_encode($lista_desejo);

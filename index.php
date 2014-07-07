@@ -18,7 +18,6 @@
 		<style>
 			body { padding-top: 70px; }
 			footer { background-color: #dd4814; }
-			div { max-height: 10px; }
 		</style>
 		
 	</head>
@@ -35,10 +34,79 @@
 				@include("views/base/header_visitante.php");
 			}
 			else
-			{
-				if($_SESSION["nivel_acesso"] == 1)
+			{	
+				$nivel_acesso = $_SESSION["nivel_acesso"];
+				if($nivel_acesso == 1)
 				{
 					@include("views/base/header_usuario.php");
+					echo "
+						<script type = 'text/javascript'>							
+							var inicio = setInterval('Sidebar()', 0000);
+							var intervalo = setInterval('Sidebar()', 5000);
+							
+							function Sidebar()
+							{
+								clearInterval(inicio);
+								$.ajax({
+									url : 'ajax/sidebar.php',
+									dataType : 'json',
+									success : function(data){
+										document.getElementById('Moedas').innerHTML = data.moedas;
+										
+										document.getElementById('Trocas_aceitas').innerHTML = data.trocas_aceitas;
+										if(data.trocas_aceitas != 0)
+										{
+										    document.getElementById('Trocas_aceitas').style.backgroundColor = '#dd4814';
+										}
+										else
+										{
+											document.getElementById('Trocas_aceitas').style.backgroundColor = '#aea79f';
+										}
+										
+										document.getElementById('Solicitacoes_recebidas').innerHTML = data.solicitacoes_recebidas;
+										if(data.solicitacoes_recebidas != 0)
+										{
+										    document.getElementById('Solicitacoes_recebidas').style.backgroundColor = '#dd4814';
+										}
+										else
+										{
+											document.getElementById('Solicitacoes_recebidas').style.backgroundColor = '#aea79f';
+										}
+										
+										document.getElementById('CadeMeusLivros').innerHTML = data.trajetoria_livros;
+										if(data.trajetoria_livros != 0)
+										{
+										    document.getElementById('CadeMeusLivros').style.backgroundColor = '#dd4814';
+										}
+										else
+										{
+											document.getElementById('CadeMeusLivros').style.backgroundColor = '#aea79f';
+										}
+									},
+									error : function(data){
+									alert('Ops! Ocorreu um erro, contate nossos administradores para mais informações.');
+									}
+								
+								});
+							}						
+			
+						</script>";
+						
+					echo '<aside style = "width:20%; height: auto; position: fixed; left: 76%; margin-top:0%">
+							<section class="panel panel-default">
+								<section class="panel-heading">Notificações</section>
+								<section class="panel-body">
+									<nav>
+										<ul class="nav navbar-nav" style="width: 100%;">
+											<a><li class="list-group-item"> Moedas<span id="Moedas" class="badge">0</span></li></a>
+											<a href = "?url=solicitacoes"><li class="list-group-item"> Trocas aceitas  <span id="Trocas_aceitas" class="badge">0</span></li></a>
+											<a href = "?url=solicitacoes"><li class="list-group-item"> Solicitações recebidas<span id="Solicitacoes_recebidas"class="badge">0</span></li></a>
+											<a href = "?url=solicitacoes"><li class="list-group-item"> Cadê meus livros?  <span id="CadeMeusLivros" class="badge">0</span></li></a>
+										</ul>
+									</nav>
+								</section>
+							</section>
+						</aside>';
 				}
 				else
 				{
@@ -79,6 +147,8 @@
 				}
 			}
 		?>
+		
+
 		
 	</body>
 	
