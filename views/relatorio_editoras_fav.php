@@ -25,7 +25,7 @@
 		
 		while($dados = mysql_fetch_assoc($resul_editoras_fav)){
 		    $pdf->SetFont('helvetica','','10');
-		    $pdf->Cell('90','10',utf8_decode($dados['nome']),1,'','C');
+		    $pdf->Cell('90','10',$dados['nome'],1,'','C');
 		    $pdf->Cell('90','10',$dados['NumeroLivrosEditores'],1,'','C');
 		    $pdf->Ln();		
 		}
