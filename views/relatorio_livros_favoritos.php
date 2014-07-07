@@ -13,7 +13,7 @@
 		$pdf->AddPage();
 		$pdf->Image("../content/logo.jpg","170","15","30","22");
 		$pdf->SetFont('helvetica','B','16');
-		$pdf->Cell('180','40','Relatório de livros mais trocados no site',0,0,'C');
+		$pdf->Cell('180','40',utf8_decode('Relatório de livros mais trocados no site'),0,0,'C');
 		$pdf->Ln();
 		
 		$pdf->SetFont('helvetica','B','10');
