@@ -134,7 +134,28 @@ GROUP BY id_usuario ;
 
 /* Tipos de gêneros mais trocados */
 
+SELECT cat.nome, livro.nome
+FROM tbl_categoria cat JOIN tbl_livro livro
+ON categoria_id = id_categoria
+GROUP BY livro.nome;
+
+SELECT cat.nome, COUNT(*) AS num_livros_trocados
+FROM tbl_categoria cat JOIN tbl_livro 
+ON categoria_id = id_categoria 
+JOIN tbl_livros_trocados
+ON livro_id = id_livro
+GROUP BY id_categoria
+ORDER BY num_livros_trocados DESC;
+
 /* Número de livros do site por editora */ 
+
+SELECT editora.nome, COUNT(*)
+FROM tbl_editora editora JOIN tbl_livro
+ON editora_id = id_editora
+JOIN tbl_livros_trocados
+ON livro_id = id_livro
+GROUP BY editora.nome
+ORDER BY COUNT(*) DESC;
 
 /* Número de livros do site por genero */ 
 
