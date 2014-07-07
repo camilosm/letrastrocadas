@@ -93,6 +93,25 @@
 				</section>
 				
 				<section class="tab-pane fade" id="relatorios">
+					<div class="list-group">
+                        <a href="#" class="list-group-item active">
+                          Relatórios
+                        </a>
+                        <a href="views/relatorio_usuarios_recentes.php" class="list-group-item">Usuários cadastrados recentemente
+                        </a>
+                        <a href="views/relatorio_livros_favoritos.php" class="list-group-item">Livros mais trocados
+                        </a>
+                        <a href="views/relatorio_generos_fav.php" class="list-group-item">Gêneros Favoritos
+                        </a>
+                        <a href="views/relatorio_autores_fav.php" class="list-group-item">Autores Favoritos
+                        </a>
+                        <a href="views/relatorio_editoras_fav.php" class="list-group-item">Editoras Favoritas
+                        </a>
+                        <a href="views/relatorio_usuarios_bem_avaliados.php" class="list-group-item">Usuários mais bem avaliados
+                        </a>
+                        <a href="views/relatorio_usuarios_mal_avaliados.php" class="list-group-item">Usuários mais mal avaliados
+                        </a>
+                    </div>			
 				</section>
 			</section>
 		</section>
