@@ -31,11 +31,11 @@
 		
 		while($dados = mysql_fetch_assoc($resul_pesquisar_usu_recente)){
 		    $pdf->SetFont('helvetica','','10');
-		    $pdf->Cell('60','10',utf8_encode($dados['email']),1,'','C');
-		    $pdf->Cell('60','10',utf8_encode($dados['nome']),1,'','C');
+		    $pdf->Cell('60','10',utf8_decode($dados['email']),1,'','C');
+		    $pdf->Cell('60','10',utf8_decode($dados['nome']),1,'','C');
 			$pdf->Cell('12','10',$dados['idade'],1,'','C');
 			$pdf->Cell('10','10',$dados['uf'],1,'','C');
-			$pdf->Cell('20','10',utf8_encode($dados['cidade']),1,'','C');
+			$pdf->Cell('20','10',utf8_decode($dados['cidade']),1,'','C');
 			$pdf->Cell('35','10',$dados['data_criacao'],1,'','C');
 		    $pdf->Ln();		
 		}
