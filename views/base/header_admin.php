@@ -23,9 +23,6 @@
 		</section>
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<section class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-			<ul class="nav navbar-nav">
-				<li><a href="#">Início</a></li>
-			</ul>
 			<form class="navbar-form navbar-left" role="search">
 				<section class="form-group">
 					<input type="text" class="form-control" placeholder="Procurar">
@@ -36,6 +33,9 @@
 			</form>
 			
 			<ul class="nav navbar-nav navbar-right">
+			<ul class="nav navbar-nav">
+				<li><a href="?url=home_admin"><span class="glyphicon glyphicon-home"></span>&nbsp Home</a></li>
+			</ul>
 				<ul class="nav navbar-nav">
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Cadastrar/Alterar <b class="caret"></b></a>
@@ -50,15 +50,15 @@
 
 				<ul class="nav navbar-nav">
 				   <li class="dropdown">
-					 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Configurações<b class="caret"></b></a>
+					 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span>&nbsp Configurações<b class="caret"></b></a>
 						  <ul class="dropdown-menu">
 							  <li><a href="?url=alterar_dados_admin">Alterar dados</a></li>
 							  <li><a href="?url=alterar_senha_admin">Alterar senha</a></li>
 						  </ul>
 				   </li>
 			  
-					<li><a href="?url=cadastro_adm">Adicionar administrador</a></li>
-					<li><a href="?url=logout&situacao=logado">Sair</a></li>
+					<li><a href="?url=cadastro_adm"><span class="glyphicon glyphicon-plus"></span>&nbsp Adicionar administrador</a></li>
+					<li><a href="?url=logout&situacao=logado"><span class="glyphicon glyphicon-log-out"></span>&nbsp Sair</a></li>
 				</ul>
 			</ul>
 		</section><!-- /.navbar-collapse -->
