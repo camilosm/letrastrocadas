@@ -1,6 +1,77 @@
-<section id = "body_livros_lidos">
+<?php
+	//Inicia a sessão
+	session_start();
+	
+	//Verifica se o usuário tem acesso à essa página
+	if($_SESSION['nivel_acesso'] == 1)
+	{ 
+			
+			include("classes/class_banco.php");
+			include("classes/class_pesquisar.php");
+			
+			$codigo_ultimo = $_GET['livro'];
+			if(!empty($codigo_ultimo))
+			{
+				$codigo = $codigo_ultimo;
+			}
+			else
+			{
+				$codigo = "0";
+			}
+			
+			$bd = new Banco();
+			$campos = "id_lista_livros,imagem_livros,livro.nome AS Livro,autor.nome AS Autor,editora.nome As Editora, livro.sinopse As sinopse";
+			$tabelas = "tbl_lista_livros lista INNER JOIN tbl_livro livro INNER JOIN tbl_editora editora INNER JOIN tbl_autor autor ON id_editora = editora_id AND id_autor = autor_id AND id_livro = livro_id";
+			$pesquisar_livros = new Pesquisar($tabelas,$campos,"id_lista_livros > ".$codigo." AND usuario_id =".$_SESSION['id']." LIMIT 7");
+			$resultado = $pesquisar_livros->pesquisar();
+			
+			$pesquisar_quantidade = new Pesquisar($tabelas,"COUNT(id_lista_livros) As quantidade","usuario_id =".$_SESSION['id']);
+			$resultado_quantidade = $pesquisar_quantidade->pesquisar();
+			
+			$pesquisa_quantidade=mysql_fetch_array($resultado_quantidade);
+			$quantidade = $pesquisa_quantidade['quantidade'];
+			
+			$id =array();
+			$nome = array();
+			$imagem = array();
+			$editora = array();
+			$autor = array();
+			$sinopse = array();
+			
+			while($pesquisa=mysql_fetch_array($resultado))
+			{
+				$id[] = $pesquisa['id_lista_livros'];
+				$nome[] = $pesquisa['Livro'];
+				$imagem[] = $pesquisa['imagem_livros'];
+				$editora[] = $pesquisa['Editora'];
+				$autor[] = $pesquisa['Autor'];
+				$sinopse[] = $pesquisa['sinopse'];
+			}
+		}
+	else
+	{	
+		//Emite um alerta (não tá funcioando ¬¬) pois eles não tem acesso a essa página
+		echo "
+			<script type='text/javascript'>
+				alert('Você não tem permissão para acessar essa página');
+			</script>";
+		
+		//Redireciona pra página principal
+		if($_SESSION['nivel_acesso'] == 2)
+		{
+			header("location: ?url=home_admin");
+		}
+		else
+		{
+			header("location: ?url=home_visitante");
+		}
+	}
 
-     <section class="panel panel-default" style = "width:70%; height:60%; position:relative; left:15%;">
+?>
+<div id="wrap">
+<article id="" style = "width:70%;  margin-left:4%;">
+
+     <section class="panel panel-default" >
         <section class="panel-heading">Livros que estou lendo</section>
 		
             <section class="panel-body">
@@ -8,40 +79,49 @@
 					<section class = "col-lg-4" style = "width: auto;">	
 					<section class = "bs-component"> 
 							<a class = "thumbnail">
-								<img src = "content/imagens/livros_gerais/a_hospedeira.jpg" alt = "cidade" height = "177px" width = "120px"/> 
+								<img src = "<?php echo $imagem[0];?>" alt = "<?php echo $nome[0];?>" height = "177px" width = "120px"/> 
 							</a>
 					</section>
 					</section>
 					<section class = "col-lg-4">
-							<a> <h3> <?php echo 'A Hospedeira'?> </h3> </a>				  
-							<a> <h4> <?php echo 'Stephenie Meyer' ?> </h4></a>
-						    <a> <h5> <?php echo 'Little, Brown and Company' ?> </h5></a>
+							<a> <h3> <?php echo utf8_encode($nome[0]); ?> </h3> </a>				  
+							<a> <h4> <?php echo utf8_encode($autor[0]); ?> </h4></a>
+						    <a> <h5> <?php echo utf8_encode($editora[0]); ?> </h5></a>
+							<form method="post" action="?url=alterar_livro_usuario&cod=<?php echo $id[0];?>">
+							<input type="submit" class="btn btn-primary btn-sm" name="alterarlivro" value="Alterar Livro"/>
+							</form>
 					</section>
 					<section class = "col-lg-4" style = "width:48%;">
 						<textarea class="form-control" rows="9" readonly>
-Em The Host, o planeta Terra passa a ser invadido por um inimigo despercebido. Os humanos são transformados em hospedeiros dos invasores, passam a não ter mais sua própria consciência, enquanto o corpo permanece igual e a vida prossegue sem qualquer mudança aparente. A maior parte da humanidade não consegue resistir.
-
-Quando Melanie, um dos poucos humanos que ainda não haviam sido capturados, é encontrada, ela tem a certeza de que chegou o fim. Peregrina, a alma invasora a quem o corpo de Melanie é entregue, havia sido avisada sobre o desafio de viver no interior de um humano: emoções avassaladoras, excesso de sentidos, diversas recordações presentes. Mas existe uma dificuldade com que Peregrina não contava: a dona anterior do corpo combate a posse da sua mente.
-
-Peregrina esquadrinha os pensamentos de Melanie, na esperança de descobrir o paradeiro da resistência humana. Melanie inunda-lhe a mente com visões do homem por quem está apaixonada - Jared, um sobrevivente humano que vive na clandestinidade. Incapaz de se libertar dos desejos do seu corpo, Peregrina começa a sentir-se atraída pelo homem que tem por missão denunciar. No momento em que uma inimiga em comum, a Buscadora, transforma Peregrina e Melanie em aliadas involuntárias, as duas lançam-se numa busca perigosa e desconhecida do homem que amam.
-
-Eventualmente, Peregrina passa a viver com um grupo de humanos resistentes, encontrando dificuldades para ser aceita e um grande risco de ser assassinada. Porém, algumas das pessoas do local passam a se aproximar dela, incluindo o irmão mais novo de Melanie, Jamie, e um dos residentes locais, Ian O'Shea.
+						<?php echo utf8_encode($sinopse[0]);?>					
 						</textarea>
 					</section> 
 					
 				</section>
 				<br>
-				   <img src = "content/imagens/livros_gerais/hp2.jpg" alt = "HP2" height = "177px" width = "120px">
+				   <?php
+					
+						for($contador=0;$contador<=$quantidade-1;$contador++)
+						{
+							echo '<img src = "'.$imagem[$contador].'" alt = "'.$nome[$contador].'" height = "177px" width = "120px">'; 
+						}
+					
+					?>
 	
 				   
 
                    <ul class="pager">
                         <li class="previous disabled"><a href="#">← Anterior</a></li>
-                        <li class="next"><a href="#">Próximo →</a></li>
+                        <li class="next"><a href="?url=livros_em_leitura&livro= <?php 
+																					if(!$quantidade < 7)
+																					echo $id[6];
+																				?>">Próximo →</a></li>
                    </ul>
 				   
              </section>
-			 
-       </section>
+		</section>
+		
+		
 
-</section>
+</article>
+</div>

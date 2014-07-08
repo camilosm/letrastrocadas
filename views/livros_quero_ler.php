@@ -1,3 +1,72 @@
+<?php
+	//Inicia a sessão
+	session_start();
+	
+	//Verifica se o usuário tem acesso à essa página
+	if($_SESSION['nivel_acesso'] == 1)
+	{ 
+			
+			include("classes/class_banco.php");
+			include("classes/class_pesquisar.php");
+			
+			$codigo_ultimo = $_GET['livro'];
+			if(!empty($codigo_ultimo))
+			{
+				$codigo = $codigo_ultimo;
+			}
+			else
+			{
+				$codigo = "0";
+			}
+			
+			$bd = new Banco();
+			$campos = "id_lista_livros,imagem_livros,livro.nome AS Livro,autor.nome AS Autor,editora.nome As Editora, livro.sinopse As sinopse";
+			$tabelas = "tbl_lista_livros lista INNER JOIN tbl_livro livro INNER JOIN tbl_editora editora INNER JOIN tbl_autor autor ON id_editora = editora_id AND id_autor = autor_id AND id_livro = livro_id";
+			$pesquisar_livros = new Pesquisar($tabelas,$campos,"id_lista_livros > ".$codigo." AND usuario_id =".$_SESSION['id']." LIMIT 7");
+			$resultado = $pesquisar_livros->pesquisar();
+			
+			$pesquisar_quantidade = new Pesquisar($tabelas,"COUNT(id_lista_livros) As quantidade","usuario_id =".$_SESSION['id']);
+			$resultado_quantidade = $pesquisar_quantidade->pesquisar();
+			
+			$pesquisa_quantidade=mysql_fetch_array($resultado_quantidade);
+			$quantidade = $pesquisa_quantidade['quantidade'];
+			
+			$id =array();
+			$nome = array();
+			$imagem = array();
+			$editora = array();
+			$autor = array();
+			$sinopse = array();
+			
+			while($pesquisa=mysql_fetch_array($resultado))
+			{
+				$id[] = $pesquisa['id_lista_livros'];
+				$nome[] = $pesquisa['Livro'];
+				$imagem[] = $pesquisa['imagem_livros'];
+				$editora[] = $pesquisa['Editora'];
+				$autor[] = $pesquisa['Autor'];
+				$sinopse[] = $pesquisa['sinopse'];
+			}
+		}
+	else
+	{	
+		//Emite um alerta (não tá funcioando ¬¬) pois eles não tem acesso a essa página
+		echo "
+			<script type='text/javascript'>
+				alert('Você não tem permissão para acessar essa página');
+			</script>";
+		
+		//Redireciona pra página principal
+		if($_SESSION['nivel_acesso'] == 2)
+		{
+			header("location: ?url=home_admin");
+		}
+		else
+		{
+			header("location: ?url=home_visitante");
+		}
+	}
+?>
 <section id = "body_livros_lidos">
 
      <section class="panel panel-default" style = "width:70%; height:60%; position:relative; left:15%;">
@@ -8,37 +77,41 @@
 					<section class = "col-lg-4" style = "width: auto;">	
 					<section class = "bs-component"> 
 							<a class = "thumbnail">
-								<img src = "content/imagens/harry-potter-e-a-pedra-filosofal.jpg" alt = "cidade" height = "177px" width = "120px"/> 
+								<img src = "<?php echo $imagem[0];?>" alt = "<?php echo $nome[0];?>" height = "177px" width = "120px"/> 
 							</a>
 					</section>
 					</section>
 					<section class = "col-lg-4">
-							<a> <h3> <?php echo 'Harry Potter e a Pedra Filosofal'?> </h3> </a>				  
-							<a> <h4> <?php echo 'J. K. Rowling' ?> </h4></a>
-						    <a> <h5> <?php echo 'Bloomsbury' ?> </h5></a>
+							<a> <h3> <?php echo utf8_encode($nome[0]); ?> </h3> </a>				  
+							<a> <h4> <?php echo utf8_encode($autor[0]); ?> </h4></a>
+						    <a> <h5> <?php echo utf8_encode($editora[0]); ?> </h5></a>
+							<form method="post" action="?url=alterar_livro_usuario&cod=<?php echo $id[0];?>">
+							<input type="submit" class="btn btn-primary btn-sm" name="alterarlivro" value="Alterar Livro"/>
+							</form>
 					</section>
 					<section class = "col-lg-4" style = "width:48%;">
 						<textarea class="form-control" rows="9" readonly>
-Harry Potter é deixado na porta dos seus tios Dursley quando tinha apenas um ano, onde é mal tratado até completar seus 11 anos; quando Harry recebe sua carta da escola de Hogwarts. Na noite de seu aniversário Harry é visitado por Hagrid (meio-gigante que trabalha para Hogwarts), o qual revela que Harry é filho de bruxos e muito famoso.4 A verdade é toda revelada a Harry Potter, que seus pais foram mortos pelo terrível bruxo Voldemort e que a sua cicatriz era marca da tentativa de assassinato que Harry sofrera.
-
-Harry em seu primeiro ano na escola de bruxaria é apresentado a Ronald Weasley e Hermione Granger (seus futuros melhores amigos), onde juntos desvendam mistérios e perigos importantes para trama.
-
-Após várias aventuras, os garotos juntos descobrem que a pedra filosofal está guardada no castelo de Hogwarts, protegida pelo cão de três cabeças Fofo e diversos empecilhos colocados pelos professores da escola. Desconfiados que o professor de poções, Severo Snape, está tentando roubar a pedra, decidem eles mesmos guardarem o artefato mágico. Ao chegarem ao local onde se escondia a pedra filosofal, Harry se reencontra com Voldemort, o qual tomou posse do corpo do professor de Defesa Contra as Artes das Trevas, Quirinus Quirrel. No entanto Voldemort falha em sua missão e foge de Harry que passa a pedra filosofal para o diretor da escola, Alvo Dumbledore, destruí-la.
+						<?php echo utf8_encode($sinopse[0]);?>
 						</textarea>
 					</section> 
 					
 				</section>
 				<br>
-				   <img src = "content/imagens/hp2.jpg" alt = "50tons" height = "177px" width = "120px">
-				   <img src = "content/imagens/hp3.jpg" alt = "got1" height = "177px" width = "120px">
-				   <img src = "content/imagens/hp4.jpg" alt = "harry_potter" height = "177px" width = "120px">
-				   <img src = "content/imagens/hp5.jpg" alt = "percy_jackson" height = "177px" width = "120px">
-				   <img src = "content/imagens/hp6.jpg" alt = "louco_aos_poucos" height = "177px" width = "120px">
-				   
+				   <?php
+					
+						for($contador=0;$contador<=$quantidade-1;$contador++)
+						{
+							echo '<img src = "'.$imagem[$contador].'" alt = "'.$nome[$contador].'" height = "177px" width = "120px">'; 
+						}
+					
+					?>
 
                    <ul class="pager">
                         <li class="previous disabled"><a href="#">← Anterior</a></li>
-                        <li class="next"><a href="#">Próximo →</a></li>
+                        <li class="next"><a href="?url=livros_quero_ler&livro= <?php 
+																					if(!$quantidade < 7)
+																					echo $id[6];
+																				?>">Próximo →</a></li>
                    </ul>
 				   
              </section>
@@ -46,3 +119,4 @@ Após várias aventuras, os garotos juntos descobrem que a pedra filosofal está
        </section>
 
 </section>
+<br><br>

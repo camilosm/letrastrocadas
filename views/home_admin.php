@@ -29,7 +29,7 @@
 		<ul class="nav nav-tabs" style="margin-bottom: 15px;">
 			<li class="active"><a href="#denuncias" data-toggle="tab">Denúncias</a></li>
 			<li><a href="#listanegra" data-toggle="tab">Lista Negra</a></li>
-			<li><a href="#relatorios" data-toggle="tab">Relátorios</a></li>
+			<li><a href="#relatorios" data-toggle="tab">Relatórios</a></li>
 
 		</ul>
 		
@@ -65,7 +65,7 @@
 								</section>
 								<section id="collapse1" class="panel-collapse collapse in">
 									<section class="panel-body">'
-										. $Denuncias["motivo"].'
+										. utf8_encode($Denuncias["motivo"]).'
 									</section>
 								</section>
 							</section>
