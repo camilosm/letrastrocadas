@@ -22,6 +22,7 @@
 		  LEFT JOIN tbl_categoria categoria
 		  ON categoria_id = id_categoria",
 		  "lista.id_lista_livros,
+		  imagem_livros,
 		  livro.nome AS NomeLivro, 
 		  autor.nome AS NomeAutor, 
 		  editora.nome AS NomeEditora,
@@ -35,7 +36,7 @@
 		  OR editora.nome LIKE '%".$conteudo_text."%'
 		  OR usuario.nome LIKE '%".$conteudo_text."%'
 		  GROUP BY livro.nome
-		  ORDER BY livro.nome");
+		  ORDER BY livro.nome LIMIT 6");
 		 
 		$resultado_dados = $pesquisa_dados->pesquisar();
 	
@@ -43,23 +44,24 @@
 ?>
 
 <section id = "body_pesquisa">
-	<section class="panel panel-default" style="width: 70%; margin-left: 15%;">
+	<section class="panel panel-default" style="width: 70%; margin-left: 5%;">
 		<section class="panel-heading">
 			<h4>Resultados</h4>
 		</section>
 		<section class="panel panel-body">
 			<section class="row">
 				<section class = "col-lg-6">
-				<form method = "get" action = "#">
+				<form method = "post" action = "#">
 				<?php 
-				
+						$num_registros = mysql_num_rows($resultado_dados);
+						if ($num_registros != 0) {
 						while($dados_pesq = mysql_fetch_assoc($resultado_dados))
 						{
 						echo  '<section class="panel panel-body">
 						            <section class = "col-lg-4">	
 						            	<section class = "bs-component" style = "height: 177px; width: 120px;"> 
 						            		<a href="?url=livro" class = "thumbnail">
-						            			<img src = "" alt = ""/> 
+						            			<img src = "'.$dados_pesq['imagem_livros'].'" alt = ""/> 
 						            		</a>	
 						            	</section>
 						            	<section  class = "btn-group" style = "width: auto;">
@@ -82,6 +84,11 @@
 						            	<a href="?url=livros_editora"> <h5> ' .$dados_pesq['NomeEditora'].  '</h5></a>
 						            </section>
 								</section>';
+						}
+						}
+						else 
+						{
+							echo 'Nenhum resultado foi encontrado';
 						}
 									
 				?>
