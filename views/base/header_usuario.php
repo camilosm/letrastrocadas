@@ -1,12 +1,3 @@
-<?php
-
-		if(isset($_GET['btnPesquisa']))
-		{
-			$conteudo_text = $_GET['conteudo_text'];
-		}
-
-?>
-
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
 	<section class="container-fluid">
 		<!-- Brand and toggle get grouped for better mobile display -->
@@ -32,11 +23,11 @@
 		</section>
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<section class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-			<form class="navbar-form navbar-left" role="search" method= "get" action = "?url=pesquisa">
+			<form class="navbar-form navbar-left" role="search" method= "post" action = "?url=pesquisa" name = "frmPesquisa">
 				<section class="form-group">
 					<input type="text" class="form-control" placeholder="Procurar" name = "conteudo_text">
 				
-				<button type="submit" class="btn btn-default" name = "btnPesquisa" href = "?url=pesquisa">
+				<button type="submit" class="btn btn-default" name = "btnPesquisa">
 					<span class="glyphicon glyphicon-search"></span>
 				</button>
 				</section>
