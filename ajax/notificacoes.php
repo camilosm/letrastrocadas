@@ -9,7 +9,7 @@
 		
 		$banco = new Banco();
 		
-		$pesquisar_notificacoes = new Pesquisar("tbl_notificacoes","*","visualizado = 'false' AND data_enviada >= DATE_SUB(NOW(),INTERVAL 5 SECOND) LIMIT 3");
+		$pesquisar_notificacoes = new Pesquisar("tbl_notificacoes","*","visualizado = 'false' AND usuario_id = ".$id." AND data_enviada >= DATE_SUB(NOW(),INTERVAL 5 SECOND) LIMIT 3");
 		$resultado = $pesquisar_notificacoes->pesquisar();
 		$ct=0;
 		$retorno = "";

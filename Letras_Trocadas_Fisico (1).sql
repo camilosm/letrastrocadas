@@ -102,8 +102,6 @@ CREATE TABLE tbl_usuario(
 	
 );
 
-ALTER TABLE tbl_usuario ADD qt_livros_disponibilizados INT NOT NULL AFTER qt_livros_solicitados;
-
 CREATE TABLE tbl_lendo(
 
 	id_lendo INT UNSIGNED AUTO_INCREMENT NOT NULL,
