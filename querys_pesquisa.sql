@@ -167,7 +167,7 @@ ON livro_id = id_livro
 GROUP BY cat.nome 
 ORDER BY COUNT(*) DESC;
 
-/* Número de livro do site por autor */ 
+/* Número de livros do site por autor */ 
 
 SELECT autor.nome, COUNT(*)
 FROM tbl_autor autor JOIN tbl_livro
