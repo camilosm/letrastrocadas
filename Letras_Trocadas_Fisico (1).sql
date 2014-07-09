@@ -153,15 +153,16 @@ CREATE TABLE tbl_notificacoes(
 	mensagem VARCHAR(50) NOT NULL,
 	usuario_id INT UNSIGNED NOT NULL,
 	data_enviada DATETIME NOT NULL,
-	visualizado CHAR(3) NOT NULL, /* true ou false (Escritos dessa forma mesmo) */
+	visualizado VARCHAR(5) NOT NULL, /* true ou false (Escritos dessa forma mesmo) */
 	PRIMARY KEY(id_notificacoes),
 	FOREIGN KEY(usuario_id) REFERENCES tbl_usuario(id_usuario)
 	
 );
 
-/* ALTER TABLE tbl_notificacoes ADD visualizado CHAR(3) NOT NULL;
+/* ALTER TABLE tbl_notificacoes ADD visualizado VARCHAR(5) NOT NULL;
    ALTER TABLE tbl_notificacoes ADD tipo INT NOT NULL AFTER id_notificacoes;
    ALTER TABLE tbl_notificacoes CHANGE mensagem mensagem VARCHAR(50) NOT NULL; 
+   ALTER TABLE tbl_notificacoes CHANGE visualizado visualizado VARCHAR(5) NOT NULL; 
    ALTER TABLE tbl_notificacoes ADD data_enviada DATETIME NOT NULL AFTER usuario_id;*/
 
 CREATE TABLE tbl_lista_banidos(
