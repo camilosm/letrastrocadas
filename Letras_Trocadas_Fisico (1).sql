@@ -83,7 +83,7 @@ CREATE TABLE tbl_usuario(
 	creditos INT NOT NULL,
 	creditos_comprados_mes INT NULL, /*O usuário só vai poder comprar 2*/
 	qt_livros_solicitados INT NOT NULL,
-	qt_livros_solicitados INT NOT NULL,
+	qt_livros_disponibilizados INT NOT NULL,
 	data_criacao DATE NOT NULL,
 	trocas_realizadas_mes INT NOT NULL, 
 	limite_troca INT NOT NULL,
@@ -101,6 +101,8 @@ CREATE TABLE tbl_usuario(
 	PRIMARY KEY(id_usuario)
 	
 );
+
+ALTER TABLE tbl_usuario ADD qt_livros_disponibilizados INT NOT NULL AFTER qt_livros_solicitados;
 
 CREATE TABLE tbl_lendo(
 

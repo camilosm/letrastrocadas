@@ -1,3 +1,5 @@
+<script type='text/javascript'>
+</script>
 <?php
 	
 	// Verifica se o botão foi acionado
@@ -20,7 +22,7 @@
                   <label for="inputEmail" class="col-lg-2 control-label">E-mail</label>
 				  
          <section class="col-lg-10">	 
-                  <input type="email" class="form-control"  name = "email" id="email" required placeholder = "E-mail" maxlength = "100">			  
+                  <input type="email" class="form-control"  name = "email" id="email" value = "" required placeholder = "E-mail" maxlength = "100">			  
          </section>
 		 <br>
                   <label for="inputSenha" class="col-lg-2 control-label">Senha</label>
