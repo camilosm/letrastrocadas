@@ -1,4 +1,11 @@
 <script type="text/javascript" src="ajax/ajax.js"></script>
+
+<script type="text/javascript">
+	
+	
+
+</script>
+
 <?php
 	
 	//Inicia a sessão

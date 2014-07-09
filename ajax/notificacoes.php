@@ -9,19 +9,27 @@
 		
 		$banco = new Banco();
 		
-		$pesquisar_notificacoes = new Pesquisar("tbl_notificacoes","*","visualizado = false AND data_enviada >= DATE_SUB(NOW(),INTERVAL 5 SECOND");
+		$pesquisar_notificacoes = new Pesquisar("tbl_notificacoes","*","visualizado = 'false' AND data_enviada >= DATE_SUB(NOW(),INTERVAL 5 SECOND) LIMIT 3");
 		$resultado = $pesquisar_notificacoes->pesquisar();
-		
-		while($notificações=mysql_fetch_row($resultado))
+		$ct=0;
+		$retorno = "";
+		while($notificações=mysql_fetch_assoc($resultado))
 		{
+			$ct++;
 			$retorno.= '
-			<section class="panel panel-default" style="float: left; margin-left:3%; width:20%; opacity:0.5;">
-				<section class="panel-body">	
-				<p> '.utf8_encode($notificações['mensagem']).' </p>
+			<section id = "notificações'.$ct.'" class="panel panel-info" >
+				<section class="panel-heading">
+					<h3 class="panel-title">Notificações</h3>
+				</section>
+				<section class="panel-body">
+					<p>'.utf8_encode($notificações['mensagem']).'</p>
 				</section>
 			</section>
 			';
 		}
+		$retorno = array('retorno' => $retorno);
+		
+		echo json_encode($retorno);
 	}
 
 ?>

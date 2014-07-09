@@ -40,13 +40,77 @@
 				{
 					@include("views/base/header_usuario.php");
 					echo "
+						<style type='text/css'>
+
+							p
+							{
+								margin-top:0%;
+							}
+
+							#notificações1
+							{
+								text-align:center;
+								width:20%;
+								height: 15%;
+								position: fixed;
+								left: 76%;
+								margin-top:35%;
+								display:none;
+							}
+							
+							#notificações2
+							{
+								text-align:center;
+								height: 15%;
+								width:20%;
+								position: fixed;
+								left: 76%;
+								margin-top:27%;
+								display:none;
+							}
+							
+							#notificações3
+							{
+								text-align:center;
+								height: 15%;
+								width:20%;
+								position: fixed;
+								left: 76%;
+								margin-top:19%;
+								display:none;
+							}
+							
+						</style>
 						<script type = 'text/javascript'>							
 							var inicio = setInterval('Sidebar()', 0000);
+							var inicio_notificações = setInterval('Notificações()', 0000);
 							var intervalo = setInterval('Sidebar()', 5000);
+							var notificações = setInterval('Notificações()', 5000);
+	
+							function Notificações()
+							{
+								$.ajax({
+								
+									url : 'ajax/notificacoes.php',
+									dataType : 'json',
+									success : function(data){
+									$('#notificações').html(data.retorno);
+									$('#notificações1').fadeIn('slow');
+									$('#notificações2').fadeIn('slow');
+									$('#notificações3').fadeIn('slow');
+										
+									},
+									error : function(data){
+									alert('Ops! Ocorreu um erro nas notificações, contate nossos administradores para mais informações.');
+									}
+									
+								});
+								clearInterval(inicio_notificações);
+							}
 							
 							function Sidebar()
 							{
-								clearInterval(inicio);
+								
 								$.ajax({
 									url : 'ajax/sidebar.php',
 									dataType : 'json',
@@ -84,10 +148,11 @@
 										}
 									},
 									error : function(data){
-									alert('Ops! Ocorreu um erro, contate nossos administradores para mais informações.');
+									alert('Ops! Ocorreu um erro com sua sidebar, contate nossos administradores para mais informações.');
 									}
 								
 								});
+								clearInterval(inicio);
 							}						
 			
 						</script>";
@@ -106,7 +171,9 @@
 									</nav>
 								</section>
 							</section>
-						</aside>';
+						</aside>
+						<section id = "notificações">
+						<section>';
 				}
 				else
 				{
