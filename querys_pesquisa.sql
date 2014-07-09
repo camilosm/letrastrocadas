@@ -177,6 +177,12 @@ ON livro_id = id_livro
 GROUP BY autor.nome 
 ORDER BY COUNT(*) DESC;
 
+/* Usuários que mais trocam livros */ 
+
+
+
+/* Quantidade de livros trocados por mês */ 
+
 
 
 
