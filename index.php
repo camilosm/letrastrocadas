@@ -164,8 +164,8 @@
 									<nav>
 										<ul class="nav navbar-nav" style="width: 100%;">
 											<a><li class="list-group-item"> Moedas<span id="Moedas" class="badge">0</span></li></a>
-											<a href = "?url=solicitacoes"><li class="list-group-item"> Trocas aceitas  <span id="Trocas_aceitas" class="badge">0</span></li></a>
-											<a href = "?url=solicitacoes"><li class="list-group-item"> Solicitações recebidas<span id="Solicitacoes_recebidas"class="badge">0</span></li></a>
+											<a href = "?url=trocas_aceitas"><li class="list-group-item"> Trocas aceitas  <span id="Trocas_aceitas" class="badge">0</span></li></a>
+											<a href = "?url=solicitacoes_recebidas"><li class="list-group-item"> Solicitações recebidas<span id="Solicitacoes_recebidas"class="badge">0</span></li></a>
 											<a href = "?url=solicitacoes"><li class="list-group-item"> Cadê meus livros?  <span id="CadeMeusLivros" class="badge">0</span></li></a>
 										</ul>
 									</nav>
