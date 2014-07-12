@@ -36,7 +36,7 @@
 		  OR editora.nome LIKE '%".$conteudo_text."%'
 		  OR usuario.nome LIKE '%".$conteudo_text."%'
 		  GROUP BY livro.nome
-		  ORDER BY livro.nome LIMIT 6");
+		  ORDER BY livro.nome");
 		 
 		$resultado_dados = $pesquisa_dados->pesquisar();
 	
@@ -82,6 +82,7 @@
 						            	<a href="?url=livro"> <h3>' .$dados_pesq['NomeLivro']. '</h3> </a>				  
 						            	<a href="?url=livros_autores"> <h4>' .$dados_pesq['NomeAutor']. '</h4></a>
 						            	<a href="?url=livros_editora"> <h5> ' .$dados_pesq['NomeEditora'].  '</h5></a>
+										<a href="?url=perfil_usuario"> <h6> ' .$dados_pesq['NomeUsuario'].  '</h5></a>
 						            </section>
 								</section>';
 						}
