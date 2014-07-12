@@ -31,7 +31,7 @@
 			$pesquisa_quantidade=mysql_fetch_array($resultado_quantidade);
 			$quantidade = $pesquisa_quantidade['quantidade'];
 			
-			$id =array();
+			$id = array();
 			$nome = array();
 			$imagem = array();
 			$editora = array();

@@ -7,40 +7,66 @@
 		
 		$id = $_SESSION['id'];
 		
-		$pesquisa_dados = new Pesquisar("tbl_usuario","nome,foto,idade,avaliacoes_negativas,avaliacoes_positivas,uf,cidade,genero_favorito", " id_usuario = $id");
-		$resul_pesquisa = $pesquisa_dados->pesquisar();
-		$pesq = mysql_fetch_array($resul_pesquisa);
+		$id_outro_usu = $_GET['cod'];
 		
-		$nome = $pesq['nome'];
-		$foto = $pesq['foto'];
-		$idade = $pesq['idade'];
-		$genero_favorito = $pesq['genero_favorito'];
-		$data_nasc = $pesq['data_nasc'];
-		$nivel_acesso = $pesq['nivel_acesso'];
-		$creditos = $pesq['creditos'];
-		$creditos_comprados_mes = $pesq['creditos_comprados_mes'];
-		$qt_livros_solicitados = $pesq['qt_livros_solicitados'];
-		$qt_livros_disponibilizados = $pesq['qt_livros_disponibilizados'];
-		$data_criacao = $pesq['data_criacao'];
-		$trocas_realizadas_mes = $pesq['trocas_realizadas_mes'];
-		$limite_troca = $pesq['limite_troca'];
-		$status = $pesq['status'];
-		$logradouro = $pesq['logradouro'];
-		$numero = $pesq['numero'];
-		$cep = $pesq['cep'];
-		$uf = $pesq['uf'];
-		$complemento = $pesq['complemento'];
-		$cidade = $pesq['cidade'];
-		$bairro = $pesq['bairro'];		
-		$avaliacoes_negativas = $pesq['avaliacoes_negativas'];
-		$avaliacoes_positivas = $pesq['avaliacoes_positivas'];
-		
+		if ($id == $id_outro_usu)
+		{		
+		    $pesquisa_dados = new Pesquisar("tbl_usuario","id_usuario,nome,email,foto,idade,avaliacoes_negativas,avaliacoes_positivas,uf,cidade,genero_favorito", " id_usuario = $id");
+		    $resul_pesquisa = $pesquisa_dados->pesquisar();
+		    $pesq = mysql_fetch_array($resul_pesquisa);
+		    
+		    $nome = $pesq['nome'];
+		    $foto = $pesq['foto'];
+		    $idade = $pesq['idade'];
+		    $genero_favorito = $pesq['genero_favorito'];
+		    $uf = $pesq['uf'];
+		    $cidade = $pesq['cidade'];	
+		    $avaliacoes_negativas = $pesq['avaliacoes_negativas'];
+		    $avaliacoes_positivas = $pesq['avaliacoes_positivas'];
+		    $id_p = $pesq['id_usuario'];
+		    $email_p = $pesq['email'];
+		}
+		else if($id != $id_outro_usu)
+		{
+		    $pesquisa_dados = new Pesquisar("tbl_usuario","id_usuario,nome,email,foto,idade,avaliacoes_negativas,avaliacoes_positivas,uf,cidade,genero_favorito", " id_usuario = $id_outro_usu");
+		    $resul_pesquisa = $pesquisa_dados->pesquisar();
+		    $pesq = mysql_fetch_array($resul_pesquisa);
+		    
+		    $nome = $pesq['nome'];
+		    $foto = $pesq['foto'];
+		    $idade = $pesq['idade'];
+		    $genero_favorito = $pesq['genero_favorito'];
+		    $uf = $pesq['uf'];
+		    $cidade = $pesq['cidade'];	
+		    $avaliacoes_negativas = $pesq['avaliacoes_negativas'];
+		    $avaliacoes_positivas = $pesq['avaliacoes_positivas'];
+		    $id_p = $pesq['id_usuario'];
+		    $email_p = $pesq['email'];		
+		}
+		else
+		{
+		    $pesquisa_dados = new Pesquisar("tbl_usuario","id_usuario,nome,email,foto,idade,avaliacoes_negativas,avaliacoes_positivas,uf,cidade,genero_favorito", " id_usuario = $id");
+		    $resul_pesquisa = $pesquisa_dados->pesquisar();
+		    $pesq = mysql_fetch_array($resul_pesquisa);
+		    
+		    $nome = $pesq['nome'];
+		    $foto = $pesq['foto'];
+		    $idade = $pesq['idade'];
+		    $genero_favorito = $pesq['genero_favorito'];
+		    $uf = $pesq['uf'];
+		    $cidade = $pesq['cidade'];	
+		    $avaliacoes_negativas = $pesq['avaliacoes_negativas'];
+		    $avaliacoes_positivas = $pesq['avaliacoes_positivas'];
+		    $id_p = $pesq['id_usuario'];
+		    $email_p = $pesq['email'];		
+		}
+
 		
 
 ?>
 
 <article id = "body_perfil_usuario">
-            <section class="panel panel-default" style="width: 65%; position: relative; left: 17%">
+            <section class="panel panel-default" style="width: 65%; position: relative; left: 5%">
 
 	
 
@@ -49,7 +75,7 @@
 			<table class="table table-striped table-hover" style = "table-layout:fixed">
             <tbody>
             <tr>
-				  <td id = "foto_usuario" rowspan = "3"> <img src = "content/imagens/avatar-250.png" width="100%" ></td>
+				  <td id = "foto_usuario" rowspan = "3"> <img src = " <?php echo $foto; ?>" width="100%" ></td>
 			      <td id = "nome_usuario" colspan = "4"><b>Nome:&nbsp;</b> <?php echo utf8_encode($nome); ?> </td>
             </tr>
             <tr>
@@ -105,7 +131,7 @@
 			</tr>
 			<tr>
 			      <td colspan = "5"> 				             
-				       <section id = "avaliações" style = "position:relative; left:75%; width:20%;">
+				       <section id = "avaliações" style = "position:relative; left:50%; width:20%;">
                        <label> Avaliações: </label>
                         &nbsp  
                        <span class= "glyphicon glyphicon-thumbs-up"></span> <span class = "badge"> <?php echo $avaliacoes_positivas; ?> </span> 
@@ -119,9 +145,15 @@
             </tbody>
 			
             </table>
-				<section href = "" style = "position:relative; left:50%; width:23%"> 
-					   <a href = ""> Denunciar usuário </a>
-					   </section>
+			<?php
+				if ($id != $id_p)
+				{
+				echo 
+				    '<section style = "position:relative; left:50%; width:23%"> 
+				    	   <a href = "?url=denunciar_usuario&cod='.$id_outro_usu.'"> Denunciar usuário </a>
+				    </section>' ;
+				}
+			?>
 			</section>
 			</section>
 
