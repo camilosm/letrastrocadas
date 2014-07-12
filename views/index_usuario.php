@@ -29,16 +29,12 @@
 			$pesquisar_ultimos = new Pesquisar($tabelas,$campos,$condição);
 			$resultado_ultimos = $pesquisar_ultimos->pesquisar();
 			
-			//SELECT id_lista_livros,id_usuario,usuario.nome As usuario,id_livro,imagem_livros,livro.nome AS Livro,edicao,autor.nome AS Autor,editora.nome As Editora,primeira_foto,segunda_foto,terceira_foto FROM tbl_fotos_livros JOIN tbl_lista_livros JOIN tbl_usuario usuario JOIN tbl_livro livro JOIN tbl_editora editora JOIN tbl_autor autor ON id_livro = livro_id AND id_usuario = usuario_id AND id_editora = editora_id AND id_autor = autor_id AND id_lista_livros = lista_livro_id WHERE tbl_lista_livros.status = 1 ORDER BY data_cadastro DESC LIMIT 6;
-			
 			//Pesquisa a quantidade de livros no banco de dados
 			$pesquisar_quantidade_ultimos = new Pesquisar("tbl_lista_livros ","COUNT(id_lista_livros) As Quantidade","1=1");
 			$resultado_quantidade_ultimos = $pesquisar_quantidade_ultimos->pesquisar();			
 			$array_quantidade_ultimos = mysql_fetch_assoc($resultado_quantidade_ultimos);
 			$quantidade_ultimos = $array_quantidade_ultimos['Quantidade'];
-			
-			
-			
+						
 			//Pesquisa da lista de desejo do site
 			$campos_lista = "livros_desejo.id_lista_desejo As id_lista,id_livro,imagem_livros,livro.nome AS Livro,edicao,autor.nome AS Autor,editora.nome As Editora";
 			$tabelas_lista = "tbl_lista_desejo livros_desejo INNER JOIN tbl_livro livro INNER JOIN tbl_editora editora INNER JOIN tbl_autor autor ON id_livro = livro_id AND id_editora = editora_id AND id_autor = autor_id";
@@ -160,7 +156,7 @@
 													<a href="?url=livro"> <h3> '.utf8_encode($ultimos['Livro']).'</h3></a>				  
 													<a href="?url=livros_autores"> <h4>'.utf8_encode($ultimos['Autor']).' </h4></a>
 													<a href="?url=livros_editora"> <h5>'.utf8_encode($ultimos['Editora']).' </h5></a>
-													<a href="#"> <h4>'.utf8_encode($ultimos['usuario']).' </h4></a>
+													<a id = "VisitaUsuario" href="?url=perfil_usuario&cod='.$ultimos['id_usuario'].'"> <h4>'.utf8_encode($ultimos['usuario']).' </h4></a>
 												</section>
 											</section>
 										</section> 
