@@ -156,7 +156,7 @@
 													<a href="?url=livro"> <h3> '.utf8_encode($ultimos['Livro']).'</h3></a>				  
 													<a href="?url=livros_autores"> <h4>'.utf8_encode($ultimos['Autor']).' </h4></a>
 													<a href="?url=livros_editora"> <h5>'.utf8_encode($ultimos['Editora']).' </h5></a>
-													<a id = "VisitaUsuario" href="?url=perfil_usuario&cod='.$ultimos['id_usuario'].'"> <h4>'.utf8_encode($ultimos['usuario']).' </h4></a>
+													<a href="?url=perfil_usuario&cod='.$ultimos['id_usuario'].'"> <h4>'.utf8_encode($ultimos['usuario']).' </h4></a>
 												</section>
 											</section>
 										</section> 
@@ -190,7 +190,8 @@
 									</section>';
 							}
 						}
-					
+						
+
 				?>
 		   
 			</table>
