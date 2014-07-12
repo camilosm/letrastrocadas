@@ -1,0 +1,23 @@
+<?php
+	
+	session_start();
+	if($_SESSION['id'] == 1)
+	{
+		if(isset($_GET['id']))
+		{
+			include("../views/classes/class_banco.php");
+			include("../views/classes/class_update.php");
+			
+			$bd = new Banco();
+			
+			$id = $_GET['id'];
+			
+			$alterar = new Alterar('tbl_solicitacao_troca',"aceito = 'Sim'",'id_solicitacao = '.$id);
+			$resultado = $alterar->alterar();
+			
+			$resposta = array('retorno' => $resultado);
+			
+			echo json_encode($resposta);
+		}
+	}
+?>

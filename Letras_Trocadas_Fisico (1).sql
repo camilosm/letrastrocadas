@@ -258,7 +258,7 @@ CREATE TABLE tbl_solicitacao_troca(
 	lista_id INT UNSIGNED NOT NULL,
 	usuario_solicitador INT UNSIGNED NOT NULL,
 	usuario_dono_lista INT UNSIGNED NOT NULL,
-	aceito CHAR(3) NULL, /* Não e Sim*/ 
+	aceito CHAR(3) NULL, /* Nao e Sim*/ 
 	data_solicitacao DATE NOT NULL,
 	data_resposta DATE NULL,
 	PRIMARY KEY(id_solicitacao),
