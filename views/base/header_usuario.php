@@ -54,7 +54,7 @@
 					<ul class="dropdown-menu">
 						<li><a href="?url=alterar_dados_perfil">Alterar dados</a></li>
 						<li><a href="?url=alterar_senha_usuario">Alterar senha</a></li>
-						<li><a href="?url=alterar_senha_usuario">Desativar conta</a></li>
+						<li><a href="?url=desativar_conta">Desativar conta</a></li>
 					</ul>
 				   </li>
 						<li><a href="?url=logout&situacao=logado"><span class="glyphicon glyphicon-log-out"></span>&nbsp Sair</a></li>

@@ -48,10 +48,12 @@
 		
 		$bd = new Banco();
 		
-		$pesquisar_pendente = new Pesquisar('tbl_solicitacao_troca','*',"aceito = '' AND usuario_dono_lista = ".$_SESSION['id']);
+		$tabelas = 'tbl_solicitacao_troca solicitacao INNER JOIN tbl_usuario usuario INNER JOIN tbl_lista_livros lista INNER JOIN tbl_livro livro ON id_usuario = usuario_solicitador AND id_livro = livro_id AND id_lista_livros = lista_id';
+		
+		$pesquisar_pendente = new Pesquisar($tabelas,'usuario.nome As nome, livro.nome As livro, solicitacao.*',"aceito = '' AND usuario_dono_lista = ".$_SESSION['id']);
 		$resultado_pendente = $pesquisar_pendente->pesquisar();
 		
-		$pesquisar_respondidas = new Pesquisar('tbl_solicitacao_troca solicitacao INNER JOIN tbl_usuario usuario INNER JOIN tbl_lista_livros lista INNER JOIN tbl_livro livro ON id_usuario = usuario_solicitador AND id_livro = livro_id AND id_lista_livros = lista_id','usuario.nome As nome, livro.nome As livro, solicitacao.*',"aceito = 'Sim' OR aceito = 'Nao' AND  usuario_dono_lista = ".$_SESSION['id']);
+		$pesquisar_respondidas = new Pesquisar($tabelas,'usuario.nome As nome, livro.nome As livro, solicitacao.*',"aceito = 'Sim' OR aceito = 'Nao' AND  usuario_dono_lista = ".$_SESSION['id']);
 		$resultado_respondidas = $pesquisar_respondidas->pesquisar();
 		
 		echo '
@@ -66,6 +68,9 @@
 			echo '
 			<li class="list-group-item" style="background-color:#DCDCDC;">
 				<p>Você tem uma nova solicitação de troca!<BR>
+				Usuário que solicitou : '.utf8_encode($notificações_penddentes['nome']).'<BR>
+				Livro solicitado : '.$notificações_penddentes['livro'].'<BR>
+				Solicitação enviada no dia : '.$notificações_penddentes['data_solicitacao'].'<BR>
 				Deseja aceitar?<BR></p>
 				<input type = "button" class="btn btn-primary btn-sm" id = "Aceitar_'.$notificações_penddentes['id_solicitacao'].'" onClick="Aceitar('.$notificações_penddentes['id_solicitacao'].')" value = "Aceitar"/>
 				<input type = "button" class="btn btn-primary btn-sm" id = "Recusar_'.$notificações_penddentes['id_solicitacao'].'" onClick="Recusar('.$notificações_penddentes['id_solicitacao'].')" value="Recusar"/>
