@@ -18,7 +18,7 @@
 		echo '
 		<section class="panel panel-primary" style="margin-left:5%; width:70%;">
 			<section class="panel-heading">
-				<h3 class="panel-title">Trocas aceitas</h3>
+				<h3 class="panel-title">Suas trocas</h3>
 			</section>
 			<section class="panel-body">
 				<ul class="list-group">';
@@ -27,7 +27,9 @@
 		{
 			echo '
 			<li class="list-group-item" style="background-color:#DCDCDC;">
-				<p>'.utf8_encode($notificações_novas['mensagem']).'</p>
+				<p>'.utf8_encode($notificações_novas['mensagem']).'<BR>
+				Dono do livro : 
+				</p>
 			</li>';
 			 
 			$alterar_status_notificações = new Alterar('tbl_notificacoes','visualizado = "true"','id_notificacoes ='.$notificações_novas['id_notificacoes']);

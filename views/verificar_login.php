@@ -16,7 +16,7 @@ if(isset($_POST['entrar']))
 	$login = $editar_login->sanitizeStringemail($_POST['email']);
 	
 	$editar_senha = new EditarCaracteres($senha);
-	$senha = $editar_senha->sanitizeString($_POST['senha']);
+	$senha = $editar_senha->sanitizeStringNome($_POST['senha']);
 	
 	//Verifica se o login terminar com letrastrocadas.com.br, se tiver é um adm. 
 	if(preg_match('/letrastrocadas.com.br$/', $login))
