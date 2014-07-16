@@ -8,7 +8,7 @@
 		
 		/* Pesquisa Denuncias recentes */ 
 		
-		$pesquisa_denuncias = new Pesquisar("tbl_usuario usuario JOIN tbl_denuncias den ON usuario_denunciado_id = id_usuario","usuario.nome, usuario.email, den.motivo, den.status, den.id_denuncias, COUNT(*) as Numero_Denuncias","1=1 GROUP BY id_denuncias");
+		$pesquisa_denuncias = new Pesquisar("tbl_usuario usuario JOIN tbl_denuncias den ON usuario_denunciado_id = id_usuario","usuario.nome, usuario.email, den.motivo, den.status, den.id_denuncias, COUNT(*) as Numero_Denuncias","1=1 GROUP BY id_denuncias ORDER BY data DESC");
 		$resul_pesquisa_den = $pesquisa_denuncias->pesquisar();		
 		$Denuncias = mysql_fetch_assoc($resul_pesquisa_den);
 		
@@ -41,6 +41,47 @@
 
 	</ul>
 	
+<<<<<<< .mine
+	<body>
+		
+		<!--Tab Control-->
+		<ul class="nav nav-tabs" style="margin-bottom: 15px;">
+			<li class="active"><a href="#denuncias" data-toggle="tab">Denúncias</a></li>
+			<li><a href="#listanegra" data-toggle="tab">Lista Negra</a></li>
+			<li><a href="#relatorios" data-toggle="tab">Relatórios</a></li>
+
+		</ul>
+		
+		<section class="panel-body">
+			<section id="myTabContent" class="tab-content">
+				<section class="tab-pane fade active in" id="denuncias">
+					<section class="panel-body">
+						
+					<?php while($Denuncias = mysql_fetch_assoc($resul_pesquisa_den)) {
+			                            if ($Denuncias["status"] == 1)
+			                            {
+			                            	$status = "Caso Aberto";
+			                            }
+			                            else if ($Denuncias["status"] == 2)
+			                            {
+			                            	$status = "Caso Fechado";
+			                            }	
+										else
+										{
+											$status = "";
+										}
+						echo '<section class="panel-group" id="accordion">
+							<section class="panel panel-default">
+								<section class="panel-heading">
+									<h4 class="panel-title">
+										<a data-toggle="collapse" data-parent="#accordion" href="#collapse1">'
+											 .$Denuncias["email"]. ' - ' .$Denuncias["nome"].
+										' - <a href = "home_admin.php&cod="'.$Denuncias["id_denuncias"].'>'	
+											.$status.
+										'</a>
+										</a>
+									</h4>
+=======
 	<section class="panel-body">
 		<section id="myTabContent" class="tab-content">
 			<section class="tab-pane fade active in" id="denuncias">
@@ -74,6 +115,7 @@
 							<section id="collapse1" class="panel-collapse collapse in">
 								<section class="panel-body">'
 									. utf8_encode($Denuncias["motivo"]).'
+>>>>>>> .r124
 								</section>
 							</section>
 						</section>
