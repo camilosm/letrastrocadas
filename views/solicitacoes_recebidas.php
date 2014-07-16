@@ -88,7 +88,7 @@
 				Livro solicitado : '.$notificações_antigas['livro'].'<BR>
 				Solicitação enviada no dia : '.$notificações_antigas['data_solicitacao'].'<BR>
 				Respondida no dia : '.$notificações_antigas['data_resposta'].'<BR>
-				Status : '.$notificações_antigas['aceito'].'</p>
+				Realizado : '.$notificações_antigas['aceito'].'</p>
 			 </li>';
 		}
 		echo '

@@ -4,6 +4,12 @@ SHOW DATABASES;
 
 USE letrastrocadas;
 
+/* 
+	DROP TABLE tbl_lendo;
+	DROP TABLE tbl_lista_desejo;
+	DROP TABLE tbl_leu;
+*/
+
 CREATE TABLE tbl_autor(
 
 	id_autor INT UNSIGNED AUTO_INCREMENT NOT NULL,
@@ -70,6 +76,18 @@ CREATE TABLE tbl_livro(
 	
 );
 
+CREATE TABLE tbl_marcacao(
+
+	id_marcacao INT UNSIGNED AUTO_INCREMENT NOT NULL,
+	usuario_id INT UNSIGNED NOT NULL,
+	livro_id INT UNSIGNED NOT NULL,
+	tipo INT NOT NULL, /* 1 = Quero Ler; 2 = Lido; 3 = Lendo. */
+	PRIMARY KEY(id_marcacao),
+	FOREIGN KEY(usuario_id) REFERENCES tbl_usuario(id_usuario),
+	FOREIGN KEY(livro_id) REFERENCES tbl_livro(id_livro)
+
+);
+
 CREATE TABLE tbl_usuario(
 
 	id_usuario INT UNSIGNED AUTO_INCREMENT NOT NULL,
@@ -102,28 +120,6 @@ CREATE TABLE tbl_usuario(
 	
 );
 
-CREATE TABLE tbl_lendo(
-
-	id_lendo INT UNSIGNED AUTO_INCREMENT NOT NULL,
-	usuario_id INT UNSIGNED NOT NULL,
-	livro_id INT UNSIGNED NOT NULL,
-	PRIMARY KEY(id_lendo),
-	FOREIGN KEY(usuario_id) REFERENCES tbl_usuario(id_usuario),
-	FOREIGN KEY(livro_id) REFERENCES tbl_livro(id_livro)
-	
-);
-
-CREATE TABLE tbl_leu(
-
-	id_leu INT UNSIGNED AUTO_INCREMENT NOT NULL,
-	usuario_id INT UNSIGNED NOT NULL,
-	livro_id INT UNSIGNED NOT NULL,
-	PRIMARY KEY(id_leu),
-	FOREIGN KEY(usuario_id) REFERENCES tbl_usuario(id_usuario),
-	FOREIGN KEY(livro_id) REFERENCES tbl_livro(id_livro)
-	
-);
-
 CREATE TABLE tbl_amigo( /* Caras eu não sei se é assim que funciona mas pra mim é a forma mais prática*/ 
 
 	id_amigo INT UNSIGNED AUTO_INCREMENT NOT NULL,
@@ -132,17 +128,6 @@ CREATE TABLE tbl_amigo( /* Caras eu não sei se é assim que funciona mas pra mi
 	PRIMARY KEY(id_amigo),
 	FOREIGN KEY(usuario_id) REFERENCES tbl_usuario(id_usuario),
 	FOREIGN KEY(amigo_id) REFERENCES tbl_usuario(id_usuario)
-	
-);
-
-CREATE TABLE tbl_lista_desejo(
-
-	id_lista_desejo INT UNSIGNED AUTO_INCREMENT NOT NULL,
-	livro_id INT UNSIGNED NOT NULL,
-	usuario_id INT UNSIGNED NOT NULL,
-	PRIMARY KEY(id_lista_desejo),
-	FOREIGN KEY(livro_id) REFERENCES tbl_livro(id_livro),
-	FOREIGN KEY(usuario_id) REFERENCES tbl_usuario(id_usuario)
 	
 );
 
@@ -163,7 +148,8 @@ CREATE TABLE tbl_notificacoes(
    ALTER TABLE tbl_notificacoes ADD tipo INT NOT NULL AFTER id_notificacoes;
    ALTER TABLE tbl_notificacoes CHANGE mensagem mensagem VARCHAR(50) NOT NULL; 
    ALTER TABLE tbl_notificacoes CHANGE visualizado visualizado VARCHAR(5) NOT NULL; 
-   ALTER TABLE tbl_notificacoes ADD data_enviada DATETIME NOT NULL AFTER usuario_id;*/
+   ALTER TABLE tbl_notificacoes ADD data_enviada DATETIME NOT NULL AFTER usuario_id;
+*/
 
 CREATE TABLE tbl_lista_banidos(
 

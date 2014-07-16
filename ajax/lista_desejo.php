@@ -17,15 +17,15 @@
 			
 			
 			//Pesquisa da lista de desejo do site
-			$campos_lista = "livros_desejo.id_lista_desejo As id_lista,id_livro,imagem_livros,livro.nome AS Livro,edicao,autor.nome AS Autor,editora.nome As Editora";
-			$tabelas_lista = "tbl_lista_desejo livros_desejo INNER JOIN tbl_livro livro INNER JOIN tbl_editora editora INNER JOIN tbl_autor autor ON id_livro = livro_id AND id_editora = editora_id AND id_autor = autor_id";
-			$condição_lista = "id_lista_desejo > ".$id." AND usuario_id = ".$_SESSION['id']." ORDER BY id_lista_desejo LIMIT 6";
+			$campos_lista = "marcacao.id_marcacao As id_lista,id_livro,imagem_livros,livro.nome AS Livro,edicao,autor.nome AS Autor,editora.nome As Editora";
+			$tabelas_lista = "tbl_marcacao marcacao INNER JOIN tbl_livro livro INNER JOIN tbl_editora editora INNER JOIN tbl_autor autor ON id_livro = livro_id AND id_editora = editora_id AND id_autor = autor_id";
+			$condição_lista = "id_marcacao > ".$id." AND usuario_id = ".$_SESSION['id']." AND tipo = 1 ORDER BY id_marcacao LIMIT 6";
 			
 			$pesquisar_lista_desejo = new Pesquisar($tabelas_lista,$campos_lista,$condição_lista);
 			$resultado_lista_desejo = $pesquisar_lista_desejo->pesquisar();
 			
 			//Pesquisa a quantidade de livros na lista de desejo no banco de dados
-			$pesquisar_quantidade_lista_desejo = new Pesquisar("tbl_lista_desejo ","COUNT(id_lista_desejo) As Quantidade","id_lista_desejo > ".$id." AND usuario_id = ".$_SESSION['id']);
+			$pesquisar_quantidade_lista_desejo = new Pesquisar("tbl_marcacao ","COUNT(id_marcacao) As Quantidade","id_marcacao > ".$id." AND tipo = 1 AND usuario_id = ".$_SESSION['id']);
 			$resultado_quantidade_lista_desejo = $pesquisar_quantidade_lista_desejo->pesquisar();			
 			$array_quantidade_lista_desejo = mysql_fetch_assoc($resultado_quantidade_lista_desejo);
 			$quantidade_lista_desejo = $array_quantidade_lista_desejo['Quantidade'];
@@ -100,20 +100,20 @@
 			$id = $_GET['lista'];
 			
 			//Pesquisa da lista de desejo do site
-			$campos_lista = "livros_desejo.id_lista_desejo As id_lista,id_livro,imagem_livros,livro.nome AS Livro,edicao,autor.nome AS Autor,editora.nome As Editora";
-			$tabelas_lista = "tbl_lista_desejo livros_desejo INNER JOIN tbl_livro livro INNER JOIN tbl_editora editora INNER JOIN tbl_autor autor ON id_livro = livro_id AND id_editora = editora_id AND id_autor = autor_id";
-			$condição_lista = "id_lista_desejo >= ".$id." AND usuario_id = ".$_SESSION['id']." ORDER BY id_lista_desejo LIMIT 6";
+			$campos_lista = "marcacao.id_marcacao As id_lista,id_livro,imagem_livros,livro.nome AS Livro,edicao,autor.nome AS Autor,editora.nome As Editora";
+			$tabelas_lista = "tbl_marcacao marcacao INNER JOIN tbl_livro livro INNER JOIN tbl_editora editora INNER JOIN tbl_autor autor ON id_livro = livro_id AND id_editora = editora_id AND id_autor = autor_id";
+			$condição_lista = "id_marcacao >= ".$id." AND usuario_id = ".$_SESSION['id']." AND tipo = 1 ORDER BY id_marcacao LIMIT 6";
 			
 			$pesquisar_lista_desejo = new Pesquisar($tabelas_lista,$campos_lista,$condição_lista);
 			$resultado_lista_desejo = $pesquisar_lista_desejo->pesquisar();
 		
 			$id_antigo = "";
 			//Pesquisa a quantidade de livros na lista de desejo no banco de dados
-			$pesquisar_id = new Pesquisar("tbl_lista_desejo ","id_lista_desejo","id_lista_desejo < ".$id." ORDER BY id_lista_desejo DESC");
+			$pesquisar_id = new Pesquisar("tbl_marcacao ","id_marcacao","id_marcacao < ".$id." AND tipo = 1 ORDER BY id_marcacao DESC");
 			$resultado_id = $pesquisar_id->pesquisar();			
 			while($ids=mysql_fetch_assoc($resultado_id))
 			{
-				$id_antigo = $ids['id_lista_desejo'];
+				$id_antigo = $ids['id_marcacao'];
 			}
 			
 			$return = "";

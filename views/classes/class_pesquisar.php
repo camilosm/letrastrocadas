@@ -16,7 +16,7 @@ class Pesquisar
 	public function pesquisar()
 	{
 		$sql = "SELECT $this->campos FROM $this->tabela WHERE $this->condicao"; 
-
+		
 		$resultado = mysql_query($sql) or die(mysql_error());
 		
 		return $resultado;
