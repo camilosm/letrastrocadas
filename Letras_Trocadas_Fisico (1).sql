@@ -144,7 +144,7 @@ CREATE TABLE tbl_notificacoes(
 	
 );
 
-/* ALTER TABLE tbl_notificacoes ADD visualizado VARCHAR(5) NOT NULL;
+/* ALTER TABLE tbl_notificacoes CHANGE visualizado visualizado VARCHAR(5) NOT NULL;
    ALTER TABLE tbl_notificacoes ADD tipo INT NOT NULL AFTER id_notificacoes;
    ALTER TABLE tbl_notificacoes CHANGE mensagem mensagem VARCHAR(50) NOT NULL; 
    ALTER TABLE tbl_notificacoes CHANGE visualizado visualizado VARCHAR(5) NOT NULL; 
@@ -261,17 +261,20 @@ CREATE TABLE tbl_denuncias(
 	id_denuncias INT UNSIGNED AUTO_INCREMENT NOT NULL,
 	usuario_denunciado_id INT UNSIGNED NOT NULL,
 	motivo VARCHAR(255) NOT NULL,
-	status INT NOT NULL,
+	status INT NOT NULL, /* Caso aberto = 1 ,Caso Fechado = 2 */
+	data DATE NOT NULL,
 	PRIMARY KEY(id_denuncias),
 	FOREIGN KEY(usuario_denunciado_id) REFERENCES tbl_usuario(id_usuario)
 
 );
 
+/* ALTER TABLE tbl_denuncias ADD data DATE NOT NULL; */
+
 CREATE TABLE tbl_motivos(
 
 	id_motivo INT UNSIGNED AUTO_INCREMENT NOT NULL,
 	descricao CHAR(2) NOT NULL,
-	penalidade INT NOT NULL,
+	penalidade INT NOT NULL, /* 1 = Banir do site por 1 mês, 2 =  emitir aviso, 3 = banir email do usuário de cadastrar novamente e desativar sua conta */ 
 	PRIMARY KEY(id_motivo)
 
 );
