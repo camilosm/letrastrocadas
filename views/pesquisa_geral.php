@@ -32,6 +32,9 @@
 			<section class="panel-heading"><h4>Editoras</h4></section>
 			<section class="panel-body">
 				
+				
+				
+				
 			</section>
 		</section>
 	</section>
