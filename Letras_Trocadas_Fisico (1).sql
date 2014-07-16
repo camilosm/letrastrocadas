@@ -76,18 +76,6 @@ CREATE TABLE tbl_livro(
 	
 );
 
-CREATE TABLE tbl_marcacao(
-
-	id_marcacao INT UNSIGNED AUTO_INCREMENT NOT NULL,
-	usuario_id INT UNSIGNED NOT NULL,
-	livro_id INT UNSIGNED NOT NULL,
-	tipo INT NOT NULL, /* 1 = Quero Ler; 2 = Lido; 3 = Lendo. */
-	PRIMARY KEY(id_marcacao),
-	FOREIGN KEY(usuario_id) REFERENCES tbl_usuario(id_usuario),
-	FOREIGN KEY(livro_id) REFERENCES tbl_livro(id_livro)
-
-);
-
 CREATE TABLE tbl_usuario(
 
 	id_usuario INT UNSIGNED AUTO_INCREMENT NOT NULL,
@@ -118,6 +106,18 @@ CREATE TABLE tbl_usuario(
 	bairro VARCHAR(100) NULL,
 	PRIMARY KEY(id_usuario)
 	
+);
+
+CREATE TABLE tbl_marcacao(
+
+	id_marcacao INT UNSIGNED AUTO_INCREMENT NOT NULL,
+	usuario_id INT UNSIGNED NOT NULL,
+	livro_id INT UNSIGNED NOT NULL,
+	tipo INT NOT NULL, /* 1 = Quero Ler; 2 = Lido; 3 = Lendo. */
+	PRIMARY KEY(id_marcacao),
+	FOREIGN KEY(usuario_id) REFERENCES tbl_usuario(id_usuario),
+	FOREIGN KEY(livro_id) REFERENCES tbl_livro(id_livro)
+
 );
 
 CREATE TABLE tbl_amigo( /* Caras eu não sei se é assim que funciona mas pra mim é a forma mais prática*/ 
