@@ -5,16 +5,20 @@
 		
 		$banco = new Banco();
 		
+		session_start();
+		
 		$id = $_SESSION['id'];
 		
 		$id_outro_usu = $_GET['cod'];
 		
 		if ($id == $id_outro_usu)
 		{		
+		
+			/* Pesquisa de dados Básicos usuário */
 		    $pesquisa_dados = new Pesquisar("tbl_usuario","id_usuario,nome,email,foto,idade,avaliacoes_negativas,avaliacoes_positivas,uf,cidade,genero_favorito", " id_usuario = $id");
 		    $resul_pesquisa = $pesquisa_dados->pesquisar();
-		    $pesq = mysql_fetch_array($resul_pesquisa);
-		    
+		    $pesq = mysql_fetch_assoc($resul_pesquisa);
+			
 		    $nome = $pesq['nome'];
 		    $foto = $pesq['foto'];
 		    $idade = $pesq['idade'];
@@ -25,6 +29,48 @@
 		    $avaliacoes_positivas = $pesq['avaliacoes_positivas'];
 		    $id_p = $pesq['id_usuario'];
 		    $email_p = $pesq['email'];
+			
+			/* Pesquisa de livros que o usuário disponibilizou */ 
+			
+			$pesquisa_dados_lista_livros = new Pesquisar("tbl_usuario usu JOIN tbl_livro liv JOIN tbl_lista_livros list_liv ON list_liv.livro_id = id_livro AND list_liv.usuario_id = id_usuario","imagem_livros,liv.nome,id_lista_livros","id_usuario = $id GROUP BY id_lista_livros");
+			$resul_pesquisa_lista_livros = $pesquisa_dados_lista_livros->pesquisar();
+			$pesq_lista_livro = mysql_fetch_assoc($resul_pesquisa_lista_livros);
+		    
+			$imagem_lista_livro = $pesq_lista_livro['imagem_livros'];
+			$nome_livro_lista_livro = $pesq_lista_livro['liv.nome'];
+			$id_lista_livro = $pesq_lista_livro['id_lista_livros'];
+			
+			/* Pesquisa de livros que quer ler */
+			
+			$pesquisa_dados_lista_desejo = new Pesquisar("tbl_usuario usu JOIN tbl_livro liv JOIN tbl_lista_desejo list_des ON list_des.livro_id = id_livro AND list_des.usuario_id = id_usuario","imagem_livros,liv.nome,id_lista_desejo","id_usuario = $id GROUP BY id_lista_desejo");
+			$resul_pesquisa_lista_desejo = $pesquisa_dados_lista_desejo->pesquisar();
+			$pesq_lista_desejo = mysql_fetch_assoc($resul_pesquisa_lista_desejo);
+		    
+			$imagem_lista_desejo = $pesq_lista_desejo['imagem_livros'];
+			$nome_livro_lista_desejo = $pesq_lista_desejo['liv.nome'];
+			$id_lista_desejo = $pesq_lista_desejo['id_lista_desejo'];
+			
+			/* Pesquisa de livros que já leu */
+			
+			$pesquisa_dados_leu = new Pesquisar("tbl_usuario usu JOIN tbl_livro liv JOIN tbl_leu leu ON leu.livro_id = id_livro AND leu.usuario_id = id_usuario","imagem_livros,liv.nome,id_leu","id_usuario = $id GROUP BY id_leu");
+			$resul_pesquisa_leu = $pesquisa_dados_leu->pesquisar();
+			$pesq_lista_leu = mysql_fetch_assoc($resul_pesquisa_leu);
+		    
+			$imagem_leu = $pesq_lista_leu['imagem_livros'];
+			$nome_leu = $pesq_lista_leu['liv.nome'];
+			$id_leu = $pesq_lista_leu['id_leu'];
+			
+			/* Pesquisa de livros que está lendo */ 
+			
+			$pesquisa_dados_lendo = new Pesquisar("tbl_usuario usu JOIN tbl_livro liv JOIN tbl_lendo lendo ON lendo.livro_id = id_livro AND lendo.usuario_id = id_usuario","imagem_livros,liv.nome,id_lendo","id_usuario = $id GROUP BY id_lendo");
+			$resul_pesquisa_lendo = $pesquisa_dados_lendo->pesquisar();
+			$pesq_lista_lendo = mysql_fetch_assoc($resul_pesquisa_lendo);
+		    
+			$imagem_lendo = $pesq_lista_lendo['imagem_livros'];
+			$nome_lendo = $pesq_lista_lendo['liv.nome'];
+			$id_lendo = $pesq_lista_lendo['id_lendo'];
+			
+			
 		}
 		else if($id != $id_outro_usu)
 		{
@@ -92,39 +138,69 @@
 					  <li class="active"><a href="#livrosdisponiveis" data-toggle="tab"><span class="glyphicon glyphicon-book"></span> Livros Disponiveis</a></li>
 					  <li><a href="#jali" data-toggle="tab"><span class="glyphicon glyphicon-book"></span> Já li</a></li>
 					  <li><a href="#queroler" data-toggle="tab"><span class="glyphicon glyphicon-book"></span> Quero Ler</a></li>
+					  <li><a href="#lendo" data-toggle="tab"><span class="glyphicon glyphicon-book"></span> Lendo </a></li>
 					</ul>
 					<div id="myTabContent" class="tab-content">
 					  <div class="tab-pane fade active in" id="livrosdisponiveis">
-				   <img src = "content/imagens/got1.jpg" alt = "got1" height = "177px" width = "120px">
-				   <img src = "content/imagens/harry-potter-e-a-pedra-filosofal.jpg" alt = "harry_potter" height = "177px" width = "120px">
-						 <img src = "" alt = ""> 
-						 <img src = "" alt = ""> 
-						 <img src = "" alt = ""> 
-						 <img src = "" alt = ""> 
-						 <img src = "" alt = ""> 
-						 <img src = "" alt = ""> 
+		 <?php
+				if ($resul_pesquisa_lista_livros != 0){
+					while($pesq_lista_livro = mysql_fetch_assoc($resul_pesquisa_lista_livros))
+						{
+						echo
+							'<img src ="'.$imagem_lista_livro.'" alt = "'.$nome_livro_lista_livro.'" height = "177px" width = "120px">';
+						}
+				}
+				else
+				{
+					echo 'Nenhum livro está disponível';
+				}
+		?>
 					  </div>
 					  <div class="tab-pane fade" id="jali">
-				   <img src = "content/imagens/pj1.jpg" alt = "percy_jackson" height = "177px" width = "120px">
-				   <img src = "content/imagens/louco_aos_poucos.jpg" alt = "louco_aos_poucos" height = "177px" width = "120px">
-						 <img src = "" alt = ""> 
-						 <img src = "" alt = ""> 
-						 <img src = "" alt = ""> 
-						 <img src = "" alt = ""> 
-						 <img src = "" alt = ""> 
-						 <img src = "" alt = ""> 
+		 <?php
+				if ($resul_pesquisa_leu != 0){
+					while($pesq_lista_leu = mysql_fetch_assoc($resul_pesquisa_leu))
+						{
+						echo
+							'<img src ="'.$imagem_leu.'" alt = "'.$nome_leu.'" height = "177px" width = "120px">';
+						}
+				}
+				else
+				{
+					echo 'Nenhum livro está disponível';
+				}
+		?>
 					  </div>
 					  <div class="tab-pane fade" id="queroler">
-						<img src="" alt = "">
-				   <img src = "content/imagens/50_tons_cinza.jpg" alt = "50tons" height = "177px" width = "120px">
-						 <img src = "" alt = ""> 
-						 <img src = "" alt = ""> 
-						 <img src = "" alt = ""> 
-						 <img src = "" alt = ""> 
-						 <img src = "" alt = ""> 
-						 <img src = "" alt = ""> 
+		 <?php
+				if ($resul_pesquisa_lista_desejo != 0){
+					while($pesq_lista_desejo = mysql_fetch_assoc($resul_pesquisa_lista_desejo))
+						{
+						echo
+							'<img src ="'.$imagem_lista_desejo.'" alt = "'.$nome_livro_lista_desejo.'" height = "177px" width = "120px">';
+						}
+				}
+				else
+				{
+					echo 'Nenhum livro está disponível';
+				}
+		?>
 					  </div>
-					  
+					<div class="tab-pane fade" id="lendo">
+		 <?php
+				if ($resul_pesquisa_lendo != 0){
+					while($pesq_lista_lendo = mysql_fetch_assoc($resul_pesquisa_lendo))
+						{
+						echo
+							'<img src ="'.$imagem_lendo.'" alt = "'.$nome_lendo.'" height = "177px" width = "120px">';
+						}
+				}
+				else
+				{
+					echo 'Nenhum livro está disponível';
+				}
+		?>
+					</div>					  
 					</div>
 				  </td>
 				  			  
