@@ -1,12 +1,29 @@
 <script type='text/javascript'>
 </script>
 <?php
-	
-	// Verifica se o botão foi acionado
-	if(isset($_POST['entrar']))
+	if(empty($_SESSION['nivel_acesso']))
 	{
-		//Inclui a página responsável or realizar o login
-		include("cadastrar_usuario.php");
+		// Verifica se o botão foi acionado
+		if(isset($_POST['entrar']))
+		{
+			//Inclui a página responsável or realizar o login
+			include("cadastrar_usuario.php");
+		}
+	}
+	else
+	{
+		if($_SESSION['nivel_acesso'] == 1)
+		{
+			header('Location:?url=index_usuario');
+		}
+		else if($_SESSION['nivel_acesso'] == 2)
+		{
+			header('Location:?url=home_admin');
+		}
+		else
+		{
+			header('Location:?url=home_visitante');
+		}
 	}
 ?>
 

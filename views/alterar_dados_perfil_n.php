@@ -3,8 +3,6 @@
 	
 	if(isset($_POST['alterarDados']))
 	{
-
-		
 		$id = $_SESSION['id'];
 		
 		include("class_editar_caracteres.php");

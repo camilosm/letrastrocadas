@@ -1,14 +1,28 @@
 <?php
 
-	// Include na classes de conexão com o banco de dados
-	include("classes/class_banco.php");
-
-	//Instanciando o banco de dados
-	$banco_dados = new Banco();
-	// Verifica  se o botão foi acionado
-	if(isset($_POST['cadastrar']))
+	if($_SESSION['nivel_acesso'] == 2)
 	{
-		include("php_cadastrar_administrador.php");
+		// Include na classes de conexão com o banco de dados
+		include("classes/class_banco.php");
+
+		//Instanciando o banco de dados
+		$banco_dados = new Banco();
+		// Verifica  se o botão foi acionado
+		if(isset($_POST['cadastrar']))
+		{
+			include("php_cadastrar_administrador.php");
+		}
+	}
+	else
+	{
+		if($_SESSION['nivel_acesso'] == 1)
+		{
+			header('Location:?url=index_usuario');
+		}
+		else
+		{
+			header('Location:?url=home_visitante');
+		}
 	}
 	
 ?>

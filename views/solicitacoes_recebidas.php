@@ -99,8 +99,16 @@
 		
 		
 	}
+	}
 	else
 	{
-		header("location: ?url=sem_permissão");
+		if($_SESSION['nivel_acesso'] == 2)
+		{
+			header('Location:?url=home_admin');
+		}
+		else
+		{
+			header('Location:?url=home_visitante');
+		}
 	}
 ?>

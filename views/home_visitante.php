@@ -1,5 +1,6 @@
 <?php
-
+	if(empty($_SESSION['nivel_acesso']))
+	{
 		include("classes/class_banco.php");
 		include("classes/class_pesquisar.php");
 		
@@ -10,7 +11,22 @@
 		$condicao = "1=1 ORDER BY quantidade LIMIT 6";
 		$pesquisar_destaques = new Pesquisar($tabela,$campos,$condicao);
 		$resultado = $pesquisar_destaques->pesquisar();
-
+	}
+	else
+	{
+		if($_SESSION['nivel_acesso'] == 1)
+		{
+			header('Location:?url=index_usuario');
+		}
+		else if($_SESSION['nivel_acesso'] == 2)
+		{
+			header('Location:?url=home_admin');
+		}
+		else
+		{
+			header('Location:?url=home_visitante');
+		}
+	}
 ?>
 <article>
 	<section id="carousel-example-generic" class="carousel slide" data-ride="carousel">

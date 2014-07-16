@@ -1,44 +1,57 @@
 <?php
 	
 	session_start();
-	
-	include("classes/class_pesquisar.php");
-	include("classes/class_banco.php");
-	
-	$banco = new Banco();
-	
-	$id = $_SESSION['id'];
-
-	//Pega os dados para mostrar no formulário
-	
-	$pesquisa_dados = new Pesquisar("tbl_usuario","data_nasc,foto,nome,genero_favorito,logradouro,cidade,bairro,cep,uf,complemento,numero"," id_usuario = $id;");
-	$resultado_pesquisa_dados = $pesquisa_dados->pesquisar();
-	$dados_usu = mysql_fetch_assoc($resultado_pesquisa_dados);
-	
-	
-	$pesquisa_generos = new Pesquisar("tbl_categoria","*","1=1");
-	$resul_pesq_genero = $pesquisa_generos->pesquisar();
-	$generos = mysql_fetch_assoc($resul_pesq_genero);
-	
-	$foto_p = $dados_usu["foto"];
-	$nome_p = $dados_usu["nome"];
-	$data_nasc_p = $dados_usu["data_nasc"];
-	$genero_fav_p = $dados_usu["genero_favorito"];
-	$logradouro_p = $dados_usu["logradouro"];
-	$numero_p = $dados_usu["numero"];
-	$cep_p = $dados_usu["cep"];
-	$uf_p = $dados_usu["uf"];
-	$complemento_p = $dados_usu["complemento"];
-	$cidade_p = $dados_usu["cidade"];
-	$bairro_p = $dados_usu["bairro"];
-	
-
-	$foto = $foto != "" ? $foto : "content/imagens/fotos_perfil/avatar-250.png";
-	// Verifica se o botão foi acionado
-	
-	if(isset($_POST['alterarDados']))
+	if($_SESSION['nivel_acesso'] == 1)
 	{
-		include("alterar_dados_perfil_n.php");
+		include("classes/class_pesquisar.php");
+		include("classes/class_banco.php");
+		
+		$banco = new Banco();
+		
+		$id = $_SESSION['id'];
+
+		//Pega os dados para mostrar no formulário
+		
+		$pesquisa_dados = new Pesquisar("tbl_usuario","data_nasc,foto,nome,genero_favorito,logradouro,cidade,bairro,cep,uf,complemento,numero"," id_usuario = $id;");
+		$resultado_pesquisa_dados = $pesquisa_dados->pesquisar();
+		$dados_usu = mysql_fetch_assoc($resultado_pesquisa_dados);
+		
+		
+		$pesquisa_generos = new Pesquisar("tbl_categoria","*","1=1");
+		$resul_pesq_genero = $pesquisa_generos->pesquisar();
+		$generos = mysql_fetch_assoc($resul_pesq_genero);
+		
+		$foto_p = $dados_usu["foto"];
+		$nome_p = $dados_usu["nome"];
+		$data_nasc_p = $dados_usu["data_nasc"];
+		$genero_fav_p = $dados_usu["genero_favorito"];
+		$logradouro_p = $dados_usu["logradouro"];
+		$numero_p = $dados_usu["numero"];
+		$cep_p = $dados_usu["cep"];
+		$uf_p = $dados_usu["uf"];
+		$complemento_p = $dados_usu["complemento"];
+		$cidade_p = $dados_usu["cidade"];
+		$bairro_p = $dados_usu["bairro"];
+		
+
+		$foto = $foto != "" ? $foto : "content/imagens/fotos_perfil/avatar-250.png";
+		// Verifica se o botão foi acionado
+		
+		if(isset($_POST['alterarDados']))
+		{
+			include("alterar_dados_perfil_n.php");
+		}
+	}
+	else
+	{
+		if($_SESSION['nivel_acesso'] == 2)
+		{
+			header('Location:?url=home_admin');
+		}
+		else
+		{
+			header('Location:?url=home_visitante');
+		}
 	}
 ?>
 <script>

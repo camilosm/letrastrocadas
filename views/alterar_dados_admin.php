@@ -1,11 +1,26 @@
 <?php
 	// Verifica se o botão foi acionado
-	if(isset($_POST['alterar_dados_admin']))
+	session_start();
+	if($_SESSION['nivel_acesso'] == 2)
 	{
-		include("classes/class_banco.php");
-		//Instancia e faz conexão com o banco de dados
-		$banco = new Banco();
-		include("alterar_dados_admin_n.php");
+		if(isset($_POST['alterar_dados_admin']))
+		{
+			include("classes/class_banco.php");
+			//Instancia e faz conexão com o banco de dados
+			$banco = new Banco();
+			include("alterar_dados_admin_n.php");	
+		}
+	}
+	else
+	{
+		if($_SESSION['nivel_acesso'] == 1)
+		{
+			header('Location:?url=index_usuario');
+		}
+		else
+		{
+			header('Location:?url=home_visitante');
+		}
 	}
 ?>
 

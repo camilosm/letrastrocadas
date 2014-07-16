@@ -1,14 +1,23 @@
-	<header>
-		<?php session_start(); @include('views/base/header_admin.php'); ?>
-	</header>
-
 <?php
-
+	
+	if($_SESSION['nivel_acesso'] == 2)
+	{
 		if(isset($_POST['alterarSenha']))
 		{
 		    include('alterar_senha_admin_n.php');
 		}
-
+	}
+	else
+	{
+		if($_SESSION['nivel_acesso'] == 1)
+		{
+			header('Location:?url=index_usuario');
+		}
+		else
+		{
+			header('Location:?url=home_visitante');
+		}
+	}
 ?>
 
 	
