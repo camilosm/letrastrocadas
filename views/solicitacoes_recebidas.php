@@ -95,10 +95,7 @@
 				</ul>
 			</section>
 		</section>';
-		
-		
-		
-	}
+
 	}
 	else
 	{

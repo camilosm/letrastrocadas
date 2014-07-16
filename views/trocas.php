@@ -44,7 +44,6 @@
 			</section>
 		</section>';
 	}
-	}
 	else
 	{
 		if($_SESSION['nivel_acesso'] == 2)
