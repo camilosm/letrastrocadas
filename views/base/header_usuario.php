@@ -36,7 +36,7 @@
 			<ul class="nav navbar-nav navbar-right">
 				<ul class="nav navbar-nav">
 				<li><a href="?url=index_usuario"><span class="glyphicon glyphicon-home"></span>&nbsp Home</a></li>
-				<li><a href="?url=perfil_usuario"><span class="glyphicon glyphicon-user"></span>&nbsp Perfil</a></li>
+				<li><a href="?url=perfil_individual"><span class="glyphicon glyphicon-user"></span>&nbsp Perfil</a></li>
 				   <li class="dropdown"> 
 					 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-book"></span>&nbsp Meus livros<b class="caret"></b></a>
 						  <ul class="dropdown-menu">
