@@ -9,7 +9,7 @@
 		
 		$bd = new Banco();
 		
-		$pesquisar_usu_recente = new Pesquisar("tbl_usuario","nome, email, idade, uf, cidade, data_criacao","DATE_FORMAT(data_criacao, '%m-%d') <= DATE_FORMAT(NOW(),'%m-%d') ORDER BY data_criacao ASC");
+		$pesquisar_usu_recente = new Pesquisar("tbl_usuario","nome, email, idade, uf, cidade, data_criacao","DATE_FORMAT(data_criacao, '%m-%d') <= DATE_FORMAT(NOW(),'%m-%d') ORDER BY data_criacao desc");
 		$resul_pesquisar_usu_recente = $pesquisar_usu_recente->pesquisar();
 		
 		$pdf = new FPDF();		
