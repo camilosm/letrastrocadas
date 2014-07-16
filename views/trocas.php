@@ -24,7 +24,6 @@
 		
 		while($trocas=mysql_fetch_assoc($resultado_trocas))
 		{
-			echo $trocas['usuario_solicitador'];
 			$pesquisar_nome_usuario = new Pesquisar('tbl_usuario','nome',"id_usuario = ".$trocas['usuario_solicitador']);
 			$resultado_nome = $pesquisar_nome_usuario->pesquisar();
 			while($resultado = mysql_fetch_assoc($resultado_nome))
