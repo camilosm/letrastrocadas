@@ -120,10 +120,11 @@
 		<section class="panel-body">
 			<table id = "pag_inicial_livros_ultimos_disponibilizados" border = 0px>
 				<?php
-				
+						$quantidade_pagina = 0;
 						$id_ultima_ultimos = array();
 						while($ultimos=mysql_fetch_assoc($resultado_ultimos))
 						{
+							$quantidade_pagina++;
 							$id_ultima_ultimos[] = $ultimos['id_lista_livros'];
 							echo'
 							<tr id = "desejados_linha">
@@ -163,16 +164,13 @@
 								</td>
 							</tr>';
 						}
-						if($quantidade_destaque < 18)
-						{
-							if($quantidade_pagina < 6)
-							{
+						if($quantidade_ultimos < 18)
+						{	
 								echo '
 									<section class="alert alert-dismissable alert-info">
 										<button type="button" class="close" data-dismiss="alert">×</button>
 										<strong>Nos ajude!</strong> Ainda temos poucos livros em nosso site, disponibilize um <a href="?url=passo-a-passo-pesquisa" class="alert-link">aqui</a> em um simples passo a passo.
 									</section>';
-							}
 						}
 						
 
