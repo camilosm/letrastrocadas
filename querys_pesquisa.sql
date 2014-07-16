@@ -180,8 +180,49 @@ ORDER BY COUNT(*) DESC;
 /* Usuários que mais trocam livros */ 
 
 
-
 /* Quantidade de livros trocados por mês */ 
+
+/* Perfil do usuário */
+
+SELECT id_usuario,nome,email,foto,idade,
+avaliacoes_negativas,avaliacoes_positivas,
+uf,cidade,genero_favorito
+FROM tbl_usuario
+WHERE id_usuario = ;
+
+SELECT imagem_livros,liv.nome,id_lista_livros
+FROM tbl_usuario usu JOIN tbl_livro liv 
+JOIN tbl_lista_livros list_liv 
+ON list_liv.livro_id = id_livro 
+AND list_liv.usuario_id = id_usuario
+WHERE id_usuario = 1 GROUP BY id_lista_livros;
+
+SELECT imagem_livros,liv.nome,id_lista_desejo
+FROM tbl_usuario usu JOIN tbl_livro liv
+JOIN tbl_lista_desejo list_des
+ON list_des.livro_id = id_livro
+AND list_des.usuario_id = id_usuario
+WHERE id_usuario = 1 GROUP BY id_lista_desejo;
+
+SELECT imagem_livros,liv.nome,id_leu
+FROM tbl_usuario usu JOIN tbl_livro liv
+JOIN tbl_leu leu
+ON leu.livro_id = id_livro
+AND leu.usuario_id = id_usuario
+WHERE id_usuario = 1 GROUP BY id_leu;
+
+SELECT imagem_livros,liv.nome,id_lendo
+FROM tbl_usuario usu JOIN tbl_livro liv
+JOIN tbl_lendo lendo
+ON lendo.livro_id = id_livro
+AND lendo.usuario_id = id_usuario
+WHERE id_usuario = 1 GROUP BY id_lendo;
+
+
+
+
+
+
 
 
 
