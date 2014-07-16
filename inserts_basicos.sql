@@ -37,5 +37,4 @@ transformar em uma conquistadora impiedosa?',1,0,0,0,672,2,2,10),
 O garoto-problema Percy Jackson é um deles. Tem experiências estranhas em que deuses e monstros mitológicos parecem saltar das páginas dos livros direto para a sua vida. Pior que isso: algumas dessas criaturas estão bastante irritadas. Um artefato precioso foi roubado do Monte Olimpo e Percy é o principal suspeito. Para restaurar a paz, ele e seus amigos - jovens heróis modernos - terão de fazer mais do que capturar o verdadeiro ladrão: precisam elucidar uma traição mais ameaçadora que a fúria dos deuses.',
 1,0,0,0,400,1,6,10);
 
-
 INSERT INTO tbl_livros_trocados VALUES (NULL,9,1),(NULL,11,2),(NULL,1,3),(NULL,8,4),(NULL,15,5),(NULL,11,6);
