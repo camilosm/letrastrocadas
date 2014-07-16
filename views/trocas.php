@@ -9,11 +9,10 @@
 		
 		$bd = new Banco();
 		
-		$pesquisar_novas = new Pesquisar('tbl_notificacoes','*','tipo = 1 AND visualizado = "false" AND usuario_id = '.$_SESSION['id']);
-		$resultado_novas = $pesquisar_novas->pesquisar();
+		$tabelas = 'tbl_solicitacao_troca solicitacao INNER JOIN tbl_usuario usuario INNER JOIN tbl_lista_livros lista INNER JOIN tbl_livro livro ON id_usuario = usuario_solicitador AND id_livro = livro_id AND id_lista_livros = lista_id';
 		
-		$pesquisar_antigas = new Pesquisar('tbl_notificacoes','*','tipo = 1 AND visualizado = "true" AND usuario_id = '.$_SESSION['id']);
-		$resultado_antigas = $pesquisar_antigas->pesquisar();
+		$pesquisar_trocas = new Pesquisar($tabelas,'livro.nome As livro, solicitacao.*',"aceito <> '' AND  usuario_solicitador = ".$_SESSION['id']);
+		$resultado_trocas = $pesquisar_trocas->pesquisar();
 		
 		echo '
 		<section class="panel panel-primary" style="margin-left:5%; width:70%;">
@@ -23,24 +22,22 @@
 			<section class="panel-body">
 				<ul class="list-group">';
 		
-		while($notificações_novas=mysql_fetch_assoc($resultado_novas))
+		while($trocas=mysql_fetch_assoc($resultado_trocas))
 		{
-			echo '
-			<li class="list-group-item" style="background-color:#DCDCDC;">
-				<p>'.utf8_encode($notificações_novas['mensagem']).'<BR>
-				Dono do livro : 
-				</p>
-			</li>';
-			 
-			$alterar_status_notificações = new Alterar('tbl_notificacoes','visualizado = "true"','id_notificacoes ='.$notificações_novas['id_notificacoes']);
-			$resultado = $alterar_status_notificações->alterar();
-			 
-		}
-		while($notificações_antigas=mysql_fetch_assoc($resultado_antigas))
-		{
+			echo $trocas['usuario_solicitador'];
+			$pesquisar_nome_usuario = new Pesquisar('tbl_usuario','nome',"id_usuario = ".$trocas['usuario_solicitador']);
+			$resultado_nome = $pesquisar_nome_usuario->pesquisar();
+			while($resultado = mysql_fetch_assoc($resultado_nome))
+			{
+				$nome = $resultado['nome'];
+			}
 			 echo '
 			<li class="list-group-item">
-				<p>'.utf8_encode($notificações_antigas['mensagem']).'</p>
+				<p>Usuário que solicitou : '.utf8_encode($nome).'<BR>
+				Livro solicitado : '.$trocas['livro'].'<BR>
+				Solicitação enviada no dia : '.$trocas['data_solicitacao'].'<BR>
+				Respondida no dia : '.$trocas['data_resposta'].'<BR>
+				Realizado : '.$trocas['aceito'].'</p>
 			 </li>';
 		}
 		echo '

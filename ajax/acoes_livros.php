@@ -19,15 +19,15 @@
 		switch ($tabela) 
 		{
 			case "JaLi":
-				$tabela = "tbl_tbl_leu";
+				$tipo = 2;
 				$campo = "lido";
 				break;
-			case "Lendo":
-				$tabela = "tbl_lendo";
+			case "Lendo":	
+				$tipo = 3;
 				$campo = "lendo";
 				break;
 			case "QueroLer":
-				$tabela = "tbl_lista_desejo";
+				$tipo = 1;
 				$campo = "querem_ler";
 				break;
 		}
@@ -35,13 +35,13 @@
 		switch ($acao) 
 		{
 			case "JaLi":
-				$cadastrar_ja_li = new Inserir("tbl_leu","NULL,".$_SESSION['id'].",$id");
+				$cadastrar_ja_li = new Inserir("tbl_marcacao","NULL,".$_SESSION['id'].",$id,2");
 				$resultado = $cadastrar_ja_li->inserir();
 				if($resultado != 0)
 				{	
 					if(!empty($tabela))
 					{
-						$deletar_antigo = new Deletar("$tabela","livro_id=$id AND usuario_id =".$_SESSION['id']);
+						$deletar_antigo = new Deletar("tbl_marcacao","livro_id=$id AND tipo = $tipo AND usuario_id =".$_SESSION['id']);
 						$resposta_deletar = $deletar_antigo->deletar();
 						if($resposta_deletar != 0)
 						{
@@ -65,13 +65,13 @@
 				}
 				break;
 			case "Lendo":
-				$cadastrar_lendo = new Inserir("tbl_lendo","NULL,".$_SESSION['id'].",$id");
+				$cadastrar_lendo = new Inserir("tbl_marcacao","NULL,".$_SESSION['id'].",$id,3");
 				$resultado = $cadastrar_lendo->inserir();
 				if($resultado != 0)
 				{
 					if(!empty($tabela))
 					{
-						$deletar_antigo = new Deletar("$tabela","livro_id=$id AND usuario_id =".$_SESSION['id']);
+						$deletar_antigo = new Deletar("tbl_marcacao","livro_id=$id AND tipo = $tipo AND usuario_id =".$_SESSION['id']);
 						$resposta_deletar = $deletar_antigo->deletar();
 						if($resposta_deletar != 0)
 						{
@@ -95,13 +95,13 @@
 				}
 				break;
 			case "QueroLer":
-				$cadastrar_quero_ler = new Inserir("tbl_lista_desejo","NULL,".$_SESSION['id'].",$id");
+				$cadastrar_quero_ler = new Inserir("tbl_marcacao","NULL,".$_SESSION['id'].",$id,1");
 				$resultado = $cadastrar_quero_ler->inserir();
 				if($resultado != 0)
 				{
 					if(!empty($tabela))
 					{
-						$deletar_antigo = new Deletar("$tabela","livro_id=$id AND usuario_id =".$_SESSION['id']);
+						$deletar_antigo = new Deletar("tbl_marcacao","livro_id=$id AND tipo = $tipo AND usuario_id =".$_SESSION['id']);
 						$resposta_deletar = $deletar_antigo->deletar();
 						if($resposta_deletar != 0)
 						{
@@ -126,7 +126,7 @@
 				break;
 			case "Desmarcar":
 					if(!empty($tabela))
-					$deletar_antigo = new Deletar("$tabela","livro_id=$id AND usuario_id =".$_SESSION['id']);
+					$deletar_antigo = new Deletar("tbl_marcacao","livro_id=$id AND tipo = $tipo AND usuario_id =".$_SESSION['id']);
 					$resposta_deletar = $deletar_antigo->deletar();
 					if($resposta_deletar != 0)
 					{
