@@ -1,14 +1,31 @@
 <?php
-	
-	//Verifica se o botao foi acionado
-	if(isset($_POST['entrar']))
+	if(empty($_SESSION['nivel_acesso']))
 	{
-		//Inclui a classe da banco de dados
-		include("classes/class_banco.php");
-		//Instancia a classe
-		$banco = new Banco();
-		//Inclui a página responsável por verificar e realizar o login
-		include("verificar_login.php");
+		//Verifica se o botao foi acionado
+		if(isset($_POST['entrar']))
+		{
+			//Inclui a classe da banco de dados
+			include("classes/class_banco.php");
+			//Instancia a classe
+			$banco = new Banco();
+			//Inclui a página responsável por verificar e realizar o login
+			include("verificar_login.php");
+		}
+	}
+	else
+	{
+		if($_SESSION['nivel_acesso'] == 1)
+		{
+			header('Location:?url=index_usuario');
+		}
+		else if($_SESSION['nivel_acesso'] == 2)
+		{
+			header('Location:?url=home_admin');
+		}
+		else
+		{
+			header('Location:?url=home_visitante');
+		}
 	}
 	
 ?>

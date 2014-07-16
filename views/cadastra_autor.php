@@ -1,4 +1,5 @@
 <?php
+	
 	//Verifica se o botão foi acionado
 	if(isset($_POST['cadastrar_autor']))
 	{

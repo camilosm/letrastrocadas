@@ -4,8 +4,6 @@
 	
 	//Inicia a sessão
 	session_start();
-	
-	
 	//Verifica se o usuário tem acesso à essa página
 	if($_SESSION['nivel_acesso'] == 1)
 	{ 
@@ -48,13 +46,7 @@
 			
 	}
 	else
-	{	
-		//Emite um alerta (não tá funcioando ¬¬) pois eles não tem acesso a essa página
-		echo "
-			<script type='text/javascript'>
-				confirm('Você não tem permissão para acessar essa página');
-			</script>";
-		
+	{		
 		//Redireciona pra página principal
 		if($_SESSION['nivel_acesso'] == 2)
 		{

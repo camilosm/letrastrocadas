@@ -1,72 +1,86 @@
 <?php
-	if(isset($_POST['cadastrar_genero']))
+	if($_SESSION['nivel_acesso'] == 2)
 	{
-		include("classes/class_banco.php");
-		$banco = new Banco();
-		include("cadastro_genero.php");
-	}
-	
-	if(isset($_POST['pesquisar']))
-	{
-		include("classes/class_pesquisar.php");
-		include("classes/class_banco.php");
-		$banco = new Banco();
-		
-		$id = $_POST['id'];
-		
-			$editar_id = new EditarCaracteres($id);
-			$id = $editar_id->sanitizeStringNome($_POST['id']);
-		
-		
-		
-		$tabelas = "tbl_categoria";
-		$campos="nome";
-		$codição = "id_categoria = ".$id;
-		
-		$pesquisar_genero = new Pesquisar($tabelas,$campos,$condicao);
-		$resultado = $pesquisar_genero->pesquisar();
-		
-		while($pesquisar_genero=mysql_fetch_array($resultado))
-			{
-				$nome[] = $pesquisa['nome'];
-			}
-	}
-		
-	
-	if(isset($_POST['alterar']))
-	{
-		include("class_editar_caracteres.php");
-		
-		include("classes/class_update.php");
-		
-		
-		$id = $_GET['id'];
-		
-		$editar_id = new EditarCaracteres($id);
-		$id = $editar_id->sanitizeString($_GET['id']);
-	
-		$nome = $_POST['nome'];
-		
-		$editar_nome = new EditarCaracteres($nome);
-		$nome = $editar_nome->sanitizeString($_POST['nome']);
-	
-		$campos = "nome = '".$nome."'";
-		$codição = "id_categoria = ".$id;
-		$alterar_lista_livro = new Alterar("tbl_categoria",$campos,$codição);
-		$resultado_lista_livro = $alterar_lista_livro->alterar();
-		if($resultado == 1)
+		if(isset($_POST['cadastrar_genero']))
 		{
-								echo "<div class='alert alert-dismissable alert-success' style='width:40%;margin-left:30%;'>					  
-										<strong>Gênero alterado com sucesso!</strong>
-								</div>";
+			include("classes/class_banco.php");
+			$banco = new Banco();
+			include("cadastro_genero.php");
+		}
+		
+		if(isset($_POST['pesquisar']))
+		{
+			include("classes/class_pesquisar.php");
+			include("classes/class_banco.php");
+			$banco = new Banco();
+			
+			$id = $_POST['id'];
+			
+				$editar_id = new EditarCaracteres($id);
+				$id = $editar_id->sanitizeStringNome($_POST['id']);
+			
+			
+			
+			$tabelas = "tbl_categoria";
+			$campos="nome";
+			$codição = "id_categoria = ".$id;
+			
+			$pesquisar_genero = new Pesquisar($tabelas,$campos,$condicao);
+			$resultado = $pesquisar_genero->pesquisar();
+			
+			while($pesquisar_genero=mysql_fetch_array($resultado))
+				{
+					$nome[] = $pesquisa['nome'];
+				}
+		}
+			
+		
+		if(isset($_POST['alterar']))
+		{
+			include("class_editar_caracteres.php");
+			
+			include("classes/class_update.php");
+			
+			
+			$id = $_GET['id'];
+			
+			$editar_id = new EditarCaracteres($id);
+			$id = $editar_id->sanitizeString($_GET['id']);
+		
+			$nome = $_POST['nome'];
+			
+			$editar_nome = new EditarCaracteres($nome);
+			$nome = $editar_nome->sanitizeString($_POST['nome']);
+		
+			$campos = "nome = '".$nome."'";
+			$codição = "id_categoria = ".$id;
+			$alterar_lista_livro = new Alterar("tbl_categoria",$campos,$codição);
+			$resultado_lista_livro = $alterar_lista_livro->alterar();
+			if($resultado == 1)
+			{
+									echo "<div class='alert alert-dismissable alert-success' style='width:40%;margin-left:30%;'>					  
+											<strong>Gênero alterado com sucesso!</strong>
+									</div>";
+			}
+			else
+			{
+				
+				echo "<div class='alert alert-dismissable alert-danger' style='width:40%;margin-left:30%;'>				  
+						<strong>Erro ao alterar gênero.</strong> Tente novamente!
+				</div>";
+				
+			}
+		}
+	}
+	else
+	{
+		if($_SESSION['nivel_acesso'] == 1)
+		{
+			header('Location:?url=index_usuario');
 		}
 		else
 		{
-			
-			echo "<div class='alert alert-dismissable alert-danger' style='width:40%;margin-left:30%;'>				  
-					<strong>Erro ao alterar gênero.</strong> Tente novamente!
-			</div>";
-			
+			header('Location:?url=home_visitante');
 		}
 	}
 ?>

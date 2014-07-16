@@ -62,7 +62,6 @@ if(isset($_POST['entrar']))
 				$_SESSION["nome"] = $dadosusu["nome"];
 				$_SESSION["email"]=$dadosusu["email"];
 				// Redireciona para a página de usário
-				//header("Location:/Letras_Trocadas/views/menu_usuario.php");
 				header("Location:?url=index_usuario");
 				
 			}

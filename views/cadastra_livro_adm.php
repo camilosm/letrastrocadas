@@ -1,99 +1,113 @@
 ﻿<?php
-
-	// Include na classes de conexão com o banco de dados
-	include("classes/class_banco.php");
-
-	//Instanciando o banco de dados
-	$banco_dados = new Banco();
 	
-	if(isset($_POST['cadastrarLivro']))
+	if($_SESSION['nivel_acesso'] == 2)
 	{
-		include("php_cadastrar_livro.php");
-	}
-	
-	if(isset($_POST['cadastrar_autor']))
-	{
-		include("cadastra_autor.php");
-	}
-	
-	if(isset($_POST['cadastrar_editora']))
-	{
-		include("cadastra_editora.php");
-	}
-	
-	// Página que carrega os combobox com dados do banco de dados
-	include ("inicializacao_cadastro_livro_adm.php");
-	
-		if(isset($_POST['pesquisar']))
-	{
-		include("classes/class_pesquisar.php");
+		// Include na classes de conexão com o banco de dados
 		include("classes/class_banco.php");
-		$banco = new Banco();
+
+		//Instanciando o banco de dados
+		$banco_dados = new Banco();
 		
-		$id = $_POST['id'];
+		if(isset($_POST['cadastrarLivro']))
+		{
+			include("php_cadastrar_livro.php");
+		}
 		
+		if(isset($_POST['cadastrar_autor']))
+		{
+			include("cadastra_autor.php");
+		}
+		
+		if(isset($_POST['cadastrar_editora']))
+		{
+			include("cadastra_editora.php");
+		}
+		
+		// Página que carrega os combobox com dados do banco de dados
+		include ("inicializacao_cadastro_livro_adm.php");
+		
+			if(isset($_POST['pesquisar']))
+		{
+			include("classes/class_pesquisar.php");
+			include("classes/class_banco.php");
+			$banco = new Banco();
+			
+			$id = $_POST['id'];
+			
+				$editar_id = new EditarCaracteres($id);
+				$id = $editar_id->sanitizeStringNome($_POST['id']);
+			
+			
+			
+			$tabelas = "tbl_livro";
+			$campos="nome, imagem_livros, edicao, isnb, sinopse, numero_paginas, editora_id, autor_id, categora_id";
+			$codição = "id_livro = ".$id;
+			
+			$pesquisar_editora = new Pesquisar($tabelas,$campos,$condicao);
+			$resultado = $pesquisar_editora->pesquisar();
+			
+			while($pesquisar_editora=mysql_fetch_array($resultado))
+				{
+					$nome[] = $pesquisa['nome'];
+					$imagem_livros[] = $pesquisa['imagem_livros'];
+					$edicao[] = $pesquisa['edicao'];
+					$isbn[] = $pesquisa['isbn'];
+					$sinopse[] = $pesquisa['sinopse'];
+					$numero_paginas[] = $pesquisa['numero_paginas'];
+					$editora_nome[] = $pesquisa['editora_id'];
+					$autor_nome[] = $pesquisa['autor_id'];
+					$categoria_nome[] = $pesquisa['categoria_nome'];
+					
+				}
+		}
+			
+		
+		if(isset($_POST['alterar']))
+		{
+			include("class_editar_caracteres.php");
+			
+			include("classes/class_update.php");
+			
+			
+			$id = $_GET['id'];
+			
 			$editar_id = new EditarCaracteres($id);
-			$id = $editar_id->sanitizeStringNome($_POST['id']);
+			$id = $editar_id->sanitizeString($_GET['id']);
 		
+			$nome = $_POST['nome'];
+			
+			$editar_nome = new EditarCaracteres($nome);
+			$nome = $editar_nome->sanitizeString($_POST['nome']);
 		
-		
-		$tabelas = "tbl_livro";
-		$campos="nome, imagem_livros, edicao, isnb, sinopse, numero_paginas, editora_id, autor_id, categora_id";
-		$codição = "id_livro = ".$id;
-		
-		$pesquisar_editora = new Pesquisar($tabelas,$campos,$condicao);
-		$resultado = $pesquisar_editora->pesquisar();
-		
-		while($pesquisar_editora=mysql_fetch_array($resultado))
+			$campos = "nome = '".$nome."'";
+			$codição = "id_livro = ".$id;
+			$alterar_lista_livro = new Alterar("tbl_livro",$campos,$codição);
+			$resultado_lista_livro = $alterar_lista_livro->alterar();
+			if($resultado == 1)
 			{
-				$nome[] = $pesquisa['nome'];
-				$imagem_livros[] = $pesquisa['imagem_livros'];
-				$edicao[] = $pesquisa['edicao'];
-				$isbn[] = $pesquisa['isbn'];
-				$sinopse[] = $pesquisa['sinopse'];
-				$numero_paginas[] = $pesquisa['numero_paginas'];
-				$editora_nome[] = $pesquisa['editora_id'];
-				$autor_nome[] = $pesquisa['autor_id'];
-				$categoria_nome[] = $pesquisa['categoria_nome'];
+									echo "<div class='alert alert-dismissable alert-success' style='width:40%;margin-left:30%;'>					  
+											<strong>Livro alterado com sucesso!</strong>
+									</div>";
+			}
+			else
+			{
+				
+				echo "<div class='alert alert-dismissable alert-danger' style='width:40%;margin-left:30%;'>				  
+						<strong>Erro ao alterar livro.</strong> Tente novamente!
+				</div>";
 				
 			}
+		}
 	}
-		
-	
-	if(isset($_POST['alterar']))
+	else
 	{
-		include("class_editar_caracteres.php");
-		
-		include("classes/class_update.php");
-		
-		
-		$id = $_GET['id'];
-		
-		$editar_id = new EditarCaracteres($id);
-		$id = $editar_id->sanitizeString($_GET['id']);
-	
-		$nome = $_POST['nome'];
-		
-		$editar_nome = new EditarCaracteres($nome);
-		$nome = $editar_nome->sanitizeString($_POST['nome']);
-	
-		$campos = "nome = '".$nome."'";
-		$codição = "id_livro = ".$id;
-		$alterar_lista_livro = new Alterar("tbl_livro",$campos,$codição);
-		$resultado_lista_livro = $alterar_lista_livro->alterar();
-		if($resultado == 1)
+		if($_SESSION['nivel_acesso'] == 1)
 		{
-								echo "<div class='alert alert-dismissable alert-success' style='width:40%;margin-left:30%;'>					  
-										<strong>Livro alterado com sucesso!</strong>
-								</div>";
+			header('Location:?url=index_usuario');
 		}
 		else
 		{
-			
-			echo "<div class='alert alert-dismissable alert-danger' style='width:40%;margin-left:30%;'>				  
-					<strong>Erro ao alterar livro.</strong> Tente novamente!
-			</div>";
-			
+			header('Location:?url=home_visitante');
 		}
 	}
 		

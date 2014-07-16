@@ -1,102 +1,115 @@
 <?php
-	
-	include("class_editar_caracteres.php");
-	include("classes/class_pesquisar.php");
-	include("classes/class_banco.php");
-	
-	$bd = new Banco();
-	
-	$id = $_GET['cod'];
-	
-	if(isset($_POST['cadastrarLivroUsuario']))
+	if($_SESSION['nivel_acesso'] == 1)
 	{
-		//Pasta onde vai ser salvo
-		$pasta = 'content/imagens/livro_usuario/';
+		include("class_editar_caracteres.php");
+		include("classes/class_pesquisar.php");
+		include("classes/class_banco.php");
 		
-		//Tipo de imagens permitidos
-		$permite = array('image/jpg','image/jpeg');//'image/pjpeg'
+		$bd = new Banco();
 		
-		//Pegando a imagem enviada pelo formulário
-		$imagem_primeira = $_FILES['primeira_foto'];
-		//Não entendi isso mas eu sei que precisa 
-		$destino_primeira = $imagem_primeira['tmp_name'];
-		//Nome do arquivo
-		$nome_primeira = $imagem_primeira['name'];
-		//Tipo do arquivo
-		$tipo_primeira = $imagem_primeira['type'];
+		$id = $_GET['cod'];
 		
-		$imagem_segunda = $_FILES['segunda_foto'];
-		$destino_segunda = $imagem_segunda['tmp_name'];
-		$nome_segunda = $imagem_segunda['name'];
-		$tipo_segunda = $imagem_segunda['type'];
-		
-		$imagem_terceira = $_FILES['terceira_foto'];
-		$destino_terceira = $imagem_terceira['tmp_name'];
-		$nome_terceira = $imagem_terceira['name'];
-		$tipo_terceira = $imagem_terceira['type'];
-		
-		//Chama a classe de upload
-		include("classes/class_upload.php");
-		
-		if(!empty($nome_primeira) && in_array($tipo_primeira, $permite))
+		if(isset($_POST['cadastrarLivroUsuario']))
 		{
-			//Evetua o upload
-			upload($destino_primeira, $nome_primeira, 120, $pasta);
+			//Pasta onde vai ser salvo
+			$pasta = 'content/imagens/livro_usuario/';
 			
-			if(!empty($nome_segunda) && in_array($tipo_segunda, $permite))
+			//Tipo de imagens permitidos
+			$permite = array('image/jpg','image/jpeg');//'image/pjpeg'
+			
+			//Pegando a imagem enviada pelo formulário
+			$imagem_primeira = $_FILES['primeira_foto'];
+			//Não entendi isso mas eu sei que precisa 
+			$destino_primeira = $imagem_primeira['tmp_name'];
+			//Nome do arquivo
+			$nome_primeira = $imagem_primeira['name'];
+			//Tipo do arquivo
+			$tipo_primeira = $imagem_primeira['type'];
+			
+			$imagem_segunda = $_FILES['segunda_foto'];
+			$destino_segunda = $imagem_segunda['tmp_name'];
+			$nome_segunda = $imagem_segunda['name'];
+			$tipo_segunda = $imagem_segunda['type'];
+			
+			$imagem_terceira = $_FILES['terceira_foto'];
+			$destino_terceira = $imagem_terceira['tmp_name'];
+			$nome_terceira = $imagem_terceira['name'];
+			$tipo_terceira = $imagem_terceira['type'];
+			
+			//Chama a classe de upload
+			include("classes/class_upload.php");
+			
+			if(!empty($nome_primeira) && in_array($tipo_primeira, $permite))
 			{
-				upload($destino_segunda, $nome_segunda, 120, $pasta);
+				//Evetua o upload
+				upload($destino_primeira, $nome_primeira, 120, $pasta);
 				
-				if(!empty($nome_terceira) && in_array($tipo_terceira, $permite))
+				if(!empty($nome_segunda) && in_array($tipo_segunda, $permite))
 				{
-					upload($destino_terceira, $nome_terceira, 120, $pasta);
-					header("location: ?url=passo-a-passo-confirmar-dados&cod=$id");
+					upload($destino_segunda, $nome_segunda, 120, $pasta);
 					
-					session_start();
-					
-					$_SESSION['estado'] = $_POST['estado'];
-					$_SESSION['ano'] = $_POST['ano'];
-					$_SESSION['livro'] = $_POST['nome'];
-					$_SESSION['edicao'] = $_POST['edicao'];
-					$_SESSION['isbn'] = $_POST['isbn'];
-					$_SESSION['imagem1'] = $pasta."".$nome_primeira;
-					$_SESSION['imagem2'] = $pasta."".$nome_segunda;
-					$_SESSION['imagem3'] = $pasta."".$nome_terceira;
-					
-					
-					
+					if(!empty($nome_terceira) && in_array($tipo_terceira, $permite))
+					{
+						upload($destino_terceira, $nome_terceira, 120, $pasta);
+						header("location: ?url=passo-a-passo-confirmar-dados&cod=$id");
+						
+						session_start();
+						
+						$_SESSION['estado'] = $_POST['estado'];
+						$_SESSION['ano'] = $_POST['ano'];
+						$_SESSION['livro'] = $_POST['nome'];
+						$_SESSION['edicao'] = $_POST['edicao'];
+						$_SESSION['isbn'] = $_POST['isbn'];
+						$_SESSION['imagem1'] = $pasta."".$nome_primeira;
+						$_SESSION['imagem2'] = $pasta."".$nome_segunda;
+						$_SESSION['imagem3'] = $pasta."".$nome_terceira;
+						
+						
+						
+					}
+					else
+					{
+						echo "Aceitamos apensa imagens no formato JPEG";
+						unlink("content/imagens/livro_usuario/$nome_primeira");
+						unlink("content/imagens/livro_usuario/$nome_segunda");
+					}
 				}
 				else
 				{
 					echo "Aceitamos apensa imagens no formato JPEG";
 					unlink("content/imagens/livro_usuario/$nome_primeira");
-					unlink("content/imagens/livro_usuario/$nome_segunda");
+					
 				}
 			}
 			else
 			{
 				echo "Aceitamos apensa imagens no formato JPEG";
-				unlink("content/imagens/livro_usuario/$nome_primeira");
-				
 			}
+		}
+		
+		$editar_id = new EditarCaracteres($id);
+		$id = $editar_id->sanitizeString($_GET['cod']);
+		
+		$pesquisar_livro = new Pesquisar("tbl_livro","nome,edicao,isbn"," id_livro = '$id' LIMIT 1");
+		$resultado = $pesquisar_livro->pesquisar();
+		
+		while($resposta=mysql_fetch_assoc($resultado))
+		{
+			$nome = $resposta['nome'];
+			$edicao = $resposta['edicao'];
+			$isbn = $resposta['isbn'];
+		}
+	}
+	else
+	{
+		if($_SESSION['nivel_acesso'] == 2)
+		{
+			header('Location:?url=home_admin');
 		}
 		else
 		{
-			echo "Aceitamos apensa imagens no formato JPEG";
+			header('Location:?url=home_visitante');
 		}
-	}
-	
-	$editar_id = new EditarCaracteres($id);
-	$id = $editar_id->sanitizeString($_GET['cod']);
-	
-	$pesquisar_livro = new Pesquisar("tbl_livro","nome,edicao,isbn"," id_livro = '$id' LIMIT 1");
-	$resultado = $pesquisar_livro->pesquisar();
-	
-	while($resposta=mysql_fetch_assoc($resultado))
-	{
-		$nome = $resposta['nome'];
-		$edicao = $resposta['edicao'];
-		$isbn = $resposta['isbn'];
 	}
 	
 ?>

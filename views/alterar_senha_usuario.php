@@ -1,10 +1,24 @@
 <?php
-
+	
+	if($_SESSION['nivel_acesso'] == 1)
+	{
 		if(isset($_POST['alterarSenha']))
 		{
 		    include('alterar_senha_usu_n.php');
 		}
-
+	}
+	else
+	{
+		if($_SESSION['nivel_acesso'] == 2)
+		{
+			header('Location:?url=home_admin');
+		}
+		else
+		{
+			header('Location:?url=home_visitante');
+		}
+	}
+	
 ?>
 
 

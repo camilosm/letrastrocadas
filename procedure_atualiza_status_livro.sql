@@ -11,7 +11,7 @@ DELIMITER |
 |
 DELIMITER ;
 
-/* Leiam, por favor, LEIAM LEIAM LEIAM PLIZ, usem só a procedure e não a trigger(Tá inconpleta)*/
+/* Leiam, por favor, LEIAM LEIAM LEIAM PLIZ, usem só a procedure e não a trigger(Tá incompleta)*/
 DEMILITER |
 
 	CREATE TRIGGER TG_atualiza_status_livro AFTER INSERT ON tbl_cambio

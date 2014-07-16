@@ -4,8 +4,7 @@
 	
 	//Verifica se o usuário tem acesso à essa página
 	if($_SESSION['nivel_acesso'] == 1)
-	{ 
-			
+	{ 	
 			include("classes/class_banco.php");
 			include("classes/class_pesquisar.php");
 			
@@ -50,12 +49,6 @@
 		}
 	else
 	{	
-		//Emite um alerta (não tá funcioando ¬¬) pois eles não tem acesso a essa página
-		echo "
-			<script type='text/javascript'>
-				alert('Você não tem permissão para acessar essa página');
-			</script>";
-		
 		//Redireciona pra página principal
 		if($_SESSION['nivel_acesso'] == 2)
 		{

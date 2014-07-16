@@ -1,6 +1,7 @@
 <?php
  
-		
+	if($_SESSION['nivel_acesso'] == 2)
+	{
 
 		include("../fpdf/fpdf.php");
 		include("classes/class_banco.php");
@@ -41,5 +42,16 @@
 		}
 				
 		$pdf->Output();
-
+	}
+	else
+	{
+		if($_SESSION['nivel_acesso'] == 1)
+		{
+			header('Location:?url=index_usuario');
+		}
+		else
+		{
+			header('Location:?url=home_visitante');
+		}
+	}
 ?>
