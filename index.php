@@ -117,7 +117,7 @@
 									success : function(data){
 										document.getElementById('Moedas').innerHTML = data.moedas;
 										
-										document.getElementById('Trocas_aceitas').innerHTML = data.trocas_aceitas;
+										$('#Trocas_aceitas').html(data.trocas_aceitas);
 										if(data.trocas_aceitas != 0)
 										{
 										    document.getElementById('Trocas_aceitas').style.backgroundColor = '#dd4814';
