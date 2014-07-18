@@ -40,35 +40,16 @@
 			$nome_livro_lista_livro = $pesq_lista_livro['liv.nome'];
 			$id_lista_livro = $pesq_lista_livro['id_lista_livros'];
 			
-			/* Pesquisa de livros que quer ler */
-			
-			$pesquisa_dados_lista_desejo = new Pesquisar("tbl_usuario usu JOIN tbl_livro liv JOIN tbl_lista_desejo list_des ON list_des.livro_id = id_livro AND list_des.usuario_id = id_usuario","imagem_livros,liv.nome,id_lista_desejo","id_usuario = $id GROUP BY id_lista_desejo");
-			$resul_pesquisa_lista_desejo = $pesquisa_dados_lista_desejo->pesquisar();
-			$pesq_lista_desejo = mysql_fetch_assoc($resul_pesquisa_lista_desejo);
+			/* Pesquisa de livros marcados como quero ler, lidos, lendo */
+
+			$pesquisa_dados_marcacao = new Pesquisar("tbl_marcacao JOIN tbl_usuario ON usuario_id = id_usuario JOIN tbl_livro ON livro_id = id_livro","tipo,id_livro,imagem_livros,tbl_livro.nome","usuario_id = $id");
+			$resul_pesquisa_marcacao = $pesquisa_dados_marcacao->pesquisar();
+			$pesq_marcacao = mysql_fetch_assoc($resul_pesquisa_marcacao);
 		    
-			$imagem_lista_desejo = $pesq_lista_desejo['imagem_livros'];
-			$nome_livro_lista_desejo = $pesq_lista_desejo['liv.nome'];
-			$id_lista_desejo = $pesq_lista_desejo['id_lista_desejo'];
-			
-			/* Pesquisa de livros que já leu */
-			
-			$pesquisa_dados_leu = new Pesquisar("tbl_usuario usu JOIN tbl_livro liv JOIN tbl_leu leu ON leu.livro_id = id_livro AND leu.usuario_id = id_usuario","imagem_livros,liv.nome,id_leu","id_usuario = $id GROUP BY id_leu");
-			$resul_pesquisa_leu = $pesquisa_dados_leu->pesquisar();
-			$pesq_lista_leu = mysql_fetch_assoc($resul_pesquisa_leu);
-		    
-			$imagem_leu = $pesq_lista_leu['imagem_livros'];
-			$nome_leu = $pesq_lista_leu['liv.nome'];
-			$id_leu = $pesq_lista_leu['id_leu'];
-			
-			/* Pesquisa de livros que está lendo */ 
-			
-			$pesquisa_dados_lendo = new Pesquisar("tbl_usuario usu JOIN tbl_livro liv JOIN tbl_lendo lendo ON lendo.livro_id = id_livro AND lendo.usuario_id = id_usuario","imagem_livros,liv.nome,id_lendo","id_usuario = $id GROUP BY id_lendo");
-			$resul_pesquisa_lendo = $pesquisa_dados_lendo->pesquisar();
-			$pesq_lista_lendo = mysql_fetch_assoc($resul_pesquisa_lendo);
-		    
-			$imagem_lendo = $pesq_lista_lendo['imagem_livros'];
-			$nome_lendo = $pesq_lista_lendo['liv.nome'];
-			$id_lendo = $pesq_lista_lendo['id_lendo'];
+			$imagem_marcacao = $pesq_marcacao['imagem_livros'];
+			$nome_livro_marcacao = $pesq_marcacao['tbl_livro.nome'];
+			$id_livro_marcacao = $pesq_marcacao['id_livro'];			
+			$tipo_marcacao = $pesq_marcacao['tipo'];
 			
 			
 		}
@@ -158,12 +139,15 @@
 					  </div>
 					  <div class="tab-pane fade" id="jali">
 		 <?php
-				if ($resul_pesquisa_leu != 0){
-					while($pesq_lista_leu = mysql_fetch_assoc($resul_pesquisa_leu))
+				if ($resul_pesquisa_marcacao != 0 AND $tipo_marcacao == 2){
+					while($pesq_marcacao = mysql_fetch_assoc($resul_pesquisa_marcacao))
 						{
+					if ($tipo_marcacao == 2)
+					{
 						echo
-							'<img src ="'.$imagem_leu.'" alt = "'.$nome_leu.'" height = "177px" width = "120px">';
+							'<img src ="'.$imagem_marcacao.'" alt = "'.$nome_livro_marcacao.'" height = "177px" width = "120px">';
 						}
+					}
 				}
 				else
 				{
@@ -173,12 +157,15 @@
 					  </div>
 					  <div class="tab-pane fade" id="queroler">
 		 <?php
-				if ($resul_pesquisa_lista_desejo != 0){
-					while($pesq_lista_desejo = mysql_fetch_assoc($resul_pesquisa_lista_desejo))
+				if ($resul_pesquisa_marcacao != 0 AND $tipo_marcacao == 1){
+					while($pesq_marcacao = mysql_fetch_assoc($resul_pesquisa_marcacao))
 						{
+					if ($tipo_marcacao == 1)
+					{
 						echo
-							'<img src ="'.$imagem_lista_desejo.'" alt = "'.$nome_livro_lista_desejo.'" height = "177px" width = "120px">';
+							'<img src ="'.$imagem_marcacao.'" alt = "'.$nome_livro_marcacao.'" height = "177px" width = "120px">';
 						}
+					}
 				}
 				else
 				{
@@ -188,12 +175,15 @@
 					  </div>
 					<div class="tab-pane fade" id="lendo">
 		 <?php
-				if ($resul_pesquisa_lendo != 0){
-					while($pesq_lista_lendo = mysql_fetch_assoc($resul_pesquisa_lendo))
+				if ($resul_pesquisa_marcacao != 0 AND $tipo_marcacao == 3){
+					while($pesq_marcacao = mysql_fetch_assoc($resul_pesquisa_marcacao))
 						{
+					if ($tipo_marcacao == 3)
+					{
 						echo
-							'<img src ="'.$imagem_lendo.'" alt = "'.$nome_lendo.'" height = "177px" width = "120px">';
+							'<img src ="'.$imagem_marcacao.'" alt = "'.$nome_livro_marcacao.'" height = "177px" width = "120px">';
 						}
+					}
 				}
 				else
 				{
