@@ -69,6 +69,17 @@
 		    $avaliacoes_positivas = $pesq['avaliacoes_positivas'];
 		    $id_p = $pesq['id_usuario'];
 		    $email_p = $pesq['email'];		
+			
+			/* Pesquisa de livros marcados como quero ler, lidos, lendo */
+
+			$pesquisa_dados_marcacao = new Pesquisar("tbl_marcacao JOIN tbl_usuario ON usuario_id = id_usuario JOIN tbl_livro ON livro_id = id_livro"," tipo,id_livro,imagem_livros,tbl_livro.nome"," usuario_id = $id_outro_usu");
+			$resul_pesquisa_marcacao = $pesquisa_dados_marcacao->pesquisar();
+			$pesq_marcacao = mysql_fetch_assoc($resul_pesquisa_marcacao);
+		    
+			$imagem_marcacao = $pesq_marcacao['imagem_livros'];
+			$nome_livro_marcacao = $pesq_marcacao['tbl_livro.nome'];
+			$id_livro_marcacao = $pesq_marcacao['id_livro'];			
+			$tipo_marcacao = $pesq_marcacao['tipo'];
 		}
 		else
 		{
@@ -86,6 +97,17 @@
 		    $avaliacoes_positivas = $pesq['avaliacoes_positivas'];
 		    $id_p = $pesq['id_usuario'];
 		    $email_p = $pesq['email'];		
+			
+			/* Pesquisa de livros marcados como quero ler, lidos, lendo */
+
+			$pesquisa_dados_marcacao = new Pesquisar("tbl_marcacao JOIN tbl_usuario ON usuario_id = id_usuario JOIN tbl_livro ON livro_id = id_livro","tipo,id_livro,imagem_livros,tbl_livro.nome","usuario_id = $id");
+			$resul_pesquisa_marcacao = $pesquisa_dados_marcacao->pesquisar();
+			$pesq_marcacao = mysql_fetch_assoc($resul_pesquisa_marcacao);
+		    
+			$imagem_marcacao = $pesq_marcacao['imagem_livros'];
+			$nome_livro_marcacao = $pesq_marcacao['tbl_livro.nome'];
+			$id_livro_marcacao = $pesq_marcacao['id_livro'];			
+			$tipo_marcacao = $pesq_marcacao['tipo'];
 		}
 
 		
