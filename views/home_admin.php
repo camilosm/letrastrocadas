@@ -31,7 +31,9 @@
 	}
 
 ?>
+
 <body>
+
 	<body>
 		
 		<!--Tab Control-->
@@ -45,7 +47,7 @@
 			<section id="myTabContent" class="tab-content">
 				<section class="tab-pane fade active in" id="denuncias">
 					<section class="panel-body">
-						
+				
 						<?php 
 							while($Denuncias = mysql_fetch_assoc($resul_pesquisa_den)) 
 							{
@@ -61,7 +63,9 @@
 								{
 									$status = "";
 								}
+								
 							
+							if ($Denuncias["status"] == 1){
 								echo '<section class="panel-group" id="accordion">
 									<section class="panel panel-default">
 										<section class="panel-heading">
@@ -81,10 +85,12 @@
 										</section>
 									</section>
 								</section>';
+							   }
 							}
 							?>
 
 					</section>
+
 				</section>
 				<section class="tab-pane fade" id="listanegra">		
 					<section class="panel-body">
@@ -92,7 +98,7 @@
 							<?php while($Num_Den = mysql_fetch_assoc($resul_pesquisa_n_den)){
 							echo '<li class="list-group-item">
 								  <span class="badge">'.$Num_Den["Numero_Denuncias"].'</span>'
-								  .$Num_Den["email"]. ' - '.$Num_Dem["nome"].
+								  .$Num_Den["email"]. ' - '.$Num_Den["nome"].
 							'</li>';
 							}
 							?>
