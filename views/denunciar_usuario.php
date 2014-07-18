@@ -29,12 +29,12 @@
 		//Repassa os valores enviados pelo formulário para uma variável
 		$motivo = $_POST['MotivoDenuncia'];
 		
-		//Instancia a classe que tenta evitar o MySql Inject
+		/*Instancia a classe que tenta evitar o MySql Inject
 		$editar_motivo = new EditarCaracteres($motivo);
-		$motivo = $editar_motivo->sanitizeStringNome($_POST['MotivoDenuncia']);
+		$motivo = $editar_motivo->sanitizeStringNome($_POST['MotivoDenuncia']);*/
 		
 		//Realiza a inserção
-		$values_denuncia = "NULL,".$id_outro_usu.",'".$motivo."',1";
+		$values_denuncia = "NULL,".$id_outro_usu.",'".$motivo."',1, DATE(NOW())";
 		$cadastra_denuncia = new Inserir("tbl_denuncias",$values_denuncia);
 		$res = $cadastra_denuncia->inserir();
 		
@@ -81,8 +81,25 @@
             <div class="form-group">
 	         	<label for="textArea" class="col-lg-2 control-label">Informe aqui o motivo</label>
 	         		<div class="col-lg-10">
-	         			<textarea class="form-control" rows="3" id="textArea" name = "MotivoDenuncia"></textarea>
-	         			<span class="help-block">Maximo de 224 caracteres.</span>
+                        <div class="radio">
+                          <label>
+                            <input type="radio" name="MotivoDenuncia" id="optionsRadios1" value="option1">
+                            Livro com mais danos que o previsto na descrição.
+                          </label>
+						</div>
+						<div class="radio">
+                          <label>
+                            <input type="radio" name="MotivoDenuncia" id="optionsRadios2" value="option2">
+                            Livro não foi enviado.
+                          </label>
+						</div>
+						<div class="radio">
+                          <label>
+                            <input type="radio" name="MotivoDenuncia" id="optionsRadios3" value="option3">
+                            Livro recebido é diferente do livro solicitado.
+                          </label>
+						 </div>
+                        </div>
 	         		</div>
             </div>
             
