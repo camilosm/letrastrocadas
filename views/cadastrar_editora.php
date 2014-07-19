@@ -13,65 +13,68 @@
 		{
 			include("classes/class_pesquisar.php");
 			include("classes/class_banco.php");
+			include("class_editar_caracteres.php");
 			$banco = new Banco();
 			
 			$id = $_POST['id'];
 			
-				$editar_id = new EditarCaracteres($id);
-				$id = $editar_id->sanitizeStringNome($_POST['id']);
-			
-			
+			$editar_id = new EditarCaracteres($id);
+			$id = $editar_id->sanitizeString($_POST['id']);
 			
 			$tabelas = "tbl_editora";
 			$campos="nome";
-			$codição = "id_editora = ".$id;
+			$condicao = "id_editora = ".$id;
 			
 			$pesquisar_editora = new Pesquisar($tabelas,$campos,$condicao);
 			$resultado = $pesquisar_editora->pesquisar();
 			
-			while($pesquisar_editora=mysql_fetch_array($resultado))
-				{
-					$nome[] = $pesquisa['nome'];
-				}
+			
+			while($pesquisar_editora=mysql_fetch_assoc($resultado))
+			{
+				$nome = $pesquisar_editora['nome'];
+			}
 		}
 			
 		
 		if(isset($_POST['alterar']))
 		{
 			include("class_editar_caracteres.php");
-			
+			include("classes/class_banco.php");
+			$banco = new Banco();
 			include("classes/class_update.php");
 			
 			
-			$id = $_GET['id'];
+			$id_editora = $_POST['id_editora'];
 			
-			$editar_id = new EditarCaracteres($id);
-			$id = $editar_id->sanitizeString($_GET['id']);
+			
+			$editar_id = new EditarCaracteres($id_editora);
+			$id_editora = $editar_id->sanitizeString($_POST['id_editora']);
 		
 			$nome = $_POST['nome'];
 			
 			$editar_nome = new EditarCaracteres($nome);
-			$nome = $editar_nome->sanitizeString($_POST['nome']);
+			$nome = $editar_nome->sanitizeStringNome($_POST['nome']);
 		
 			$campos = "nome = '".$nome."'";
-			$codição = "id_editora = ".$id;
-			$alterar_lista_livro = new Alterar("tbl_editora",$campos,$codição);
-			$resultado_lista_livro = $alterar_lista_livro->alterar();
-			if($resultado == 1)
+			$condicao = "id_editora = ".$id_editora;
+			$alterar_editora= new Alterar("tbl_editora",$campos,$condicao);
+			$resultado_editora = $alterar_editora->alterar();
+			if($resultado_editora == 1)
 			{
-									echo "<div class='alert alert-dismissable alert-success' style='width:40%;margin-left:30%;'>					  
-											<strong>Editora alterada com sucesso!</strong>
-									</div>";
+					echo "<section class='alert alert-dismissable alert-success' style='width:40%;margin-left:30%;'>					  
+						<strong>Editora alterado com sucesso!</strong>
+						</section>";		
 			}
 			else
 			{
 				
-				echo "<div class='alert alert-dismissable alert-danger' style='width:40%;margin-left:30%;'>				  
+				echo "<section class='alert alert-dismissable alert-danger' style='width:40%;margin-left:30%;'>				  
 						<strong>Erro ao alterar editora.</strong> Tente novamente!
-				</div>";
+				</section>";	
+				
 				
 			}
-		}	
+		}
 	}
 	else
 	{
@@ -104,7 +107,7 @@
                   <label for="inputID" class="col-lg-2 control-label">ID:</label>
          <div class="col-lg-9">
 		 
-                  <input type="text" class="form-control" name = "id" id="inputID" placeholder = "ID" >
+                  <input type="text" class="form-control" name = "id" placeholder = "ID" >
 				  
          </div>
 		 <br>
@@ -112,7 +115,7 @@
 		 <br>
                        
                        
-					   <button style="margin-left: 5px; float:right;" type="submit" name = "pesquisar_editora" class="btn btn-primary">Pesquisar</button>
+					   <button style="margin-left: 5px; float:right;" type="submit" name = "pesquisar" class="btn btn-primary">Pesquisar</button>
 		 </fieldset>
 		 </form>
 		
@@ -123,10 +126,17 @@
 				  
          <div class="form-group">
 		 
+				  <label for="inputID" class="col-lg-2 control-label">ID:</label>
+         <div class="col-lg-9">
+		 
+                  <input type="text" class="form-control" name = "id_editora" value="<?php echo $id?>" placeholder = "ID" >
+				  
+         </div>
+		 
                   <label for="inputDescricao" class="col-lg-2 control-label">Editora:</label>
 				  
          <div class="col-lg-9">	 
-                  <input type="text" class="form-control" value="<?php echo $nome ;?>"  name = "nome" id="editora" required placeholder = "Editora" maxlength = "100">			  
+                  <input type="text" class="form-control" value="<?php echo $nome ;?>"  name = "nome" required placeholder = "Editora" maxlength = "100">			  
          </div>
 		 <br>
             

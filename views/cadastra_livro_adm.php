@@ -1,7 +1,7 @@
 ﻿<?php
 	
-	if($_SESSION['nivel_acesso'] == 2)
-	{
+	//if($_SESSION['nivel_acesso'] == 2)
+	//{
 		// Include na classes de conexão com o banco de dados
 		include("classes/class_banco.php");
 
@@ -28,35 +28,57 @@
 		
 			if(isset($_POST['pesquisar']))
 		{
-			include("classes/class_pesquisar.php");
-			include("classes/class_banco.php");
+			include("class_editar_caracteres.php");
+			
+			
 			$banco = new Banco();
 			
 			$id = $_POST['id'];
 			
-				$editar_id = new EditarCaracteres($id);
-				$id = $editar_id->sanitizeStringNome($_POST['id']);
 			
+				$editar_id = new EditarCaracteres($id);
+				$id = $editar_id->sanitizeString($_POST['id']);
 			
 			
 			$tabelas = "tbl_livro";
-			$campos="nome, imagem_livros, edicao, isnb, sinopse, numero_paginas, editora_id, autor_id, categora_id";
-			$codição = "id_livro = ".$id;
+			$campos="nome, edicao, isbn, sinopse, numero_paginas, editora_id, autor_id, categoria_id";
+			$condicao = "id_livro = ".$id;
 			
-			$pesquisar_editora = new Pesquisar($tabelas,$campos,$condicao);
-			$resultado = $pesquisar_editora->pesquisar();
+			$pesquisar_livro = new Pesquisar($tabelas,$campos,$condicao);
+			$resultado = $pesquisar_livro->pesquisar();			
 			
-			while($pesquisar_editora=mysql_fetch_array($resultado))
+			
+			while($pesquisar_livro=mysql_fetch_array($resultado))
 				{
-					$nome[] = $pesquisa['nome'];
-					$imagem_livros[] = $pesquisa['imagem_livros'];
-					$edicao[] = $pesquisa['edicao'];
-					$isbn[] = $pesquisa['isbn'];
-					$sinopse[] = $pesquisa['sinopse'];
-					$numero_paginas[] = $pesquisa['numero_paginas'];
-					$editora_nome[] = $pesquisa['editora_id'];
-					$autor_nome[] = $pesquisa['autor_id'];
-					$categoria_nome[] = $pesquisa['categoria_nome'];
+					$tabelas = "tbl_categoria";
+					$campos="nome";
+					$condicao = "id_categoria = ".$pesquisar_livro['categoria_id'];
+					
+					$pesquisar_categoria = new Pesquisar($tabelas,$campos,$condicao);
+					$resultado = $pesquisar_categoria->pesquisar();
+					
+					$tabelas = "tbl_autor";
+					$campos="nome";
+					$condicao = "id_autor = ".$pesquisar_livro['autor_id'];
+					
+					$pesquisar_autor = new Pesquisar($tabelas,$campos,$condicao);
+					$resultado = $pesquisar_autor->pesquisar();
+					
+					$tabelas = "tbl_editora";
+					$campos="nome";
+					$condicao = "id_editora = ".$pesquisar_livro['editora_id'];
+					
+					$pesquisar_editora = new Pesquisar($tabelas,$campos,$condicao);
+					$resultado = $pesquisar_editora->pesquisar();
+						
+					$nome = $pesquisar_livro['nome'];
+					$edicao = $pesquisar_livro['edicao'];
+					$isbn = $pesquisar_livro['isbn'];
+					$sinopse = $pesquisar_livro['sinopse'];
+					$numero_paginas = $pesquisar_livro['numero_paginas'];
+					$editora_nome = $pesquisar_livro['editora_id'];
+					$autor_nome = $pesquisar_livro['autor_id'];
+					$categoria_nome = $pesquisar_livro['categoria_id'];
 					
 				}
 		}
@@ -65,14 +87,15 @@
 		if(isset($_POST['alterar']))
 		{
 			include("class_editar_caracteres.php");
+			include("classes/class_banco.php");
+			$banco = new Banco();
+			include("classes/class_updatedd.php");
 			
-			include("classes/class_update.php");
 			
-			
-			$id = $_GET['id'];
+			$id = $_POST['id'];
 			
 			$editar_id = new EditarCaracteres($id);
-			$id = $editar_id->sanitizeString($_GET['id']);
+			$id = $editar_id->sanitizeString($_POST['id']);
 		
 			$nome = $_POST['nome'];
 			
@@ -81,8 +104,8 @@
 		
 			$campos = "nome = '".$nome."'";
 			$codição = "id_livro = ".$id;
-			$alterar_lista_livro = new Alterar("tbl_livro",$campos,$codição);
-			$resultado_lista_livro = $alterar_lista_livro->alterar();
+			$alterar_livro = new Alterar("tbl_livro",$campos,$codição);
+			$resultado_livro = $alterar_livro->alterar();
 			if($resultado == 1)
 			{
 									echo "<div class='alert alert-dismissable alert-success' style='width:40%;margin-left:30%;'>					  
@@ -98,8 +121,8 @@
 				
 			}
 		}
-	}
-	else
+	//}
+	/*else
 	{
 		if($_SESSION['nivel_acesso'] == 1)
 		{
@@ -109,7 +132,7 @@
 		{
 			header('Location:?url=home_visitante');
 		}
-	}
+	}*/
 		
 
 ?>
@@ -153,7 +176,7 @@ $(document).ready(function(){
 		 <br>
                        
                        
-					   <button style="margin-left: 5px; float:right;" type="submit" name = "pesquisar_editora" class="btn btn-primary">Pesquisar</button>
+					   <button style="margin-left: 5px; float:right;" type="submit" name = "pesquisar" class="btn btn-primary">Pesquisar</button>
 		 </fieldset>
 		 </form>
 	
@@ -163,12 +186,18 @@ $(document).ready(function(){
                   <legend>Cadastrar/Alterar Livro</legend>
 				  
          <div class="form-group">
+				
+				  <label for="inputID" class="col-lg-2 control-label">ID:</label>
+         <div class="col-lg-9">
 		 
+                  <input type="text" class="form-control" name = "id_livro" value="<?php echo $id ;?>" placeholder = "ID" >
+				  </div>
+				
                   <label for="inputNome" class="col-lg-2 control-label">Nome:</label>
 				  
          <div class="col-lg-9">
 		 
-                  <input type="text" class="form-control" value="<?php echo $nome ;?>" name = "nome" id="nome" required placeholder = "Nome do Livro" maxlength = "100">
+                  <input type="text" class="form-control" value="<?php echo $nome ;?>" name = "nome" required placeholder = "Nome do Livro" maxlength = "100">
 				  
          </div>
 		 <br>
@@ -275,6 +304,7 @@ $(document).ready(function(){
          <div class="col-lg-9 col-lg-offset-2">
 		 <br>                       
                        <button style="margin-left: 5px; float:right;" type="submit" name = "cadastrarLivro" class="btn btn-primary">Cadastrar</button>
+					   <button style="margin-left: 5px; float:right;" type="submit" name = "alterar" class="btn btn-primary">Alterar</button>
 					   <button style="float:right;" type = "reset" class="btn btn-default">Cancelar</button>
         </div>
 		
