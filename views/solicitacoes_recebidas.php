@@ -34,7 +34,8 @@
 		});
 	}
 	
-	
+italo gostotoso 
+
 
 </script>
 
@@ -62,20 +63,18 @@
 			$codigo = $editar_codigo->sanitizeString($_GET['id']);
 			
 			$alterar_codigo = new Alterar('tbl_cambio',"cod_rastreamento = '".$rastreamento."'",'id_cambio ='.$codigo);
-			$resultado_codigo = $alterar_codigo->alterar();
+
 		}
 		
 		$alterar_status_notificações = new Alterar('tbl_notificacoes','visualizado = "true"','tipo = 3 AND usuario_id = '.$_SESSION['id']);
 		$resultado = $alterar_status_notificações->alterar();
 		
-		$tabelas = 'tbl_solicitacao_troca solicitacao INNER JOIN tbl_usuario usuario INNER JOIN tbl_lista_livros lista INNER JOIN tbl_livro livro INNER JOIN tbl_cambio cambio ON id_usuario = usuario_solicitador AND id_livro = livro_id AND id_lista_livros = lista_id AND id_lista_livros = lista_livros_id';
-		
-		$pesquisar_pendente = new Pesquisar($tabelas,'usuario.nome As nome, livro.nome As livro, solicitacao.*',"aceito = '' AND usuario_dono_lista = ".$_SESSION['id']);
-		$resultado_pendente = $pesquisar_pendente->pesquisar();
-		
-		$pesquisar_respondidas = new Pesquisar($tabelas,'cambio.id_cambio as id_cambio,usuario.nome As nome, livro.nome As livro, solicitacao.*',"aceito <> '' AND  usuario_dono_lista = ".$_SESSION['id']);
-		$resultado_respondidas = $pesquisar_respondidas->pesquisar();
-		
+		$tabelas_pendentes = "tbl_solicitacao_troca solicitacao INNER JOIN tbl_lista_livros lista_livro INNER JOIN tbl_livro livro ON id_lista_livros = lista_id AND id_livro = livro_id";
+		$campos_pendentes = "solicitacao.id_solicitacao";
+		$condicao_pendentes = "1=1";
+		$pesquisar_pendentes = new Pesquisar($tabelas_pendentes,$campos_pendentes,$condicao_pendentes);
+		$resultado_pendente = $pesquisar_pendentes->pesquisar();
+
 		echo '
 		<section class="panel panel-default" style="margin-left:5%; width:70%;">
 			<section class="panel-heading">
