@@ -41,11 +41,11 @@
 		<!-- Wrapper for slides -->
 		<section class="carousel-inner">
 			<section class="item active">
-				<a href="?url=livro"><img src="content/imagens/slider/slider1.jpg" alt="cadastre"></a>
+				<a href="?url=cadastro_usuario"><img src="content/imagens/slider/slider1.jpg" alt="cadastre"></a>
 			</section>
 			
 			<section class="item">
-				<a href="?url=livro"><img src="content/imagens/slider/slider2.jpg" alt="cadastre"></a>
+				<a href="?url=cadastro_usuario"><img src="content/imagens/slider/slider2.jpg" alt="cadastre"></a>
 			</section>
 		</section>
 
@@ -73,7 +73,7 @@
 				{
 					echo
 						'
-							<section class="col-lg-4" style = "width:30%;">
+							<section class="col-lg-4">
 								<section class="bs-component">
 									<a href="?url=livro&livro='.utf8_encode($pesquisa['id_livro']).'" class="thumbnail">
 										<img src="'.utf8_encode($pesquisa['imagem_livros']).'" alt="'.utf8_encode($pesquisa['nome']).'" width="35%"/>
