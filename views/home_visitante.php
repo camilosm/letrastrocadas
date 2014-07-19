@@ -36,33 +36,16 @@
 		<ol class="carousel-indicators">
 			<li class="active" data-target="#carousel-example-generic" data-slide-to="0"></li>
 			<li class="" data-target="#carousel-example-generic" data-slide-to="1"></li>
-			<li class="" data-target="#carousel-example-generic" data-slide-to="2"></li>
 		</ol>
 
 		<!-- Wrapper for slides -->
 		<section class="carousel-inner">
 			<section class="item active">
-				<a href="?url=livro"><img src="content/imagens/slider/1.jpg" alt="The Hunger Games"></a>
-				<section class="carousel-caption">
-					<h1>Primeiro Slide</h1>
-					<p>Sub Texto</p>
-				</section>
+				<a href="?url=livro"><img src="content/imagens/slider/slider1.jpg" alt="cadastre"></a>
 			</section>
 			
 			<section class="item">
-				<a href="?url=livro"><img src="content/imagens/slider/1.jpg" alt="The Hunger Games"></a>
-				<section class="carousel-caption">
-					<h1>Segundo Slide</h1>
-					<p>Sub Texto</p>
-				</section>
-			</section>
-			
-			<section class="item">
-				<a href="?url=livro"><img src="content/imagens/slider/1.jpg" alt="The Hunger Games"></a>
-				<section class="carousel-caption">
-					<h1>Terceiro Slide</h1>
-					<p>Sub Texto</p>
-				</section>
+				<a href="?url=livro"><img src="content/imagens/slider/slider2.jpg" alt="cadastre"></a>
 			</section>
 		</section>
 
