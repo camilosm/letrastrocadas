@@ -204,6 +204,7 @@ CREATE TABLE tbl_cambio(
 	tipo INT NOT NULL, /* 1 = cambio e 2 = doação */
 	pontuacao SMALLINT NOT NULL,
 	cod_rastreamento VARCHAR(13) NULL,
+	entregue CHAR(3) NULL, /* Sim ou Nao*/
 	lista_livros_id INT UNSIGNED NOT NULL,
 	usuario_disponibilizador INT UNSIGNED NOT NULL,
 	usuario_resgate INT UNSIGNED NOT NULL,
@@ -214,7 +215,10 @@ CREATE TABLE tbl_cambio(
 
 );
 
-/* ALTER TABLE tbl_cambio ADD status INT NOT NULL AFTER id_cambio; */
+/*
+ ALTER TABLE tbl_cambio ADD status INT NOT NULL AFTER id_cambio; 
+ ALTER TABLE tbl_cambio ADD entregue CHAR(3) NULL AFTER cod_rastreamento;
+*/
 
 CREATE TABLE tbl_livros_trocados(
 
