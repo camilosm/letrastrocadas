@@ -220,6 +220,7 @@ CREATE TABLE tbl_cambio(
  ALTER TABLE tbl_cambio ADD entregue CHAR(3) NULL AFTER cod_rastreamento;
 */
 
+
 CREATE TABLE tbl_livros_trocados(
 
 	id_livros_trocados INT UNSIGNED AUTO_INCREMENT NOT NULL,
@@ -264,21 +265,29 @@ CREATE TABLE tbl_denuncias(
 
 	id_denuncias INT UNSIGNED AUTO_INCREMENT NOT NULL,
 	usuario_denunciado_id INT UNSIGNED NOT NULL,
-	motivo VARCHAR(255) NOT NULL,
 	status INT NOT NULL, /* Caso aberto = 1 ,Caso Fechado = 2 */
 	data DATE NOT NULL,
+	motivo_id INT UNSIGNED NOT NULL,
+	outro_motivo VARCHAR(255) NULL,
 	PRIMARY KEY(id_denuncias),
+	FOREIGN KEY(motivo_id) REFERENCES tbl_motivos(id_motivo),
 	FOREIGN KEY(usuario_denunciado_id) REFERENCES tbl_usuario(id_usuario)
 
 );
 
+/* ALTER TABLE tbl_denuncias DROP motivo;*/
+/* ALTER TABLE tbl_denuncias ADD outro_motivo VARCHAR(255) NULL*/
+/* ALTER TABLE tbl_denuncias ADD motivo_id INT UNSIGNED NOT NULL*/
+/* ALTER TABLE tbl_denuncias ADD FOREIGN KEY(motivo_id) REFERENCES tbl_motivos(id_motivo) */
 /* ALTER TABLE tbl_denuncias ADD data DATE NOT NULL; */
 
 CREATE TABLE tbl_motivos(
 
 	id_motivo INT UNSIGNED AUTO_INCREMENT NOT NULL,
-	descricao CHAR(2) NOT NULL,
-	penalidade INT NOT NULL, /* 1 = Banir do site por 1 mês, 2 =  emitir aviso, 3 = banir email do usuário de cadastrar novamente e desativar sua conta */ 
+	motivo VARCHAR(255) NOT NULL,
+	penalidade INT NOT NULL, /* 1 = Banir do site por 1 mês, 2 =  emitir aviso, 3 = banir email do usuário de cadastrar novamente e desativar sua conta, 4 = à escolha do adm  */ 
 	PRIMARY KEY(id_motivo)
 
 );
+
+/* ALTER TABLE tbl_motivos CHANGE descricao motivo VARCHAR(255) NOT NULL*/
