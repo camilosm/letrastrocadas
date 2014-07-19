@@ -20,11 +20,16 @@
 		//Confere se houve resposta e envia mensagem de erro ou sucesso.
 		if($resposta)
 		{
-			echo "Genero cadastrado com sucesso";
+			echo "<section class='alert alert-dismissable alert-success' style='width:40%;margin-left:30%;'>					  
+						<strong>Gênero cadastrado com sucesso!</strong>
+						</section>";
 		}
 		else
 		{
-			echo "Erro ao cadastrar o genero";
+			echo "<section class='alert alert-dismissable alert-danger' style='width:40%;margin-left:30%;'>				  
+						<strong>Erro ao cadastrar gênero.</strong> Tente novamente!
+				</section>";	
+				
 		}
 	}
 
