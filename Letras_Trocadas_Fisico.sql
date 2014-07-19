@@ -194,30 +194,6 @@ CREATE TABLE tbl_fotos_livros(
 	
 );
 
-
-CREATE TABLE tbl_cambio(
-
-	id_cambio INT UNSIGNED AUTO_INCREMENT NOT NULL,
-	status INT NOT NULL, /* 1 = Em andamento(Esperando a cofirmação da entrega do livro); 2 = Livro já está em transporte; 3 = Feito; 4 = Livro não foi enviado dentro do prazo; 5 = Calote */
-	data_operacao DATE NOT NULL,
-	quantidade_livros INT NOT NULL,
-	data_entrega DATE NULL,
-	tipo INT NOT NULL, /* 1 = cambio e 2 = doação */
-	pontuacao SMALLINT NOT NULL,
-	cod_rastreamento VARCHAR(13) NULL,
-	entregue CHAR(3) NULL, /* Sim ou Nao*/
-	lista_livros_id INT UNSIGNED NOT NULL,
-	usuario_disponibilizador INT UNSIGNED NOT NULL,
-	usuario_resgate INT UNSIGNED NOT NULL,
-	solicitacao_id INT UNSIGNED NOT NULL,
-	PRIMARY KEY(id_cambio),
-	FOREIGN KEY(usuario_disponibilizador) REFERENCES tbl_usuario(id_usuario),
-	FOREIGN KEY(solicitacao_id) REFERENCES tbl_solicitacao_troca(id_solicitacao),
-	FOREIGN KEY(usuario_resgate) REFERENCES tbl_usuario(id_usuario),
-	FOREIGN KEY(lista_livros_id) REFERENCES tbl_lista_livros(id_lista_livros)
-
-);
-
 /*
  ALTER TABLE tbl_cambio ADD status INT NOT NULL AFTER id_cambio; 
  ALTER TABLE tbl_cambio ADD entregue CHAR(3) NULL AFTER cod_rastreamento; 
@@ -262,9 +238,26 @@ CREATE TABLE tbl_solicitacao_troca(
 
 );
 
+
+CREATE TABLE tbl_motivos(
+
+	id_motivo INT UNSIGNED AUTO_INCREMENT NOT NULL,
+	motivo VARCHAR(255) NOT NULL,
+	penalidade INT NOT NULL, /* 1 = Banir do site por 1 mês, 2 =  emitir aviso, 3 = banir email do usuário de cadastrar novamente e desativar sua conta, 4 = à escolha do adm  */ 
+	PRIMARY KEY(id_motivo)
+
+);
+
+/* ALTER TABLE tbl_denuncias DROP motivo;*/
+/* ALTER TABLE tbl_denuncias ADD outro_motivo VARCHAR(255) NULL*/
+/* ALTER TABLE tbl_denuncias ADD motivo_id INT UNSIGNED NOT NULL*/
+/* ALTER TABLE tbl_denuncias ADD FOREIGN KEY(motivo_id) REFERENCES tbl_motivos(id_motivo) */
+/* ALTER TABLE tbl_denuncias ADD data DATE NOT NULL; */
+/* ALTER TABLE tbl_motivos CHANGE descricao motivo VARCHAR(255) NOT NULL*/
+
 /* ALTER TABLE tbl_denuncias ADD status INT NOT NULL; */
 
-CREATE TABLE tbl_denuncias( 
+CREATE TABLE tbl_denuncias(
 
 	id_denuncias INT UNSIGNED AUTO_INCREMENT NOT NULL,
 	usuario_denunciado_id INT UNSIGNED NOT NULL,
@@ -278,19 +271,26 @@ CREATE TABLE tbl_denuncias(
 
 );
 
-/* ALTER TABLE tbl_denuncias DROP motivo;*/
-/* ALTER TABLE tbl_denuncias ADD outro_motivo VARCHAR(255) NULL*/
-/* ALTER TABLE tbl_denuncias ADD motivo_id INT UNSIGNED NOT NULL*/
-/* ALTER TABLE tbl_denuncias ADD FOREIGN KEY(motivo_id) REFERENCES tbl_motivos(id_motivo) */
-/* ALTER TABLE tbl_denuncias ADD data DATE NOT NULL; */
 
-CREATE TABLE tbl_motivos(
+CREATE TABLE tbl_cambio(
 
-	id_motivo INT UNSIGNED AUTO_INCREMENT NOT NULL,
-	motivo VARCHAR(255) NOT NULL,
-	penalidade INT NOT NULL, /* 1 = Banir do site por 1 mês, 2 =  emitir aviso, 3 = banir email do usuário de cadastrar novamente e desativar sua conta, 4 = à escolha do adm  */ 
-	PRIMARY KEY(id_motivo)
+	id_cambio INT UNSIGNED AUTO_INCREMENT NOT NULL,
+	status INT NOT NULL, /* 1 = Em andamento(Esperando a cofirmação da entrega do livro); 2 = Livro já está em transporte; 3 = Feito; 4 = Livro não foi enviado dentro do prazo; 5 = Calote */
+	data_operacao DATE NOT NULL,
+	quantidade_livros INT NOT NULL,
+	data_entrega DATE NULL,
+	tipo INT NOT NULL, /* 1 = cambio e 2 = doação */
+	pontuacao SMALLINT NOT NULL,
+	cod_rastreamento VARCHAR(13) NULL,
+	entregue CHAR(3) NULL, /* Sim ou Nao*/
+	lista_livros_id INT UNSIGNED NOT NULL,
+	usuario_disponibilizador INT UNSIGNED NOT NULL,
+	usuario_resgate INT UNSIGNED NOT NULL,
+	solicitacao_id INT UNSIGNED NOT NULL,
+	PRIMARY KEY(id_cambio),
+	FOREIGN KEY(usuario_disponibilizador) REFERENCES tbl_usuario(id_usuario),
+	FOREIGN KEY(solicitacao_id) REFERENCES tbl_solicitacao_troca(id_solicitacao),
+	FOREIGN KEY(usuario_resgate) REFERENCES tbl_usuario(id_usuario),
+	FOREIGN KEY(lista_livros_id) REFERENCES tbl_lista_livros(id_lista_livros)
 
 );
-
-/* ALTER TABLE tbl_motivos CHANGE descricao motivo VARCHAR(255) NOT NULL*/
