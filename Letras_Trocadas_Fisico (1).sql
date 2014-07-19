@@ -194,6 +194,7 @@ CREATE TABLE tbl_fotos_livros(
 	
 );
 
+
 CREATE TABLE tbl_cambio(
 
 	id_cambio INT UNSIGNED AUTO_INCREMENT NOT NULL,
@@ -208,8 +209,10 @@ CREATE TABLE tbl_cambio(
 	lista_livros_id INT UNSIGNED NOT NULL,
 	usuario_disponibilizador INT UNSIGNED NOT NULL,
 	usuario_resgate INT UNSIGNED NOT NULL,
+	solicitacao_id INT UNSIGNED NOT NULL,
 	PRIMARY KEY(id_cambio),
 	FOREIGN KEY(usuario_disponibilizador) REFERENCES tbl_usuario(id_usuario),
+	FOREIGN KEY(solicitacao_id) REFERENCES tbl_solicitacao_troca(id_solicitacao),
 	FOREIGN KEY(usuario_resgate) REFERENCES tbl_usuario(id_usuario),
 	FOREIGN KEY(lista_livros_id) REFERENCES tbl_lista_livros(id_lista_livros)
 
@@ -217,7 +220,7 @@ CREATE TABLE tbl_cambio(
 
 /*
  ALTER TABLE tbl_cambio ADD status INT NOT NULL AFTER id_cambio; 
- ALTER TABLE tbl_cambio ADD entregue CHAR(3) NULL AFTER cod_rastreamento;
+ ALTER TABLE tbl_cambio ADD entregue CHAR(3) NULL AFTER cod_rastreamento; 
 */
 
 
