@@ -28,13 +28,14 @@
 		
 		//Repassa os valores enviados pelo formulário para uma variável
 		$motivo = $_POST['MotivoDenuncia'];
+		$outro_motiv = $_POST['outroMotivo'];
 		
-		/*Instancia a classe que tenta evitar o MySql Inject
-		$editar_motivo = new EditarCaracteres($motivo);
-		$motivo = $editar_motivo->sanitizeStringNome($_POST['MotivoDenuncia']);*/
+		//Instancia a classe que tenta evitar o MySql Inject
+		$editar_motivo = new EditarCaracteres($outro_motiv);
+		$outro_motiv = $editar_motivo->sanitizeStringNome($_POST['outroMotivo']);
 		
 		//Realiza a inserção
-		$values_denuncia = "NULL,".$id_outro_usu.",'".$motivo."',1, DATE(NOW())";
+		$values_denuncia = "NULL,".$id_outro_usu.",1, DATE(NOW()),".$motivo.",'".$outro_motiv."'";
 		$cadastra_denuncia = new Inserir("tbl_denuncias",$values_denuncia);
 		$res = $cadastra_denuncia->inserir();
 		
@@ -93,13 +94,11 @@
                             <input type="radio" name="MotivoDenuncia" id="optionsRadios3" value="3">    
 						</div>
 					    <div class="radio">
-                          <label>
-                            <input type="radio" name="MotivoDenuncia" id="optionsRadios4" value="4">
-                            Outro: 
-                          </label>
+                          <label>Outro:</label>
+                            <input type="radio" name="MotivoDenuncia" id="optionsRadios4" value="4">                   
 						<div class="form-group">
 							<div class="col-lg-10">
-								<textarea class="form-control" rows="3" id="textArea"></textarea>
+								<textarea class="form-control" rows="3" id="textArea" name = "outroMotivo"></textarea>
 								<span class="help-block">Máximo 255 caracteres.</span>
 							</div>
 						</div>
@@ -120,5 +119,5 @@
                 </div>
 			</div>
   </fieldset>
-			</form>	
+ </form>	
 </article>
