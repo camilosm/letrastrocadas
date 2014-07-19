@@ -56,7 +56,7 @@
          </section>
          <section class="col-lg-10 col-lg-offset-2">
 		 <br>
-                       <button type = "reset "class="btn btn-default">Limpar</button>
+                       <input type = "reset "class="btn btn-default" value="Limpar"/>
                        <button type="submit" name = "entrar" class="btn btn-primary">Cadastrar</button>
         </section>
         </section>
