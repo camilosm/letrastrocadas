@@ -127,7 +127,7 @@
 											document.getElementById('Trocas_aceitas').style.backgroundColor = '#aea79f';
 										}
 										
-										document.getElementById('Solicitacoes_recebidas').innerHTML = data.solicitacoes_recebidas;
+										$('#Solicitacoes_recebidas').html(data.trocas_aceitas);
 										if(data.solicitacoes_recebidas != 0)
 										{
 										    document.getElementById('Solicitacoes_recebidas').style.backgroundColor = '#dd4814';
@@ -137,7 +137,7 @@
 											document.getElementById('Solicitacoes_recebidas').style.backgroundColor = '#aea79f';
 										}
 										
-										document.getElementById('CadeMeusLivros').innerHTML = data.trajetoria_livros;
+										$('#CadeMeusLivros').html(data.trocas_aceitas);
 										if(data.trajetoria_livros != 0)
 										{
 										    document.getElementById('CadeMeusLivros').style.backgroundColor = '#dd4814';
@@ -166,7 +166,7 @@
 											<a><li class="list-group-item"> Moedas<span id="Moedas" class="badge">0</span></li></a>
 											<a href = "?url=trocas"><li class="list-group-item"> Trocas <span id="Trocas_aceitas" class="badge">0</span></li></a>
 											<a href = "?url=solicitacoes_recebidas"><li class="list-group-item"> Solicitações recebidas<span id="Solicitacoes_recebidas"class="badge">0</span></li></a>
-											<a href = "?url=solicitacoes"><li class="list-group-item"> Cadê meus livros?  <span id="CadeMeusLivros" class="badge">0</span></li></a>
+											<a href = "?url=cade_meus_livros"><li class="list-group-item"> Cadê meus livros?  <span id="CadeMeusLivros" class="badge">0</span></li></a>
 										</ul>
 									</nav>
 								</section>

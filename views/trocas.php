@@ -37,9 +37,9 @@
 			{
 				$pesquisar_codigo = new Pesquisar('tbl_cambio','cod_rastreamento',"usuario_disponibilizador = ".$trocas['usuario_dono_lista']." AND usuario_resgate =".$_SESSION['id']);
 				$resultado_codigo = $pesquisar_codigo->pesquisar();
-				while($resultado_codigo = mysql_fetch_assoc($resultado_codigo))
+				while($resultado_codigos = mysql_fetch_assoc($resultado_codigo))
 				{
-					$codigo = $resultado_codigo['cod_rastreamento'];
+					$codigo = $resultado_codigos['cod_rastreamento'];
 				}
 			}
 			if($ct == 1)
@@ -62,8 +62,8 @@
 					<section id="collapse'.$ct.'" class="panel-collapse collapse '.$colapse.'">
 						<section class="panel-body">
 						<p>
-							Dono do livro :  '.utf8_encode($nome).'<BR>
-							Livro solicitado : '.$trocas['livro'].'<BR>
+							Dono do livro :  <a>'.utf8_encode($nome).'</a><BR>
+							Livro solicitado : <a>'.$trocas['livro'].'</a><BR>
 							Solicitação enviada no dia : '.$trocas['data_solicitacao'].'<BR>
 							Respondida no dia : '.$trocas['data_resposta'].'<BR>
 							Aceito : '.$trocas['aceito'].'<BR>
