@@ -39,14 +39,19 @@ O garoto-problema Percy Jackson é um deles. Tem experiências estranhas em que 
 
 INSERT INTO tbl_livros_trocados VALUES (NULL,9,1),(NULL,11,2),(NULL,1,3),(NULL,8,4),(NULL,15,5),(NULL,11,6);
 
-INSERT INTO tbl_denuncias VALUES(null, 1, 'Livro com mais danos que o previsto na descrição',1,'1997-06-08'),(null, 2, 'Livro com mais danos que o previsto na descrição',1,DATE(NOW())),(null, 2, 'Livro com mais danos que o previsto na descrição',DATE(NOW()),2),(null, 3, 'Livro com mais danos que o previsto na descrição', 1,DATE(NOW())),(null, 3, 'Livro com mais danos que o previsto na descrição',2,DATE(NOW())),(null, 2, 'Livro com mais danos que o previsto na descrição', 1,DATE(NOW())),(null, 3, 'Livro com mais danos que o previsto na descrição',2,DATE(NOW()));
+INSERT INTO tbl_denuncias VALUES(null, 1,1,'1997-06-08',1,''),(null, 2, 2,DATE(NOW()),2,''),(null, 2, 1,DATE(NOW()),2,''),(null,3,1,DATE(NOW()),3,''),(null, 3,2,DATE(NOW()),4,'Nada'),(null, 2, 1,DATE(NOW()),3,''),(null, 3,2,DATE(NOW()),2,'');
 
 INSERT INTO tbl_notificacoes 
 VALUES(NULL, 1, 'Sua solicitação foi aceita!', 1, DATE(NOW()),'false');
 
 INSERT INTO tbl_motivos 
-VALUES(NULL,'Livro com mais danos ou detalhes que o descrito no estado de conservação',2);
+VALUES(NULL,'Livro com mais danos que o previsto na descrição.',2);
 INSERT INTO tbl_motivos 
 VALUES(NULL,'Livro recebido é diferente do livro solicitado',1);
 INSERT INTO tbl_motivos 
+VALUES(NULL,'Livro não foi enviado',3);
+INSERT INTO tbl_motivos 
+VALUES(NULL,'Outro',4);
+
 VALUES(NULL,'Livro não foi enviado no prazo',3);
+
