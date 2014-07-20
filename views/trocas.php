@@ -29,19 +29,27 @@
 			$ct++;
 			$pesquisar_nome_usuario = new Pesquisar('tbl_usuario','nome',"id_usuario = ".$trocas['usuario_dono_lista']);
 			$resultado_nome = $pesquisar_nome_usuario->pesquisar();
+			
 			while($resultado = mysql_fetch_assoc($resultado_nome))
 			{
 				$nome = $resultado['nome'];
 			}
+			
 			if($trocas['aceito'] == "Sim")
 			{
-				$pesquisar_codigo = new Pesquisar('tbl_cambio','cod_rastreamento',"usuario_disponibilizador = ".$trocas['usuario_dono_lista']." AND usuario_resgate =".$_SESSION['id']);
+				$status = "aceita";
+				$pesquisar_codigo = new Pesquisar('tbl_cambio','cod_rastreamento',"solicitacao_id = ".$trocas['id_solicitacao']);
 				$resultado_codigo = $pesquisar_codigo->pesquisar();
 				while($resultado_codigos = mysql_fetch_assoc($resultado_codigo))
 				{
 					$codigo = $resultado_codigos['cod_rastreamento'];
 				}
 			}
+			else
+			{
+				$status = "recusado";
+			}
+			
 			if($ct == 1)
 			{
 				$colapse = "in";
@@ -50,24 +58,28 @@
 			{
 				$colapse = "";
 			}
+			
+			$array_data_solicitação = explode("-",$trocas['data_solicitacao']);
+			$data_solicitação = $array_data_solicitação[2]."/".$array_data_solicitação[1]."/".$array_data_solicitação[0];
+			
+			$array_data_resposta = explode("-",$trocas['data_resposta']);
+			$data_resposta = $array_data_resposta[2]."/".$array_data_resposta[1]."/".$array_data_resposta[0];
+			
 			 echo '
 			 <section class="panel-group" id="trocas">
 				<section class="panel panel-default">
 					<section class="panel-heading">
 						<h4 class="panel-title">
-							<a data-toggle="collapse" data-parent="#trocas" href="#collapse'.$ct.'">'.utf8_encode($trocas['livro']).' - '.$trocas['data_resposta'].'
+							<a data-toggle="collapse" data-parent="#trocas" href="#collapse'.$ct.'">'.utf8_encode($trocas['livro']).' - '.$data_solicitação.'
 							</a>
 						</h4>
 					</section>
 					<section id="collapse'.$ct.'" class="panel-collapse collapse '.$colapse.'">
 						<section class="panel-body">
-						<p>
-							Dono do livro :  <a>'.utf8_encode($nome).'</a><BR>
-							Livro solicitado : <a>'.$trocas['livro'].'</a><BR>
-							Solicitação enviada no dia : '.$trocas['data_solicitacao'].'<BR>
-							Respondida no dia : '.$trocas['data_resposta'].'<BR>
-							Aceito : '.$trocas['aceito'].'<BR>
-							Código de rastreamento : '.$codigo.'<BR>
+							<p>
+									A sua solicitação de troca foi '.$status.' pelo usuário '.utf8_encode($nome).', dono do livro "'.utf8_encode($trocas['livro']).'".<BR>
+									Sua solicitação foi enviada no dia '.$data_solicitação.' e respondida no dia '.$data_resposta.'.<BR>
+									Código de rastreamento : '.$codigo.'<BR>		
 							</p>
 						</section>
 					</section>
