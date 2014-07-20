@@ -1,10 +1,10 @@
 <script type = "text/javascript">
 
-	function Aceitar(id)
+	function Aceitar(id,lista,usuario)
 	{
 		$.ajax({
 		
-			url : 'ajax/aceita_solicitacao.php?id='+id,
+			url : 'ajax/aceita_solicitacao.php?id='+id+'&lista='+lista+'&usuario='+usuario,
 			dataType : 'json',
 			success : function(data){
 				$('#Aceitar_'+id).attr({'class' : 'btn btn-success disabled', 'value' : 'Aceito', 'onClick' : ''});
@@ -33,9 +33,6 @@
 		
 		});
 	}
-	
-italo gostotoso 
-
 
 </script>
 
@@ -56,24 +53,34 @@ italo gostotoso
 			$rastreamento = $_POST['Codigo_rastreamento'];
 			$codigo = $_GET['id'];
 			
+			
+			
 			$editar_rastreamento = new EditarCaracteres($rastreamento);
-			$rastreamento = $editar_rastreamento->sanitizeString($_POST['Codigo_rastreamento']);
+			$rastreamento = $editar_rastreamento->sanitizeStringNome($_POST['Codigo_rastreamento']);
 			
 			$editar_codigo = new EditarCaracteres($codigo);
 			$codigo = $editar_codigo->sanitizeString($_GET['id']);
 			
 			$alterar_codigo = new Alterar('tbl_cambio',"cod_rastreamento = '".$rastreamento."'",'id_cambio ='.$codigo);
+			$resultado = $alterar_codigo->alterar();
 
 		}
 		
+		$aspas = "'";
 		$alterar_status_notificações = new Alterar('tbl_notificacoes','visualizado = "true"','tipo = 3 AND usuario_id = '.$_SESSION['id']);
 		$resultado = $alterar_status_notificações->alterar();
 		
-		$tabelas_pendentes = "tbl_solicitacao_troca solicitacao INNER JOIN tbl_lista_livros lista_livro INNER JOIN tbl_livro livro ON id_lista_livros = lista_id AND id_livro = livro_id";
-		$campos_pendentes = "solicitacao.id_solicitacao";
-		$condicao_pendentes = "1=1";
-		$pesquisar_pendentes = new Pesquisar($tabelas_pendentes,$campos_pendentes,$condicao_pendentes);
+		$tabelas = "tbl_solicitacao_troca solicitacao INNER JOIN tbl_lista_livros lista_livro INNER JOIN tbl_livro livro INNER JOIN tbl_usuario usuario ON id_lista_livros = lista_id AND id_livro = livro_id AND id_usuario = usuario_id";
+		
+		$campos_pendentes = "solicitacao.id_solicitacao,solicitacao.data_solicitacao,livro.nome as livro,usuario.nome as nome, solicitacao.usuario_solicitador as usuario, lista_livro.id_lista_livros as lista";
+		$condicao_pendentes = "aceito = '' AND usuario_dono_lista = ".$_SESSION['id'];
+		$pesquisar_pendentes = new Pesquisar($tabelas,$campos_pendentes,$condicao_pendentes);
 		$resultado_pendente = $pesquisar_pendentes->pesquisar();
+		
+		$campos_antiga = "solicitacao.id_solicitacao,solicitacao.data_solicitacao,livro.nome as livro,usuario.nome as nome, solicitacao.usuario_solicitador as usuario, lista_livro.id_lista_livros as lista, solicitacao.aceito,solicitacao.data_resposta";
+		$condicao_antiga = "aceito <> '' AND usuario_dono_lista = ".$_SESSION['id'];
+		$pesquisar_antiga = new Pesquisar($tabelas,$campos_antiga,$condicao_antiga);
+		$resultado_antiga = $pesquisar_antiga->pesquisar();
 
 		echo '
 		<section class="panel panel-default" style="margin-left:5%; width:70%;">
@@ -94,6 +101,11 @@ italo gostotoso
 				$colapse = "";
 			}
 			
+			$pesquisar_pendentes = new Pesquisar("tbl_usuario","nome","id_usuario = ".$notificações_pendentes['usuario']);
+			$resultado_pendente = $pesquisar_pendentes->pesquisar();
+			$nome_array = mysql_fetch_assoc($resultado_pendente);
+			$nome = $nome_array['nome'];
+			
 			$data = explode("-",$notificações_pendentes['data_solicitacao']);
 			$data_pronta = $data[2]."/".$data[1]."/".$data[0];
 			
@@ -110,19 +122,19 @@ italo gostotoso
 						<section class="panel-body">
 						<p>
 							<H4>
-							'.utf8_encode($notificações_pendentes['nome']).' solicitou seu livro "'.utf8_encode($notificações_pendentes['livro']).'"
+							'.utf8_encode($nome).' solicitou seu livro "'.utf8_encode($notificações_pendentes['livro']).'"
 							no dia '.$data_pronta.'<BR>
 							Deseja aceitar?<BR>
 							</H4>
 						</p>
-						<input type = "button" class="btn btn-primary btn-sm" id = "Aceitar_'.$notificações_pendentes['id_solicitacao'].'" onClick="Aceitar('.$notificações_pendentes['id_solicitacao'].')" value = "Aceitar"/>
-						<input type = "button" class="btn btn-primary btn-sm" id = "Recusar_'.$notificações_pendentes['id_solicitacao'].'" onClick="Recusar('.$notificações_pendentes['id_solicitacao'].')" value="Recusar"/>
+						<input type = "button" class="btn btn-primary btn-sm" id = "Aceitar_'.$notificações_pendentes['id_solicitacao'].'" onClick="Aceitar('.$aspas.''.$notificações_pendentes['id_solicitacao'].''.$aspas.','.$aspas.''.$notificações_pendentes['lista'].''.$aspas.','.$aspas.''.$notificações_pendentes['usuario'].''.$aspas.')" value = "Aceitar"/>
+						<input type = "button" class="btn btn-primary btn-sm" id = "Recusar_'.$notificações_pendentes['id_solicitacao'].'" onClick="Recusar('.$aspas.''.$notificações_pendentes['id_solicitacao'].''.$aspas.')" value="Recusar"/>
 					</section>							
 				</section>
 			</section>';
 			 
 		}
-		while($notificações_antigas=mysql_fetch_assoc($resultado_respondidas))
+		while($notificações_antigas=mysql_fetch_assoc($resultado_antiga))
 		{	
 			if($ct == 0)
 			{
@@ -136,11 +148,27 @@ italo gostotoso
 			$codigo = "";
 			if($notificações_antigas['aceito'] == "Sim")
 			{
-				$codigo = '
+				
+				$pesquisar_id_cambio = new Pesquisar("tbl_cambio","id_cambio,cod_rastreamento","solicitacao_id = ".$notificações_antigas['id_solicitacao']);
+				$resultado_id_cambio = $pesquisar_id_cambio->pesquisar();
+				$id_array = mysql_fetch_assoc($resultado_id_cambio);
+				$id_cambio = $id_array['id_cambio'];
+				$cod = $id_array['cod_rastreamento'];
+
+				if($cod == '')
+				{
+					$codigo = '
+						<form action="?url=solicitacoes_recebidas&id='.$id_cambio.'" method="post">
 							<BR>
 							<label for="Codigo_rastreamento" class="control-label">Código de rastreamento:</label>
 							<input type = "text" style="width:30%;" class = "form-control" name = "Codigo_rastreamento" id = "Codigo_rastreamento"><BR>
-							<button type="submit" class="btn btn-primary" name = "cadastrar_codigo" id = "cadastrar_codigo">Cadastrar código</button>';
+							<button type="submit" class="btn btn-primary" name = "cadastrar_codigo" id = "cadastrar_codigo">Cadastrar código</button>
+						<form>';
+				}
+				else
+				{
+					$codigo = 'O código de rastreamento é : '.$cod;
+				}
 			}
 			$ct++;
 			
@@ -160,12 +188,11 @@ italo gostotoso
 						</h4>
 					</section>
 					<section id="collapse'.$ct.'" class="panel-collapse collapse '.$colapse.'">
-						<form action="?url=solicitacoes_recebidas&id='.$notificações_antigas['id_cambio'].'" method="post">
 						<section class="panel-body">
 						<p class="lead">
 							<H4>
 								'.utf8_encode($notificações_antigas['nome']).' solicitou seu livro "'.utf8_encode($notificações_antigas['livro']).'"
-								no dia '.$data_pronta_solicitada.' e respondida no dia '.$data_pronta_respondida.' <BR>
+								no dia '.$data_pronta_solicitada.' e você respondeu no dia '.$data_pronta_respondida.' <BR>
 								'.$codigo.'								
 							</H4>
 						</p>
