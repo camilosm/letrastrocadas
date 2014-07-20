@@ -19,7 +19,7 @@
 			$alterar = new Alterar('tbl_solicitacao_troca',"aceito = 'Sim', data_resposta = DATE(NOW())",'id_solicitacao = '.$id);
 			$resultado = $alterar->alterar();
 			
-			$campos = "NULL,1,DATE(NOW()),1,NULL,1,1,'',NULL,".$lista.",".$usuario.",".$_SESSION['id'].",".$id;
+			$campos = "NULL,1,DATE(NOW()),1,NULL,1,1,'',NULL,".$lista.",".$_SESSION['id'].",".$usuario.",".$id;
 			$inserir = new Inserir('tbl_cambio',$campos);
 			$resultados = $inserir->inserir();
 			

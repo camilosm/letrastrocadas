@@ -178,6 +178,11 @@
 			$data_respondida = explode("-",$notificações_antigas['data_resposta']);
 			$data_pronta_respondida = $data_respondida[2]."/".$data_respondida[1]."/".$data_respondida[0];
 			
+			$pesquisar_antigas = new Pesquisar("tbl_usuario","nome","id_usuario = ".$notificações_antigas['usuario']);
+			$resultado_antigas = $pesquisar_antigas->pesquisar();
+			$nome_array = mysql_fetch_assoc($resultado_antigas);
+			$nome = $nome_array['nome'];
+			
 			 echo '
 			 <section class="panel-group" id="solicitações">
 				<section class="panel panel-default">
@@ -191,7 +196,7 @@
 						<section class="panel-body">
 						<p class="lead">
 							<H4>
-								'.utf8_encode($notificações_antigas['nome']).' solicitou seu livro "'.utf8_encode($notificações_antigas['livro']).'"
+								'.utf8_encode($nome).' solicitou seu livro "'.utf8_encode($notificações_antigas['livro']).'"
 								no dia '.$data_pronta_solicitada.' e você respondeu no dia '.$data_pronta_respondida.' <BR>
 								'.$codigo.'								
 							</H4>

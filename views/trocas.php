@@ -14,7 +14,7 @@
 		
 		$tabelas = 'tbl_solicitacao_troca solicitacao INNER JOIN tbl_usuario usuario INNER JOIN tbl_lista_livros lista INNER JOIN tbl_livro livro ON id_usuario = usuario_solicitador AND id_livro = livro_id AND id_lista_livros = lista_id';
 		
-		$pesquisar_trocas = new Pesquisar($tabelas,'livro.nome As livro, solicitacao.*',"aceito <> '' AND  usuario_solicitador = ".$_SESSION['id']." ORDER BY data_resposta DESC");
+		$pesquisar_trocas = new Pesquisar($tabelas,'livro.nome As livro, solicitacao.*',"usuario_solicitador = ".$_SESSION['id']." ORDER BY data_resposta DESC");
 		$resultado_trocas = $pesquisar_trocas->pesquisar();
 		
 		echo '
@@ -43,11 +43,12 @@
 				while($resultado_codigos = mysql_fetch_assoc($resultado_codigo))
 				{
 					$codigo = $resultado_codigos['cod_rastreamento'];
+					$resposta = "Código de rastreamento : ".$codigo;
 				}
 			}
 			else
 			{
-				$status = "recusado";
+				$status = "recusada";
 			}
 			
 			if($ct == 1)
@@ -65,26 +66,51 @@
 			$array_data_resposta = explode("-",$trocas['data_resposta']);
 			$data_resposta = $array_data_resposta[2]."/".$array_data_resposta[1]."/".$array_data_resposta[0];
 			
-			 echo '
-			 <section class="panel-group" id="trocas">
-				<section class="panel panel-default">
-					<section class="panel-heading">
-						<h4 class="panel-title">
-							<a data-toggle="collapse" data-parent="#trocas" href="#collapse'.$ct.'">'.utf8_encode($trocas['livro']).' - '.$data_solicitação.'
-							</a>
-						</h4>
-					</section>
-					<section id="collapse'.$ct.'" class="panel-collapse collapse '.$colapse.'">
-						<section class="panel-body">
-							<p>
-									A sua solicitação de troca foi '.$status.' pelo usuário '.utf8_encode($nome).', dono do livro "'.utf8_encode($trocas['livro']).'".<BR>
-									Sua solicitação foi enviada no dia '.$data_solicitação.' e respondida no dia '.$data_resposta.'.<BR>
-									Código de rastreamento : '.$codigo.'<BR>		
-							</p>
+			if($trocas['aceito'] != '')
+			{
+				 echo '
+				 <section class="panel-group" id="trocas">
+					<section class="panel panel-default">
+						<section class="panel-heading">
+							<h4 class="panel-title">
+								<a data-toggle="collapse" data-parent="#trocas" href="#collapse'.$ct.'">'.utf8_encode($trocas['livro']).' - '.$data_solicitação.'
+								</a>
+							</h4>
+						</section>
+						<section id="collapse'.$ct.'" class="panel-collapse collapse '.$colapse.'">
+							<section class="panel-body">
+								<p>
+										A sua solicitação de troca foi '.$status.' pelo usuário '.utf8_encode($nome).', dono do livro "'.utf8_encode($trocas['livro']).'".<BR>
+										Sua solicitação foi enviada no dia '.$data_solicitação.' e respondida no dia '.$data_resposta.'.<BR>
+										'.$resposta.'<BR>		
+								</p>
+							</section>
 						</section>
 					</section>
-				</section>
-			</section>';
+				</section>';
+			}
+			else
+			{
+				echo '
+				<section class="panel-group" id="trocas">
+					<section class="panel panel-default">
+						<section class="panel-heading">
+							<h4 class="panel-title">
+								<a data-toggle="collapse" data-parent="#trocas" href="#collapse'.$ct.'">'.utf8_encode($trocas['livro']).' - '.$data_solicitação.'
+								</a>
+							</h4>
+						</section>
+						<section id="collapse'.$ct.'" class="panel-collapse collapse '.$colapse.'">
+							<section class="panel-body">
+								<p>
+										A sua solicitação de troca foi enviada para o usuário '.utf8_encode($nome).', dono do livro "'.utf8_encode($trocas['livro']).'".<BR>
+										Sua solicitação foi enviada no dia '.$data_solicitação.'. Aguarde a decissão do usuário.<BR>
+								</p>
+							</section>
+						</section>
+					</section>
+				</section>';
+			}
 		}
 		echo '
 			</section>

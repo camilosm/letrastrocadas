@@ -14,7 +14,6 @@
 		$resultado_moedas = $pesquisar_moedas->pesquisar();
 		$array_moedas = mysql_fetch_row($resultado_moedas);
 		$quantidade_moedas = $array_moedas[0];
-		$sidebar = array('moedas' => $quantidade_moedas);
 		
 		$pesquisar_trocas_aceitas = new Pesquisar("tbl_notificacoes","COUNT(id_notificacoes)","usuario_id =".$id." AND tipo = 1 AND visualizado = 'false'");
 		$resultado_trocas_aceitas = $pesquisar_trocas_aceitas->pesquisar();
