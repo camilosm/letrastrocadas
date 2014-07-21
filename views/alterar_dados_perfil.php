@@ -54,19 +54,20 @@
 				url: 'ajax/upload.php', 
 				type: 'post',					
 				dataType  : "json",
-				success : function( data ){RetornaImagem(data.caminho);},
+				success : function( data ){RetornaImagem(data.caminho,data.caminho_a);},
 				resetForm : false
 			}
 		);	
 	}
-	var RetornaImagem = function(caminho){
+	var RetornaImagem = function(caminho,outro){
 		$.post("ajax/abre_imagem.php",{caminho : caminho}, function(data){
-				$("#img_perfil").attr("src", data.imagem)
+				$("#img_perfil").attr("src", data.imagem);
+				$("#caminho").attr("value", outro);
 			}
 		);
 	}
 </script>
-<form  name="frm_upload" id="frm_upload" class="form-horizontal" enctype="multipart/form-data" method="post" action="#">
+<form  name="frm_upload" id="frm_upload" class="form-horizontal" enctype="multipart/form-data" method="post" action="">
 	<article id  = "alterar_dados_perfil" style = "width: 80%; margin-left: 10%;">
 		<fieldset>
 
@@ -75,6 +76,7 @@
 			<section class="form-group">	
 		        <label class="col-lg-2 control-label">Se deseja alterar <br> sua foto de perfil,<br> clique na imagem.</label>
 							<img alt="" id="img_perfil" class = "thumbnail" style="cursor:pointer;" onclick="$('#file').click();" src = "<?=$foto?>">
+							<input type="text" value = "" style="visibility:hidden;" name="caminho" id="caminho" class="btn btn-primary btn-sm"/>
 							<input type="file" style="visibility:hidden;" name="file" onchange="UploadFoto();" id="file" class="btn btn-primary btn-sm"/>
 
 			</section>
