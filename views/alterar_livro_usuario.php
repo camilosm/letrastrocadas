@@ -14,6 +14,7 @@
 		$bd = new Banco();
 		
 		$id = $_GET['cod'];
+		$lista = $_GET['lista'];
 		
 		$editar_id = new EditarCaracteres($id);
 		$id = $editar_id->sanitizeString($_GET['cod']);
@@ -158,7 +159,7 @@
 			$_SESSION['foto_original_3'] = $terceira_foto;
 		}
 		
-		$data = date(Y);
+		$data = date('Y');
 		
 	}
 	else
@@ -181,8 +182,8 @@
 	}
 ?>
 
-<article id  = "body_cadastra_livro_usu" style = "width:70%;height:60%;position:relative;left:30%;">
-	<form class="form-horizontal" method="post" action="?url=alterar_livro_usuario&cod=<?php echo $id;?>"  enctype="multipart/form-data">
+<article id  = "body_cadastra_livro_usu" style = "width:50%;height:60%;position:relative;left:20%;">
+	<form class="form-horizontal" method="post" action="?url=alterar_livro_usuario&cod=<?php echo $id;?>&lista=<?php echo $lista;?>"  enctype="multipart/form-data">
 		<fieldset>
 			<legend>Alterar Livros</legend>
 			

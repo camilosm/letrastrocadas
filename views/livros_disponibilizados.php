@@ -21,7 +21,7 @@
 			}
 			
 			$bd = new Banco();
-			$campos = "id_lista_livros,imagem_livros,livro.nome AS Livro,autor.nome AS Autor,editora.nome As Editora, livro.sinopse As sinopse";
+			$campos = "id_lista_livros,imagem_livros,livro.nome AS Livro,livro.id_livro as id_livro,autor.nome AS Autor,editora.nome As Editora, livro.sinopse As sinopse";
 			$tabelas = "tbl_lista_livros lista INNER JOIN tbl_livro livro INNER JOIN tbl_editora editora INNER JOIN tbl_autor autor ON id_editora = editora_id AND id_autor = autor_id AND id_livro = livro_id";
 			$pesquisar_livros = new Pesquisar($tabelas,$campos,"id_lista_livros > ".$codigo." AND usuario_id =".$_SESSION['id']." LIMIT 7");
 			$resultado = $pesquisar_livros->pesquisar();
@@ -34,6 +34,7 @@
 			
 			$id =array();
 			$nome = array();
+			$id_livro = array();
 			$imagem = array();
 			$editora = array();
 			$autor = array();
@@ -42,6 +43,7 @@
 			while($pesquisa=mysql_fetch_assoc($resultado))
 			{
 				$id[] = $pesquisa['id_lista_livros'];
+				$id_livro = $pesquisa['id_livro'];
 				$nome[] = $pesquisa['Livro'];
 				$imagem[] = $pesquisa['imagem_livros'];
 				$editora[] = $pesquisa['Editora'];
@@ -81,7 +83,7 @@
 							<a> <h3> <?php echo utf8_encode($nome[0]); ?> </h3> </a>				  
 							<a> <h4> <?php echo utf8_encode($autor[0]); ?> </h4></a>
 						    <a> <h5> <?php echo utf8_encode($editora[0]); ?> </h5></a>
-							<form method="post" action="?url=alterar_livro_usuario&cod=<?php echo $id[0];?>">
+							<form method="post" action="?url=alterar_livro_usuario&cod=<?php echo $id_livro[0];?>&lista=<?php echo $id[0] ;?>">
 							<input type="submit" class="btn btn-primary btn-sm" name="alterarlivro" value="Alterar Livro"/>
 							</form>
 					</section>

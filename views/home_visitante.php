@@ -68,9 +68,15 @@
 		<section class="panel-body">
 			
 			<?php
-			
+				$ct=0; 
 				while($pesquisa=mysql_fetch_assoc($resultado))
 				{
+					$ct++;
+					if(($ct == 1) OR ($ct == 4))
+					{
+						echo '<section class="row">';
+					}
+					
 					echo
 						'
 							<section class="col-lg-4">
@@ -82,6 +88,11 @@
 								</section>
 							</section>
 						';
+					
+					if(($ct == 3) OR ($ct == 6))
+					{
+						echo '</section>';
+					}
 				}
 			
 			?>
