@@ -7,7 +7,7 @@
 		
 		include("class_editar_caracteres.php");
 		include("classes/class_update.php");
-				
+		
 		//Repassa os valores enviados pelo formulário para uma variável
 		$nome = $_POST['nome'];
 		$data_nasc = $_POST['data_nascimento'];
@@ -18,7 +18,8 @@
 		$uf = $_POST['uf'];
 		$complemento = $_POST['complemento'];
 		$cidade = $_POST['cidade'];
-		$bairro = $_POST['bairro'];				
+		$bairro = $_POST['bairro'];	
+		$nova_imagem = $_POST['caminho'].".jpg";
 		
 		//Instancia a classe que tenta evitar o MySql Inject
 		$editar_nome = new EditarCaracteres($nome);
@@ -26,6 +27,7 @@
 		
 		//Instancia e passa os valores para a classe de Update 
 		$valores_altera_dados_perfil = "nome = '" .utf8_decode($nome). "',
+		foto = '".$nova_imagem."',
         data_nasc = '".$data_nasc."',
         genero_favorito = '".utf8_decode($genero_fav)."',
 		logradouro = '".utf8_decode($logradouro)."',
@@ -39,17 +41,16 @@
 		$condicao = "id_usuario =".$id."";
 		$alterar_dados = new Alterar("tbl_usuario",$valores_altera_dados_perfil, $condicao);
 		$resposta = $alterar_dados->alterar();
-		echo $resposta;
 		
 		$idade = mysql_query("call calc_idade($id)");
 		//Confere se houve resposta e envia mensagem de erro ou sucesso.
 		if($resposta)
 		{
-			ECHO "OK";
+			ECHO "Alterado com sucesso";
 		}
 		else
 		{
-			ECHO "Erro";
+			ECHO "Erro ao alterar seu perfil";
 		}
 	}
 
