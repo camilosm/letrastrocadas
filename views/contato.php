@@ -59,13 +59,13 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 				  
 		         <section class="form-group">
 		 
-                  <label for="inputNome" class="col-lg-2 control-label">Nome</label>
+                  <label for="inputNome" class="col-lg-2 control-label">Nome:</label>
 				  
          <section class="col-lg-10">
                   <input type="text" class="form-control" id="inputNome" name="inputNome" required maxlength = "100" placeholder = "Nome">			  
          </section>
 
-		<label for="inputEmail" class="col-lg-2 control-label">E-Mail</label>
+		<label for="inputEmail" class="col-lg-2 control-label">E-Mail:</label>
 				  
          <section class="col-lg-10">
                   <input type="email" class="form-control" id="inputEmail" name="inputEmail" required  placeholder = "E-Mail">			  
@@ -75,20 +75,21 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 		 
 		 
 		 
-                  <label for="inputAssunto" class="col-lg-2 control-label">Assunto</label>		  
+                  <label for="inputAssunto" class="col-lg-2 control-label">Assunto:</label>		  
          <section class="col-lg-10">
                   <input type="text" class="form-control" id="inputAssunto" name="inputAssunto" required placeholder = "Assunto" maxlength = "100">	  
          </section>
 		 <br>
-                <label for="textArea" class="col-lg-2 control-label">Texto</label>
+                <label for="textArea" class="col-lg-2 control-label">Mensagem:</label>
 				
          <section class="col-lg-10">
                 <textarea class="form-control" rows="3" id="inputMenssagem" name="inputMenssagem" placeholder = "Escreva aqui o que deseja"></textarea> 
+				Ou envie um e-mail para: contato@letrastrocadas.com.br
          </section>
 		 <br>
          <section class="col-lg-10 col-lg-offset-2">
 		 <br>
-                       <button style="margin-left: 5px; float:right;" type = "reset "class="btn btn-default">Cancelar</button>
+                       <button style="margin-left: 5px; float:right;" type = "reset" name="reset" class="btn btn-default">Cancelar</button>
                        <button style="float:right;" type="submit" id="enviar" name="enviar" class="btn btn-primary">Enviar</button>
         </section>
         </section>
