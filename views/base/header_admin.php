@@ -38,7 +38,7 @@
 			</ul>
 				<ul class="nav navbar-nav">
 					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Cadastrar/Alterar <b class="caret"></b></a>
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-pencil"></span>&nbsp Cadastrar/Alterar <b class="caret"></b></a>
 							<ul class="dropdown-menu">
 								<li><a href="?url=cadastra_livro_adm">Livro</a></li>
 								<li><a href="?url=cadastrar_editora">Editora</a></li>
