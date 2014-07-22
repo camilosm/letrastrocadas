@@ -25,34 +25,37 @@
 <article>
 	<section class="panel panel-default" style = "width:96%; margin-left:2%;">
 		<section class="panel-heading"><h4>Banimentos<h4></section>
-		<section class="panel panel-default" style="margin-top: 2%; margin-left: 2%; width: 96%;">
-			<section class="panel-heading">Histórico de denuncias do usuário</section>
-				<section class="panel-body">
-					<section class="list-group">
-						<?php while($Dados_Den_Usu = mysql_fetch_assoc($resultado_den_usu)){
-						   echo 
-						   '<a class="list-group-item">
-								<h4 class="list-group-item-heading">'.$Dados_Den_Usu['email'].' - '.$Dados_Den_Usu['data'] .'</h4>
-									<p class="list-group-item-text">'.utf8_encode($Dados_Den_Usu['motivo']).'. '.utf8_encode($Dados_Den_Usu['outro_motivo']).'
-										<section id = "avaliações" style = "width:50%;">
-											<br><label> Avaliações: </label>
-												&nbsp  
-													<span class= "glyphicon glyphicon-thumbs-up"></span> <span class = "badge">'.$Dados_Den_Usu["avaliacoes_positivas"].'</span> 
-												&nbsp
-													<span class= "glyphicon glyphicon-thumbs-down"> </span> <span class = "badge">'.$Dados_Den_Usu["avaliacoes_negativas"].'</span>
-										</section></p>			
-							</a>';
-						}
-						?>
+		<section class="row">
+			<section class="col-md-7" style="margin-top: 1%;">
+				<section class="panel panel-default" style="margin-left: 1%; width: 98%;">
+					<section class="panel-heading">Histórico de denuncias do usuário</section>
+					<section class="panel-body">
+						<section class="list-group">
+							<?php while($Dados_Den_Usu = mysql_fetch_assoc($resultado_den_usu)){
+							   echo 
+							   '<a class="list-group-item">
+									<h4 class="list-group-item-heading">'.$Dados_Den_Usu['email'].' - '.$Dados_Den_Usu['data'] .'</h4>
+										<p class="list-group-item-text">'.utf8_encode($Dados_Den_Usu['motivo']).'. '.utf8_encode($Dados_Den_Usu['outro_motivo']).'
+											<section id = "avaliações" style = "width:50%;">
+												<br><label> Avaliações: </label>
+													&nbsp  
+														<span class= "glyphicon glyphicon-thumbs-up"></span> <span class = "badge">'.$Dados_Den_Usu["avaliacoes_positivas"].'</span> 
+													&nbsp
+														<span class= "glyphicon glyphicon-thumbs-down"> </span> <span class = "badge">'.$Dados_Den_Usu["avaliacoes_negativas"].'</span>
+											</section></p>			
+								</a>';
+							}
+							?>
+						</section>
 					</section>
 				</section>
-		</section>
-		<form method="post" action="">
-			<section class ="panel panel-default" style = "margin-left: 2%; width: 96%;">
-				<section class="panel-heading">Medidas</section>
-				<section class="panel-body">
-					<p> Qual medida você deseja tomar? </p>
-						<section class="col-lg-10">
+			</section>
+			<section class="col-md-5" style="margin-top: 1%;">
+				<section class ="panel panel-default" style="margin-left: 1%; width: 98%;">
+					<section class="panel-heading">Medidas</section>
+					<section class="panel-body">
+						<form method="post" action="">
+							<p> Qual medida você deseja tomar? </p>
 							<section class="radio">
 								<label> Banir do site por 1 mês</label>
 									<input type="radio" name="Ban" id="optionsRadios1" value="1">
@@ -69,14 +72,14 @@
 								<label>Emitir aviso de 2ª denuncia</label>
 									<input type="radio" name="Ban" id="optionsRadios4" value="2">                   
 							</section>
-								<button type="submit" class="btn btn-primary" name = "btnBanir">
-									<span class="glyphicon glyphicon-flag"></span> Banir
-								</button>
-
-						</section>
+							<button type="submit" class="btn btn-primary" name = "btnBanir">
+								<span class="glyphicon glyphicon-flag"></span> Banir
+							</button>
+						</form>
+					</section>
 				</section>
 			</section>
-		</form>
+		</section>
 	</section>
 </article>
 
