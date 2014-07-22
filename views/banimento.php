@@ -26,7 +26,7 @@
 	<section class="panel panel-default" style = "width:96%; margin-left:2%;">
 		<section class="panel-heading"><h4>Banimentos<h4></section>
 		<section class="row">
-			<section class="col-md-7" style="margin-top: 1%;">
+			<section class="col-md-6" style="margin-top: 1%;">
 				<section class="panel panel-default" style="margin-left: 1%; width: 98%;">
 					<section class="panel-heading">Histórico de denuncias do usuário</section>
 					<section class="panel-body">
@@ -50,7 +50,7 @@
 					</section>
 				</section>
 			</section>
-			<section class="col-md-5" style="margin-top: 1%;">
+			<section class="col-md-6" style="margin-top: 1%;">
 				<section class ="panel panel-default" style="margin-left: 1%; width: 98%;">
 					<section class="panel-heading">Medidas</section>
 					<section class="panel-body">
