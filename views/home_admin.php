@@ -8,7 +8,7 @@
 		
 		/* Pesquisa Denuncias recentes */ 
 		
-		$pesquisa_denuncias = new Pesquisar("tbl_usuario usuario JOIN tbl_denuncias den ON usuario_denunciado_id = id_usuario","usuario.nome, usuario.email, den.motivo, den.status, den.id_denuncias, COUNT(*) as Numero_Denuncias","1=1 GROUP BY id_denuncias ORDER BY data DESC");
+		$pesquisa_denuncias = new Pesquisar("tbl_usuario usu JOIN tbl_denuncias den ON usuario_denunciado_id = id_usuario JOIN tbl_motivos ON motivo_id = id_motivo","id_denuncias,usu.nome, id_usuario,den.status, usu.email, motivo_id, outro_motivo,motivo, penalidade, data","1=1 GROUP BY id_denuncias ORDER BY data DESC");
 		$resul_pesquisa_den = $pesquisa_denuncias->pesquisar();		
 		$Denuncias = mysql_fetch_assoc($resul_pesquisa_den);
 		
@@ -31,8 +31,6 @@
 	}
 
 ?>
-
-<body>
 
 	<body>
 		
@@ -71,16 +69,19 @@
 										<section class="panel-heading">
 											<h4 class="panel-title">
 												<a data-toggle="collapse" data-parent="#accordion" href="#collapse1">'
-													 .$Denuncias["email"]. ' - ' .$Denuncias["nome"].
-												' - <a href = "#">'	
+													 .$Denuncias["email"]. ' - ' .$Denuncias["nome"]. ' - ' .$Denuncias["data"].
+												' - <a href = "?url=banimento&cod_d='.$Denuncias['id_denuncias'].'&cod_usu='.$Denuncias['id_usuario'].'">'	
 													.$status.
 												'</a>
 												</a>
 											</h4>
 										</section>
 										<section id="collapse1" class="panel-collapse collapse in">
-											<section class="panel-body">'
-												. utf8_encode($Denuncias["motivo"]).'
+											<section class="panel-body">
+												 '. 
+												 utf8_encode($Denuncias["motivo"]). '. ' 
+												 . utf8_encode($Denuncias["outro_motivo"])
+												 .' 	
 											</section>
 										</section>
 									</section>

@@ -78,46 +78,46 @@
     <form class="form-horizontal" method = "post" action ="">
 		<fieldset>
             <legend>Denunciar</legend>           
-				<div class="form-group">
-					<label for="textArea" class="col-lg-2 control-label">Informe aqui o motivo</label>
-	         		<div class="col-lg-10">
-                        <div class="radio">
-						  <label> Livro com mais danos que o previsto na descrição.</label>
-                            <input type="radio" name="MotivoDenuncia" id="optionsRadios1" value="1">
-						</div>
-						<div class="radio">
-                          <label> Livro não foi enviado. </label>
-                            <input type="radio" name="MotivoDenuncia" id="optionsRadios2" value="2">
-						</div>
-						<div class="radio">
-                          <label>Livro recebido é diferente do livro solicitado.</label>
-                            <input type="radio" name="MotivoDenuncia" id="optionsRadios3" value="3">    
-						</div>
-					    <div class="radio">
-                          <label>Outro:</label>
-                            <input type="radio" name="MotivoDenuncia" id="optionsRadios4" value="4">                   
-						<div class="form-group">
-							<div class="col-lg-10">
+				<section class="form-group">
+						<label for="textArea" class="col-lg-2 control-label">Informe aqui o motivo</label>
+	         		<section class="col-lg-10">
+                        <section class="radio">
+							<label> Livro com mais danos que o previsto na descrição.</label>
+								<input type="radio" name="MotivoDenuncia" id="optionsRadios1" value="1">
+						</section>
+						<section class="radio">
+							<label> Livro não foi enviado. </label>
+								<input type="radio" name="MotivoDenuncia" id="optionsRadios2" value="2">
+						</section>
+						<section class="radio">
+							<label>Livro recebido é diferente do livro solicitado.</label>
+								<input type="radio" name="MotivoDenuncia" id="optionsRadios3" value="3">    
+						</section>
+					    <section class="radio">
+							<label>Outro:</label>
+								<input type="radio" name="MotivoDenuncia" id="optionsRadios4" value="4">                   
+						<section class="form-group">
+							<section class="col-lg-10">
 								<textarea class="form-control" rows="3" id="textArea" name = "outroMotivo"></textarea>
 								<span class="help-block">Máximo 255 caracteres.</span>
-							</div>
-						</div>
-						</div>
-						 </div>
-                        </div>
-	         		</div>
-            </div>
+							</section>
+						</section>
+						</section>
+					</section>
+                </section>
+
+            </section>
             
-            <div class="form-group">
-	         	<div class="col-lg-10 col-lg-offset-2">
+            <section class="form-group">
+	         	<section class="col-lg-10 col-lg-offset-2">
 	         		<button type="button" class="btn btn-default">
 	         			<span class="glyphicon glyphicon-remove-circle"></span> Cancelar 
 	         		</button>
 	         		<button type="submit" class="btn btn-primary" name = "btnDenunciar">
 	         			<span class="glyphicon glyphicon-flag"></span> Denunciar
 	         		</button>
-                </div>
-			</div>
+                </section>
+			</section>
   </fieldset>
  </form>	
 </article>

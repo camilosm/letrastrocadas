@@ -274,6 +274,12 @@ CREATE TABLE tbl_denuncias(
 
 CREATE TABLE tbl_cambio(
 
+<<<<<<< .mine
+	id_motivo INT UNSIGNED AUTO_INCREMENT NOT NULL,
+	motivo VARCHAR(255) NOT NULL,
+	penalidade INT NOT NULL, /* 1 = Banir do site por 1 mês, 2 =  emitir aviso, 3 = banir email do usuário de cadastrar novamente e desativar sua conta */ 
+	PRIMARY KEY(id_motivo)
+=======
 	id_cambio INT UNSIGNED AUTO_INCREMENT NOT NULL,
 	status INT NOT NULL, /* 1 = Em andamento(Esperando a cofirmação da entrega do livro); 2 = Livro já está em transporte; 3 = Feito; 4 = Livro não foi enviado dentro do prazo; 5 = Calote */
 	data_operacao DATE NOT NULL,
@@ -292,5 +298,6 @@ CREATE TABLE tbl_cambio(
 	FOREIGN KEY(solicitacao_id) REFERENCES tbl_solicitacao_troca(id_solicitacao),
 	FOREIGN KEY(usuario_resgate) REFERENCES tbl_usuario(id_usuario),
 	FOREIGN KEY(lista_livros_id) REFERENCES tbl_lista_livros(id_lista_livros)
+>>>>>>> .r158
 
 );
