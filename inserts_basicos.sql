@@ -51,4 +51,4 @@ VALUES(NULL,'Livro não foi enviado',3);
 INSERT INTO tbl_motivos 
 VALUES(NULL,'Outro',4);
 
-INSERT INTO tbl_denuncias VALUES(null, 1,1,'1997-06-08',1,''),(null, 2, 2,DATE(NOW()),2,''),(null, 2, 1,DATE(NOW()),2,''),(null,3,1,DATE(NOW()),3,''),(null, 3,2,DATE(NOW()),4,'Nada'),(null, 2, 1,DATE(NOW()),3,''),(null, 3,2,DATE(NOW()),2,'');
+INSERT INTO tbl_denuncias VALUES(null, 1,1,'1997-06-08',1,''),(null, 2, 2,DATE(NOW()),2,''),(null, 2, 1,DATE(NOW()),2,''),(null,3,1,DATE(NOW()),3,''),(null, 3,2,DATE(NOW()),4,'Nada'),(null, 2, 1,DATE(NOW()),3,''),(null, 3,2,DATE(NOW()),2,'');>>>>>>> .r158

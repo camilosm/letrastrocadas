@@ -103,9 +103,17 @@ FROM tbl_usuario usuario JOIN tbl_denuncias den
 ON usuario_denunciado_id = id_usuario
 WHERE 1=1 GROUP BY id_denuncias;
 
+SELECT usu.nome, den.status, usu.email, motivo_id, outro_motivo,
+motivo, penalidade,data
+FROM tbl_usuario usu JOIN tbl_denuncias den
+ON usuario_denunciado_id = id_usuario
+JOIN tbl_motivos 
+ON motivo_id = id_motivo
+WHERE 1=1 GROUP BY id_denuncias ORDER BY data DESC;
+
 /* Numero de denuncias por usuário */
 
-SELECT nome, den.status, COUNT(*) as Numero_Denuncias 
+SELECT nome,email,den.status, COUNT(*) as Numero_Denuncias 
 FROM tbl_usuario JOIN tbl_denuncias den
 ON usuario_denunciado_id = id_usuario
 GROUP BY id_usuario
@@ -218,9 +226,24 @@ ON lendo.livro_id = id_livro
 AND lendo.usuario_id = id_usuario
 WHERE id_usuario = 1 GROUP BY id_lendo;
 
+SELECT tipo,id_livro,imagem_livros 
+FROM tbl_marcacao JOIN tbl_usuario
+ON usuario_id = id_usuario
+JOIN tbl_livro 
+ON livro_id = id_livro
+WHERE usuario_id = 1;
 
 
+/* Ocorrências de denuncia anteriores */ 
 
+SELECT id_usuario, id_denuncias, usu.nome, motivo_id, motivo, 
+outro_motivo, data, avaliacoes_negativas, avaliacoes_positivas
+FROM tbl_usuario usu JOIN tbl_denuncias
+ON usuario_denunciado_id = id_usuario
+JOIN tbl_motivos
+ON motivo_id = id_motivo
+WHERE usuario_denunciado_id = 1 
+GROUP BY id_denuncias ORDER BY data;
 
 
 

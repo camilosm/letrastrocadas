@@ -15,6 +15,7 @@
 		{		
 		
 			/* Pesquisa de dados Básicos usuário */
+			
 		    $pesquisa_dados = new Pesquisar("tbl_usuario","id_usuario,nome,email,foto,idade,avaliacoes_negativas,avaliacoes_positivas,uf,cidade,genero_favorito", " id_usuario = $id");
 		    $resul_pesquisa = $pesquisa_dados->pesquisar();
 		    $pesq = mysql_fetch_assoc($resul_pesquisa);
@@ -70,6 +71,16 @@
 		    $id_p = $pesq['id_usuario'];
 		    $email_p = $pesq['email'];		
 			
+			/* Pesquisa de livros que o usuário disponibilizou */ 
+			
+			$pesquisa_dados_lista_livros = new Pesquisar("tbl_usuario usu JOIN tbl_livro liv JOIN tbl_lista_livros list_liv ON list_liv.livro_id = id_livro AND list_liv.usuario_id = id_usuario","imagem_livros,liv.nome,id_lista_livros","id_usuario = $id_outro_usu GROUP BY id_lista_livros");
+			$resul_pesquisa_lista_livros = $pesquisa_dados_lista_livros->pesquisar();
+			$pesq_lista_livro = mysql_fetch_assoc($resul_pesquisa_lista_livros);
+		    
+			$imagem_lista_livro = $pesq_lista_livro['imagem_livros'];
+			$nome_livro_lista_livro = $pesq_lista_livro['liv.nome'];
+			$id_lista_livro = $pesq_lista_livro['id_lista_livros'];
+			
 			/* Pesquisa de livros marcados como quero ler, lidos, lendo */
 
 			$pesquisa_dados_marcacao = new Pesquisar("tbl_marcacao JOIN tbl_usuario ON usuario_id = id_usuario JOIN tbl_livro ON livro_id = id_livro"," tipo,id_livro,imagem_livros,tbl_livro.nome"," usuario_id = $id_outro_usu");
@@ -77,7 +88,7 @@
 			$pesq_marcacao = mysql_fetch_assoc($resul_pesquisa_marcacao);
 		    
 			$imagem_marcacao = $pesq_marcacao['imagem_livros'];
-			$nome_livro_marcacao = $pesq_marcacao['tbl_livro.nome'];
+			$nome_livro_marcacao = $pesq_marcacao['nome'];
 			$id_livro_marcacao = $pesq_marcacao['id_livro'];			
 			$tipo_marcacao = $pesq_marcacao['tipo'];
 		}
@@ -108,6 +119,16 @@
 			$nome_livro_marcacao = $pesq_marcacao['tbl_livro.nome'];
 			$id_livro_marcacao = $pesq_marcacao['id_livro'];			
 			$tipo_marcacao = $pesq_marcacao['tipo'];
+			
+			/* Pesquisa de livros que o usuário disponibilizou */ 
+			
+			$pesquisa_dados_lista_livros = new Pesquisar("tbl_usuario usu JOIN tbl_livro liv JOIN tbl_lista_livros list_liv ON list_liv.livro_id = id_livro AND list_liv.usuario_id = id_usuario","imagem_livros,liv.nome,id_lista_livros","id_usuario = $id_outro_usu GROUP BY id_lista_livros");
+			$resul_pesquisa_lista_livros = $pesquisa_dados_lista_livros->pesquisar();
+			$pesq_lista_livro = mysql_fetch_assoc($resul_pesquisa_lista_livros);
+		    
+			$imagem_lista_livro = $pesq_lista_livro['imagem_livros'];
+			$nome_livro_lista_livro = $pesq_lista_livro['liv.nome'];
+			$id_lista_livro = $pesq_lista_livro['id_lista_livros'];
 		}
 
 		
@@ -219,7 +240,7 @@
 			</tr>
 			<tr>
 			      <td colspan = "5"> 				             
-				       <section id = "avaliações" style = "position:relative; left:50%; width:20%;">
+				       <section id = "avaliações" style = "position:relative; left:50%; width:30%;">
                        <label> Avaliações: </label>
                         &nbsp  
                        <span class= "glyphicon glyphicon-thumbs-up"></span> <span class = "badge"> <?php echo $avaliacoes_positivas; ?> </span> 
