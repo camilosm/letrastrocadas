@@ -67,7 +67,7 @@
 		);
 	}
 </script>
-<form  name="frm_upload" id="frm_upload" class="form-horizontal" enctype="multipart/form-data" method="post" action="">
+<form name="frm_upload" id="frm_upload" class="form-horizontal" enctype="multipart/form-data" method="post" action="">
 	<article id  = "alterar_dados_perfil" style = "width: 80%; margin-left: 10%;">
 		<fieldset>
 

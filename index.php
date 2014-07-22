@@ -93,6 +93,7 @@
 								
 									url : 'ajax/notificacoes.php',
 									dataType : 'json',
+									async: false,
 									success : function(data){
 									$('#notificações').html(data.retorno);
 									$('#notificações1').fadeIn('slow');
@@ -114,6 +115,7 @@
 								$.ajax({
 									url : 'ajax/sidebar.php',
 									dataType : 'json',
+									async: false,
 									success : function(data){
 										document.getElementById('Moedas').innerHTML = data.moedas;
 										

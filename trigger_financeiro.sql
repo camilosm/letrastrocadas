@@ -10,3 +10,14 @@ CREATE TRIGGER trg_descresimo AFTER INSERT ON tbl_cambio
 DELIMITER ;
 
 /* DROP TRIGGER trg_descresimo; */
+
+DELIMITER |
+CREATE TRIGGER trg_acrescimo AFTER UPDATE ON tbl_cambio
+	FOR EACH ROW
+	BEGIN
+		
+		SELECT 
+		
+	END;
+|
+DELIMITER ;
