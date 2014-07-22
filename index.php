@@ -157,16 +157,16 @@
 			
 						</script>";
 						
-					echo '<aside style = "width:20%; height: auto; position: fixed; left: 76%; margin-top:0%">
+					echo '<aside style = "width: auto; height: auto; float: right; margin-right: 2%; margin-top:0%">
 							<section class="panel panel-default">
 								<section class="panel-heading">Notificações</section>
-								<section class="panel-body">
+								<section class="panel-body" style="width: 100%;>
 									<nav>
 										<ul class="nav navbar-nav" style="width: 100%;">
 											<a><li class="list-group-item"> Moedas<span id="Moedas" class="badge">0</span></li></a>
 											<a href = "?url=trocas"><li class="list-group-item"> Trocas <span id="Trocas_aceitas" class="badge">0</span></li></a>
-											<a href = "?url=solicitacoes_recebidas"><li class="list-group-item"> Solicitações recebidas<span id="Solicitacoes_recebidas"class="badge">0</span></li></a>
-											<a href = "?url=cade_meus_livros"><li class="list-group-item"> Cadê meus livros?  <span id="CadeMeusLivros" class="badge">0</span></li></a>
+											<a href = "?url=solicitacoes_recebidas"><li class="list-group-item"> Solicitações <span id="Solicitacoes_recebidas"class="badge">0</span></li></a>
+											<a href = "?url=cade_meus_livros"><li class="list-group-item"> Rastrear livros? <span id="CadeMeusLivros" class="badge">0</span></li></a>
 										</ul>
 									</nav>
 								</section>
