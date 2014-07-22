@@ -58,7 +58,7 @@
 									<input type="radio" name="Ban" id="optionsRadios1" value="1">
 							</section>
 						<section class="radio">
-								<label>Banir e-mail do usuário de cadastrar novamente e apagar conta</label>
+								<label>Banir conta permanentemente</label>
 									<input type="radio" name="Ban" id="optionsRadios3" value="3">    
 						</section>
 					    <section class="radio">
@@ -92,6 +92,7 @@
 			else if ($_POST['Ban'] == 3)
 			{
 				mysql_query("CALL sp_atualiza_status_den($id_den)");
+				mysql_query("CALL sp_atualiza_status_usu_banido_permanente($id_usu)");
 			}
 			else 
 			{
