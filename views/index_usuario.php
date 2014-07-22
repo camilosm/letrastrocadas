@@ -59,10 +59,10 @@
 	}
 
 ?>	
-<article style="width: 70%; margin-left: 5%;">
+<article style="width: 90%; margin-left: 5%;">
 
 	<section class="row">
-		<section class="col-md-6">
+		<section class="col-md-5">
 			<section class="panel panel-default">
 				<section class="panel-heading"><h4>Livros que você deseja:</h4></section>
 				<section class="panel-body">
@@ -73,13 +73,13 @@
 							while($lista_desejo=mysql_fetch_assoc($resultado_lista_desejo))
 							{
 								$id_ultima[] = $lista_desejo['id_lista'];
-								echo '
+								echo'
 									<tr id = "desejados_linha">
 										<td> 
 											<section class="panel panel-body">
 												<section class = "col-lg-4">	  
 													<section class = "bs-component" style = "height: 177px; width:120px;"> 
-														<a href="?url=livro "class = "thumbnail">
+														<a href="?url=livro" class = "thumbnail">
 															<img src = "'.$lista_desejo['imagem_livros'].'" alt = "'.utf8_encode($lista_desejo['Livro']).'" /> 
 														</a>	
 													</section>
@@ -105,7 +105,7 @@
 												</section>
 											</section>
 										</td>
-									</tr>';	
+									</tr>';
 							}
 						?>
 					</table>
@@ -118,7 +118,7 @@
 			</section>
 		</section>
 
-		<section class="col-md-6">
+		<section class="col-md-5">
 			<section class="panel panel-default">
 				<section class="panel-heading"><h4>Últimos livros disponibilizados:</h4></section>
 				<section class="panel-body">
