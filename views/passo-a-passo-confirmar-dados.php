@@ -116,88 +116,106 @@
 	}
 
 ?>
-<article id  = "body_cadastra_livro_usu" style = "width:60%;height:60%;position:relative;left:30%;">
-	<form class="form-horizontal" method="post" action="?url=passo-a-passo-confirmar-dados&cod=<?php echo $id?>"  enctype="multipart/form-data">
+<article id  = "body_cadastra_livro_usu" style = "width:80%; margin-left:10%;">
+	<form class="form-horizontal" method="post" action="?url=passo-a-passo-confirmar-dados&cod=<?php echo $id?>" enctype="multipart/form-data">
 		<fieldset>
 			<legend>Confirme os dados</legend>
 			
-			<section class="form-group" style="position:relative;left:9%;">
-				<section class="col-lg-6">
-					<section class="thumbnail">
-							<img src="<?php echo $imagem;?>" alt="" width="35%">
-							<p align="center"></p> 
+			<section class="form-group" style="width: 60%; margin-left: 20%;">
+				<section class="row">
+					<section class="col-lg-12">
+						<section class="thumbnail">
+								<img src="<?php echo $imagem;?>" alt="" width="28%">
+								<p align="center"></p> 
+						</section>
 					</section>
 				</section>
 			
-			
-				<label for="Nome" class="col-lg-2 control-label">Nome:</label>
-				<section class="col-lg-10">
-					<input type="text" class="form-control" value="<?php echo $nome ;?>" rows="3" name = "nome" required style = "width: 50%;"id="Nome" readonly ></input> 
+				<section class="row">
+					<label for="Nome" class="col-lg-2 control-label">Nome:</label>
+					<section class="col-lg-10">
+						<input type="text" class="form-control" value="<?php echo $nome ;?>" rows="3" name = "nome" required "id="Nome" readonly ></input> 
+					</section>
 				</section>
 				
-				<label for="Edicao" class="col-lg-2 control-label">Edição:</label>
-				<section class="col-lg-10">
-					<input type="text" class="form-control" value="<?php echo utf8_encode($edicao) ;?>" rows="3" name = "edicao" required style = "width: 50%;"id="Edicao" readonly ></input> 
+				<section class="row">
+					<label for="Edicao" class="col-lg-2 control-label">Edição:</label>
+					<section class="col-lg-10">
+						<input type="text" class="form-control" value="<?php echo utf8_encode($edicao) ;?>" rows="3" name = "edicao" required "id="Edicao" readonly ></input> 
+					</section>
 				</section>
 				
-				<label for="Numero" class="col-lg-2 control-label">Nº Páginas:</label>
-				<section class="col-lg-10">
-					<input type="text" class="form-control" value="<?php echo $num_paginas ;?>" rows="3" name = "num_paginas" required style = "width: 50%;"id="Edicao" readonly ></input> 
+				<section class="row">
+					<label for="Numero" class="col-lg-2 control-label">Nº Páginas:</label>
+					<section class="col-lg-10">
+						<input type="text" class="form-control" value="<?php echo $num_paginas ;?>" rows="3" name = "num_paginas" required "id="Edicao" readonly ></input> 
+					</section>
 				</section>
 				
-				<label for="ISBN" class="col-lg-2 control-label">ISBN:</label>
-				<section class="col-lg-10">
-					<input type="text" class="form-control" rows="3" value="<?php echo $isbn ;?>" name = "isbn" required style = "width: 50%;"id="ISBN" readonly ></input> 
+				<section class="row">
+					<label for="ISBN" class="col-lg-2 control-label">ISBN:</label>
+					<section class="col-lg-10">
+						<input type="text" class="form-control" rows="3" value="<?php echo $isbn ;?>" name = "isbn" required id="ISBN" readonly ></input> 
+					</section>
 				</section>
 				
-				<label for="Autor" class="col-lg-2 control-label">Autor:</label>
-				<section class="col-lg-10">
-					<input type="text" class="form-control" rows="3" value="<?php echo utf8_encode($autor) ;?>" name = "autor" required style = "width: 50%;"id="ISBN" readonly ></input> 
+				<section class="row">
+					<label for="Autor" class="col-lg-2 control-label">Autor:</label>
+					<section class="col-lg-10">
+						<input type="text" class="form-control" rows="3" value="<?php echo utf8_encode($autor) ;?>" name = "autor" required id="ISBN" readonly ></input> 
+					</section>
 				</section>
 				
-				<label for="Editora" class="col-lg-2 control-label">Editora:</label>
-				<section class="col-lg-10">
-					<input type="text" class="form-control" rows="3" value="<?php echo utf8_encode($editora) ;?>" name = "editora" required style = "width: 50%;"id="ISBN" readonly ></input> 
+				<section class="row">
+					<label for="Editora" class="col-lg-2 control-label">Editora:</label>
+					<section class="col-lg-10">
+						<input type="text" class="form-control" rows="3" value="<?php echo utf8_encode($editora) ;?>" name = "editora" required id="ISBN" readonly ></input> 
+					</section>
 				</section>
 				
-				<label for="Categoria" class="col-lg-2 control-label">Categoria:</label>
-				<section class="col-lg-10">
-					<input type="text" class="form-control" rows="3" value="<?php echo utf8_encode($categoria) ;?>" name = "categoria" required style = "width: 50%;"id="ISBN" readonly ></input> 
-				</section>
-			
-				<label for="textArea" class="col-lg-2 control-label">Estado:</label>
-				<section class="col-lg-10">
-					<textarea class="form-control" name = "estado" rows="3" required style = "width: 50%;"id="textArea" placeholder = "Escreva aqui as condições do livro que deseja disponibilizar(danos, observações, adicionais)"><?php echo $estado;?></textarea> 
+				<section class="row">
+					<label for="Categoria" class="col-lg-2 control-label">Categoria:</label>
+					<section class="col-lg-10">
+						<input type="text" class="form-control" rows="3" value="<?php echo utf8_encode($categoria) ;?>" name = "categoria" required id="ISBN" readonly ></input> 
+					</section>
 				</section>
 				
-				<label for="txtAno" class="col-lg-2 control-label">Ano:</label>
-				<section class="col-lg-10">
-					<input type="number" min = "1455" max="2014" value="<?php echo $ano;?>" class="form-control" required name = "ano" id = "txtAno" rows="3" style = "width: 50%;" placeholder = "Ano da fabricação"/>
+				<section class="row">
+					<label for="textArea" class="col-lg-2 control-label">Estado:</label>
+					<section class="col-lg-10">
+						<textarea class="form-control" name = "estado" rows="3" required id="textArea" placeholder = "Escreva aqui as condições do livro que deseja disponibilizar(danos, observações, adicionais)"><?php echo $estado;?></textarea> 
+					</section>
+				</section>
+				
+				<section class="row">
+					<label for="txtAno" class="col-lg-2 control-label">Ano:</label>
+					<section class="col-lg-10">
+						<input type="number" min = "1455" max="2014" value="<?php echo $ano;?>" class="form-control" required name = "ano" id = "txtAno" rows="3" placeholder = "Ano da fabricação"/>
+					</section>
+					<br>
+				</section>
+				<section class="form-group">					
+					<section class="thumbnail">
+							<img src="<?php 
+											if(file_exists("$imagem1"))
+											echo $imagem1;
+										?>" alt="" width="33%">							
+							<img src="<?php 
+											if(file_exists("$imagem2"))
+											echo $imagem2;
+										?>" alt="" width="33%">									
+							<img src="<?php 
+											if(file_exists("$imagem3"))
+											echo $imagem3;
+										?>" alt="" width="33%">	
+					</section>	
 				</section>
 				<br>
-				<section class="form-group" style="position:relative;left:9%;">
-					<section class="col-lg-6">
-						<section class="thumbnail" width="100%">
-								<img src="<?php 
-												if(file_exists("$imagem1"))
-												echo $imagem1;
-											?>" alt="" width="35%">							
-								<img src="<?php 
-												if(file_exists("$imagem2"))
-												echo $imagem2;
-											?>" alt="" width="35%">									
-								<img src="<?php 
-												if(file_exists("$imagem3"))
-												echo $imagem3;
-											?>" alt="" width="35%">	
-						</section>
-						
-					</section>
-				</section>
-				<section class="col-lg-10 col-lg-offset-2">
-					<br>
-					<button type = "reset"class="btn btn-default">Limpar</button>
-					<button type="submit" name = "confirmaLivroUsuario" value ="Cadastrar" class="btn btn-primary">Cadastrar</button>
+				<section class="row">
+					<center>
+						<button type = "reset"class="btn btn-default">Limpar</button>
+						<button type="submit" name = "confirmaLivroUsuario" value ="Cadastrar" class="btn btn-primary">Cadastrar</button>
+					<center>
 				</section>
 			</section>
 		</fieldset>

@@ -37,49 +37,60 @@
 	}
 ?>
 
-<article id  = "body_cadastra_livro_usu" style = "width:60%;height:60%;position:relative;left:30%;">		
-	<section class="navbar-form navbar-left" role="search">
-		<fieldset>
-			<form  method="post" action=""  enctype="multipart/form-data">
-					<legend>Pesquise o livro e clique em disponibilizar livro</legend>
+<article id  = "body_cadastra_livro_usu" style = "width:60%; margin-left: 20%;">
+	<fieldset>
+		<form  method="post" action=""  role="search "enctype="multipart/form-data">
+			<legend>Pesquise o livro e clique em disponibilizar livro</legend>
+			<section class="row">
+				<section class="col-xs-9">
 					<section class="form-group">
 						<input type="text" name = "pesquisa" class="form-control" placeholder="Procurar">
 					</section>
+				</section>
+				<section class="col-md-offset-11">
 					<button type="submit" name = "pesquisar_livro" class="btn btn-default">
 						<span class="glyphicon glyphicon-search"></span>
 					</button>
-			</form>
-			<?php
-				if(isset($_POST['pesquisar_livro']))
+				</section>
+			</section>
+		</form>
+					
+		<?php
+		
+			if(isset($_POST['pesquisar_livro']))
+			{
+				while($dados=mysql_fetch_assoc($resultado))
 				{
-					while($dados=mysql_fetch_assoc($resultado))
-					{
-						echo 
-						'<br><br><section class="col-lg-8">
+					echo 
+					'<br><br>
+					<section class="row">
+						<section class="col-md-6">
 							<section class="thumbnail">
 								<a href="?url=livro&&cod='.$dados['id_livro'].'" >
-									<img src="'.$dados['imagem_livros'].'" alt="'.utf8_encode($dados['Livro']).'" width="35%">
+									<img src="'.$dados['imagem_livros'].'" alt="'.utf8_encode($dados['Livro']).'" width="20%">
 									<p align="center">'.utf8_encode($dados['Livro']).'</p> 
 								</a>
-								<section style="margin-left:10%;">
-									<form method="post" action="?url=passo-a-passo-dados-usuario&cod='.$dados['id_livro'].'">
-										<input type = "submit" class="btn btn-primary btn-sm" name = "botao_disponibilizar_livro" value = "Disponibilizar Livro" />
-									</form>
-									<section class = "btn-group">
-										<button type="button" class="btn btn-primary btn-sm" disabled>Eu...</button>
-										<button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" disabled><span class="caret"></span></button>
-										<ul class="dropdown-menu">
-											<li>Quero ler</li>
-											<li>Já li</li>
-											<li>Estou lendo</li>
-										</ul>	
-									</section>
+							</section>
+						</section>
+						<section class="col-md-6" style="height: 50%; margin-top:5%;">
+							<section style="margin-left:10%;">
+								<form method="post" action="?url=passo-a-passo-dados-usuario&cod='.$dados['id_livro'].'">
+									<input type = "submit" class="btn btn-primary btn-sm" name = "botao_disponibilizar_livro" value = "Disponibilizar Livro" />
+								</form>
+								<section class = "btn-group">
+									<button type="button" class="btn btn-primary btn-sm" disabled>Eu...</button>
+									<button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" disabled><span class="caret"></span></button>
+									<ul class="dropdown-menu">
+										<li>Quero ler</li>
+										<li>Já li</li>
+										<li>Estou lendo</li>
+									</ul>	
 								</section>
 							</section>
-						</section>';
-					}
+						</section>
+					</section>';
 				}
-			?>
-		</fieldset>
-	</section>
+			}
+		?>
+	</fieldset>
 </article>
