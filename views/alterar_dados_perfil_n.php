@@ -19,7 +19,16 @@
 		$complemento = $_POST['complemento'];
 		$cidade = $_POST['cidade'];
 		$bairro = $_POST['bairro'];	
-		$nova_imagem = $_POST['caminho'].".jpg";
+		$nova_imagem = $_POST['caminho'];
+		$explode = explode('.',$nova_imagem);
+		if($explode[1] == "jpg")
+		{
+			$imagem = $nova_imagem;
+		}
+		else
+		{
+			$imagem = $nova_imagem.".jpg";
+		}
 		
 		//Instancia a classe que tenta evitar o MySql Inject
 		$editar_nome = new EditarCaracteres($nome);
@@ -27,7 +36,8 @@
 		
 		//Instancia e passa os valores para a classe de Update 
 		$valores_altera_dados_perfil = "nome = '" .utf8_decode($nome). "',
-		foto = '".$nova_imagem."',
+		status = 4,
+		foto = '".$imagem."',
         data_nasc = '".$data_nasc."',
         genero_favorito = '".utf8_decode($genero_fav)."',
 		logradouro = '".utf8_decode($logradouro)."',

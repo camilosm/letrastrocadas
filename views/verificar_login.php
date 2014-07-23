@@ -54,7 +54,7 @@ if(isset($_POST['entrar']))
 			// Interpreta a busca
 			$dadosusu = mysql_fetch_assoc($resultado_pesquisa);
 			// Verifica o status do usuário 
-			if($dadosusu["status"] == 1)
+			if(($dadosusu["status"] == 1) OR ($dadosusu["status"] == 4))
 			{
 				//Preenche a session com dados do usuário
 				$_SESSION["nivel_acesso"] = $dadosusu["nivel_acesso"];

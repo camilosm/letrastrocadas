@@ -22,7 +22,7 @@
 			$resultado_ultimos = $pesquisar_ultimos->pesquisar();
 			
 			//Pesquisa a quantidade de livros no banco de dados
-			$pesquisar_quantidade_ultimos = new Pesquisar("tbl_lista_livros ","COUNT(id_lista_livros) As Quantidade","1=1");
+			$pesquisar_quantidade_ultimos = new Pesquisar("tbl_lista_livros ","COUNT(id_lista_livros) As Quantidade","status = 1");
 			$resultado_quantidade_ultimos = $pesquisar_quantidade_ultimos->pesquisar();			
 			$array_quantidade_ultimos = mysql_fetch_assoc($resultado_quantidade_ultimos);
 			$quantidade_ultimos = $array_quantidade_ultimos['Quantidade'];

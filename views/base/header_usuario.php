@@ -15,8 +15,10 @@
 				echo "pessoa";
 			}
 			else
-			{
-				echo utf8_encode($_SESSION['nome']);
+			{	
+				$explode = explode(" ",$_SESSION['nome']);
+				$nome = $explode[0];
+				echo utf8_encode($nome);
 			}
 			?>!</a>
 			
@@ -43,7 +45,7 @@
 							<li><a> Moedas <span id="Moedas" class="navbar-right badge">0</span></a></li>
 							<li><a href = "?url=trocas">Trocas <span id="Trocas_aceitas" class="navbar-right badge">0</span></a></li>
 							<li><a href = "?url=solicitacoes_recebidas">Solicitações <span id="Solicitacoes_recebidas" class="navbar-right badge">0</span></a></li>
-							<li><a href = "?url=cade_meus_livros">Cade meus livros?</a></li>					
+							<li><a href = "?url=cade_meus_livros">Cadê meus livros?</a></li>					
 						</ul>
 					</li>
 					<li class="dropdown"> 
