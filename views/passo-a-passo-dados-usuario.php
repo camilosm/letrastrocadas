@@ -69,21 +69,21 @@
 					}
 					else
 					{
-						echo "Aceitamos apensa imagens no formato JPEG";
+						echo "Aceitamos apenas imagens no formato JPEG";
 						unlink("content/imagens/livro_usuario/$nome_primeira");
 						unlink("content/imagens/livro_usuario/$nome_segunda");
 					}
 				}
 				else
 				{
-					echo "Aceitamos apensa imagens no formato JPEG";
+					echo "Aceitamos apenas imagens no formato JPEG";
 					unlink("content/imagens/livro_usuario/$nome_primeira");
 					
 				}
 			}
 			else
 			{
-				echo "Aceitamos apensa imagens no formato JPEG";
+				echo "Aceitamos apenas imagens no formato JPEG";
 			}
 		}
 		
