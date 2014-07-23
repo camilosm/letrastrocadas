@@ -29,7 +29,8 @@
 					}
 					else if($c->status == "saiu para entrega ao destinatário")
 					{
-						echo "saiu para entrega ao destinatário";
+						$alterar = new Alterar("tbl_cambio",'status = 2','cod_rastreamento="'.$dados['cod_rastreamento'].'"');
+						$resultado = $alterar->alterar();
 					}
 					else
 					{

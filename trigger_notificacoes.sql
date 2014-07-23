@@ -23,20 +23,12 @@ CREATE TRIGGER trg_update_cambio AFTER UPDATE ON tbl_cambio
 	BEGIN
 	
 		SET @entregue := (SELECT entregue FROM tbl_cambio WHERE id_cambio = NEW.id_cambio);
-		SET @transporte := (SELECT confirmar_transporte FROM tbl_cambio WHERE id_cambio = NEW.id_cambio);
 		SET @status := (SELECT status FROM tbl_cambio WHERE id_cambio = NEW.id_cambio);
 		SET @data_entrega := (SELECT data_entrega FROM tbl_cambio WHERE id_cambio = NEW.id_cambio);
 		SET @codigo := (SELECT cod_rastreamento FROM tbl_cambio WHERE id_cambio = NEW.id_cambio);
 		
 		IF @codigo <> "" THEN 
 				INSERT INTO tbl_notificacoes VALUES(NULL,1,'Código de rastreamento disponível.',NEW.usuario_resgate,NOW(),'false');
-		END IF;
-		
-		IF @transporte = "Sim" THEN 
-			IF @status = 3 THEN
-				INSERT INTO tbl_notificacoes VALUES(NULL,4,'O livro enviado por você já chegou',NEW.usuario_disponibilizador,NOW(),'false');
-				UPDATE tbl_usuario SET creditos = (creditos + 1) WHERE id_usuario = NEW.usuario_disponibilizador;
-			END IF;
 		END IF;
 		
 		IF @entregue = "Sim" THEN 

@@ -1,3 +1,4 @@
+<script type="text/javascript" src="ajax/ajax.js"></script>
 <?php
 
 		include("classes/class_pesquisar.php");
@@ -22,6 +23,7 @@
 		  LEFT JOIN tbl_categoria categoria
 		  ON categoria_id = id_categoria",
 		  "lista.id_lista_livros,
+		  id_livro,
 		  imagem_livros,
 		  livro.nome AS NomeLivro, 
 		  autor.nome AS NomeAutor, 
@@ -40,7 +42,7 @@
 		 
 		$resultado_dados = $pesquisa_dados->pesquisar();
 	
-
+		$aspas = "'";
 ?>
 
 <section id = "body_pesquisa">
@@ -50,42 +52,50 @@
 		</section>
 		<section class="panel panel-body">
 			<section class="row">
-				<section class = "col-lg-6">
-				<form method = "post" action = "#">
 				<?php 
 						$num_registros = mysql_num_rows($resultado_dados);
-						if ($num_registros != 0) {
-						while($dados_pesq = mysql_fetch_assoc($resultado_dados))
+						if ($num_registros != 0)
 						{
-						echo  '<section class="panel panel-body">
-						            <section class = "col-lg-4">	
-						            	<section class = "bs-component" style = "height: 177px; width: 120px;"> 
-						            		<a href="?url=livro" class = "thumbnail">
-						            			<img src = "'.$dados_pesq['imagem_livros'].'" alt = ""/> 
-						            		</a>	
-						            	</section>
-						            	<section  class = "btn-group" style = "width: auto;">
-						            		<input type = "submit" class="btn btn-primary btn-sm" name = "botao_solicitar_livro" value = "Solicitar Livro"/>
-						            		<input type = "submit" class="btn btn-primary btn-sm" name = "botao_disponibilizar_livro" value = "Disponibilizar Livro"/>															 
-						            		<section class = "btn-group">
-						            			<button type="button" class="btn btn-primary btn-sm">Eu...</button>
-						            			<button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
-						            				<ul class="dropdown-menu">
-						            					<li><a href="">Quero ler</a></li>
-						            					<li><a href="">Já li</a></li>
-						            					<li><a href="">Estou lendo</a></li>
-						            				</ul>	
-						            		</section>
-						            	</section>
-						            </section>
-						            <section class="col-lg-4">								
-						            	<a href="?url=livro"> <h3>' .$dados_pesq['NomeLivro']. '</h3> </a>				  
-						            	<a href="?url=livros_autores"> <h4>' .$dados_pesq['NomeAutor']. '</h4></a>
-						            	<a href="?url=livros_editora"> <h5> ' .$dados_pesq['NomeEditora'].  '</h5></a>
-										<a href="?url=perfil_usuario"> <h6> ' .$dados_pesq['NomeUsuario'].  '</h5></a>
-						            </section>
-								</section>';
-						}
+							$ct=0;
+							while($dados_pesq = mysql_fetch_assoc($resultado_dados))
+							{
+								$ct++;
+								if(($ct == 1) OR ($ct == 3) OR ($ct == 5))
+								{
+									echo '<section class="row">';
+								}
+								echo  '<section class="col-md-6">
+											<section class = "col-lg-4">	
+												<section class = "bs-component" style = "height: 177px; width: 120px;"> 
+													<a href="?url=livro" class = "thumbnail">
+														<img src = "'.$dados_pesq['imagem_livros'].'" alt = ""/> 
+													</a>	
+												</section>
+												<section style="margin-left:10%;">
+													<a href="?url=pesquisa&cod='.$dados_pesq['id_livro'].'"><input type = "button" class="btn btn-primary btn-sm" name = "botao_pesquisar" value = "Pesquisar" /></a>
+													<a href="?url=passo-a-passo-dados-usuario&cod='.$dados_pesq['id_livro'].'"><input type = "button" class="btn btn-primary btn-sm" name = "botao_disponibilizar_livro" value = "Disponibilizar Livro" /></a>													 
+													<section class = "btn-group">
+														<button id = "Resultado'.$dados_pesq['id_livro'].'" value = "QueroLer" name = "QueroLer" type="button" class="btn btn-primary btn-sm">Quero Ler</button>
+														<button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+														<ul id = "acoes" class="dropdown-menu">
+															<li><a onClick="AcoesLivro('.$dados_pesq['id_livro'].','.$aspas.'Desmarcar'.$aspas.',Resultado'.$dados_pesq['id_livro'].','.$aspas.'QueroLer'.$aspas.');">Desmarcar</a></li>
+															<li><a onClick="AcoesLivro('.$dados_pesq['id_livro'].','.$aspas.'JaLi'.$aspas.',Resultado'.$dados_pesq['id_livro'].','.$aspas.'QueroLer'.$aspas.');">Já li</a></li>
+															<li><a onClick="AcoesLivro('.$dados_pesq['id_livro'].','.$aspas.'Lendo'.$aspas.',Resultado'.$dados_pesq['id_livro'].','.$aspas.'QueroLer'.$aspas.');">Estou lendo</a></li>
+														</ul>
+													</section>
+												</section>
+											</section>
+											<section class="col-lg-4">								
+												<a href="?url=livro" title = "Clique para ver mais informações sobre o livro"> <h3> '.utf8_encode($dados_pesq['NomeLivro']).'</h3></a>				  
+												<a href="?url=livros_autores" title = "Clique para ver mais livros deste autor"> <h4> '.utf8_encode($dados_pesq['NomeAutor']).' </h4></a>
+												<a href="?url=livros_editora" title = "Clique para ver mais livros desta editora"> <h5> '.utf8_encode($dados_pesq['NomeEditora']).' </h5></a>
+											</section>
+										</section><BR>';
+								if(($ct == 2) OR ($ct == 4) OR ($ct == 6))
+								{
+									echo '</section>';
+								}
+							}
 						}
 						else 
 						{
@@ -93,13 +103,7 @@
 						}
 									
 				?>
-
-					
-				</form>
-				</section>
 			<br>
-			<section class="row">			
-			</section>
                       <ul class="pager">
                         <li class="previous disabled"><a href="#">← Antigo</a></li>
                         <li class="next"><a href="#">Nova →</a></li>
