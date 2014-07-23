@@ -71,7 +71,7 @@
 					// Aconteceu algum erro e o usuário não foi cadastrado
 					echo '<section class="alert alert-dismissable alert-danger">
 					  <button type="button" class="close" data-dismiss="alert">×</button>
-					  <strong>Eita!</strong>Alguma coisa deu errado <strong>:(</strong><br>Tenta de novo daqui a pouco.
+					  <strong>Eita!</strong> Alguma coisa deu errado <strong>:(</strong><br>Tenta de novo daqui a pouco.
 					</section>';
 				}
 			}
@@ -79,7 +79,7 @@
 			{
 				echo '<section class="alert alert-dismissable alert-danger">
 					  <button type="button" class="close" data-dismiss="alert">×</button>
-					  <strong>Ops!</strong>As senhas não estão iguais, confere ai haha.
+					  <strong>Ops!</strong> As senhas não estão iguais, confere ai haha.
 					</section>';
 			}
 		}
