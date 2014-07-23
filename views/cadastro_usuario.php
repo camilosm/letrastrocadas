@@ -40,12 +40,12 @@
 				<br>
 				<label for="inputSenha" class="col-lg-2 control-label">Senha</label>
 				<section class="col-md-10">
-					<input type="password" class="form-control" name = "senha" id="inputSenha" required minlenght = "8" maxlength = "16" placeholder = "Entre 8 e 16 dígitos" maxlength = "16">
+					<input type="password" class="form-control" name = "senha" id="inputSenha" required maxlength = "16" placeholder = "Entre 8 e 16 dígitos" maxlength = "16">
 				</section>
 				<br> 
 				<label for="inputConfirmarSenha" name = "confirmar" class="col-lg-2 control-label">Confirmar Senha</label>
 				<section class="col-lg-10">
-					<input type="password" class="form-control" name = "confirmar" id="inputSenha" required minlenght = "8" maxlength = "16" placeholder = "Digite sua senha novamente">		  
+					<input type="password" class="form-control" name = "confirmar" id="inputSenha" required maxlength = "16" placeholder = "Digite sua senha novamente">		  
 				</section>
 				<br>
 				<section class="col-lg-12 col-lg-offset-2">
