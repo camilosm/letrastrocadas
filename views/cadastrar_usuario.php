@@ -33,7 +33,9 @@
 		if(preg_match('/letrastrocadas.com.br$/', $login))
 		{
 			// Só o adm pode cadastrar outro adm e isso acontece em outra página, então isso aqui não deixa que o usuário cadastre com esse final
-			echo "Usuário já está sendo utilizado";
+			echo '<section class="">
+				Usuário já está sendo utilizado
+				</section>';
 		}
 		else
 		{		
@@ -67,12 +69,18 @@
 				else
 				{
 					// Aconteceu algum erro e o usuário não foi cadastrado
-					echo "Não foi possivel efetuar o cadastro";
+					echo '<section class="alert alert-dismissable alert-danger">
+					  <button type="button" class="close" data-dismiss="alert">×</button>
+					  <strong>Eita!</strong>Alguma coisa deu errado <strong>:(</strong><br>Tenta de novo daqui a pouco.
+					</section>';
 				}
 			}
 			else
 			{
-				echo "As senhas não conferem";
+				echo '<section class="alert alert-dismissable alert-danger">
+					  <button type="button" class="close" data-dismiss="alert">×</button>
+					  <strong>Ops!</strong>As senhas não estão iguais, confere ai haha.
+					</section>';
 			}
 		}
 	}
