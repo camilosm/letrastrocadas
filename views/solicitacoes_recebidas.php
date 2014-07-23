@@ -120,15 +120,16 @@
 					</section>
 					<section id="collapse'.$ct.'" class="panel-collapse collapse '.$colapse.'">
 						<section class="panel-body">
-						<p>
-							<H4>
-							'.utf8_encode($nome).' solicitou seu livro "'.utf8_encode($notificações_pendentes['livro']).'"
-							no dia '.$data_pronta.'<BR>
-							Deseja aceitar?<BR>
-							</H4>
-						</p>
-						<input type = "button" class="btn btn-primary btn-sm" id = "Aceitar_'.$notificações_pendentes['id_solicitacao'].'" onClick="Aceitar('.$aspas.''.$notificações_pendentes['id_solicitacao'].''.$aspas.','.$aspas.''.$notificações_pendentes['lista'].''.$aspas.','.$aspas.''.$notificações_pendentes['usuario'].''.$aspas.')" value = "Aceitar"/>
-						<input type = "button" class="btn btn-primary btn-sm" id = "Recusar_'.$notificações_pendentes['id_solicitacao'].'" onClick="Recusar('.$aspas.''.$notificações_pendentes['id_solicitacao'].''.$aspas.')" value="Recusar"/>
+							<p>
+								<H4>
+								'.utf8_encode($nome).' solicitou seu livro "'.utf8_encode($notificações_pendentes['livro']).'"
+								no dia '.$data_pronta.'<BR>
+								Deseja aceitar?<BR>
+								</H4>
+							</p>
+							<input type = "button" class="btn btn-primary btn-sm" id = "Aceitar_'.$notificações_pendentes['id_solicitacao'].'" onClick="Aceitar('.$aspas.''.$notificações_pendentes['id_solicitacao'].''.$aspas.','.$aspas.''.$notificações_pendentes['lista'].''.$aspas.','.$aspas.''.$notificações_pendentes['usuario'].''.$aspas.')" value = "Aceitar"/>
+							<input type = "button" class="btn btn-primary btn-sm" id = "Recusar_'.$notificações_pendentes['id_solicitacao'].'" onClick="Recusar('.$aspas.''.$notificações_pendentes['id_solicitacao'].''.$aspas.')" value="Recusar"/>
+						</section>
 					</section>							
 				</section>
 			</section>';
@@ -167,9 +168,10 @@
 				}
 				else
 				{
-					$codigo = 'O código de rastreamento é : '.$cod;
+					$codigo = 'O código de rastreamento é : <a href="?url=rastreamento&code='.$cod.'">'.$cod.'</a>';
 				}
 			}
+			
 			$ct++;
 			
 			$data_solicitada = explode("-",$notificações_antigas['data_solicitacao']);
@@ -184,27 +186,27 @@
 			$nome = $nome_array['nome'];
 			
 			 echo '
-			 <section class="panel-group" id="solicitações">
-				<section class="panel panel-default">
-					<section class="panel-heading">
-						<h4 class="panel-title">
-							<a data-toggle="collapse" data-parent="#solicitações" href="#collapse'.$ct.'">'.utf8_encode($notificações_antigas['livro']).' - Aceito : '.$notificações_antigas['aceito'].'
-							</a>
-						</h4>
-					</section>
-					<section id="collapse'.$ct.'" class="panel-collapse collapse '.$colapse.'">
-						<section class="panel-body">
-						<p class="lead">
-							<H4>
-								'.utf8_encode($nome).' solicitou seu livro "'.utf8_encode($notificações_antigas['livro']).'"
-								no dia '.$data_pronta_solicitada.' e você respondeu no dia '.$data_pronta_respondida.' <BR>
-								'.$codigo.'								
-							</H4>
-						</p>
+				<section class="panel-group" id="solicitações">
+					<section class="panel panel-default">
+						<section class="panel-heading">
+							<h4 class="panel-title">
+								<a data-toggle="collapse" data-parent="#solicitações" href="#collapse'.$ct.'">'.utf8_encode($notificações_antigas['livro']).' - Aceito : '.$notificações_antigas['aceito'].'
+								</a>
+							</h4>
+						</section>
+						<section id="collapse'.$ct.'" class="panel-collapse collapse '.$colapse.'">
+							<section class="panel-body">
+								<H4>
+									<p>
+										'.utf8_encode($nome).' solicitou seu livro "'.utf8_encode($notificações_antigas['livro']).'"
+										no dia '.$data_pronta_solicitada.' e você respondeu no dia '.$data_pronta_respondida.' <BR>
+										'.$codigo.'	
+									</p>										
+								</H4>	
+							</section>
 						</section>
 					</section>
-				</section>
-			</section>';
+				</section>';
 		}
 		echo '
 			</section>

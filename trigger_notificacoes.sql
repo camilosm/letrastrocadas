@@ -30,22 +30,24 @@ DELIMITER ;
 /* DROP TRIGGER trg_notificacoes_solicitacoes_recebidas; */
 
 DELIMITER |
-CREATE TRIGGER trg_notificacoes_status_cambio AFTER UPDATE ON tbl_cambio
+CREATE TRIGGER trg_update_cambio AFTER UPDATE ON tbl_cambio
 	FOR EACH ROW
 	BEGIN
-
+	
+		SET @entregue := (SELECT entregue FROM tbl_cambio WHERE id_cambio = NEW.id_cambio);
 		SET @status := (SELECT status FROM tbl_cambio WHERE id_cambio = NEW.id_cambio);
 		SET @data_entrega := (SELECT data_entrega FROM tbl_cambio WHERE id_cambio = NEW.id_cambio);
+		
+		IF @entregue = "Sim" THEN 
+			UPDATE tbl_notificacoes SET creditos = (creditos + 1) WHERE usuario_disponibilizador = NEW.usuario_disponibilizador;
+			IF @status = 3 THEN
+				INSERT INTO tbl_notificacoes VALUES(NULL,4,'O livro enviado por você já chegou',NEW.usuario_disponibilizador,NOW(),'false');
+			END IF;
+		END IF;
 		
 		IF @data_entrega = NULL THEN
 			IF @status = 2 THEN 
 				INSERT INTO tbl_notificacoes VALUES(NULL,5,'O livro solicitado por você já está em transporte!',NEW.usuario_resgate,NOW(),'false');
-			END IF;
-		END IF;
-		
-		IF @data_entrega <> NULL THEN
-			IF @status = 3 THEN
-				INSERT INTO tbl_notificacoes VALUES(NULL,4,'O livro enviado por você já chegou',NEW.usuario_disponibilizador,NOW(),'false');
 			END IF;
 		END IF;
 		

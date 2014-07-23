@@ -62,7 +62,7 @@
 						<p>
 							Dono do livro :  <a>'.utf8_encode($nome).'</a><BR>
 							Livro solicitado : <a>'.utf8_encode($cambio['livro']).'</a><BR>
-							Código de rastreamento : '.$codigo.'<BR>
+							Código de rastreamento : <a href="?url=rastreamento&code='.$codigo.'">'.$codigo.'<a><BR>
 						</p>
 						<span class="badge" style = "background-color:green;">Solicitação<BR>Aceita</span><span class="badge">Em<BR>Transporte</span><span class="badge">Livro<BR>Entregue</span>
 						</section>

@@ -43,7 +43,7 @@
 				while($resultado_codigos = mysql_fetch_assoc($resultado_codigo))
 				{
 					$codigo = $resultado_codigos['cod_rastreamento'];
-					$resposta = "Código de rastreamento : ".$codigo;
+					$resposta = 'Código de rastreamento : <a href="?url=rastreamento&code='.$codigo.'">'.$codigo.'<a>';
 				}
 			}
 			else

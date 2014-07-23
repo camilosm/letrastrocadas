@@ -164,7 +164,8 @@ CREATE TABLE tbl_lista_banidos(
 );
 
 /* ALTER TABLE tbl_lista_banidos DROP motivo;
-ALTER TABLE tbl_lista_banidos DROP */
+ALTER TABLE tbl_lista_banidos DROP 
+*/
 
 CREATE TABLE tbl_lista_livros(
 	
