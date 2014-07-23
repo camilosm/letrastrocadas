@@ -118,11 +118,9 @@
 									async: false,
 									success : function(data){
 										document.getElementById('Moedas').innerHTML = data.moedas;
-										
 										$('#Trocas_aceitas').html(data.trocas_aceitas);
 										$('#Solicitacoes_recebidas').html(data.trocas_aceitas);
 										$('#CadeMeusLivros').html(data.trocas_aceitas);
-										}
 									},
 									error : function(data){
 									alert('Ops! Ocorreu um erro com sua sidebar, contate nossos administradores para mais informações.');
