@@ -119,7 +119,7 @@
 									success : function(data){
 										document.getElementById('Moedas').innerHTML = data.moedas;
 										$('#Trocas_aceitas').html(data.trocas_aceitas);
-										$('#Solicitacoes_recebidas').html(data.trocas_aceitas);
+										$('#Solicitacoes_recebidas').html(data.solicitacoes_recebidas);
 										$('#CadeMeusLivros').html(data.trocas_aceitas);
 									},
 									error : function(data){

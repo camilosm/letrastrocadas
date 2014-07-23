@@ -61,7 +61,7 @@ CREATE TABLE tbl_livro(
 	edicao INT NOT NULL,
 	isbn VARCHAR(17) NOT NULL,
 	sinopse TEXT NOT NULL,
-	status INT NULL, /* 1 = ativo, 2 = inativo e 3 = congelado */
+	status INT NULL, /* 1 = ativo, 2 = inativo  */
 	querem_ler BIGINT NULL,
 	lendo BIGINT NULL,
 	lido BIGINT NULL,
@@ -96,7 +96,7 @@ CREATE TABLE tbl_usuario(
 	avaliacoes_negativas INT NOT NULL,
 	avaliacoes_positivas INT NOT NULL,
 	genero_favorito VARCHAR(50) NULL,
-	status INT NOT NULL, /* 1 = ativo, 2 = inativo e 3 = banido */
+	status INT NOT NULL, /* 1 = ativo, 2 = inativo, 3 = banido e 4 = Cadastro Completo*/
 	logradouro VARCHAR(100) NULL,
 	numero INT NULL,
 	cep CHAR(9) NULL,
@@ -172,7 +172,7 @@ CREATE TABLE tbl_lista_livros(
 	id_lista_livros INT UNSIGNED AUTO_INCREMENT NOT NULL,
 	livro_id INT UNSIGNED NOT NULL,
 	usuario_id INT UNSIGNED NOT NULL,
-	status INT NOT NULL, /* 1 = Disponivel, 2 = Trocado */
+	status INT NOT NULL, /* 1 = Disponivel, 2 = Trocado e 3 = Congelado*/
 	data_cadastro DATETIME NOT NULL,
 	ano CHAR(4) NOT NULL,
 	estado VARCHAR(100) NOT NULL,

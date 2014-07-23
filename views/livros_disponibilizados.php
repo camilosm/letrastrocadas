@@ -69,7 +69,11 @@
 
      <section class="panel panel-default" style = "width:70%; height:60%; position:relative; left:5%;">
         <section class="panel-heading">Livros diponibilizados</section>
-		
+			<?php
+			
+				if($resultado != 0)
+				{
+			?>
             <section class="panel-body">
 			    <section class = "row">
 					<section class = "col-lg-4" style = "width: auto;">	
@@ -110,10 +114,17 @@
 					<li class="next"><a href="?url=livros_disponibilizados&livro=
 																				<?php 
 																					if(!$quantidade < 7)
-																					echo $id[6];
+																					{
+																						echo $id[6];
+																					}
 																				?>">Próximo →</a></li>
 				</ul>
 			</section>
+			<?php
+			}
+			
+			
+			?>
 			 
        </section>
 
