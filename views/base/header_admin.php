@@ -8,11 +8,11 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand">Bem vindo, <?php
+			<a class="navbar-brand" href="?url=home_admin"><span class="glyphicon glyphicon-home"></span>&nbsp Bem vindo, <?php
 													session_start();
 													if(empty($_SESSION['nome']))
 													{
-														echo utf8_encode($_SESSION['email']); 
+														pessoa sem nome 
 													}
 													else
 													{
@@ -33,33 +33,28 @@
 			</form>
 			
 			<ul class="nav navbar-nav navbar-right">
-			<ul class="nav navbar-nav">
-				<li><a href="?url=home_admin"><span class="glyphicon glyphicon-home"></span>&nbsp Home</a></li>
-			</ul>
-				<ul class="nav navbar-nav">
-					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-pencil"></span>&nbsp Cadastrar/Alterar <b class="caret"></b></a>
-							<ul class="dropdown-menu">
-								<li><a href="?url=cadastra_livro_adm">Livro</a></li>
-								<li><a href="?url=cadastrar_editora">Editora</a></li>
-								<li><a href="?url=cadastrar_autor">Autor</a></li>
-								<li><a href="?url=cadastra_genero">Gênero</a></li>
-							</ul>
-					</li>
-				</ul>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-pencil"></span>&nbsp Cadastrar/Alterar <b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						<li><a href="?url=cadastra_livro_adm">Livro</a></li>
+						<li><a href="?url=cadastrar_editora">Editora</a></li>
+						<li><a href="?url=cadastrar_autor">Autor</a></li>
+						<li><a href="?url=cadastra_genero">Gênero</a></li>
+					</ul>
+				</li>
+			
 
-				<ul class="nav navbar-nav">
-				   <li class="dropdown">
-					 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span>&nbsp Configurações<b class="caret"></b></a>
-						  <ul class="dropdown-menu">
-							  <li><a href="?url=alterar_dados_admin">Alterar dados</a></li>
-							  <li><a href="?url=alterar_senha_admin">Alterar senha</a></li>
-						  </ul>
-				   </li>
-			  
-					<li><a href="?url=cadastro_adm"><span class="glyphicon glyphicon-plus"></span>&nbsp Adicionar administrador</a></li>
-					<li><a href="?url=logout&situacao=logado"><span class="glyphicon glyphicon-log-out"></span>&nbsp Sair</a></li>
-				</ul>
+			
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span>&nbsp Configurações<b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						<li><a href="?url=alterar_dados_admin">Alterar dados</a></li>
+						<li><a href="?url=alterar_senha_admin">Alterar senha</a></li>
+					</ul>
+				</li>
+		  
+				<li><a href="?url=cadastro_adm"><span class="glyphicon glyphicon-plus"></span>&nbsp Adicionar administrador</a></li>
+				<li><a href="?url=logout&situacao=logado"><span class="glyphicon glyphicon-log-out"></span>&nbsp Sair</a></li>
 			</ul>
 		</section><!-- /.navbar-collapse -->
 	</section><!-- /.container-fluid -->
