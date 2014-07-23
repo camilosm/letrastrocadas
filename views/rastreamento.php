@@ -21,7 +21,7 @@
 		</form>
 		<?php
 		if ($code):
-		include_once 'correios.php';
+		include_once 'classes/class_correios.php';
 		$c = new Correio($code);
 		if (!$c->erro):
 		?>
