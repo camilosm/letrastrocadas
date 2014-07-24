@@ -136,14 +136,11 @@
          </section>
 		 <br>
                   
-		          <section class="col-lg-9 col-lg-offset-2">
-		 <br>
-					<button style="margin-left: 5px; float:right;" type="submit" name = "cadastrar_genero" class="btn btn-primary">Cadastrar</button>
-					   <button style="margin-left: 5px; float:right;" type="submit" name = "alterar" class="btn btn-primary">Alterar</button>
-					   <button style="float:right;" type = "reset "class="btn btn-default">Cancelar</button>
-                       
-                       
-        </section>
+		          <section class="col-md-10 col-md-offset-2">
+					<button type="submit" name = "cadastrar_autor" class="btn btn-primary">Cadastrar</button>
+					<button type="submit" name = "alterar" class="btn btn-primary">Alterar</button>
+					<input type = "reset" value="Limpar" class="btn btn-default"/>
+				</section>
         </section>
 		</form>
 		

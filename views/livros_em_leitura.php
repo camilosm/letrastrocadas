@@ -61,8 +61,8 @@
 	}
 
 ?>
-<div id="wrap">
-<article id="" style = "width:70%;  margin-left:4%;">
+
+<article id="" style = "width:80%;  margin-left:10%;">
 
      <section class="panel panel-default" >
         <section class="panel-heading">Livros que estou lendo</section>
@@ -117,4 +117,3 @@
 		
 
 </article>
-</div>
