@@ -32,7 +32,7 @@
 				{
 					echo '<section class="alert alert-dismissable alert-warning">
 							<button type="button" class="close" data-dismiss="alert">×</button>
-							<strong>Ixi</strong> Essa senha tá muito curta, digita uma com, <strong>no mínimo</strong> 8 dígitos.
+							<strong>Ixi!</strong> Essa senha tá muito curta, digita uma com, <strong>no mínimo</strong> 8 dígitos.
 						</section>';
 				}
 				else
@@ -46,23 +46,36 @@
 						// Verifica se ouve resposta e envia uma mensagem 
 						if($resposta)
 						{
-							echo "Administrador cadastrado com sucesso";
+							echo '<section class="alert alert-dismissable alert-success">
+									<button type="button" class="close" data-dismiss="alert">×</button>
+									<strong>Eba!</strong> Mais um administrador pra nossa equipe.
+								</section>';
 						}
 						else
 						{
-							echo "Erro ao cadastrar o administrador";
+							echo '<section class="alert alert-dismissable alert-warning">
+									<button type="button" class="close" data-dismiss="alert">×</button>
+									<strong>Aném</strong>, alguma coisa deu errado, tenta de novo aí.
+								</section>';
+
 						}
 					}
 					else
 					{
-						echo "Senha e Confirmação de senha estão diferentes";
+						echo '<section class="alert alert-dismissable alert-warning">
+								<button type="button" class="close" data-dismiss="alert">×</button>
+								<strong>Opa!</strong> As senhas não batem, confere ai.
+							</section>';
 					}
 				}
 			}
 			// Se não terminar com o nosso letrastrocadas.com.br está errado.
 			else
 			{
-				echo "Email em um formato incorreto para administradores";
+				echo '<section class="alert alert-dismissable alert-warning">
+						<button type="button" class="close" data-dismiss="alert">×</button>
+						<strong>Auto lá!</strong> esse email nao pode ser usado pra administrador.
+					</section>';
 			}
 		}
 ?>
