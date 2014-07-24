@@ -237,46 +237,46 @@
 			<legend>Alterar Livros</legend>
 			
 			<section class="form-group" style="position:relative;left:5%;">
-				<section class="col-lg-6" style="left:7%;">
+				<section class="col-md-6" style="left:7%;">
 					<section class="thumbnail">
 							<img src="<?php echo $imagem;?>" alt="" width="35%">
 							<p align="center"></p> 
 					</section>
 				</section>
-				<section class="col-lg-10">
+				<section class="col-md-10">
 				
-					<label for="Nome" class="col-lg-2 control-label">Nome:</label>		
+					<label for="Nome" class="col-md-2 control-label">Nome:</label>		
 					<input type="text" class="form-control" value="<?php echo $nome ;?>" rows="3" name = "nome" required style = "width: 50%;"id="Nome" readonly ></input> 
 					
-					<label for="Edicao" class="col-lg-2 control-label">Edição:</label>
+					<label for="Edicao" class="col-md-2 control-label">Edição:</label>
 					<input type="text" class="form-control" value="<?php echo $edicao ;?>" rows="3" name = "edicao" required style = "width: 50%;"id="Edicao" readonly ></input> 
 
 					
-					<label for="Numero" class="col-lg-2 control-label">Páginas:</label>
+					<label for="Numero" class="col-md-2 control-label">Páginas:</label>
 					<input type="text" class="form-control" value="<?php echo $num_paginas ;?>" rows="3" name = "num_paginas" required style = "width: 50%;"id="Edicao" readonly ></input> 
 
 					
-					<label for="ISBN" class="col-lg-2 control-label">ISBN:</label>
+					<label for="ISBN" class="col-md-2 control-label">ISBN:</label>
 					<input type="text" class="form-control" rows="3" value="<?php echo $isbn ;?>" name = "isbn" required style = "width: 50%;"id="ISBN" readonly ></input> 
 	
 					
-					<label for="Autor" class="col-lg-2 control-label">Autor:</label>
+					<label for="Autor" class="col-md-2 control-label">Autor:</label>
 					<input type="text" class="form-control" rows="3" value="<?php echo $autor ;?>" name = "autor" required style = "width: 50%;"id="ISBN" readonly ></input> 
 			
 					
-					<label for="Editora" class="col-lg-2 control-label">Editora:</label>
+					<label for="Editora" class="col-md-2 control-label">Editora:</label>
 					<input type="text" class="form-control" rows="3" value="<?php echo $editora ;?>" name = "editora" required style = "width: 50%;"id="ISBN" readonly ></input> 
 			
 					
-					<label for="Categoria" class="col-lg-2 control-label">Categoria:</label>
+					<label for="Categoria" class="col-md-2 control-label">Categoria:</label>
 					<input type="text" class="form-control" rows="3" value="<?php echo $categoria ;?>" name = "categoria" required style = "width: 50%;"id="ISBN" readonly ></input> 
 				
 				
-					<label for="textArea" class="col-lg-2 control-label">Estado:</label>
+					<label for="textArea" class="col-md-2 control-label">Estado:</label>
 					<textarea class="form-control" name = "estado" rows="3" required style = "width: 50%;" id="textArea" placeholder = "Escreva aqui as condições do livro que deseja disponibilizar(danos, observações, adicionais)"><?php echo utf8_encode($estado);?></textarea> 
 				
 					
-					<label for="txtAno" class="col-lg-2 control-label">Ano:</label>
+					<label for="txtAno" class="col-md-2 control-label">Ano:</label>
 					<input type="number" min = "1455" max="<?php echo $data;?>" class="form-control" value = "<?php echo $ano;?>" required name = "ano" id = "txtAno" rows="3" style = "width: 50%;" placeholder = "Ano da fabricação"/>
 				
 					<br><br>
@@ -284,7 +284,7 @@
 					<?php
 							$aspas = "'";
 							echo '
-								<label class="col-lg-2 control-label">Suas fotos :</label>
+								<label class="col-md-2 control-label">Suas fotos :</label>
 								
 								<img alt="" id="primeira_imagem" class = "thumbnail" style="cursor:pointer;" onclick="$('.$aspas.'#file_primeira'.$aspas.').click();" src = "'.$primeira_foto.'">
 								
@@ -306,9 +306,9 @@
 
 				</section>
 			</section> 
-			<section class="col-lg-10 col-lg-offset-2">
+			<section class="col-md-10 col-md-offset-2">
 				<br>
-				<button type = "reset"class="btn btn-default">Limpar</button>
+				<input type = "reset"class="btn btn-default" value="Limpar"/>
 				<button type="submit" name = "alterar_livro_usuario" value ="Alterar" class="btn btn-primary">Alterar</button>
 			</section>
 		</fieldset>

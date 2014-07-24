@@ -74,32 +74,31 @@
 			<legend>Alterar dados</legend>
 
 			<section class="form-group">	
-		        <label class="col-lg-2 control-label">Se deseja alterar <br> sua foto de perfil,<br> clique na imagem.</label>
-							<img alt="" id="img_perfil" class = "thumbnail" style="cursor:pointer;" onclick="$('#file').click();" src = "<?=$foto?>">
-							<input type="text" value = "<?=$foto?>" style="visibility:hidden;" name="caminho" id="caminho" class="btn btn-primary btn-sm"/>
-							<input type="file" style="visibility:hidden;" name="file" onchange="UploadFoto();" id="file" class="btn btn-primary btn-sm"/>
-
+		        <label class="col-md-2 control-label">Se deseja alterar <br> sua foto de perfil,<br> clique na imagem.</label>
+				<img alt="" id="img_perfil" class = "thumbnail" style="cursor:pointer;" onclick="$('#file').click();" src = "<?=$foto?>">
+				<input type="text" value = "<?=$foto?>" style="visibility:hidden;" name="caminho" id="caminho" class="btn btn-primary btn-sm"/>
+				<input type="file" style="visibility:hidden;" name="file" onchange="UploadFoto();" id="file" class="btn btn-primary btn-sm"/>
 			</section>
 			<section class="form-group">
-				<label for="inputEmail" class="col-lg-2 control-label">E-mail</label>
+				<label for="inputEmail" class="col-md-2 control-label">E-mail</label>
 
-				<section class="col-lg-10">	 
+				<section class="col-md-10">	 
 					<input type="text" class="form-control"  name = "email" id="email" required  placeholder = "E-mail" maxlength = "100" value = "<?php echo utf8_encode($_SESSION["email"]); ?>">			  
 				</section>
-				<label for="inputNome" class="col-lg-2 control-label">Nome</label>
+				<label for="inputNome" class="col-md-2 control-label">Nome</label>
 
-				<section class="col-lg-10">	 
+				<section class="col-md-10">	 
 					<input type="text" class="form-control"  name = "nome" id="nome" required  placeholder = "Nome"  maxlength = "100" value = "<?php echo utf8_encode($nome_p); ?>">			  
 				</section>
 
-				<label for="inputDataNasc" class="col-lg-2 control-label">Data Nascimento</label>
+				<label for="inputDataNasc" class="col-md-2 control-label">Data Nascimento</label>
 
-				<section class="col-lg-10">
+				<section class="col-md-10">
 					<input type="date" class="form-control" name = "data_nascimento" id="data_nascimento" required value = "<?php echo $dados_usu["data_nasc"]; ?>">		  
 				</section>
 				
-				<label for="inputGeneroFav" class="col-lg-2 control-label">Gênero favorito</label>
-				<section class="col-lg-10">
+				<label for="inputGeneroFav" class="col-md-2 control-label">Gênero favorito</label>
+				<section class="col-md-10">
 					<select type="text" class="form-control" name = "genero" id="genero" required>	
 							<?php 
 							if ($genero_fav_p == "")
@@ -120,26 +119,26 @@
 					</select>
 				</section>
 
-				<label for="inputRua" class="col-lg-2 control-label">Rua</label>
+				<label for="inputRua" class="col-md-2 control-label">Rua</label>
 
-				<section class="col-lg-10">
+				<section class="col-md-10">
 					<input type="text" class="form-control" name = "logradouro" id="logradouro" required maxlength = "100" placeholder = "Rua" value = "<?php echo utf8_encode($logradouro_p); ?>">		  
 				</section>
 
-				<label for="inputNumero" class="col-lg-2 control-label">Número</label>
+				<label for="inputNumero" class="col-md-2 control-label">Número</label>
 
-				<section class="col-lg-10">
-					<input type="number" class="form-control" name = "numero" id="numero" required placeholder = "Número" value = "<?php echo $numero_p; ?>">		  
+				<section class="col-md-10">
+					<input type="number" class="form-control" name = "numero" id="numero" required min = "1" placeholder = "Número" value = "<?php echo $numero_p; ?>">		  
 				</section>
 		
-				<label for="inputBairro" class="col-lg-2 control-label">Bairro</label>
+				<label for="inputBairro" class="col-md-2 control-label">Bairro</label>
 
-				<section class="col-lg-10">
+				<section class="col-md-10">
 					<input type="text" class="form-control" name = "bairro" id="bairro" required maxlength = "100" placeholder = "Bairro" value = "<?php echo utf8_encode($bairro_p); ?>">		  
 				</section>
 
-				<label for="inputUF" class="col-lg-2 control-label">UF</label>
-				<section class="col-lg-10">
+				<label for="inputUF" class="col-md-2 control-label">UF</label>
+				<section class="col-md-10">
 					<select class="form-control" id="inputUF" name = "uf">
 							<?php 
 							
@@ -161,26 +160,26 @@
 					</select>
 				</section>
 				
-				<label for="inputCidade" class="col-lg-2 control-label">Cidade</label>
+				<label for="inputCidade" class="col-md-2 control-label">Cidade</label>
 
-				<section class="col-lg-10">
+				<section class="col-md-10">
 					<input type="text" class="form-control" name = "cidade" id="inputCidade" required maxlength = "100" placeholder = "Cidade" value = "<?php echo utf8_encode($cidade_p); ?>">		  
 				</section>
 				
-				<label for="inputComplemento" class="col-lg-2 control-label">Complemento</label>
-				<section class="col-lg-10">
+				<label for="inputComplemento" class="col-md-2 control-label">Complemento</label>
+				<section class="col-md-10">
 					<input type="text" class="form-control" name = "complemento" id="complemento" required placeholder = "Complemento" maxlength = "100" value = "<?php echo utf8_encode($complemento_p); ?>">
 				</section>
 
-				<label for="inputCEP" class="col-lg-2 control-label">CEP</label>
+				<label for="inputCEP" class="col-md-2 control-label">CEP</label>
 				
-				<section class="col-lg-10">
+				<section class="col-md-10">
 					<input type="text" class="form-control" name = "cep" id="cep" required placeholder = "CEP" maxlength = "9" value = "<?php echo utf8_encode($cep_p); ?>">
 				</section>
 
-				<section class="col-lg-10 col-lg-offset-2">
+				<section class="col-md-10 col-md-offset-2">
 					<br>
-					<button type = "reset "class="btn btn-default">Cancelar</button>
+					<input type = "reset" value="Limpar"class="btn btn-default"/>
 					<button type="submit" name = "alterarDados" class="btn btn-primary">Salvar</button>
 				</section>
 				
