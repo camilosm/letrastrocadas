@@ -28,25 +28,35 @@
 			if(preg_match('/letrastrocadas.com.br$/', $email))
 			{
 				// Verifica se a senha e confirmar senha estão corretos
-				if($confirmarsenha == $senha)
+				if(strlen($senha) < 8)
 				{
-					// Instancia e passa os valores para a classe responsável por cadastrar no banco de dados 
-					$valores_administrador = "NULL,'".$nome."',2,'".$email."','".$senha."'";
-					$cadastrar_administrador = new Inserir("tbl_administrador",$valores_administrador);
-					$resposta = $cadastrar_administrador->inserir();
-					// Verifica se ouve resposta e envia uma mensagem 
-					if($resposta)
-					{
-						echo "Administrador cadastrado com sucesso";
-					}
-					else
-					{
-						echo "Erro ao cadastrar o administrador";
-					}
+					echo '<section class="alert alert-dismissable alert-warning">
+							<button type="button" class="close" data-dismiss="alert">×</button>
+							<strong>Ixi</strong> Essa senha tá muito curta, digita uma com, <strong>no mínimo</strong> 8 dígitos.
+						</section>';
 				}
 				else
 				{
-					echo "Senha e Confirmação de senha estão diferentes";
+					if($confirmarsenha == $senha)
+					{
+						// Instancia e passa os valores para a classe responsável por cadastrar no banco de dados 
+						$valores_administrador = "NULL,'".$nome."',2,'".$email."','".$senha."'";
+						$cadastrar_administrador = new Inserir("tbl_administrador",$valores_administrador);
+						$resposta = $cadastrar_administrador->inserir();
+						// Verifica se ouve resposta e envia uma mensagem 
+						if($resposta)
+						{
+							echo "Administrador cadastrado com sucesso";
+						}
+						else
+						{
+							echo "Erro ao cadastrar o administrador";
+						}
+					}
+					else
+					{
+						echo "Senha e Confirmação de senha estão diferentes";
+					}
 				}
 			}
 			// Se não terminar com o nosso letrastrocadas.com.br está errado.
