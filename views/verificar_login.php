@@ -39,7 +39,10 @@ if(isset($_POST['entrar']))
 		else
 		{
 			//Não foi encontrado nenhum registro
-			echo "Usuário ou senha incorretos";
+			echo '<section class="alert alert-dismissable alert-danger">
+					<button type="button" class="close" data-dismiss="alert">×</button>
+					<strong>Vish!</strong> Esse usuário não existe ou a senha está errada, confere ai.
+				</section>';
 		}
 	}
 	//Usuário padrão
@@ -68,23 +71,35 @@ if(isset($_POST['entrar']))
 			else if ($dadosusu["status"] == 2)
 			{
 				// Cria uma resposta para ser exibida se o usuário estiver inativo
-				echo "Sua conta está inativa, para mais informações contate nossos administradores.";
+				echo '<section class="alert alert-dismissable alert-danger">
+						<button type="button" class="close" data-dismiss="alert">×</button>
+						<strong>Ih!</strong> Sua conta está inativa, contate os administradores para reativá-la.
+					</section>';
 			}
 			else if ($dadosusu["status"] == 3)
 			{
 				// Cria uma resposta para ser exibida se o usuário tiver sido banido
-				echo "Sua conta foi banida, para mais informações contate nossos administradores.";		
+				echo '<section class="alert alert-dismissable alert-danger">
+					<button type="button" class="close" data-dismiss="alert">×</button>
+					<strong>Vish!</strong> Você foi banido. Para informação, entre em contato.
+				</section>';
 			}
 			else
 			{
 				// Cria uma resposta para ser exibida se o usuário digitou a senha ou o usuário errado
-				echo "Erro no banco de dados, por favor contate nossos administradores para resolvermos este problema";
+				echo '<section class="alert alert-dismissable alert-danger">
+						<button type="button" class="close" data-dismiss="alert">×</button>
+						<strong>Vish!</strong> Esse usuário não existe ou a senha está errada, confere ai.
+					</section>';
 			}
 		}
 		else
 		{
 			// Se não achar resposta é por que o usuário ou senha não estão corretos
-			echo "Usuário ou senha incorretos";
+			echo '<section class="alert alert-dismissable alert-danger">
+					<button type="button" class="close" data-dismiss="alert">×</button>
+					<strong>Eita!</strong> Algo não saiu como deveria, tente de novo daqui a pouco.
+				</section>';
 		
 		}
 	}
