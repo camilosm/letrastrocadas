@@ -90,66 +90,48 @@
 				
 ?>
 
-	<header>
-		<?php  session_start(); @include('views/base/header_admin.php'); ?>
-	</header>
+<header>
+	<?php  session_start(); @include('views/base/header_admin.php'); ?>
+</header>
 	
-<div id="wrap">
-<article id  = "cadastro_usuario" style = "position:relative;width:50%;height:20%;left:27%;">
-		
-		<form class="form-horizontal" method = "post" action = "">
-            <fieldset>
-			
-                  <legend>Pesquisar Editora</legend>
-				  
-         <div class="form-group">
-		 
-                  <label for="inputID" class="col-lg-2 control-label">ID:</label>
-         <div class="col-lg-9">
-		 
-                  <input type="text" class="form-control" name = "id" placeholder = "ID" >
-				  
-         </div>
-		 <br>
-		 <div class="col-lg-9 col-lg-offset-2">
-		 <br>
-                       
-                       
-					   <button style="margin-left: 5px; float:right;" type="submit" name = "pesquisar" class="btn btn-primary">Pesquisar</button>
-		 </fieldset>
-		 </form>
-		
-         <form class="form-horizontal" method = "post" action = "">
-            <fieldset>
-			
-                  <legend>Cadastrar/Alterar Editora</legend>
-				  
-         <div class="form-group">
-		 
-				  <label for="inputID" class="col-lg-2 control-label">ID:</label>
-         <div class="col-lg-9">
-		 
-                  <input type="text" class="form-control" name = "id_editora" value="<?php echo $id?>" placeholder = "ID" >
-				  
-         </div>
-		 
-                  <label for="inputDescricao" class="col-lg-2 control-label">Editora:</label>
-				  
-         <div class="col-lg-9">	 
-                  <input type="text" class="form-control" value="<?php echo $nome ;?>"  name = "nome" required placeholder = "Editora" maxlength = "100">			  
-         </div>
-		 <br>
-            
-		          <div class="col-lg-9 col-lg-offset-2">
-		 <br>
-                       
-                       
-					   <button style="margin-left: 5px; float:right;" type="submit" name = "cadastrar_editora" class="btn btn-primary">Cadastrar</button>
-					   <button style="margin-left: 5px; float:right;" type="submit" name = "alterar" class="btn btn-primary">Alterar</button>
-					   <button style="float:right;" type = "reset "class="btn btn-default">Cancelar</button>
-					   
-        </div>
-        </div>
-		</form>
+
+<article id  = "cadastro_usuario" style = "width:60%;left:20%;">
+	<form class="form-horizontal" method = "post" action = "">
+		<fieldset>
+			<legend>Pesquisar Editora</legend>
+			<section class="form-group">
+				<label for="inputID" class="col-md-2 control-label">ID:</label>
+				<section class="col-md-10">
+					<input type="text" class="form-control" name = "id" placeholder = "ID">
+				</section>
+				<br>
+				<section class="col-md-10 col-md-offset-2">		   
+					<button style="margin-left: 5px; float:right;" type="submit" name = "pesquisar" class="btn btn-primary">Pesquisar</button>
+				</section>
+			</section>
+		</fieldset>
+	</form>
+	
+	<form class="form-horizontal" method = "post" action = "">
+		<fieldset>
+			<legend>Cadastrar/Alterar Editora</legend>
+			<section class="form-group">
+				<label for="inputID" class="col-md-2 control-label">ID:</label>
+				<section class="col-md-10">
+					<input type="text" class="form-control" name = "id_editora" value="<?php echo $id?>" placeholder = "ID" >	  
+				</section>
+				<br>
+				<label for="inputDescricao" class="col-md-2 control-label">Editora:</label>
+				<section class="col-md-10">	 
+					<input type="text" class="form-control" value="<?php echo $nome ;?>"  name = "nome" required placeholder = "Editora" maxlength = "100">			  
+				</section>
+				<br>						
+				<section class="col-md-10 col-md-offset-2">
+					<button type="submit" name = "cadastrar_editora" class="btn btn-primary">Cadastrar</button>
+					<button type="submit" name = "alterar" class="btn btn-primary">Alterar</button>
+					<input type = "reset" value="Limpar" class="btn btn-default"/>
+				</section>
+			</section>
+		</fieldset>
+	</form>
 </article>
-</div>
