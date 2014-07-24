@@ -56,6 +56,7 @@
 								left: 76%;
 								margin-top:35%;
 								display:none;
+								z-index:5000;
 							}
 							
 							#notificações2
@@ -67,6 +68,7 @@
 								left: 76%;
 								margin-top:27%;
 								display:none;
+								z-index:5000;
 							}
 							
 							#notificações3
@@ -78,14 +80,18 @@
 								left: 76%;
 								margin-top:19%;
 								display:none;
+								z-index:5000;
 							}
 							
 						</style>
-						<script type = 'text/javascript'>							
+						<script type = 'text/javascript'>	
+						
 							var inicio = setInterval('Sidebar()', 0000);
 							var inicio_notificações = setInterval('Notificações()', 0000);
+							var inicio_Codigo = setInterval('Codigo()', 0000);
 							var intervalo = setInterval('Sidebar()', 5000);
 							var notificações = setInterval('Notificações()', 5000);
+							var codigo = setInterval('Codigo()', 1800000);
 	
 							function Notificações()
 							{
@@ -107,6 +113,22 @@
 									
 								});
 								clearInterval(inicio_notificações);
+							}
+							
+							function Codigo()
+							{
+								
+								$.ajax({
+									url : 'ajax/atualizar_cambio.php',
+									dataType : 'json',
+									async: false,
+									success : function(data){
+									},
+									error : function(data){
+									}
+								
+								});
+								clearInterval(inicio_Codigo);
 							}
 							
 							function Sidebar()
