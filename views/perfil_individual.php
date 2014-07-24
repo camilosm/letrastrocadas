@@ -22,7 +22,28 @@
 		    $avaliacoes_negativas = $pesq['avaliacoes_negativas'];
 		    $avaliacoes_positivas = $pesq['avaliacoes_positivas'];
 		    $id_p = $pesq['id_usuario'];
-		    $email_p = $pesq['email'];
+		    $email_p = $pesq['email'];		
+			
+			/* Pesquisa de livros marcados como quero ler, lidos, lendo */
+
+			$pesquisa_dados_marcacao = new Pesquisar("tbl_marcacao JOIN tbl_usuario ON usuario_id = id_usuario JOIN tbl_livro ON livro_id = id_livro","tipo,id_livro,imagem_livros,tbl_livro.nome","usuario_id = $id");
+			$resul_pesquisa_marcacao = $pesquisa_dados_marcacao->pesquisar();
+			$pesq_marcacao = mysql_fetch_assoc($resul_pesquisa_marcacao);
+		    
+			$imagem_marcacao = $pesq_marcacao['imagem_livros'];
+			$nome_livro_marcacao = $pesq_marcacao['tbl_livro.nome'];
+			$id_livro_marcacao = $pesq_marcacao['id_livro'];			
+			$tipo_marcacao = $pesq_marcacao['tipo'];
+			
+			/* Pesquisa de livros que o usuário disponibilizou */ 
+			
+			$pesquisa_dados_lista_livros = new Pesquisar("tbl_usuario usu JOIN tbl_livro liv JOIN tbl_lista_livros list_liv ON list_liv.livro_id = id_livro AND list_liv.usuario_id = id_usuario","imagem_livros,liv.nome,id_lista_livros","id_usuario = $id GROUP BY id_lista_livros");
+			$resul_pesquisa_lista_livros = $pesquisa_dados_lista_livros->pesquisar();
+			$pesq_lista_livro = mysql_fetch_assoc($resul_pesquisa_lista_livros);
+		    
+			$imagem_lista_livro = $pesq_lista_livro['imagem_livros'];
+			$nome_livro_lista_livro = $pesq_lista_livro['liv.nome'];
+			$id_lista_livro = $pesq_lista_livro['id_lista_livros'];
 
 
 		
@@ -30,7 +51,8 @@
 ?>
 
 <article id = "body_perfil_usuario">
-            <section class="panel panel-default" style="width: 65%; position: relative; left: 5%">
+           
+		               <section class="panel panel-default" style="width: 65%; position: relative; left: 5%">
 
 	
 
@@ -56,46 +78,85 @@
 					  <li class="active"><a href="#livrosdisponiveis" data-toggle="tab"><span class="glyphicon glyphicon-book"></span> Livros Disponiveis</a></li>
 					  <li><a href="#jali" data-toggle="tab"><span class="glyphicon glyphicon-book"></span> Já li</a></li>
 					  <li><a href="#queroler" data-toggle="tab"><span class="glyphicon glyphicon-book"></span> Quero Ler</a></li>
+					  <li><a href="#lendo" data-toggle="tab"><span class="glyphicon glyphicon-book"></span> Lendo </a></li>
 					</ul>
 					<div id="myTabContent" class="tab-content">
 					  <div class="tab-pane fade active in" id="livrosdisponiveis">
-				   <img src = "content/imagens/got1.jpg" alt = "got1" height = "177px" width = "120px">
-				   <img src = "content/imagens/harry-potter-e-a-pedra-filosofal.jpg" alt = "harry_potter" height = "177px" width = "120px">
-						 <img src = "" alt = ""> 
-						 <img src = "" alt = ""> 
-						 <img src = "" alt = ""> 
-						 <img src = "" alt = ""> 
-						 <img src = "" alt = ""> 
-						 <img src = "" alt = ""> 
+		 <?php
+				if ($resul_pesquisa_lista_livros != 0){
+					while($pesq_lista_livro = mysql_fetch_assoc($resul_pesquisa_lista_livros))
+						{
+						echo
+							'<img src ="'.$imagem_lista_livro.'" alt = "'.$nome_livro_lista_livro.'" height = "177px" width = "120px">';
+						}
+				}
+				else
+				{
+					echo 'Nenhum livro está disponível';
+				}
+		?>
 					  </div>
 					  <div class="tab-pane fade" id="jali">
-				   <img src = "content/imagens/pj1.jpg" alt = "percy_jackson" height = "177px" width = "120px">
-				   <img src = "content/imagens/louco_aos_poucos.jpg" alt = "louco_aos_poucos" height = "177px" width = "120px">
-						 <img src = "" alt = ""> 
-						 <img src = "" alt = ""> 
-						 <img src = "" alt = ""> 
-						 <img src = "" alt = ""> 
-						 <img src = "" alt = ""> 
-						 <img src = "" alt = ""> 
+		 <?php
+				if ($resul_pesquisa_marcacao != 0 AND $tipo_marcacao == 2){
+					while($pesq_marcacao = mysql_fetch_assoc($resul_pesquisa_marcacao))
+						{
+					if ($tipo_marcacao == 2)
+					{
+						echo
+							'<img src ="'.$imagem_marcacao.'" alt = "'.$nome_livro_marcacao.'" height = "177px" width = "120px">';
+						}
+					}
+				}
+				else
+				{
+					echo 'Nenhum livro está disponível';
+				}
+		?>
 					  </div>
 					  <div class="tab-pane fade" id="queroler">
-						<img src="" alt = "">
-				   <img src = "content/imagens/50_tons_cinza.jpg" alt = "50tons" height = "177px" width = "120px">
-						 <img src = "" alt = ""> 
-						 <img src = "" alt = ""> 
-						 <img src = "" alt = ""> 
-						 <img src = "" alt = ""> 
-						 <img src = "" alt = ""> 
-						 <img src = "" alt = ""> 
+		 <?php
+				if ($resul_pesquisa_marcacao != 0 AND $tipo_marcacao == 1){
+					while($pesq_marcacao = mysql_fetch_assoc($resul_pesquisa_marcacao))
+						{
+					if ($tipo_marcacao == 1)
+					{
+						echo
+							'<img src ="'.$imagem_marcacao.'" alt = "'.$nome_livro_marcacao.'" height = "177px" width = "120px">';
+						}
+					}
+				}
+				else
+				{
+					echo 'Nenhum livro está disponível';
+				}
+		?>
 					  </div>
-					  
+					<div class="tab-pane fade" id="lendo">
+		 <?php
+				if ($resul_pesquisa_marcacao != 0 AND $tipo_marcacao == 3){
+					while($pesq_marcacao = mysql_fetch_assoc($resul_pesquisa_marcacao))
+						{
+					if ($tipo_marcacao == 3)
+					{
+						echo
+							'<img src ="'.$imagem_marcacao.'" alt = "'.$nome_livro_marcacao.'" height = "177px" width = "120px">';
+						}
+					}
+				}
+				else
+				{
+					echo 'Nenhum livro está disponível';
+				}
+		?>
+					</div>					  
 					</div>
 				  </td>
 				  			  
 			</tr>
 			<tr>
 			      <td colspan = "5"> 				             
-				       <section id = "avaliações" style = "position:relative; left:50%; width:20%;">
+				       <section id = "avaliações" style = "position:relative; left:50%; width:30%;">
                        <label> Avaliações: </label>
                         &nbsp  
                        <span class= "glyphicon glyphicon-thumbs-up"></span> <span class = "badge"> <?php echo $avaliacoes_positivas; ?> </span> 
@@ -120,8 +181,5 @@
 			?>
 			</section>
 			</section>
-
-		
-		
 
 </article>
