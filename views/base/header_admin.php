@@ -12,7 +12,7 @@
 													session_start();
 													if(empty($_SESSION['nome']))
 													{
-														pessoa sem nome 
+														echo "pessoa"; 
 													}
 													else
 													{
