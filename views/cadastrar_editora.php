@@ -128,10 +128,9 @@
 				</section>
 				<br>						
 				<section class="col-md-10 col-md-offset-2">
-					<br>
-					<button style="float: right;" type="submit" name = "cadastrar_editora" class="btn btn-primary">Cadastrar</button>
-					<button style="float: right;" type="submit" name = "alterar" class="btn btn-primary">Alterar</button>
-					<input style="float: right;" type = "reset" value="Limpar" class="btn btn-default"/>
+					<button type="submit" name = "cadastrar_autor" class="btn btn-primary">Cadastrar</button>
+					<button type="submit" name = "alterar" class="btn btn-primary">Alterar</button>
+					<input type = "reset" value="Limpar" class="btn btn-default"/>
 				</section>
 			</section>
 		</fieldset>

@@ -65,9 +65,9 @@
 	}
 ?>
 
-<section id = "body_livros_lidos">
+<section id = "body_livros_lidos" style = "width:80%; margin-left:10%;">
 
-     <section class="panel panel-default" style = "width:70%; height:60%; position:relative; left:5%;">
+     <section class="panel panel-default">
         <section class="panel-heading">Livros diponibilizados</section>
 			<?php
 			
