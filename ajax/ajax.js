@@ -72,7 +72,7 @@ function NovaListaDesejo(id,id_antigo,pagina)
 		// função para o sucesso
 			success : function(data){
 				pagina++;
-				document.getElementById('pag_inicial_livros_desejados').innerHTML =  data.tabela;
+				document.getElementById('pag_inicial_livros_desejados').innerHTML = data.tabela;
 				$("#li_antigo").attr({"class" : "previous"});
 				$("#a_antigo").attr({"onClick" : "AntigaListaDesejo('"+id_antigo+"','"+pagina+"')"});
 				var novo = data.novo;
@@ -115,7 +115,7 @@ function AntigaListaDesejo(id,paginas)
 			$('#a_novo').attr({"onClick" : "NovaListaDesejo('"+data.ultimo_id+"','"+id+"','"+paginas+"')"});
 			$('#li_novo').attr({"class" : "next"})
 			$('html,body').animate({scrollTop: 0},'slow');
-			document.getElementById('pag_inicial_livros_desejados').innerHTML =  data.tabela;
+			document.getElementById('pag_inicial_livros_desejados').innerHTML = data.tabela;
 			if(paginas > 1)
 			{
 				$("#li_antigo").attr({"class" : "previous"});
@@ -149,7 +149,7 @@ function NovaDisponibilizados(id,id_antigo,pagina)
 		// função para o sucesso
 			success : function(data){
 				pagina++;
-				document.getElementById('pag_inicial_livros_ultimos_disponibilizados').innerHTML =  data.tabela;
+				document.getElementById('pag_inicial_livros_ultimos_disponibilizados').innerHTML = data.tabela;
 				$("#li_ultimos_antigo").attr({"class" : "previous"});
 				$("#a_ultimos_antigo").attr({"onClick" : "AntigaDisponibilizados('"+id_antigo+"','"+pagina+"')"});
 				var novo = data.novo;
@@ -192,7 +192,7 @@ function AntigaDisponibilizados(id,pagina)
 			$('#a_ultimos_novo').attr({"onClick" : "NovaDisponibilizados('"+data.ultimo_id+"','"+id+"','"+pagina+"')"});
 			$('#li_ultimos_novo').attr({"class" : "next"})
 			$('html,body').animate({scrollTop: 0},'slow');
-			document.getElementById('pag_inicial_livros_ultimos_disponibilizados').innerHTML =  data.tabela;
+			document.getElementById('pag_inicial_livros_ultimos_disponibilizados').innerHTML = data.tabela;
 			if(pagina > 1)
 			{
 				$("#li_ultimos_antigo").attr({"class" : "previous"});
