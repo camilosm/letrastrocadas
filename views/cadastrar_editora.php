@@ -95,18 +95,19 @@
 </header>
 	
 
-<article id  = "cadastro_usuario" style = "width:60%;left:20%;">
+<article id  = "cadastro_usuario" style = "width: 60%; margin-left:20%;">
 	<form class="form-horizontal" method = "post" action = "">
 		<fieldset>
 			<legend>Pesquisar Editora</legend>
 			<section class="form-group">
 				<label for="inputID" class="col-md-2 control-label">ID:</label>
 				<section class="col-md-10">
-					<input type="text" class="form-control" name = "id" placeholder = "ID">
+					<input type="text" class="form-control" name = "id" placeholder = "ID"/>
 				</section>
+				
+				<section class="col-md-10 col-md-offset-2">
 				<br>
-				<section class="col-md-10 col-md-offset-2">		   
-					<button style="margin-left: 5px; float:right;" type="submit" name = "pesquisar" class="btn btn-primary">Pesquisar</button>
+					<button style="float: right;" type="submit" name = "pesquisar" class="btn btn-primary">Pesquisar</button>
 				</section>
 			</section>
 		</fieldset>
@@ -127,9 +128,10 @@
 				</section>
 				<br>						
 				<section class="col-md-10 col-md-offset-2">
-					<button type="submit" name = "cadastrar_editora" class="btn btn-primary">Cadastrar</button>
-					<button type="submit" name = "alterar" class="btn btn-primary">Alterar</button>
-					<input type = "reset" value="Limpar" class="btn btn-default"/>
+					<br>
+					<button style="float: right;" type="submit" name = "cadastrar_editora" class="btn btn-primary">Cadastrar</button>
+					<button style="float: right;" type="submit" name = "alterar" class="btn btn-primary">Alterar</button>
+					<input style="float: right;" type = "reset" value="Limpar" class="btn btn-default"/>
 				</section>
 			</section>
 		</fieldset>
