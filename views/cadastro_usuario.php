@@ -32,23 +32,22 @@
 		<fieldset>
 			<legend>Cadastro</legend>				  
 			<section class="form-group">
-				<label for="inputEmail" class="col-lg-2 control-label">E-mail</label>
-				  
+				<label for="inputEmail" class="col-md-2 control-label">E-mail</label>
 				<section class="col-md-10">	 
 					<input type="email" class="form-control"  name = "email" id="email" value = "" required placeholder = "E-mail" maxlength = "100">			  
 				</section>
 				<br>
-				<label for="inputSenha" class="col-lg-2 control-label">Senha</label>
+				<label for="inputSenha" class="col-md-2 control-label">Senha</label>
 				<section class="col-md-10">
 					<input type="password" class="form-control" name = "senha" id="inputSenha" required maxlength = "16" placeholder = "Entre 8 e 16 dígitos" maxlength = "16">
 				</section>
 				<br> 
-				<label for="inputConfirmarSenha" name = "confirmar" class="col-lg-2 control-label">Confirmar Senha</label>
-				<section class="col-lg-10">
+				<label for="inputConfirmarSenha" name = "confirmar" class="col-md-2 control-label">Confirmar Senha</label>
+				<section class="col-md-10">
 					<input type="password" class="form-control" name = "confirmar" id="inputSenha" required maxlength = "16" placeholder = "Digite sua senha novamente">		  
 				</section>
 				<br>
-				<section class="col-lg-12 col-lg-offset-2">
+				<section class="col-md-12 col-md-offset-2">
 					<input type = "reset" class="btn btn-default" value="Limpar"/>
 					<button type="submit" name = "entrar" class="btn btn-primary">Cadastrar</button>
 				</section>
