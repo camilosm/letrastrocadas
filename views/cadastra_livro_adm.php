@@ -108,16 +108,16 @@
 			$resultado_livro = $alterar_livro->alterar();
 			if($resultado == 1)
 			{
-									echo "<div class='alert alert-dismissable alert-success' style='width:40%;margin-left:30%;'>					  
+									echo "<section class='alert alert-dismissable alert-success' style='width:40%;margin-left:30%;'>					  
 											<strong>Livro alterado com sucesso!</strong>
-									</div>";
+									</section>";
 			}
 			else
 			{
 				
-				echo "<div class='alert alert-dismissable alert-danger' style='width:40%;margin-left:30%;'>				  
+				echo "<section class='alert alert-dismissable alert-danger' style='width:40%;margin-left:30%;'>				  
 						<strong>Erro ao alterar livro.</strong> Tente novamente!
-				</div>";
+				</section>";
 				
 			}
 		}
@@ -155,7 +155,7 @@ $(document).ready(function(){
 })
 
 </script>
-<div id="wrap">
+<section id="wrap">
 <article id  = "body_cadastra_livro" style = "width:50%;position:relative;left:27%;">
     
 	<form class="form-horizontal" method = "post" action = "">
@@ -163,16 +163,16 @@ $(document).ready(function(){
 			
                   <legend>Pesquisar Livro</legend>
 				  
-         <div class="form-group">
+         <section class="form-group">
 		 
                   <label for="inputID" class="col-lg-2 control-label">ID:</label>
-         <div class="col-lg-9">
+         <section class="col-lg-9">
 		 
                   <input type="text" class="form-control" name = "id" id="inputID" placeholder = "ID" >
 				  
-         </div>
+         </section>
 		 <br>
-		 <div class="col-lg-9 col-lg-offset-2">
+		 <section class="col-lg-9 col-lg-offset-2">
 		 <br>
                        
                        
@@ -185,39 +185,39 @@ $(document).ready(function(){
 			
                   <legend>Cadastrar/Alterar Livro</legend>
 				  
-         <div class="form-group">
+         <section class="form-group">
 				
 				  <label for="inputID" class="col-lg-2 control-label">ID:</label>
-         <div class="col-lg-9">
+         <section class="col-lg-9">
 		 
                   <input type="text" class="form-control" name = "id_livro" value="<?php echo $id ;?>" placeholder = "ID" >
-				  </div>
+				  </section>
 				
                   <label for="inputNome" class="col-lg-2 control-label">Nome:</label>
 				  
-         <div class="col-lg-9">
+         <section class="col-lg-9">
 		 
                   <input type="text" class="form-control" value="<?php echo $nome ;?>" name = "nome" required placeholder = "Nome do Livro" maxlength = "100">
 				  
-         </div>
+         </section>
 		 <br>
 		 <label for="inputEdicaolivro" class="col-lg-2 control-label">Edição:</label>				  
-         <div class="col-lg-9">
+         <section class="col-lg-9">
 		 
                   <input type="number" class="form-control" value="<?php echo $edicao ;?>" name = "edicao" id="inputEdicao" required placeholder = "Edição do livro" maxlength = "20" min = "0" max = "20000">
 				  
-         </div>
+         </section>
 		 <br>		 
                   <label for="inputIsnblivro" class="col-lg-2 control-label">ISBN:</label>
 				  
-         <div class="col-lg-9">
+         <section class="col-lg-9">
 		 
                   <input type="number" class="form-control" value="<?php echo $isbn ;?>" name="isbn" id="inputISBN" required maxlength = "17" placeholder = "ISBN" min="0" max = "20000">				  
-         </div>
+         </section>
 		 
                   <label for="select" class="col-lg-2 control-label">Editora:</label>
 			
-         <div class="col-lg-9">
+         <section class="col-lg-9">
 			
               <select class="form-control" value="<?php echo $editora ;?>" name = "cmbEditora" id="select">
 			  
@@ -237,11 +237,11 @@ $(document).ready(function(){
               </select>
 			
 			 
-		</div> 
+		</section> 
 					
                 <label for="select" class="col-lg-2 control-label">Autor:</label>
 				
-            <div class="col-lg-9">
+            <section class="col-lg-9">
 			
               <select class="form-control" value="<?php echo $autor ;?>"name = "cmbAutor" id="select">
 			  
@@ -255,11 +255,11 @@ $(document).ready(function(){
 				?>
 				
               </select>
-         </div>
+         </section>
 				
               <label for="select" class="col-lg-2 control-label">Gênero:</label>
 			  
-           <div class="col-lg-9">
+           <section class="col-lg-9">
 		   
               <select class="form-control" value="<?php echo $genero ;?>"name = "cmbGenero" id="select">
 			  
@@ -275,38 +275,38 @@ $(document).ready(function(){
               </select>
 			 
 			  
-		</div>
+		</section>
 		<br>
 				
 			<label for="textArea" class="col-lg-2 control-label">Sinopse:</label>
-		<div class="col-lg-9">
+		<section class="col-lg-9">
 		
 			<textarea class="form-control" rows="3" value="<?php echo $sinopse ;?>" name="sinopse" id="textArea"></textarea>
 			
-		</div>
+		</section>
 			
 			<label for="inputEdicaolivro" class="col-lg-2 control-label">Páginas:</label>				  
 		
-		<div class="col-lg-9">
+		<section class="col-lg-9">
 
 			  <input type="number" class="form-control" value="<?php echo $numero_paginas ;?>" name = "numero_paginas" id="inputNumeros" required placeholder = "Números de páginas" maxlength = "20" min = "0" max = "20000">
 			  
-		</div>
+		</section>
 		 
                 <br><label for="inputFotolivro" class="col-lg-2 control-label">Foto: </label>
 				  
-         <div class="col-lg-9">
+         <section class="col-lg-9">
 		 
                   <br><input type="file"  name="file" "position:relative; width:25%; height: 5%;left:20%;top:2%; "/>
 				  
-         </div> 
+         </section> 
 		
-         <div class="col-lg-9 col-lg-offset-2">
+         <section class="col-lg-9 col-lg-offset-2">
 		 <br>                       
                        <button style="margin-left: 5px; float:right;" type="submit" name = "cadastrarLivro" class="btn btn-primary">Cadastrar</button>
 					   <button style="margin-left: 5px; float:right;" type="submit" name = "alterar" class="btn btn-primary">Alterar</button>
 					   <button style="float:right;" type = "reset" class="btn btn-default">Cancelar</button>
-        </div>
+        </section>
 		
 			<!--<button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="right" 
 			title="Adicionar Autor" data-original-title="Adicionar Autor" id = "mostrar_autor" 
@@ -337,4 +337,4 @@ $(document).ready(function(){
 
 </form>
 </section>
-</div>
+</section>
