@@ -11,7 +11,7 @@ DELIMITER |
 			
 			UPDATE tbl_usuario SET idade = @idade WHERE id_usuario = id;
 		END ;
-|
+| 
 DELIMITER ;
 
 
