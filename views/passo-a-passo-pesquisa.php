@@ -78,8 +78,8 @@
 									<input type = "submit" class="btn btn-primary btn-sm" name = "botao_disponibilizar_livro" value = "Disponibilizar Livro" />
 								</form>
 								<section class = "btn-group">
-									<button type="button" class="btn btn-primary btn-sm" disabled>Eu...</button>
-									<button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" disabled><span class="caret"></span></button>
+									<button type="button" class="btn btn-primary btn-sm" disable>Eu...</button>
+									<button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" ><span class="caret"></span></button>
 									<ul class="dropdown-menu">
 										<li>Quero ler</li>
 										<li>Já li</li>
