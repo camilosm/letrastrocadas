@@ -19,12 +19,12 @@
 		}
 		
 		$bd = new Banco();
-		$campos = "id_lista_livros,imagem_livros,livro.nome AS Livro,autor.nome AS Autor,editora.nome As Editora, livro.sinopse As sinopse";
-		$tabelas = "tbl_lista_livros lista INNER JOIN tbl_livro livro INNER JOIN tbl_editora editora INNER JOIN tbl_autor autor ON id_editora = editora_id AND id_autor = autor_id AND id_livro = livro_id";
-		$pesquisar_livros = new Pesquisar($tabelas,$campos,"id_lista_livros > ".$codigo." AND usuario_id =".$_SESSION['id']." LIMIT 7");
+		$campos = "id_marcacao,imagem_livros,livro.nome AS Livro,autor.nome AS Autor,editora.nome As Editora, livro.sinopse As sinopse";
+		$tabelas = "tbl_marcacao marcacao INNER JOIN tbl_livro livro INNER JOIN tbl_editora editora INNER JOIN tbl_autor autor ON id_marcacao = 3 AND id_editora = editora_id AND id_autor = autor_id AND id_livro = livro_id";
+		$pesquisar_livros = new Pesquisar($tabelas,$campos,"id_marcacao > ".$codigo." AND usuario_id =".$_SESSION['id']." LIMIT 7");
 		$resultado = $pesquisar_livros->pesquisar();
 		
-		$pesquisar_quantidade = new Pesquisar($tabelas,"COUNT(id_lista_livros) As quantidade","usuario_id =".$_SESSION['id']);
+		$pesquisar_quantidade = new Pesquisar($tabelas,"COUNT(id_marcacao) As quantidade","usuario_id =".$_SESSION['id']);
 		$resultado_quantidade = $pesquisar_quantidade->pesquisar();
 		
 		$pesquisa_quantidade=mysql_fetch_array($resultado_quantidade);
@@ -39,7 +39,7 @@
 		
 		while($pesquisa=mysql_fetch_array($resultado))
 		{
-			$id[] = $pesquisa['id_lista_livros'];
+			$id[] = $pesquisa['id_marcacao'];
 			$nome[] = $pesquisa['Livro'];
 			$imagem[] = $pesquisa['imagem_livros'];
 			$editora[] = $pesquisa['Editora'];
