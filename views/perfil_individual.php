@@ -50,9 +50,9 @@
 
 ?>
 
-<article id = "body_perfil_usuario">
+<article id = "body_perfil_usuario" style="width: 80%; margin-left: 10%">
            
-		               <section class="panel panel-default" style="width: 65%; position: relative; left: 5%">
+		               <section class="panel panel-default">
 
 	
 
