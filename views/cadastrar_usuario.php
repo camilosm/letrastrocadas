@@ -43,7 +43,7 @@
 			{
 				echo '<section class="alert alert-dismissable alert-warning">
 						<button type="button" class="close" data-dismiss="alert">×</button>
-						<strong>Ixi</strong> Essa senha tá muito curta, digita uma com, <strong>no mínimo</strong> 8 dígitos.
+						<strong>Ixi!</strong> Essa senha tá muito curta, digita uma com, <strong>no mínimo</strong> 8 dígitos.
 					</section>';
 			}
 			else

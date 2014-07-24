@@ -16,16 +16,32 @@
 		$valores_alterar_senha = "senha ='".$senhanova."'";
 		$condicao = "id_usuario = $id ";
 		
-		$alterar_senha = new Alterar("tbl_usuario", $valores_alterar_senha, $condicao);
-		$resposta = $alterar_senha->alterar();
-		
-		if($resposta)
+		if(strlen($senhanova) < 8)
 		{
-			$resultado =  "OK";
+			echo '<section class="alert alert-dismissable alert-warning">
+					<button type="button" class="close" data-dismiss="alert">×</button>
+					<strong>Ixi!</strong> Essa senha tá muito curta, digita uma com, <strong>no mínimo</strong> 8 dígitos.
+				</section>';
 		}
 		else
 		{
-			$resultado = "Erro";
+			$alterar_senha = new Alterar("tbl_usuario", $valores_alterar_senha, $condicao);
+			$resposta = $alterar_senha->alterar();
+			
+			if($resposta)
+			{
+				echo '<section class="alert alert-dismissable alert-success">
+						<button type="button" class="close" data-dismiss="alert">×</button>
+						<strong>Eba!</strong> Senha alterada com sucesso o/
+					</section>';
+			}
+			else
+			{
+				echo '<section class="alert alert-dismissable alert-warning">
+						<button type="button" class="close" data-dismiss="alert">×</button>
+						<strong>Aném</strong>, alguma coisa deu errado, tenta de novo aí.
+					</section>';
+			}
 		}
     }
 ?>
