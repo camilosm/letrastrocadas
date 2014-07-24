@@ -59,56 +59,59 @@
 	}
 
 ?>	
-<article style="width: 90%; margin-left: 5%;">
+<article style="width: 84%; margin-left: 8%;">
 
 	<section class="row">
-		<section class="col-md-5">
+		<section class="col-md-6">
 			<section class="panel panel-default">
 				<section class="panel-heading"><h4>Livros que você deseja:</h4></section>
 				<section class="panel-body">
-					<table id = "pag_inicial_livros_desejados" border = 0px >	
 						<?php
 							
 							$id_ultima = array();
 							while($lista_desejo=mysql_fetch_assoc($resultado_lista_desejo))
 							{
 								$id_ultima[] = $lista_desejo['id_lista'];
-								echo'
-									<tr id = "desejados_linha">
-										<td> 
+								echo'	<section class="panel panel-default">
 											<section class="panel panel-body">
-												<section class = "col-lg-4">	  
-													<section class = "bs-component" style = "height: 177px; width:120px;"> 
-														<a href="?url=livro" class = "thumbnail">
-															<img src = "'.$lista_desejo['imagem_livros'].'" alt = "'.utf8_encode($lista_desejo['Livro']).'" /> 
-														</a>	
+												<section class="row">
+													<section class = "col-md-5">	  
+														<center>
+															<section class = "bs-component" style = "maxheight: 177px; width:120px;">
+																<a href="?url=livro" class = "thumbnail">
+																	<img src = "'.$lista_desejo['imagem_livros'].'" alt = "'.utf8_encode($lista_desejo['Livro']).'" /> 
+																</a>	
+															</section>
+														</center>
 													</section>
-													<section class="col-lg-4" style="margin-left:150%; margin-top:-200%; width:250%;">								
+													<section class="col-md-7">
 														<a href="?url=livro" title = "Clique para ver mais informações sobre o livro"> <h3> '.utf8_encode($lista_desejo['Livro']).'</h3></a>				  
 														<a href="?url=livros_autores" title = "Clique para ver mais livros deste autor"> <h4> '.utf8_encode($lista_desejo['Autor']).' </h4></a>
 														<a href="?url=livros_editora" title = "Clique para ver mais livros desta editora"> <h5> '.utf8_encode($lista_desejo['Editora']).' </h5></a>
 													</section>
 												</section>
-											</section> 
 											
-											<section style="margin-left:10%;">
-												<a href="?url=pesquisa&cod='.$lista_desejo['id_livro'].'"><input type = "button" class="btn btn-primary btn-sm" name = "botao_pesquisar" value = "Pesquisar" /></a>
-												<a href="?url=passo-a-passo-dados-usuario&cod='.$lista_desejo['id_livro'].'"><input type = "button" class="btn btn-primary btn-sm" name = "botao_disponibilizar_livro" value = "Disponibilizar Livro" /></a>													 
-												<section class = "btn-group">
-													<button id = "Resultado'.$lista_desejo['id_livro'].'" value = "QueroLer" name = "QueroLer" type="button" class="btn btn-primary btn-sm">Quero Ler</button>
-													<button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
-													<ul id = "acoes" class="dropdown-menu">
-														<li><a onClick="AcoesLivro('.$lista_desejo['id_livro'].','.$aspas.'Desmarcar'.$aspas.',Resultado'.$lista_desejo['id_livro'].','.$aspas.'QueroLer'.$aspas.');">Desmarcar</a></li>
-														<li><a onClick="AcoesLivro('.$lista_desejo['id_livro'].','.$aspas.'JaLi'.$aspas.',Resultado'.$lista_desejo['id_livro'].','.$aspas.'QueroLer'.$aspas.');">Já li</a></li>
-														<li><a onClick="AcoesLivro('.$lista_desejo['id_livro'].','.$aspas.'Lendo'.$aspas.',Resultado'.$lista_desejo['id_livro'].','.$aspas.'QueroLer'.$aspas.');">Estou lendo</a></li>
-													</ul>
+												<section class="row">
+													<center>
+														<section>
+															<a href="?url=pesquisa&cod='.$lista_desejo['id_livro'].'"><input type = "button" class="btn btn-primary btn-sm" name = "botao_pesquisar" value = "Pesquisar" /></a>
+															<a href="?url=passo-a-passo-dados-usuario&cod='.$lista_desejo['id_livro'].'"><input type = "button" class="btn btn-primary btn-sm" name = "botao_disponibilizar_livro" value = "Disponibilizar Livro" /></a>													 
+															<section class = "btn-group">
+																<button id = "Resultado'.$lista_desejo['id_livro'].'" value = "QueroLer" name = "QueroLer" type="button" class="btn btn-primary btn-sm">Quero Ler</button>
+																<button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+																<ul id = "acoes" class="dropdown-menu">
+																	<li><a onClick="AcoesLivro('.$lista_desejo['id_livro'].','.$aspas.'Desmarcar'.$aspas.',Resultado'.$lista_desejo['id_livro'].','.$aspas.'QueroLer'.$aspas.');">Desmarcar</a></li>
+																	<li><a onClick="AcoesLivro('.$lista_desejo['id_livro'].','.$aspas.'JaLi'.$aspas.',Resultado'.$lista_desejo['id_livro'].','.$aspas.'QueroLer'.$aspas.');">Já li</a></li>
+																	<li><a onClick="AcoesLivro('.$lista_desejo['id_livro'].','.$aspas.'Lendo'.$aspas.',Resultado'.$lista_desejo['id_livro'].','.$aspas.'QueroLer'.$aspas.');">Estou lendo</a></li>
+																</ul>
+															</section>
+														</section>
+													</center>
 												</section>
 											</section>
-										</td>
-									</tr>';
+										</section>';
 							}
 						?>
-					</table>
 						<br>
 					<ul class="pager">
 						<li id = "li_antigo" class="previous disabled"><a id = "a_antigo" onClick = "" >← Antigo</a></li>
@@ -118,21 +121,11 @@
 			</section>
 		</section>
 
-		<section class="col-md-5">
+		<section class="col-md-6">
 			<section class="panel panel-default">
 				<section class="panel-heading"><h4>Últimos livros disponibilizados:</h4></section>
 				<section class="panel-body">
-					<table id = "pag_inicial_livros_ultimos_disponibilizados" border = 0px>
-						
 						<?php
-								if($quantidade_ultimos < 18)
-								{	
-										echo '
-											<section class="alert alert-dismissable alert-info">
-												<button type="button" class="close" data-dismiss="alert">×</button>
-												<strong>Nos ajude!</strong> Ainda temos poucos livros em nosso site, disponibilize um <a href="?url=passo-a-passo-pesquisa" class="alert-link">aqui</a> em um simples passo a passo.
-											</section>';
-								}
 								$quantidade_pagina = 0;
 								$id_ultima_ultimos = array();
 								while($ultimos=mysql_fetch_assoc($resultado_ultimos))
@@ -159,8 +152,8 @@
 												<button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
 												<ul id = "acoes" class="dropdown-menu">
 													<li><a onClick="AcoesLivro('.$ultimos['id_livro'].','.$aspas.'Desmarcar'.$aspas.',Resultado'.$ultimos['id_livro'].','.$aspas.'JaLi'.$aspas.');">Desmarcar</a></li>
-													<li><a onClick="AcoesLivro('.$ultimos['id_livro'].','.$aspas.'Lendo'.$aspas.',Resultado'.$ultimos['id_livro'].','.$aspas.'JaLi'.$aspas.');">Estou lendo</a></li>
-													<li><a onClick="AcoesLivro('.$ultimos['id_livro'].','.$aspas.'QueroLer'.$aspas.',Resultado'.$ultimos['id_livro'].','.$aspas.'JaLi'.$aspas.');">Quero Ler</a></li>
+													<li><a onClick="AcoesLivro('.$ultimos['id_livro'].','.$aspas.'Lendo'.$aspas.',Resultado'.$ultimos['id_livro'].','.$aspas.'JaLi'.$aspas.');">Já li</a></li>
+													<li><a onClick="AcoesLivro('.$ultimos['id_livro'].','.$aspas.'QueroLer'.$aspas.',Resultado'.$ultimos['id_livro'].','.$aspas.'JaLi'.$aspas.');">Estou lendo</a></li>
 												</ul>';
 									}
 									else if($array_marcacao['tipo'] == 3)
@@ -170,8 +163,8 @@
 												<button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
 												<ul id = "acoes" class="dropdown-menu">
 													<li><a onClick="AcoesLivro('.$ultimos['id_livro'].','.$aspas.'Desmarcar'.$aspas.',Resultado'.$ultimos['id_livro'].','.$aspas.'Lendo'.$aspas.');">Desmarcar</a></li>
-													<li><a onClick="AcoesLivro('.$ultimos['id_livro'].','.$aspas.'QueroLer'.$aspas.',Resultado'.$ultimos['id_livro'].','.$aspas.'Lendo'.$aspas.');">Quero Ler</a></li>
-													<li><a onClick="AcoesLivro('.$ultimos['id_livro'].','.$aspas.'JaLi'.$aspas.',Resultado'.$ultimos['id_livro'].','.$aspas.'Lendo'.$aspas.');">Já Li</a></li>
+													<li><a onClick="AcoesLivro('.$ultimos['id_livro'].','.$aspas.'QueroLer'.$aspas.',Resultado'.$ultimos['id_livro'].','.$aspas.'Lendo'.$aspas.');">Já li</a></li>
+													<li><a onClick="AcoesLivro('.$ultimos['id_livro'].','.$aspas.'JaLi'.$aspas.',Resultado'.$ultimos['id_livro'].','.$aspas.'Lendo'.$aspas.');">Estou lendo</a></li>
 												</ul>';
 									}
 									else
@@ -188,43 +181,51 @@
 									$quantidade_pagina++;
 									$id_ultima_ultimos[] = $ultimos['id_lista_livros'];
 									echo'
-									<tr id = "desejados_linha">
-										<td> 
 											<form>
-												<section class="panel panel-body">
-													<section class = "col-lg-4">	  
-														<section class = "bs-component" style = "height: 177px; width:120px;"> 
-															<a href="?url=livro "class = "thumbnail">
-																<img src = "'.$ultimos['imagem_livros'].'" alt = "'.utf8_encode($ultimos['Livro']).'" /> 
-															</a>	
+												<section class="panel panel-default">
+													<section class="panel panel-body">  
+														<section class="row">
+															<section class="col-md-5">
+																<center>
+																	<section class = "bs-component" style = "maxheight: 177px; width:120px;"> 
+																		<a href="?url=livro "class = "thumbnail">
+																			<img src = "'.$ultimos['imagem_livros'].'" alt = "'.utf8_encode($ultimos['Livro']).'" /> 
+																		</a>	
+																	</section>
+																</center>
+															</section>
+															<section class="col-md-7">								
+																<a href="?url=livro"> <h3> '.utf8_encode($ultimos['Livro']).'</h3></a>				  
+																<a href="?url=livros_autores"> <h4>'.utf8_encode($ultimos['Autor']).' </h4></a>
+																<a href="?url=livros_editora"> <h5>'.utf8_encode($ultimos['Editora']).' </h5></a>
+																<a href="?url=perfil_usuario&cod='.$ultimos['id_usuario'].'"> <h4>'.utf8_encode($ultimos['usuario']).' </h4></a>
+															</section>
 														</section>
-														<section class="col-lg-4" style="margin-left:150%; margin-top:-200%; width:250%;">								
-															<a href="?url=livro"> <h3> '.utf8_encode($ultimos['Livro']).'</h3></a>				  
-															<a href="?url=livros_autores"> <h4>'.utf8_encode($ultimos['Autor']).' </h4></a>
-															<a href="?url=livros_editora"> <h5>'.utf8_encode($ultimos['Editora']).' </h5></a>
-															<a href="?url=perfil_usuario&cod='.$ultimos['id_usuario'].'"> <h4>'.utf8_encode($ultimos['usuario']).' </h4></a>
+														<section class="row">
+															<center>
+																<section>
+																	<button type = "button" class="btn btn-primary btn-sm" id = "solicitar" onClick="SolicitarLivro('.$aspas.''.$ultimos["id_lista_livros"].''.$aspas.','.$aspas.''.$ultimos['id_usuario'].''.$aspas.')">Solicitar Livro</button>
+																	<a href="?url=passo-a-passo-dados-usuario&cod='.$ultimos['id_livro'].'"><input type = "button" class="btn btn-primary btn-sm" name = "botao_disponibilizar_livro" value = "Disponibilizar Livro" /></a>															 
+																	<section class = "btn-group">
+																		'.$botões.'
+																	</section>
+																	<a href="?url=pesquisa&cod='.$ultimos['id_livro'].'"><input type = "button" class="btn btn-primary btn-xs" name = "botao_solicitar_livro" value = "Veja +"/></a>
+																</section>
+															</center>
 														</section>
 													</section>
-												</section> 
-												
-												<section>
-													<button type = "button" class="btn btn-primary btn-sm" id = "solicitar" onClick="SolicitarLivro('.$aspas.''.$ultimos["id_lista_livros"].''.$aspas.','.$aspas.''.$ultimos['id_usuario'].''.$aspas.')">Solicitar Livro</button>
-													<a href="?url=passo-a-passo-dados-usuario&cod='.$ultimos['id_livro'].'"><input type = "button" class="btn btn-primary btn-sm" name = "botao_disponibilizar_livro" value = "Disponibilizar Livro" /></a>															 
-													<section class = "btn-group">
-														'.$botões.'
-													</section>
-													<a href="?url=pesquisa&cod='.$ultimos['id_livro'].'"><input type = "button" class="btn btn-primary btn-sm" name = "botao_solicitar_livro" value = "Veja +"/></a>
 												</section>
-											</form>	
-										</td>
-									</tr>';
+											</form>';
 								}
-
+								if($quantidade_ultimos < 18)
+								{	
+										echo '
+											<section class="alert alert-dismissable alert-info">
+												<button type="button" class="close" data-dismiss="alert">×</button>
+												<strong>Nos ajude!</strong> Ainda temos poucos livros em nosso site, disponibilize um <a href="?url=passo-a-passo-pesquisa" class="alert-link">aqui</a> em um simples passo a passo.
+											</section>';
+								}
 						?>
-				   
-					</table>
-					
-					<br>
 					
 					<ul class="pager">
 						<li id = "li_ultimos_antigo" class="previous disabled"><a id = "a_ultimos_antigo" onClick = "" >← Antigo</a></li>
