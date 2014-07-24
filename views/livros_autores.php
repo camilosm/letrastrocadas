@@ -22,7 +22,7 @@
 		$bd = new Banco();
 		$campos = "id_lista_livros,imagem_livros,livro.nome AS Livro,autor.nome AS Autor,editora.nome As Editora, livro.sinopse As sinopse";
 		$tabelas = "tbl_lista_livros lista INNER JOIN tbl_livro livro INNER JOIN tbl_editora editora INNER JOIN tbl_autor autor ON id_editora = editora_id AND id_autor = autor_id AND id_livro = livro_id";
-		$pesquisar_livros = new Pesquisar($tabelas,$campos,"id_lista_livros > ".$codigo." AND usuario_id =".$_SESSION['id']." LIMIT 7");
+		$pesquisar_livros = new Pesquisar($tabelas,$campos,"id_lista_livros > ".$codigo." LIMIT 7");
 		$resultado = $pesquisar_livros->pesquisar();
 		
 		$pesquisar_quantidade = new Pesquisar($tabelas,"COUNT(id_lista_livros) As quantidade","usuario_id =".$_SESSION['id']);
