@@ -26,13 +26,7 @@
 			$ct++;
 			$pesquisar_nome_usuario = new Pesquisar('tbl_usuario','nome',"id_usuario = ".$cambio['usuario_disponibilizador']);
 			$resultado_nome = $pesquisar_nome_usuario->pesquisar();
-			
-			$pesquisar_codigo = new Pesquisar('tbl_cambio','cod_rastreamento',"usuario_disponibilizador = ".$cambio['usuario_disponibilizador']." AND usuario_resgate =".$_SESSION['id']);
-			$resultado_codigo = $pesquisar_codigo->pesquisar();
-			while($resultado_codigos = mysql_fetch_assoc($resultado_codigo))
-			{
-				$codigo = $resultado_codigos['cod_rastreamento'];
-			}
+			$codigo = $cambio['cod_rastreamento'];
 			
 			while($resultado = mysql_fetch_assoc($resultado_nome))
 			{
@@ -48,6 +42,9 @@
 				$colapse = "";
 			}
 			
+			$background_transporte = $cambio['status'] == 2 ? 'style = "background-color:green;"' : "";
+			$background_livro_entregue = $cambio['entregue'] == "Sim" ? 'style = "background-color:green;"' : "";
+			
 			 echo '
 			 <section class="panel-group" id="cambio">
 				<section class="panel panel-default">
@@ -59,12 +56,14 @@
 					</section>
 					<section id="collapse'.$ct.'" class="panel-collapse collapse '.$colapse.'">
 						<section class="panel-body">
-						<p>
-							Dono do livro :  <a>'.utf8_encode($nome).'</a><BR>
-							Livro solicitado : <a>'.utf8_encode($cambio['livro']).'</a><BR>
-							Código de rastreamento : <a href="?url=rastreamento&code='.$codigo.'">'.$codigo.'<a><BR>
-						</p>
-						<span class="badge" style = "background-color:green;">Solicitação<BR>Aceita</span><span class="badge">Em<BR>Transporte</span><span class="badge">Livro<BR>Entregue</span>
+							<p>
+								Dono do livro :  <a>'.utf8_encode($nome).'</a><BR>
+								Livro solicitado : <a>'.utf8_encode($cambio['livro']).'</a><BR>
+								Código de rastreamento : <a href="?url=rastreamento&code='.$codigo.'">'.$codigo.'<a><BR>
+							</p>
+							<span class="badge" style = "background-color:green;">Solicitação<BR>Aceita</span>
+							<span class="badge" '.$background_transporte.'>Em<BR>Transporte</span>
+							<span class="badge" '.$background_livro_entregue.'>Livro<BR>Entregue</span>
 						</section>
 					</section>
 				</section>

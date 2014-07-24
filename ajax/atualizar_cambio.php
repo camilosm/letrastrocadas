@@ -24,7 +24,7 @@
 				{
 					if($c->status == "entrega efetuada")
 					{
-						$alterar = new Alterar("tbl_cambio",'entregue = "Sim",status = 3','cod_rastreamento="'.$dados['cod_rastreamento'].'"');
+						$alterar = new Alterar("tbl_cambio",'entregue = "Sim",status = 2','cod_rastreamento="'.$dados['cod_rastreamento'].'"');
 						$resultado = $alterar->alterar();
 					}
 					else if($c->status == "saiu para entrega ao destinatário")
