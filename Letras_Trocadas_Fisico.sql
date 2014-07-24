@@ -196,6 +196,20 @@ CREATE TABLE tbl_fotos_livros(
 	
 );
 
+CREATE TABLE tbl_solicitacao_troca(
+
+	id_solicitacao INT UNSIGNED AUTO_INCREMENT NOT NULL,
+	lista_id INT UNSIGNED NOT NULL,
+	usuario_solicitador INT UNSIGNED NOT NULL,
+	usuario_dono_lista INT UNSIGNED NOT NULL,
+	aceito CHAR(3) NULL, /* Nao e Sim*/ 
+	data_solicitacao DATE NOT NULL,
+	data_resposta DATE NULL,
+	PRIMARY KEY(id_solicitacao),
+	FOREIGN KEY(usuario_solicitador) REFERENCES tbl_usuario(id_usuario),
+	FOREIGN KEY(usuario_dono_lista) REFERENCES tbl_usuario(id_usuario),
+	FOREIGN KEY(lista_id) REFERENCES tbl_lista_livros(id_lista_livros)
+);
 
 CREATE TABLE tbl_cambio(
 
@@ -250,37 +264,8 @@ CREATE TABLE tbl_avaliacao(
 
 );
 
-CREATE TABLE tbl_solicitacao_troca(
-
-	id_solicitacao INT UNSIGNED AUTO_INCREMENT NOT NULL,
-	lista_id INT UNSIGNED NOT NULL,
-	usuario_solicitador INT UNSIGNED NOT NULL,
-	usuario_dono_lista INT UNSIGNED NOT NULL,
-	aceito CHAR(3) NULL, /* Nao e Sim*/ 
-	data_solicitacao DATE NOT NULL,
-	data_resposta DATE NULL,
-	PRIMARY KEY(id_solicitacao),
-	FOREIGN KEY(usuario_solicitador) REFERENCES tbl_usuario(id_usuario),
-	FOREIGN KEY(usuario_dono_lista) REFERENCES tbl_usuario(id_usuario),
-	FOREIGN KEY(lista_id) REFERENCES tbl_lista_livros(id_lista_livros)
-
-);
 
 /* ALTER TABLE tbl_denuncias ADD status INT NOT NULL; */
-
-CREATE TABLE tbl_denuncias( 
-
-	id_denuncias INT UNSIGNED AUTO_INCREMENT NOT NULL,
-	usuario_denunciado_id INT UNSIGNED NOT NULL,
-	status INT NOT NULL, /* Caso aberto = 1 ,Caso Fechado = 2 */
-	data DATE NOT NULL,
-	motivo_id INT UNSIGNED NOT NULL,
-	outro_motivo VARCHAR(255) NULL,
-	PRIMARY KEY(id_denuncias),
-	FOREIGN KEY(motivo_id) REFERENCES tbl_motivos(id_motivo),
-	FOREIGN KEY(usuario_denunciado_id) REFERENCES tbl_usuario(id_usuario)
-
-);
 
 /* ALTER TABLE tbl_denuncias DROP motivo;*/
 /* ALTER TABLE tbl_denuncias ADD outro_motivo VARCHAR(255) NULL*/
@@ -301,4 +286,17 @@ CREATE TABLE tbl_motivos(
 
 CREATE TABLE tbl_roda_procedure_ban(
 	data DATE NOT NULL
+);
+
+CREATE TABLE tbl_denuncias( 
+
+	id_denuncias INT UNSIGNED AUTO_INCREMENT NOT NULL,
+	usuario_denunciado_id INT UNSIGNED NOT NULL,
+	status INT NOT NULL, /* Caso aberto = 1 ,Caso Fechado = 2 */
+	data DATE NOT NULL,
+	motivo_id INT UNSIGNED NOT NULL,
+	outro_motivo VARCHAR(255) NULL,
+	PRIMARY KEY(id_denuncias),
+	FOREIGN KEY(motivo_id) REFERENCES tbl_motivos(id_motivo),
+	FOREIGN KEY(usuario_denunciado_id) REFERENCES tbl_usuario(id_usuario)
 );
