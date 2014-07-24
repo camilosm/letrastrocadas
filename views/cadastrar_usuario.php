@@ -39,49 +39,59 @@
 		}
 		else
 		{		
-			if($senha === $confirmar)
+			if(strlen($senha) < 8)
 			{
-				//Instancia a classe responsável por cadastrar o usuário e já passa os valores
-				$cadastrar = new CadastrarUsu($login,$senha);
-				// Manda a classe inserir o usuário no banco de dados
-				$res = $cadastrar->inserir();
-				// Verifica se tem resposta
-				if($res == 1)
+				echo '<section class="alert alert-dismissable alert-warning">
+						<button type="button" class="close" data-dismiss="alert">×</button>
+						<strong>Ixi</strong> Essa senha tá muito curta, digita uma com, <strong>no mínimo</strong> 8 dígitos.
+					</section>';
+			}
+			else
+			{
+				if($senha === $confirmar)
 				{
-					//Instancia a classe de pesquisa e verifica se o usuário realmente foi inserido
-					$pesquisar_usuario = new Pesquisar("tbl_usuario","*","email = '".$login."' AND senha = '".$senha."' LIMIT 1");
-					// Realiza a pesquisa
-					$resultado_pesquisa = $pesquisar_usuario->pesquisar();
-					// Confere se foi retornado alguma coisa pela pesquisa
-					if(mysql_num_rows($resultado_pesquisa) == 1)
-					{	
-							$dadosusu = mysql_fetch_assoc($resultado_pesquisa);
-							//Preenche a session com dados do usuário
-							$_SESSION["nivel_acesso"]=$dadosusu["nivel_acesso"];
-							$_SESSION["id"]=$dadosusu["id_usuario"];
-							$_SESSION["nome"]=$dadosusu["nome"];
-							$_SESSION["email"]=$dadosusu["email"];
-							// Redireciona para o menu do usuário
-							header("Location: ?url=index_usuario");
-						
+					//Instancia a classe responsável por cadastrar o usuário e já passa os valores
+					$cadastrar = new CadastrarUsu($login,$senha);
+					// Manda a classe inserir o usuário no banco de dados
+					$res = $cadastrar->inserir();
+					// Verifica se tem resposta
+					if($res == 1)
+					{
+						//Instancia a classe de pesquisa e verifica se o usuário realmente foi inserido
+						$pesquisar_usuario = new Pesquisar("tbl_usuario","*","email = '".$login."' AND senha = '".$senha."' LIMIT 1");
+						// Realiza a pesquisa
+						$resultado_pesquisa = $pesquisar_usuario->pesquisar();
+						// Confere se foi retornado alguma coisa pela pesquisa
+						if(mysql_num_rows($resultado_pesquisa) == 1)
+						{	
+								$dadosusu = mysql_fetch_assoc($resultado_pesquisa);
+								//Preenche a session com dados do usuário
+								$_SESSION["nivel_acesso"]=$dadosusu["nivel_acesso"];
+								$_SESSION["id"]=$dadosusu["id_usuario"];
+								$_SESSION["nome"]=$dadosusu["nome"];
+								$_SESSION["email"]=$dadosusu["email"];
+								// Redireciona para o menu do usuário
+								header("Location: ?url=index_usuario");
+							
+						}
+					}
+					else
+					{
+						// Aconteceu algum erro e o usuário não foi cadastrado
+						echo '<section class="alert alert-dismissable alert-danger">
+						  <button type="button" class="close" data-dismiss="alert">×</button>
+						  <strong>Eita!</strong> Alguma coisa deu errado <strong>:(</strong><br>Tenta de novo daqui a pouco.
+						</section>';
 					}
 				}
 				else
 				{
-					// Aconteceu algum erro e o usuário não foi cadastrado
 					echo '<section class="alert alert-dismissable alert-danger">
-					  <button type="button" class="close" data-dismiss="alert">×</button>
-					  <strong>Eita!</strong> Alguma coisa deu errado <strong>:(</strong><br>Tenta de novo daqui a pouco.
-					</section>';
+						  <button type="button" class="close" data-dismiss="alert">×</button>
+						  <strong>Ops!</strong> As senhas não estão iguais, confere ai haha.
+						</section>';
 				}
-			}
-			else
-			{
-				echo '<section class="alert alert-dismissable alert-danger">
-					  <button type="button" class="close" data-dismiss="alert">×</button>
-					  <strong>Ops!</strong> As senhas não estão iguais, confere ai haha.
-					</section>';
-			}
+			}	
 		}
 	}
 ?>
