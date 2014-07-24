@@ -45,8 +45,8 @@
 				</section>
 				<br>
 				<section class="col-md-12 col-md-offset-2">
+					<input type = "reset" name="cancelar" value="Limpar" class="btn btn-default"/>
 					<button type="submit" name = "alterar_dados_admin" class="btn btn-primary">Salvar Alterações</button>
-					<button type = "reset" name="cancelar" class="btn btn-default">Cancelar</button>
 				</section>
 			</section>
 		</fieldset>
