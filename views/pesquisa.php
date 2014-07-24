@@ -25,6 +25,7 @@
 		  "lista.id_lista_livros,
 		  id_livro,
 		  imagem_livros,
+		  id_usuario,
 		  livro.nome AS NomeLivro, 
 		  autor.nome AS NomeAutor, 
 		  editora.nome AS NomeEditora,
@@ -64,24 +65,21 @@
 							echo '<section class="row">';
 						}
 						echo '<section class="col-md-6">
-								<section class = "col-md-4">	
+								<section class = "col-md-5">	
 									<section class = "bs-component" style = "margin-left: 10%; maxheight: 177px; width: 120px;"> 
 										<a href="?url=livro" class = "thumbnail">
 											<img src = "'.$dados_pesq['imagem_livros'].'" alt = ""/> 
 										</a>	
 									</section>
 								</section>
-								<section class="col-md-4">
-									<section style="">
-										<center>
-											<a href="?url=livro" title = "Clique para ver mais informações sobre o livro"> <h3> '.utf8_encode($dados_pesq['NomeLivro']).'</h3></a>				  
-											<a href="?url=livros_autores" title = "Clique para ver mais livros deste autor"> <h4> '.utf8_encode($dados_pesq['NomeAutor']).' </h4></a>
-											<a href="?url=livros_editora" title = "Clique para ver mais livros desta editora"> <h5> '.utf8_encode($dados_pesq['NomeEditora']).' </h5></a>
-										</center>
-									</section>
-								</section>
-								<section class="col-md-4">
-									<section style="margin-top: 10%;">
+								<section class="col-md-7">
+									<center>
+										<a href="?url=livro" title = "Clique para ver mais informações sobre o livro"> <h3> '.utf8_encode($dados_pesq['NomeLivro']).'</h3></a>				  
+										<a href="?url=livros_autores" title = "Clique para ver mais livros deste autor"> <h4> '.utf8_encode($dados_pesq['NomeAutor']).' </h4></a>
+										<a href="?url=livros_editora" title = "Clique para ver mais livros desta editora"> <h5> '.utf8_encode($dados_pesq['NomeEditora']).' </h5></a>
+										<a href="?url=perfil_usuario&cod='.$dados_pesq['id_usuario'].'"> <h5>'.utf8_encode($dados_pesq['NomeUsuario']).' </h5></a>
+									</center>
+									<section class="row">
 										<a href="?url=pesquisa&cod='.$dados_pesq['id_livro'].'"><input type = "button" class="btn btn-primary btn-xs" name = "botao_pesquisar" value = "Pesquisar" /></a>
 										<a href="?url=passo-a-passo-dados-usuario&cod='.$dados_pesq['id_livro'].'"><input type = "button" class="btn btn-primary btn-xs" name = "botao_disponibilizar_livro" value = "Disponibilizar Livro" /></a>													 
 										<section class = "btn-group">
@@ -111,8 +109,8 @@
 			<br>
 				<section class="row">
 					<ul class="pager">
-						<li><a href="">Voltar</a></li>
-						<li><a href="">Ver mais</a></li>
+						<li class="previous"><a href="">← Antigo</a></li>
+						<li class="next"><a href="">Nova →</a></li>
 					</ul>
 				</section>
 			</section>
