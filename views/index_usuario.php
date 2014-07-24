@@ -126,6 +126,14 @@
 				<section class="panel-heading"><h4>Últimos livros disponibilizados:</h4></section>
 				<section class="panel-body">
 						<?php
+								if($quantidade_ultimos < 18)
+								{	
+										echo '
+											<section class="alert alert-dismissable alert-info">
+												<button type="button" class="close" data-dismiss="alert">×</button>
+												<strong>Nos ajude!</strong> Ainda temos poucos livros em nosso site, disponibilize um <a href="?url=passo-a-passo-pesquisa" class="alert-link">aqui</a> em um simples passo a passo.
+											</section>';
+								}
 								$quantidade_pagina = 0;
 								$id_ultima_ultimos = array();
 								while($ultimos=mysql_fetch_assoc($resultado_ultimos))
@@ -216,14 +224,6 @@
 													</section>
 												</section>
 											</form>';
-								}
-								if($quantidade_ultimos < 18)
-								{	
-										echo '
-											<section class="alert alert-dismissable alert-info">
-												<button type="button" class="close" data-dismiss="alert">×</button>
-												<strong>Nos ajude!</strong> Ainda temos poucos livros em nosso site, disponibilize um <a href="?url=passo-a-passo-pesquisa" class="alert-link">aqui</a> em um simples passo a passo.
-											</section>';
 								}
 						?>
 					
