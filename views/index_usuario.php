@@ -65,7 +65,7 @@
 		<section class="col-md-6">
 			<section class="panel panel-default">
 				<section class="panel-heading"><h4>Livros que você deseja:</h4></section>
-				<section class="panel-body">
+				<section class="panel-body" id="pag_inicial_livros_desejados">
 						<?php
 							
 							$id_ultima = array();
@@ -113,18 +113,19 @@
 							}
 						?>
 						<br>
-					<ul class="pager">
+					
+				</section>
+				<ul class="pager">
 						<li id = "li_antigo" class="previous disabled"><a id = "a_antigo" onClick = "" >← Antigo</a></li>
 						<li id = "li_novo" class="<?php echo ($quantidade_lista_desejo >= 7) ? "next" : "next disabled"; ?>"><a id = "a_novo" onClick="NovaListaDesejo('<?php echo ($quantidade_lista_desejo >= 7) ? "$id_ultima[5]','$id_ultima[0]','1" : "None','None','1";?>');">Nova →</a></li>
 					</ul>
-				</section>
 			</section>
 		</section>
 
 		<section class="col-md-6">
 			<section class="panel panel-default">
 				<section class="panel-heading"><h4>Últimos livros disponibilizados:</h4></section>
-				<section class="panel-body">
+				<section class="panel-body" id="pag_inicial_livros_ultimos_disponibilizados">
 						<?php
 								if($quantidade_ultimos < 18)
 								{	
@@ -226,12 +227,12 @@
 											</form>';
 								}
 						?>
-					
+					</section>
 					<ul class="pager">
 						<li id = "li_ultimos_antigo" class="previous disabled"><a id = "a_ultimos_antigo" onClick = "" >← Antigo</a></li>
 						<li id = "li_ultimos_novo" class="<?php echo ($quantidade_ultimos >= 7) ? "next" : "next disabled"; ?>"><a id = "a_ultimos_novo" onClick="NovaDisponibilizados('<?php echo ($quantidade_ultimos >= 7) ? "$id_ultima_ultimos[5]','$id_ultima_ultimos[0]','1" : "None','None','1";?>');">Nova →</a></li>
 					</ul>
-				</section>
+				
 			</section>
 		</section>
 	</section>
