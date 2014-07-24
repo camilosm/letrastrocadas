@@ -65,7 +65,7 @@
 						}
 						echo '<section class="col-md-6">
 								<section class = "col-md-4">	
-									<section class = "bs-component" style = "margin-left: 30%; maxheight: 177px; width: 120px;"> 
+									<section class = "bs-component" style = "margin-left: 10%; maxheight: 177px; width: 120px;"> 
 										<a href="?url=livro" class = "thumbnail">
 											<img src = "'.$dados_pesq['imagem_livros'].'" alt = ""/> 
 										</a>	
