@@ -111,7 +111,7 @@ CREATE TABLE tbl_usuario(
 ALTER TABLE tbl_usuario DROP genero_favorito;
  */
  
-CREATE TABLE generos_favoritos(
+CREATE TABLE tbl_generos_favoritos(
 
 	id_generos_favotiros INT UNSIGNED AUTO_INCREMENT NOT NULL,
 	categoria_id INT UNSIGNED NOT NULL,
@@ -122,7 +122,7 @@ CREATE TABLE generos_favoritos(
 
 );
 
-CREATE TABLE autores_favoritos(
+CREATE TABLE tbl_autores_favoritos(
 
 	id_autores_favotiros INT UNSIGNED AUTO_INCREMENT NOT NULL,
 	autor_id INT UNSIGNED NOT NULL,
