@@ -95,7 +95,6 @@ CREATE TABLE tbl_usuario(
 	limite_troca INT NOT NULL,
 	avaliacoes_negativas INT NOT NULL,
 	avaliacoes_positivas INT NOT NULL,
-	genero_favorito VARCHAR(50) NULL,
 	status INT NOT NULL, /* 1 = ativo, 2 = inativo, 3 = banido e 4 = Cadastro Completo*/
 	logradouro VARCHAR(100) NULL,
 	numero INT NULL,
@@ -106,6 +105,32 @@ CREATE TABLE tbl_usuario(
 	bairro VARCHAR(100) NULL,
 	PRIMARY KEY(id_usuario)
 	
+);
+
+ /*
+ALTER TABLE tbl_usuario DROP genero_favorito;
+ */
+ 
+CREATE TABLE generos_favoritos(
+
+	id_generos_favotiros INT UNSIGNED AUTO_INCREMENT NOT NULL,
+	categoria_id INT UNSIGNED NOT NULL,
+	usuario_id INT UNSIGNED NOT NULL,
+	PRIMARY KEY(id_generos_favotiros),
+	FOREIGN KEY(categoria_id) REFERENCES tbl_categoria(id_categoria),
+	FOREIGN KEY(usuario_id) REFERENCES tbl_usuario(id_usuario)
+
+);
+
+CREATE TABLE autores_favoritos(
+
+	id_autores_favotiros INT UNSIGNED AUTO_INCREMENT NOT NULL,
+	autor_id INT UNSIGNED NOT NULL,
+	usuario_id INT UNSIGNED NOT NULL,
+	PRIMARY KEY(id_autores_favotiros),
+	FOREIGN KEY(autor_id) REFERENCES tbl_autor(id_autor),
+	FOREIGN KEY(usuario_id) REFERENCES tbl_usuario(id_usuario)
+
 );
 
 CREATE TABLE tbl_marcacao(
