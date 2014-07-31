@@ -14,6 +14,9 @@
 			
 			$bd = new Banco();
 			
+			
+			$pesquisa_generos_ruins = new Pesquisa("tbl_generos_desapreciados","","");
+			
 			//Pesquisa dos ultimos livros disponibilizados do site
 			$campos = "DISTINCT id_lista_livros,id_usuario,usuario.nome As usuario,id_livro,imagem_livros,livro.nome AS Livro,edicao,autor.nome AS Autor,editora.nome As Editora,primeira_foto,segunda_foto,terceira_foto";
 			$tabelas = "tbl_fotos_livros INNER JOIN tbl_lista_livros INNER JOIN tbl_usuario usuario INNER JOIN tbl_livro livro INNER JOIN tbl_editora editora INNER JOIN tbl_autor autor ON id_livro = livro_id AND id_usuario = usuario_id AND id_editora = editora_id AND id_autor = autor_id AND id_lista_livros = lista_livro_id";
@@ -127,7 +130,7 @@
 				<section class="panel-heading"><h4>Últimos livros disponibilizados:</h4></section>
 				<section class="panel-body" id="pag_inicial_livros_ultimos_disponibilizados">
 						<?php
-								if($quantidade_ultimos < 18)
+								if($quantidade_ultimos < 50)
 								{	
 										echo '
 											<section class="alert alert-dismissable alert-info">
