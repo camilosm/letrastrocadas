@@ -136,10 +136,10 @@ CREATE TABLE tbl_autores_favoritos(
 CREATE TABLE tbl_generos_desapreciados(
 
 	id_autores_desapreciados INT UNSIGNED AUTO_INCREMENT NOT NULL,
-	autor_id INT UNSIGNED NOT NULL,
+	genero_id INT UNSIGNED NOT NULL,
 	usuario_id INT UNSIGNED NOT NULL,
 	PRIMARY KEY(id_autores_desapreciados),
-	FOREIGN KEY(autor_id) REFERENCES tbl_autor(id_autor),
+	FOREIGN KEY(genero_id) REFERENCES tbl_categoria(id_categoria),
 	FOREIGN KEY(usuario_id) REFERENCES tbl_usuario(id_usuario)
 
 );
