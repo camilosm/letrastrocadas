@@ -133,6 +133,28 @@ CREATE TABLE tbl_autores_favoritos(
 
 );
 
+CREATE TABLE tbl_generos_desapreciados(
+
+	id_autores_desapreciados INT UNSIGNED AUTO_INCREMENT NOT NULL,
+	autor_id INT UNSIGNED NOT NULL,
+	usuario_id INT UNSIGNED NOT NULL,
+	PRIMARY KEY(id_autores_desapreciados),
+	FOREIGN KEY(autor_id) REFERENCES tbl_autor(id_autor),
+	FOREIGN KEY(usuario_id) REFERENCES tbl_usuario(id_usuario)
+
+);
+
+CREATE TABLE tbl_autores_desapreciados(
+
+	id_autores_desapreciados INT UNSIGNED AUTO_INCREMENT NOT NULL,
+	autor_id INT UNSIGNED NOT NULL,
+	usuario_id INT UNSIGNED NOT NULL,
+	PRIMARY KEY(id_autores_desapreciados),
+	FOREIGN KEY(autor_id) REFERENCES tbl_autor(id_autor),
+	FOREIGN KEY(usuario_id) REFERENCES tbl_usuario(id_usuario)
+
+);
+
 CREATE TABLE tbl_marcacao(
 
 	id_marcacao INT UNSIGNED AUTO_INCREMENT NOT NULL,
@@ -246,7 +268,7 @@ CREATE TABLE tbl_cambio(
 	tipo INT NOT NULL, /* 1 = cambio e 2 = doação */
 	pontuacao SMALLINT NOT NULL,
 	cod_rastreamento VARCHAR(13) NULL,
-	entregue CHAR(3) NULL, /* Sim ou Nao*/
+	entregue CHAR(3) NULL, /* Sim ou Nao */
 	lista_livros_id INT UNSIGNED NOT NULL,
 	usuario_disponibilizador INT UNSIGNED NOT NULL,
 	usuario_resgate INT UNSIGNED NOT NULL,
@@ -261,9 +283,9 @@ CREATE TABLE tbl_cambio(
 
 /*
  ALTER TABLE tbl_cambio ADD status INT NOT NULL AFTER id_cambio; 
- ALTER TABLE tbl_cambio ADD entregue CHAR(3) NULL AFTER cod_rastreamento; 
- ALTER TABLE tbl_cambio ADD confirmar_transporte CHAR(3) NULL AFTER entregue; 
- ALTER TABLE tbl_cambio DROP confirmar_transporte; 
+ ALTER TABLE tbl_cambio ADD entregue CHAR(3) NULL AFTER msg_codigo_enviada; 
+ ALTER TABLE tbl_cambio ADD msg_codigo_enviada CHAR(3) NULL AFTER cod_rastreamento; 
+ ALTER TABLE tbl_cambio DROP msg_codigo_enviada; 
 */
 
 
@@ -303,9 +325,7 @@ CREATE TABLE tbl_motivos(
 	id_motivo INT UNSIGNED AUTO_INCREMENT NOT NULL,
 	motivo VARCHAR(255) NOT NULL,
 	penalidade INT NOT NULL, /* 1 = Banir do site por 1 mês, 2 =  emitir aviso, 3 = banir email do usuário de cadastrar novamente e desativar sua conta, 4 = à escolha do adm  */ 
-	PRIMARY KEY(id_motivo)
-
-);
+	PRIMARY KEY(id_motivo);
 
 /* ALTER TABLE tbl_motivos CHANGE descricao motivo VARCHAR(255) NOT NULL*/
 
