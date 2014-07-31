@@ -45,15 +45,14 @@
 		include("classes/class_pesquisar.php");
 		include("class_editar_caracteres.php");
 		include("classes/class_update.php");
+		include("classes/class_insert.php");
 		
 		$bd = new Banco();
 		
 		if(isset($_POST['cadastrar_codigo']))
 		{
 			$rastreamento = $_POST['Codigo_rastreamento'];
-			$codigo = $_GET['id'];
-			
-			
+			$codigo = $_GET['id'];		
 			
 			$editar_rastreamento = new EditarCaracteres($rastreamento);
 			$rastreamento = $editar_rastreamento->sanitizeStringNome($_POST['Codigo_rastreamento']);
@@ -63,6 +62,15 @@
 			
 			$alterar_codigo = new Alterar('tbl_cambio',"cod_rastreamento = '".$rastreamento."'",'id_cambio ='.$codigo);
 			$resultado = $alterar_codigo->alterar();
+			
+			$pesquisar = new Pesquisar('tbl_cambio','usuario_resgate','id_cambio ='.$codigo);
+			$resposta = $pesquisar->pesquisar();
+			$dados = mysql_fetch_assoc($resposta);
+			$usuario = $dados['usuario_resgate'];
+
+			$mensagem = 'Código de rastreamento disponível.';
+			$inserir = new Inserir('tbl_notificacoes',"NULL,1,'".utf8_decode($mensagem)."',".$usuario.",NOW(),'false'");
+			$resultados = $inserir->inserir();
 
 		}
 		

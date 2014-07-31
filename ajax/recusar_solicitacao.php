@@ -1,7 +1,7 @@
 <?php
 	
 	session_start();
-	if($_SESSION['id'] == 1)
+	if($_SESSION['nivel_acesso'] == 1)
 	{
 		if(isset($_GET['id']))
 		{

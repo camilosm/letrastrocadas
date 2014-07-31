@@ -25,11 +25,6 @@ CREATE TRIGGER trg_update_cambio AFTER UPDATE ON tbl_cambio
 		SET @entregue := (SELECT entregue FROM tbl_cambio WHERE id_cambio = NEW.id_cambio);
 		SET @status := (SELECT status FROM tbl_cambio WHERE id_cambio = NEW.id_cambio);
 		SET @data_entrega := (SELECT data_entrega FROM tbl_cambio WHERE id_cambio = NEW.id_cambio);
-		SET @codigo := (SELECT cod_rastreamento FROM tbl_cambio WHERE id_cambio = NEW.id_cambio);
-		
-		IF @codigo <> "" THEN 
-				INSERT INTO tbl_notificacoes VALUES(NULL,1,'Código de rastreamento disponível.',NEW.usuario_resgate,NOW(),'false');
-		END IF;
 		
 		IF @entregue = "Sim" THEN 
 			IF @status = 3 THEN
