@@ -12,20 +12,83 @@
 			include("class_editar_caracteres.php");
 			include("classes/class_pesquisar.php");
 			
-			$bd = new Banco();
+			$bd = new Banco();			
+			
+			$pesquisa_generos_ruins = new Pesquisar("tbl_generos_desapreciados","genero_id","usuario_id = ".$_SESSION['id']);
+			$resultado = $pesquisa_generos_ruins->pesquisar();
+			
+			$pesquisa_generos_ruins_quantidade = new Pesquisar("tbl_generos_desapreciados","COUNT(genero_id)As quantidade","usuario_id = ".$_SESSION['id']);
+			$resultado_quantidade = $pesquisa_generos_ruins_quantidade->pesquisar();
+			$array = mysql_fetch_assoc($resultado_quantidade);
+			$qt_genero = $array['quantidade'];
+			
+			$string_condicao_genero = "";
+			$contador_genero = 0;
+			while($generos_ruins=mysql_fetch_assoc($resultado))
+			{	
+				$contador_genero++;
+				if(($qt_genero != 1) AND ($qt_genero == $contador_genero))
+				{
+					$string_condicao_genero.= "categoria_id <> ".$generos_ruins['genero_id'];
+				}
+				else if($qt_genero == 1)
+				{
+					$string_condicao_genero.= "categoria_id <> ".$generos_ruins['genero_id'];
+				}
+				else
+				{
+					$string_condicao_genero.= "categoria_id <> ".$generos_ruins['genero_id']." AND ";
+				}
+		
+			}
+			if($contador_genero == 0)
+			{
+				$string_condicao_genero = "1=1";
+			}
 			
 			
-			$pesquisa_generos_ruins = new Pesquisa("tbl_generos_desapreciados","","");
+			$pesquisa_autores_ruins = new Pesquisar("tbl_autores_desapreciados","autor_id","usuario_id = ".$_SESSION['id']);
+			$resultado_autores = $pesquisa_autores_ruins->pesquisar();
+			
+			$pesquisa_autores_ruins_quantidade = new Pesquisar("tbl_autores_desapreciados","COUNT(autor_id)As quantidade","usuario_id = ".$_SESSION['id']);
+			$resultado_quantidade = $pesquisa_autores_ruins_quantidade->pesquisar();
+			$array_autor = mysql_fetch_assoc($resultado_quantidade);
+			$qt_autor = $array_autor['quantidade'];
+			
+			$string_condicao_autor = "";
+			$contador_autor = 0;
+			while($autores_ruins=mysql_fetch_assoc($resultado_autores))
+			{	
+				$contador_autor++;
+				if(($qt_autor != 1) AND ($qt_autor == $contador_autor))
+				{
+					$string_condicao_autor.= "autor_id <> ".$autores_ruins['autor_id'];
+				}
+				else if($qt_autor == 1)
+				{
+					$string_condicao_autor.= "autor_id <> ".$autores_ruins['autor_id'];
+				}
+				else
+				{
+					$string_condicao_autor.= "autor_id <> ".$autores_ruins['autor_id']." AND ";
+				}
+		
+			}
+			if($contador_autor == 0)
+			{
+				$string_condicao_autor = "1=1";
+			}
+			
 			
 			//Pesquisa dos ultimos livros disponibilizados do site
 			$campos = "DISTINCT id_lista_livros,id_usuario,usuario.nome As usuario,id_livro,imagem_livros,livro.nome AS Livro,edicao,autor.nome AS Autor,editora.nome As Editora,primeira_foto,segunda_foto,terceira_foto";
 			$tabelas = "tbl_fotos_livros INNER JOIN tbl_lista_livros INNER JOIN tbl_usuario usuario INNER JOIN tbl_livro livro INNER JOIN tbl_editora editora INNER JOIN tbl_autor autor ON id_livro = livro_id AND id_usuario = usuario_id AND id_editora = editora_id AND id_autor = autor_id AND id_lista_livros = lista_livro_id";
-			$condição = "tbl_lista_livros.status = 1 ORDER BY data_cadastro DESC LIMIT 6";
+			$condição = "tbl_lista_livros.status = 1 AND $string_condicao_genero AND $string_condicao_autor ORDER BY data_cadastro DESC LIMIT 6";
 			$pesquisar_ultimos = new Pesquisar($tabelas,$campos,$condição);
 			$resultado_ultimos = $pesquisar_ultimos->pesquisar();
 			
 			//Pesquisa a quantidade de livros no banco de dados
-			$pesquisar_quantidade_ultimos = new Pesquisar("tbl_lista_livros ","COUNT(id_lista_livros) As Quantidade","status = 1");
+			$pesquisar_quantidade_ultimos = new Pesquisar("tbl_lista_livros INNER JOIN tbl_livro ON id_livro = livro_id ","COUNT(id_lista_livros) As Quantidade","tbl_lista_livros.status = 1  AND $string_condicao_genero AND $string_condicao_autor");
 			$resultado_quantidade_ultimos = $pesquisar_quantidade_ultimos->pesquisar();			
 			$array_quantidade_ultimos = mysql_fetch_assoc($resultado_quantidade_ultimos);
 			$quantidade_ultimos = $array_quantidade_ultimos['Quantidade'];
