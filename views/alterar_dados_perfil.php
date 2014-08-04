@@ -76,7 +76,7 @@
 					$('#inputCidade').attr({'value': data.localidade, 'text' : data.localidade});	
 					$('#inputRua').attr({'value': data.logradouro, 'text' : data.logradouro});
 					$('#inputBairro').attr({'value': data.bairro, 'text' : data.bairro});
-					$('#inputUF').attr({'value': "Oi", 'option' : "Oi"});
+					$('#inputUF').attr({'value': data.uf, 'text' : data.uf});
 										
 				},
 				error : function(data){
@@ -158,25 +158,7 @@
 
 				<label for="inputUF" class="col-md-2 control-label">UF</label>
 				<section class="col-md-10">
-					<select class="form-control" id="inputUF" name = "uf">
-							<?php 
-							
-							if ($uf_p == "")
-							{
-								echo '<option> Selecione um estado... </option>';
-									while ($estados = mysql_fetch_array($resul_pesq_estado)){
-										echo '<option>' .$estados["nome"]. '</option>';
-								
-									}
-							}
-							else{							    
-							    	while ($estados = mysql_fetch_array($resul_pesq_estado)){
-										$selected = $uf_p == $estados["nome"] ? 'selected="selected"' : '' ;
-							    		echo '<option '. $selected .'>' .$estados["nome"]. '</option>';
-									}
-							}
-							?>						
-					</select>
+					<input type="text" class="form-control" name = "inputUF" id="inputUF" required maxlength = "100" placeholder = "UF" value = "<?php echo utf8_encode($uf_p); ?>">
 				</section>
 				
 				<label for="inputCidade" class="col-md-2 control-label">Cidade</label>
