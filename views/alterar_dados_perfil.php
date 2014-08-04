@@ -17,7 +17,7 @@
 	
 	//Pega os dados para mostrar no formulário
 		
-	$pesquisa_dados = new Pesquisar("tbl_usuario","data_nasc,foto,nome,genero_favorito,logradouro,cidade,bairro,cep,uf,complemento,numero"," id_usuario = $id;");
+	$pesquisa_dados = new Pesquisar("tbl_usuario","data_nasc,foto,nome,logradouro,cidade,bairro,cep,uf,complemento,numero"," id_usuario = $id;");
 	$resultado_pesquisa_dados = $pesquisa_dados->pesquisar();
 	$dados_usu = mysql_fetch_assoc($resultado_pesquisa_dados);
 	
@@ -32,7 +32,6 @@
 	$foto_p = $dados_usu["foto"];
 	$nome_p = $dados_usu["nome"];
 	$data_nasc_p = $dados_usu["data_nasc"];
-	$genero_fav_p = $dados_usu["genero_favorito"];
 	$logradouro_p = $dados_usu["logradouro"];
 	$numero_p = $dados_usu["numero"];
 	$cep_p = $dados_usu["cep"];
@@ -47,25 +46,45 @@
 	
 ?>
 <script>
-	var UploadFoto = function()
-	{	
-		$("#frm_upload").ajaxSubmit(
-			{
-				url: 'ajax/upload.php', 
-				type: 'post',					
-				dataType  : "json",
-				success : function( data ){RetornaImagem(data.caminho,data.caminho_a);},
-				resetForm : false
-			}
-		);	
-	}
-	var RetornaImagem = function(caminho,outro){
-		$.post("ajax/abre_imagem.php",{caminho : caminho}, function(data){
-				$("#img_perfil").attr("src", data.imagem);
-				$("#caminho").attr("value", outro);
-			}
-		);
-	}
+
+		var UploadFoto = function()
+		{	
+			$("#frm_upload").ajaxSubmit(
+				{
+					url: 'ajax/upload.php', 
+					type: 'post',					
+					dataType  : "json",
+					success : function( data ){RetornaImagem(data.caminho,data.caminho_a);},
+					resetForm : false
+				}
+			);	
+		}
+		var RetornaImagem = function(caminho,outro){
+			$.post("ajax/abre_imagem.php",{caminho : caminho}, function(data){
+					$("#img_perfil").attr("src", data.imagem);
+					$("#caminho").attr("value", outro);
+				}
+			);
+		}
+		function PegarCep()
+		{
+			var cep = $('#cep').val();		
+			$.ajax({				
+				url : 'http://cep.correiocontrol.com.br/'+ cep +'.json',
+				dataType : 'json',
+				success : function(data){
+					$('#inputCidade').attr({'value': data.localidade, 'text' : data.localidade});	
+					$('#inputRua').attr({'value': data.logradouro, 'text' : data.logradouro});
+					$('#inputBairro').attr({'value': data.bairro, 'text' : data.bairro});
+					$('#inputUF').attr({'value': "Oi", 'option' : "Oi"});
+										
+				},
+				error : function(data){
+				alert('Ops! Ocorreu um erro na verificação do cep. Confira se o cep está no formado correto (Só números).');
+				}
+			});
+		}
+
 </script>
 <form name="frm_upload" id="frm_upload" class="form-horizontal" enctype="multipart/form-data" method="post" action="">
 	<article id  = "alterar_dados_perfil" style = "width: 80%; margin-left: 10%;">
@@ -153,7 +172,7 @@
 							else{							    
 							    	while ($estados = mysql_fetch_array($resul_pesq_estado)){
 										$selected = $uf_p == $estados["nome"] ? 'selected="selected"' : '' ;
-							    		echo '<option '. $selected .' >' .$estados["nome"]. '</option>';
+							    		echo '<option '. $selected .'>' .$estados["nome"]. '</option>';
 									}
 							}
 							?>						
@@ -174,7 +193,7 @@
 				<label for="inputCEP" class="col-md-2 control-label">CEP</label>
 				
 				<section class="col-md-10">
-					<input type="text" class="form-control" name = "cep" id="cep" required placeholder = "CEP" maxlength = "9" value = "<?php echo utf8_encode($cep_p); ?>">
+					<input type="text" class="form-control" onblur = "PegarCep()" name = "cep" id="cep" required placeholder = "CEP" maxlength = "9" value = "<?php echo utf8_encode($cep_p); ?>">
 				</section>
 
 				<section class="col-md-10 col-md-offset-2">
