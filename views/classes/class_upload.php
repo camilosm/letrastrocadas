@@ -74,12 +74,12 @@
 			imagedestroy($novaimagem);
 			imagedestroy($origem);
 		}
-		public function salvar()
+		public function salvar($nome)
 		{
 			$extensao = $this->getExtensao();
 
 			//gera um nome unico para a imagem em funcao do tempo
-			$novo_nome = time() . '.' . $extensao; 
+			$novo_nome = $nome . '.' . $extensao; 
 
 			//localizacao do arquivo 
 			$destino = $this->pasta . $novo_nome; 
@@ -101,7 +101,7 @@
 				if(($largura > $this->largura) || ($altura > $this->altura)) 
 				$this->redimensionar($largura, $altura, $tipo, $destino); 
 			}
-			return "Sucesso"; 
+			return $destino; 
 		}
 	}
 ?>
