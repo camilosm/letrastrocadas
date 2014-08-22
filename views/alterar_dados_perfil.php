@@ -68,19 +68,22 @@
 		}
 		function PegarCep()
 		{
-			var cep = $('#cep').val();		
+			var cep = $('#cep').val();
+
 			$.ajax({				
 				url : 'http://cep.correiocontrol.com.br/'+ cep +'.json',
 				dataType : 'json',
 				success : function(data){
+					alert(data.localidade);
 					$('#inputCidade').attr({'value': data.localidade, 'text' : data.localidade});	
-					$('#inputRua').attr({'value': data.logradouro, 'text' : data.logradouro});
-					$('#inputBairro').attr({'value': data.bairro, 'text' : data.bairro});
+					$('#logradouro').attr({'value': data.logradouro, 'text' : data.logradouro});
+					$('#bairro').attr({'value': data.bairro, 'text' : data.bairro});
 					$('#inputUF').attr({'value': data.uf, 'text' : data.uf});
 										
 				},
 				error : function(data){
 				alert('Ops! Ocorreu um erro na verificação do cep. Confira se o cep está no formado correto (Só números).');
+				$('#cep').focus();
 				}
 			});
 		}
@@ -148,7 +151,7 @@
 
 				<section class="col-md-10">
 					<input type="number" class="form-control" name = "numero" id="numero" required min = "1" placeholder = "Número" value = "<?php echo $numero_p; ?>">		  
-				</section>
+					</section>
 		
 				<label for="inputBairro" class="col-md-2 control-label">Bairro</label>
 
