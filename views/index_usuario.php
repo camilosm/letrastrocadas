@@ -173,8 +173,10 @@
 							}
 							
 							//Se não tiver resposta para mostrar, faz uma pesquisa para dar sujestões ao usuário
-							if($ct_desejo == 0)
+							if($ct_desejo < 6)
 							{
+
+								$limite = 6 - $ct_desejo;
 								// Pesquisando o filtro de gêneros favoritos para a pesquisa de últimos disponibilizados 
 								$pesquisa_generos_favoritos = new Pesquisar("tbl_generos_favoritos","categoria_id","usuario_id = ".$_SESSION['id']);
 								$resultado_generos_favoritos = $pesquisa_generos_favoritos->pesquisar();
@@ -277,7 +279,7 @@
 									//Pesquisa da lista de desejo do site
 									$campos_lista = "id_livro,imagem_livros,livro.nome AS Livro,edicao,autor.nome AS Autor,editora.nome As Editora";
 									$tabelas_lista = "tbl_livro livro INNER JOIN tbl_editora editora INNER JOIN tbl_autor autor ON id_editora = editora_id AND id_autor = autor_id";
-									$condição_lista = "$string_condicao_autor $string_condicao_genero $string_condicao LIMIT 6";
+									$condição_lista = "$string_condicao_autor $string_condicao_genero $string_condicao LIMIT '$limite";
 
 									$pesquisar_lista_desejo = new Pesquisar($tabelas_lista,$campos_lista,$condição_lista);
 									$resultado_lista_desejo = $pesquisar_lista_desejo->pesquisar();
@@ -340,7 +342,7 @@
 										<button type="button" class="close" data-dismiss="alert">×</button>
 										<p> 
 											Se você quiser que nós lhe dêmos sujestões de livros basta 
-											colocar no seu <a class = "alert-link" href = "?url=alterar_dados_perfil">perfil</a> os seus autores e gêneros favoritos!.
+											colocar no seu <a class = "alert-link" href = "?url=alterar_dados_perfil">perfil</a> os seus autores e gêneros favoritos!
 										</p>
 									</section>';
 								}
