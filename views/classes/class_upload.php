@@ -20,7 +20,7 @@
 	    private function getExtensao()
 	    {
 		   //retorna a extensao da imagem
-		   return $extensao = strtolower(end(explode('.', $this->arquivo['name']))); 
+		   return $extensao = @strtolower(end(explode('.', $this->arquivo['name']))); 
 		}
 
 		private function ehImagem($extensao)
@@ -38,7 +38,7 @@
 			if ( $imgLarg > $imgAlt )
 			{
 				$novaLarg = $this->largura;
-				$novaAlt = round( ($novaLarg / $imgLarg) * $imgAlt );
+				$novaAlt = round(($novaLarg / $imgLarg) * $imgAlt);
 			}
 			elseif ( $imgAlt > $imgLarg )
 			{
@@ -82,26 +82,37 @@
 			$novo_nome = $nome . '.' . $extensao; 
 
 			//localizacao do arquivo 
-			$destino = $this->pasta . $novo_nome; 
-
+			$destino = '../'.$this->pasta . $novo_nome; 
 			//move o arquivo 
 			if (! move_uploaded_file($this->arquivo['tmp_name'], $destino))
 			{
 				if ($this->arquivo['error'] == 1)
-				return "Tamanho excede o permitido";
+					return "Tamanho excede o permitido";
 				else 
-				return "Erro " . $this->arquivo['error']; 
+					return "Erro " . $this->arquivo['error']; 
 			}
 			if ($this->ehImagem($extensao))
 			{
 				//pega a largura, altura, tipo e atributo da imagem 
-				list($largura, $altura, $tipo, $atributo) = getimagesize($destino);
-
+				list($novaLargura, $altura, $tipo, $atributo) = getimagesize($destino);
 				// testa se é preciso redimensionar a imagem 
-				if(($largura > $this->largura) || ($altura > $this->altura)) 
-				$this->redimensionar($largura, $altura, $tipo, $destino); 
+				if(($novaLargura > $this->largura) || ($altura > $this->altura)) 
+				$this->redimensionar($novaLargura, $altura, $tipo, $destino); 
 			}
-			return $destino; 
+
+			$pastas = explode('/',$this->pasta);
+			$caminho = "/wamp/www/Letras_Trocadas";
+			foreach($pastas as $p)
+			{
+				$caminho .= "/".$p;
+				if(!is_dir($caminho))
+				{
+					mkdir($caminho);
+					chmod("0777",$caminho);
+				}			
+			}
+			$caminho = $caminho."".$nome.".".$extensao;
+			return $caminho;
 		}
 	}
 ?>
