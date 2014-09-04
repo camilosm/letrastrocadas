@@ -6,7 +6,6 @@ if(isset($_POST['entrar']))
 	include("class_editar_caracteres.php");
 	include("classes/class_pesquisar.php");
 	
-	session_start();
 	//Coloca em variaveis os valores passados pelo formulário
 	$login = $_POST['email'];
 	$senha = $_POST['senha'];

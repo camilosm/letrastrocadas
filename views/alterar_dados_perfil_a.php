@@ -1,6 +1,4 @@
 <?php
-	
-	session_start();
 	if($_SESSION['nivel_acesso'] == 1)
 	{
 		include("classes/class_pesquisar.php");

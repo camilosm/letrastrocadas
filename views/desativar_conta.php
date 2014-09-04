@@ -28,7 +28,6 @@
 
 	if(ISSET($_POST['senha']) && ISSET($_POST['confirmarSenha']))
 	{
-		session_start();
 		include("classes/class_banco.php");
 		include("class_editar_caracteres.php");
 		include("classes/class_update.php");

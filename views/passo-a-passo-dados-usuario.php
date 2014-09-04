@@ -53,8 +53,6 @@
 						upload($destino_terceira, $nome_terceira, 120, $pasta);
 						header("location: ?url=passo-a-passo-confirmar-dados&cod=$id");
 						
-						session_start();
-						
 						$_SESSION['estado'] = $_POST['estado'];
 						$_SESSION['ano'] = $_POST['ano'];
 						$_SESSION['livro'] = $_POST['nome'];

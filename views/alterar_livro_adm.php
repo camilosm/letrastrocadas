@@ -70,6 +70,7 @@
 				$isbn = $pesquisar_livro['isbn'];
 				$sinopse = $pesquisar_livro['sinopse'];
 				$numero_paginas = $pesquisar_livro['numero_paginas'];
+				$imagem = $pesquisar_livro['imagem_livros'];
 			}
 		}
 		else if(isset($_POST['alterar']))
@@ -120,10 +121,39 @@
 		}
 	}
 ?>
+<script>
+	var UploadFoto = function()
+	{	
+		$("#alterar_livro").ajaxSubmit(
+			{
+				url: 'ajax/upload.php', 
+				type: 'post',					
+				dataType  : "json",
+				success : function( data ){RetornaImagem(data.caminho,data.caminho_a);},
+				resetForm : false
+			}
+		);	
+	}
+	var RetornaImagem = function(caminho,outro){
+		$.post("ajax/abre_imagem.php",{caminho : caminho}, function(data){
+				$("#img_perfil").attr("src", data.imagem);
+				$("#caminho").attr("value", outro);
+			}
+		);
+	}
+</script>
 <article id  = "body_cadastra_livro" style = "width:50%;position:relative;left:27%;">
-	<form class="form-horizontal" method="post" action="" enctype="multipart/form-data">
+	<form id = "alterar_livro" class="form-horizontal" method="post" action="" enctype="multipart/form-data">
 		<fieldset>
 			<legend>Alterar Livro</legend>
+			<section class="form-group">
+				<center>	
+			        <label class="col-md-2 control-label">Para alterar a foto, clique na imagem.</label>
+					<img alt="" id="img_perfil" class = "thumbnail" style="cursor:pointer;" onclick="$('#file').click();" src = "<?=$imagem?>">
+					<input type="text" value = "<?=$imagem?>" style="visibility:hidden;" name="caminho" id="caminho" class="btn btn-primary btn-sm"/>
+					<input type="file" style="visibility:hidden;" name="file" onchange="UploadFoto();" id="file" class="btn btn-primary btn-sm"/>
+				</center>
+			</section>
 			<section class="form-group">
 				<input type="text" class="form-control" name = "id_livro" value="<?php echo $id ;?>" placeholder = "ID" style= "display:none">
 				<label for="inputNome" class="col-lg-2 control-label">Nome:</label>
@@ -185,10 +215,6 @@
 				<section class="col-lg-9">
 					<input type="number" class="form-control" value="<?php echo $numero_paginas ;?>" name = "numero_paginas" id="inputNumeros" required placeholder = "Números de páginas" maxlength = "20" min = "0" max = "20000">
 				</section>
-				<label for="inputFotolivro" class="col-lg-2 control-label">Foto: </label>
-				<section class="col-lg-9">
-					<input type="file"  name="file" "position:relative; width:25%; height: 5%;left:20%;top:2%; "/>
-				</section> 
 				<section class="col-lg-9 col-lg-offset-2">                    
 					<button style="margin-left: 5px; float:right;" type="submit" name = "cadastrarLivro" class="btn btn-primary">Cadastrar</button>
 					<button style="margin-left: 5px; float:right;" type="submit" name = "alterar" class="btn btn-primary">Alterar</button>

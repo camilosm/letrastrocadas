@@ -6,7 +6,7 @@
 
 		//Instancia e faz conexão com o banco de dados
 		$banco = new Banco();
-		session_start();
+
 		$texto_pesquisa =  $_POST['pesquisa'];
 		
 		if(!$texto_pesquisa)

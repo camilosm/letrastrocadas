@@ -1,8 +1,7 @@
 <?php
     
-	if(isset($_POST['alterarSenha'])){
-	
-	    session_start();
+	if(isset($_POST['alterarSenha']))
+	{
 		
 		include("class_editar_caracteres.php");
 		include("classes/class_update.php");

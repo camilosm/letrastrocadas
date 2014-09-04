@@ -1,8 +1,5 @@
 <?php
-	
-	//Inicia a sessão
-	session_start();
-	
+
 	//Verifica se o usuário tem acesso à essa página
 	if($_SESSION['nivel_acesso'] == 1)
 	{ 

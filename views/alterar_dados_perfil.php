@@ -1,7 +1,5 @@
 <?php
 	
-	session_start();
-	
 	include("classes/class_pesquisar.php");
 	include("classes/class_banco.php");
 	
