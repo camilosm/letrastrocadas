@@ -1,6 +1,6 @@
 <?php
-	if($_SESSION['nivel_acesso'] == 2)
-	{
+	//if($_SESSION['nivel_acesso'] == 2)
+	//{
 		include("classes/class_banco.php");
 		include("classes/class_pesquisar.php");
 		
@@ -17,7 +17,7 @@
 		$pesquisa_numero_den_usu = new Pesquisar("tbl_usuario JOIN tbl_denuncias ON usuario_denunciado_id = id_usuario","nome,email, COUNT(*) as Numero_Denuncias","1=1 GROUP BY id_usuario ORDER BY COUNT(*) DESC");
 		$resul_pesquisa_n_den = $pesquisa_numero_den_usu->pesquisar();
 		$Num_Den = mysql_fetch_assoc($resul_pesquisa_n_den);	
-	}
+	/*}
 	else
 	{
 		if($_SESSION['nivel_acesso'] == 1)
@@ -28,7 +28,7 @@
 		{
 			header('Location:?url=home_visitante');
 		}
-	}
+	}*/
 
 ?>
 

@@ -41,6 +41,20 @@ class EditarCaracteres
 		$str = preg_replace('/_+/', '', $str);
 		return $str;
 	}
+
+	function sanitizeNumber($str)
+	{
+		$str = preg_replace('/[áàãâä]/ui', '', $str);
+		$str = preg_replace('/[éèêë]/ui', '', $str);
+		$str = preg_replace('/[íìîï]/ui', '', $str);
+		$str = preg_replace('/[óòõôö]/ui', '', $str);
+		$str = preg_replace('/[úùûü]/ui', '', $str);
+		$str = preg_replace('/[ç]/ui', '', $str);
+		$str = preg_replace('/[,(),;:|!"#$%><ªº-]/', '', $str);
+		$str = preg_replace('/[^0-9]/i', '', $str);
+		$str = preg_replace('/_+/', '', $str);
+		return $str;
+	}
 	
 	// Esse é para todos os campos que contenham nome ou textos
 	function sanitizeStringNome($str)
@@ -51,6 +65,15 @@ class EditarCaracteres
 		return $str;
 	}
 
+	// Esse é para todos os campos que contenham nome ou textos
+	function Pesquisa($str)
+	{
+		$str = preg_replace('/[();:|!"#$%><ªº-]/', '', $str);
+		$str = preg_replace('/[^ÁÃÂÉÊÍÎÓÔÕÚÛáãâéêíîóõôúû., a-z0-9]/i', '', $str);
+		$str = preg_replace('/[%]/ui', ' ', $str);
+		$str = preg_replace('/_+/', '', $str);
+		return $str;
+	}
 }
 
 ?>

@@ -27,7 +27,7 @@
 		<section class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<form class="navbar-form navbar-left" role="search" method= "post" action = "?url=pesquisa" name = "frmPesquisa">
 				<section class="form-group">
-					<input type="text" class="form-control" placeholder="Procurar" name = "conteudo_text">
+					<input type="text" class="form-control" placeholder="Procurar" name = "pesquisa">
 					<button type="submit" class="btn btn-default" name = "btnPesquisa">
 						<span class="glyphicon glyphicon-search"></span>
 					</button>

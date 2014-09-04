@@ -239,15 +239,15 @@
 				  			  
 			</tr>
 			<tr>
-			      <td colspan = "5"> 				             
-				       <section id = "avaliações" style = "position:relative; left:50%; width:30%;">
-                       <label> Avaliações: </label>
-                        &nbsp  
-                       <span class= "glyphicon glyphicon-thumbs-up"></span> <span class = "badge"> <?php echo $avaliacoes_positivas; ?> </span> 
-				        &nbsp
-                       <span class= "glyphicon glyphicon-thumbs-down"> </span> <span class = "badge"> <?php echo $avaliacoes_negativas; ?> </span>
-					   </section>
-				  </td>
+				<td colspan = "5"> 				             
+					<section id = "avaliações" style = "position:relative; left:50%; width:30%;">
+						<label> Avaliações: </label>
+						&nbsp  
+						<span class= "glyphicon glyphicon-thumbs-up"></span> <span class = "badge"> <?php echo $avaliacoes_positivas; ?> </span> 
+						&nbsp
+						<span class= "glyphicon glyphicon-thumbs-down"> </span> <span class = "badge"> <?php echo $avaliacoes_negativas; ?> </span>
+					</section>
+				</td>
 				  
 				  
 			</tr>

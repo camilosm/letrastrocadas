@@ -332,7 +332,7 @@ CREATE TABLE tbl_motivos(
 	motivo VARCHAR(255) NOT NULL,
 	penalidade INT NOT NULL, /* 1 = Banir do site por 1 mês, 2 =  emitir aviso, 3 = banir email do usuário de cadastrar novamente e desativar sua conta, 4 = à escolha do adm  */ 
 	PRIMARY KEY(id_motivo);
-
+)
 /* ALTER TABLE tbl_motivos CHANGE descricao motivo VARCHAR(255) NOT NULL*/
 
 CREATE TABLE tbl_roda_procedure_ban(

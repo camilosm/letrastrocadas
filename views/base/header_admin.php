@@ -1,3 +1,12 @@
+<?php 
+
+		function selected( $value, $selected )
+		{
+			return $value==$selected ? ' selected="selected"' : '';
+		}
+
+		$Filtro = $_POST['Filtro'];
+?>
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
 	<section class="container-fluid">
 		<!-- Brand and toggle get grouped for better mobile display -->
@@ -23,9 +32,15 @@
 		</section>
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<section class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-			<form class="navbar-form navbar-left" role="search">
+			<form class="navbar-form navbar-left" role="search" method= "post" action = "?url=pesquisa_adm">
 				<section class="form-group">
-					<input type="text" class="form-control" placeholder="Procurar">
+					<select class="form-control" id="select" name = "Filtro">
+			        	<option <?php echo selected('Usuário',$Filtro); ?> >Usuário</option>
+			        	<option <?php echo selected('Livro',$Filtro); ?> >Livro</option>
+			        	<option <?php echo selected('Autor',$Filtro); ?> >Autor</option>
+			        	<option <?php echo selected('Editora',$Filtro); ?> >Editora</option>
+			        </select>
+					<input type="text" class="form-control" placeholder="Procurar" name = "pesquisa_adm">
 				</section>
 				<button type="submit" class="btn btn-default">
 					<span class="glyphicon glyphicon-search"></span>
@@ -34,7 +49,7 @@
 			
 			<ul class="nav navbar-nav navbar-right">
 				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-pencil"></span>&nbsp Cadastrar/Alterar <b class="caret"></b></a>
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-pencil"></span>&nbsp Cadastrar <b class="caret"></b></a>
 					<ul class="dropdown-menu">
 						<li><a href="?url=cadastra_livro_adm">Livro</a></li>
 						<li><a href="?url=cadastrar_editora">Editora</a></li>
