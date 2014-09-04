@@ -1,24 +1,30 @@
-<script type="text/javascript" src="ajax/ajax.js"></script>
 <?php
 
 		include("classes/class_pesquisar.php");
 		include("classes/class_banco.php");
-		
+		include("class_editar_caracteres.php");
+
 		//Instancia e faz conexão com o banco de dados
 		$banco = new Banco();
+		session_start();
+		$texto_pesquisa =  $_POST['pesquisa'];
 		
-		$conteudo_text =  $_POST['conteudo_text'];
-		if(!$conteudo_text)
+		if(!$texto_pesquisa)
 		{
-			$conteudo_text = $_GET['nome'];
+			$texto_pesquisa = $_GET['nome'];
 		}
+
+		$editar = new EditarCaracteres($texto_pesquisa);
+		$texto_pesquisa = utf8_decode($editar->Pesquisa($texto_pesquisa));
 
 		$limite = 6;
 		$pagina = $_GET['pag'];
+
 		if(!$pagina)
 		{
 			$pagina = 1;
 		}
+
 		$inicio = ($pagina * $limite) - $limite;
 		
 		$pesquisa_dados = new Pesquisar("tbl_lista_livros lista
@@ -46,11 +52,10 @@
 		  segunda_foto,
 		  terceira_foto,
 		  usuario.nome AS NomeUsuario",
-		"livro.nome LIKE '%".$conteudo_text."%'
-		  OR autor.nome LIKE '%".$conteudo_text."%'
-		  OR editora.nome LIKE '%".$conteudo_text."%'
-		  OR usuario.nome LIKE '%".$conteudo_text."%'
-		  GROUP BY livro.nome
+		"livro.nome LIKE '%".$texto_pesquisa."%'
+		  OR autor.nome LIKE '%".$texto_pesquisa."%'
+		  OR editora.nome LIKE '%".$texto_pesquisa."%'
+		  OR usuario.nome LIKE '%".$texto_pesquisa."%'
 		  ORDER BY livro.nome LIMIT $inicio,$limite");
 		 
 		$resultado_dados = $pesquisa_dados->pesquisar();
@@ -69,16 +74,16 @@
 		  LEFT JOIN tbl_categoria categoria
 		  ON categoria_id = id_categoria",
 		  "lista.id_lista_livros",
-		  "livro.nome LIKE '%".$conteudo_text."%'
-		  OR autor.nome LIKE '%".$conteudo_text."%'
-		  OR editora.nome LIKE '%".$conteudo_text."%'
-		  OR usuario.nome LIKE '%".$conteudo_text."%'
-		  GROUP BY livro.nome
+		  "livro.nome LIKE '%".$texto_pesquisa."%'
+		  OR autor.nome LIKE '%".$texto_pesquisa."%'
+		  OR editora.nome LIKE '%".$texto_pesquisa."%'
+		  OR usuario.nome LIKE '%".$texto_pesquisa."%'
 		  ORDER BY livro.nome");
 		  
 		$resultado_quantidade = $quantidade->pesquisar();
 		$total_registros = mysql_num_rows($resultado_quantidade);
 		$total_paginas = Ceil($total_registros / $limite);
+		
 		//paginação
 		$total = 6;// total de páginas
 
@@ -93,7 +98,7 @@
 		$aspas = "'";
 ?>
 
-<section id = "body_pesquisa">
+<article id = "body_pesquisa">
 	<section class="panel panel-default" style="width: 80%; margin-left: 10%;">
 		<section class="panel-heading">
 			<h4>Resultados</h4>
@@ -128,13 +133,17 @@
 											<a href="?url=perfil_usuario&cod='.$dados_pesq['id_usuario'].'"> <h4>'.utf8_encode($dados_pesq['NomeUsuario']).' </h4></a>
 										</center>
 									</section>
-								</section>
-								<section class="col-md-6">
-									<section style="margin-top: 10%;">
-										<a href="?url=passo-a-passo-dados-usuario&cod='.$dados_pesq['id_livro'].'"><input type = "button" class="btn btn-primary btn-xs" name = "botao_disponibilizar_livro" value = "Disponibilizar Livro" /></a>													 
+								</section>';
+						if(!empty($_SESSION['nivel_acesso']))
+						{
+							echo '<section class="col-md-8">
+									<section style="margin-top: 10%;margin-left: -30%;">
 										<section class = "btn-group">
+											<a href="?url=passo-a-passo-dados-usuario&cod='.$dados_pesq['id_livro'].'"><input type = "button" class="btn btn-primary btn-xs" name = "botao_disponibilizar_livro" value = "Disponibilizar Livro" /></a>		
+											&nbsp;&nbsp;											 
+											<button type = "button" class="btn btn-primary btn-xs dropdown-toggle" id = "solicitar" onClick="SolicitarLivro('.$aspas.''.$dados_pesq["id_lista_livros"].''.$aspas.','.$aspas.''.$dados_pesq['id_usuario'].''.$aspas.')">Solicitar Livro</button>
 											<button id = "Resultado'.$dados_pesq['id_livro'].'" value = "QueroLer" name = "QueroLer" type="button" class="btn btn-primary btn-xs">Quero Ler</button>
-											<button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+											<button type="button" class="btn btn-primary btn-xs dropdown-toggle"><span class="caret"></span></button>
 											<ul id = "acoes" class="dropdown-menu">
 												<li><a onClick="AcoesLivro('.$dados_pesq['id_livro'].','.$aspas.'Desmarcar'.$aspas.',Resultado'.$dados_pesq['id_livro'].','.$aspas.'QueroLer'.$aspas.');">Desmarcar</a></li>
 												<li><a onClick="AcoesLivro('.$dados_pesq['id_livro'].','.$aspas.'JaLi'.$aspas.',Resultado'.$dados_pesq['id_livro'].','.$aspas.'QueroLer'.$aspas.');">Já li</a></li>
@@ -144,6 +153,12 @@
 									</section>
 								</section>
 							</section>';
+						}
+						else
+						{
+							echo '</section>';
+						}
+
 						if(($ct == 2) OR ($ct == 4) OR ($ct == 6))
 						{
 							echo '</section><br>';
@@ -159,27 +174,30 @@
 			<br>
 			</section>
 				<?php
-						for($i=1; $i <= $total_paginas; $i++)
+					echo '<ul class="pagination" style = "margin-left:40%;">
+							<li class="disabled"><a>«</a></li>';
+
+					for($i=1; $i <= $total_paginas; $i++)
+					{
+						if($pagina == $i)
 						{
-							echo '<ul class="pagination" style = "margin-left:40%;">
-									<li class="disabled"><a>«</a></li>';
-							if($pagina == $i)
-							{
-								echo '<li class="active"><a>'.$i.'</a></li>';
-							}
-							else
-							{
-								if ($i >= 1 && $i <= $total)
-								{
-									echo '						
-										  <li><a href="?url=pesquisa&pag='.$i.'&nome='.$conteudo_text.'">'.$i.'</a></li>
-									';
-								}
-							}
-							echo ' <li class="disabled"><a>»</a></li>
-							</ul>';
+							echo '<li class="active"><a>'.$i.'</a></li>';
 						}
+						else
+						{
+							if ($i >= 1 && $i <= $total)
+							{
+								echo '						
+									  <li><a href="?url=pesquisa&pag='.$i.'&nome='.$conteudo_text.'">'.$i.'</a></li>
+								';
+							}
+						}
+						
+					}
+
+					echo ' <li class="disabled"><a>»</a></li>
+						</ul>';
 				?>
 		</section>
 	</section>
-</section>
+</article>
