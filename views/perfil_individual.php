@@ -5,8 +5,6 @@
 		
 		$banco = new Banco();
 		
-		session_start();
-		
 		$id = $_SESSION['id'];	
 
 		    $pesquisa_dados = new Pesquisar("tbl_usuario","id_usuario,nome,email,foto,idade,avaliacoes_negativas,avaliacoes_positivas,uf,cidade,genero_favorito", " id_usuario = $id");

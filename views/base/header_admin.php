@@ -18,7 +18,7 @@
 				<span class="icon-bar"></span>
 			</button>
 			<a class="navbar-brand" href="?url=home_admin"><span class="glyphicon glyphicon-home"></span>&nbsp Bem vindo, <?php
-													session_start();
+
 													if(empty($_SESSION['nome']))
 													{
 														echo "pessoa"; 

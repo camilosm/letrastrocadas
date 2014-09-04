@@ -9,7 +9,7 @@
 				<span class="icon-bar"></span>
 			</button>
 			<a class="navbar-brand" href="?url=index_usuario"><span class="glyphicon glyphicon-home"></span>&nbsp Bem vindo(a), <?php
-			session_start(); 
+
 			if(empty($_SESSION['nome']))
 			{
 				echo "pessoa";

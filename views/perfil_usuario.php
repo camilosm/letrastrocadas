@@ -5,8 +5,6 @@
 		
 		$banco = new Banco();
 		
-		session_start();
-		
 		$id = $_SESSION['id'];
 		
 		$id_outro_usu = $_GET['cod'];

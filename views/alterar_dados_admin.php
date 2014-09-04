@@ -1,6 +1,5 @@
 <?php
 	// Verifica se o botão foi acionado
-	session_start();
 	if($_SESSION['nivel_acesso'] == 2)
 	{
 		if(isset($_POST['alterar_dados_admin']))
@@ -22,12 +21,7 @@
 			header('Location:?url=home_visitante');
 		}
 	}
-?>
-
-<header>
-	<?php  session_start(); @include('views/base/header_admin.php'); ?>
-</header>
-	
+?>	
 <article id  = "alterar_dados_perfil" style = "width: 60%; margin-left: 20%;">
 
 	<form class="form-horizontal" method = "post" action = "?url=alterar_dados_admin">

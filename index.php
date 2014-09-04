@@ -1,3 +1,8 @@
+<?php 
+
+	session_start();
+
+?>
 <!DOCTYPE HTML>
 <html lang="pt-br">
 	<head>
@@ -24,10 +29,6 @@
    
 	<header>   
 		<?php 
-	
-		
-
-			session_start();
 			
 			if(empty($_SESSION['email']))
 			{
@@ -161,7 +162,6 @@
 				{
 					@include("views/base/header_admin.php");
 				}
-				
 			}
 		?>
 	</header>

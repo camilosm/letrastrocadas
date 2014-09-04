@@ -37,7 +37,7 @@
 </script>
 
 <?php
-	session_start();
+
 	if($_SESSION['nivel_acesso'] == 1)
 	{
 		$aspas = "'";

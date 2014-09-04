@@ -7,10 +7,7 @@
 		include("classes/class_banco.php");
 		include("class_editar_caracteres.php");
 		include ("classes/class_pesquisar.php");
-		
-		//Para que o sistema de Sessions funcione é preciso, primeiro, que nós a iniciemos 
-		session_start();
-		
+
 		//Instancia o Classe de Banco de dados que já realiza a conexão.
 		$banco_dados = new Banco();
 		
