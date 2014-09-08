@@ -27,7 +27,7 @@
 			$id = $editar_id->sanitizeString($_GET['cod']);
 			
 			$tabelas = "tbl_livro";
-			$campos="nome, edicao,imagem_livros, isbn, sinopse, numero_paginas, editora_id, autor_id, categoria_id";
+			$campos="id_livro,nome, edicao,imagem_livros, isbn, sinopse, numero_paginas, editora_id, autor_id, categoria_id";
 			$condicao = "id_livro = ".$id;
 			
 			$pesquisar_livro = new Pesquisar($tabelas,$campos,$condicao);
@@ -65,6 +65,7 @@
 				$dados = mysql_fetch_assoc($editora_nome);
 				$editora_nome = $dados['nome'];
 				
+				$id = $pesquisar_livro['id_livro'];
 				$nome = $pesquisar_livro['nome'];
 				$edicao = $pesquisar_livro['edicao'];
 				$isbn = $pesquisar_livro['isbn'];
@@ -75,21 +76,21 @@
 		}
 		else if(isset($_POST['alterar']))
 		{			
-			$id = $_POST['id'];
+			$id = $_POST['id_livro'];
 			
 			$editar_id = new EditarCaracteres($id);
-			$id = $editar_id->sanitizeString($_POST['id']);
+			$id = $editar_id->sanitizeString($_POST['id_livro']);
 		
 			$nome = $_POST['nome'];
 			
 			$editar_nome = new EditarCaracteres($nome);
-			$nome = $editar_nome->sanitizeString($_POST['nome']);
+			$nome = $editar_nome->sanitizeStringNome($_POST['nome']);
 		
 			$campos = "nome = '".$nome."'";
 			$codição = "id_livro = ".$id;
 			$alterar_livro = new Alterar("tbl_livro",$campos,$codição);
 			$resultado_livro = $alterar_livro->alterar();
-			if($resultado == 1)
+			if($resultado_livro == 1)
 			{
 				echo "<section class='alert alert-dismissable alert-success' style='width:40%;margin-left:30%;'>					  
 					<strong>Livro alterado com sucesso!</strong>

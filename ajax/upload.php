@@ -3,7 +3,6 @@
 	//header('Content-Type: application/json');
 	if(isset($_FILES["file"]))
 	{	
-		
 		include("../views/classes/class_upload.php");
 		$pasta = "content/imagens/fotos_perfil/tmp/";
 		$nome = $_FILES['file']['name'];	
