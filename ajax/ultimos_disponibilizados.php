@@ -170,7 +170,7 @@
 						<section class="panel panel-default">
 							<section class="panel panel-body">  
 								<section class="row">
-									<section class="col-md-5">
+									<section class="col-md-4">
 										<center>
 											<section class = "bs-component" style = "maxheight: 177px; width:120px;"> 
 												<a href="?url=livro "class = "thumbnail">
@@ -179,11 +179,13 @@
 											</section>
 										</center>
 									</section>
-									<section class="col-md-7">								
-										<a href="?url=livro"> <h3> '.utf8_encode($ultimos['Livro']).'</h3></a>				  
-										<a href="?url=livros_autores"> <h4>'.utf8_encode($ultimos['Autor']).' </h4></a>
-										<a href="?url=livros_editora"> <h5>'.utf8_encode($ultimos['Editora']).' </h5></a>
-										<a href="?url=perfil_usuario&cod='.$ultimos['id_usuario'].'"> <h4>'.utf8_encode($ultimos['usuario']).' </h4></a>
+									<section class="col-md-6">								
+										<center>
+											<a href="?url=livro"> <h3> '.utf8_encode($ultimos['Livro']).'</h3></a>				  
+											<a href="?url=livros_autores"> <h4>'.utf8_encode($ultimos['Autor']).' </h4></a>
+											<a href="?url=livros_editora"> <h5>'.utf8_encode($ultimos['Editora']).' </h5></a>
+											<a href="?url=perfil_usuario&cod='.$ultimos['id_usuario'].'"> <h4>'.utf8_encode($ultimos['usuario']).' </h4></a>
+										</center>
 									</section>
 								</section>
 								<section class="row">
@@ -293,7 +295,7 @@
 						<section class="panel panel-default">
 							<section class="panel panel-body">  
 								<section class="row">
-									<section class="col-md-5">
+									<section class="col-md-4">
 										<center>
 											<section class = "bs-component" style = "maxheight: 177px; width:120px;"> 
 												<a href="?url=livro "class = "thumbnail">
@@ -302,11 +304,13 @@
 											</section>
 										</center>
 									</section>
-									<section class="col-md-7">								
-										<a href="?url=livro"> <h3> '.utf8_encode($ultimos['Livro']).'</h3></a>				  
-										<a href="?url=livros_autores"> <h4>'.utf8_encode($ultimos['Autor']).' </h4></a>
-										<a href="?url=livros_editora"> <h5>'.utf8_encode($ultimos['Editora']).' </h5></a>
-										<a href="?url=perfil_usuario&cod='.$ultimos['id_usuario'].'"> <h4>'.utf8_encode($ultimos['usuario']).' </h4></a>
+									<section class="col-md-6">								
+										<center>
+											<a href="?url=livro"> <h3> '.utf8_encode($ultimos['Livro']).'</h3></a>				  
+											<a href="?url=livros_autores"> <h4>'.utf8_encode($ultimos['Autor']).' </h4></a>
+											<a href="?url=livros_editora"> <h5>'.utf8_encode($ultimos['Editora']).' </h5></a>
+											<a href="?url=perfil_usuario&cod='.$ultimos['id_usuario'].'"> <h4>'.utf8_encode($ultimos['usuario']).' </h4></a>
+										</center>
 									</section>
 								</section>
 								<section class="row">

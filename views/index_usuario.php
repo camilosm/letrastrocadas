@@ -132,7 +132,7 @@
 								echo'	<section class="panel panel-default">
 											<section class="panel panel-body">
 												<section class="row">
-													<section class = "col-md-5">	  
+													<section class = "col-md-4">	  
 														<center>
 															<section class = "bs-component" style = "maxheight: 177px; width:120px;">
 																<a href="?url=livro" class = "thumbnail">
@@ -141,10 +141,12 @@
 															</section>
 														</center>
 													</section>
-													<section class="col-md-7">
-														<a href="?url=livro" title = "Clique para ver mais informações sobre o livro"> <h3> '.utf8_encode($lista_desejo['Livro']).'</h3></a>				  
-														<a href="?url=livros_autores" title = "Clique para ver mais livros deste autor"> <h4> '.utf8_encode($lista_desejo['Autor']).' </h4></a>
-														<a href="?url=livros_editora" title = "Clique para ver mais livros desta editora"> <h5> '.utf8_encode($lista_desejo['Editora']).' </h5></a>
+													<section class="col-md-6">
+														<center>
+															<a href="?url=livro" title = "Clique para ver mais informações sobre o livro"> <h3> '.utf8_encode($lista_desejo['Livro']).'</h3></a>				  
+															<a href="?url=livros_autores" title = "Clique para ver mais livros deste autor"> <h4> '.utf8_encode($lista_desejo['Autor']).' </h4></a>
+															<a href="?url=livros_editora" title = "Clique para ver mais livros desta editora"> <h5> '.utf8_encode($lista_desejo['Editora']).' </h5></a>
+														</center>
 													</section>
 												</section>
 											
@@ -296,9 +298,9 @@
 										echo'	<section class="panel panel-default">
 													<section class="panel panel-body">
 														<section class="row">
-															<section class = "col-md-5">	  
+															<section class = "col-md-5">
 																<center>
-																	<section class = "bs-component" style = "maxheight: 177px; width:120px;">
+																	<section class = "bs-component" style = "max-height: 177px; width:120px;">
 																		<a href="?url=livro" class = "thumbnail">
 																			<img src = "'.$lista_desejo['imagem_livros'].'" alt = "'.utf8_encode($lista_desejo['Livro']).'" /> 
 																		</a>	
@@ -306,9 +308,11 @@
 																</center>
 															</section>
 															<section class="col-md-7">
-																<a href="?url=livro" title = "Clique para ver mais informações sobre o livro"> <h3> '.utf8_encode($lista_desejo['Livro']).'</h3></a>				  
-																<a href="?url=livros_autores" title = "Clique para ver mais livros deste autor"> <h4> '.utf8_encode($lista_desejo['Autor']).' </h4></a>
-																<a href="?url=livros_editora" title = "Clique para ver mais livros desta editora"> <h5> '.utf8_encode($lista_desejo['Editora']).' </h5></a>
+																<center>
+																	<a href="?url=livro" title = "Clique para ver mais informações sobre o livro"> <h3> '.utf8_encode($lista_desejo['Livro']).'</h3></a>				  
+																	<a href="?url=livros_autores" title = "Clique para ver mais livros deste autor"> <h4> '.utf8_encode($lista_desejo['Autor']).' </h4></a>
+																	<a href="?url=livros_editora" title = "Clique para ver mais livros desta editora"> <h5> '.utf8_encode($lista_desejo['Editora']).' </h5></a>
+																</center>
 															</section>
 														</section>
 													
@@ -446,7 +450,7 @@
 											<section class="panel panel-default">
 												<section class="panel panel-body">  
 													<section class="row">
-														<section class="col-md-5">
+														<section class="col-md-4">
 															<center>
 																<section class = "bs-component" style = "maxheight: 177px; width:120px;"> 
 																	<a href="?url=livro "class = "thumbnail">
@@ -455,11 +459,13 @@
 																</section>
 															</center>
 														</section>
-														<section class="col-md-7">								
-															<a href="?url=livro"> <h3> '.utf8_encode($ultimos['Livro']).'</h3></a>				  
-															<a href="?url=livros_autores"> <h4>'.utf8_encode($ultimos['Autor']).' </h4></a>
-															<a href="?url=livros_editora"> <h5>'.utf8_encode($ultimos['Editora']).' </h5></a>
-															<a href="?url=perfil_usuario&cod='.$ultimos['id_usuario'].'"> <h4>'.utf8_encode($ultimos['usuario']).' </h4></a>
+														<section class="col-md-6">	
+															<center>							
+																<a href="?url=livro"> <h3> '.utf8_encode($ultimos['Livro']).'</h3></a>				  
+																<a href="?url=livros_autores"> <h4>'.utf8_encode($ultimos['Autor']).' </h4></a>
+																<a href="?url=livros_editora"> <h5>'.utf8_encode($ultimos['Editora']).' </h5></a>
+																<a href="?url=perfil_usuario&cod='.$ultimos['id_usuario'].'"> <h4>'.utf8_encode($ultimos['usuario']).' </h4></a>
+															</center>
 														</section>
 													</section>
 													<section class="row">
