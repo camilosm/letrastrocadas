@@ -5,7 +5,7 @@
 			<br>
 			<a style="color: #FFFFFF" href="">Twitter</a>
 		</section>
-	</center>	                
+	</center>
 	<center>
 		<section class="panel-body" style="float: right; width: 50%;">
 			<a href="?url=termos_uso" style="color: #FFFFFF" href="">Termos de uso</a>
@@ -16,6 +16,6 @@
 </section>
 <center>
 	<section class="row">
-		Todos os direitos reservados<br>Letras Trocadas 2014
+		Todos os direitos reservados<br>Letras Trocadas • 2014
 	</section>
 </center>

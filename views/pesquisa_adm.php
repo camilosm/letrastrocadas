@@ -113,7 +113,7 @@
 									echo '<section class="row">';
 								}
 								echo '<section class="col-md-6">
-										<section class = "col-md-4">	
+										<section class="col-md-4">	
 											<section class = "bs-component" style = "margin-left: 10%; maxheight: 177px; width: 120px;"> 
 												<a href="?url=livro" class = "thumbnail">
 													<img src = "'.$pesquisa['foto'].'" alt = ""/> 
@@ -157,13 +157,13 @@
 								}
 								echo '<section class="col-md-6">
 										<section class = "col-md-4">	
-											<section class = "bs-component" style = "margin-left: 10%; maxheight: 177px; width: 120px;"> 
+											<section class = "bs-component" style = "margin-left: 30%; max-height: 177px; width:120px;"> 
 												<a href="?url=livro" class = "thumbnail">
 													<img src = "'.$pesquisa['imagem_livros'].'" alt = ""/> 
 												</a>	
 											</section>
 										</section>
-										<section class="col-md-4">
+										<section class="col-md-6" style="margin-bottom:5%;">
 											<section>
 												<center>
 													<a href="?url=livro" title = "Clique para ver mais informações sobre o livro"> <h3> '.utf8_encode($pesquisa['livro']).'</h3></a>				  
