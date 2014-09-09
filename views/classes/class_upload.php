@@ -105,6 +105,7 @@
 			foreach($pastas as $p)
 			{
 				$caminho .= "/".$p;
+				$caminho;
 				if(!is_dir($caminho))
 				{
 					mkdir($caminho);
