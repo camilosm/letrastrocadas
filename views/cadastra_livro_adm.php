@@ -6,6 +6,7 @@
 		include("classes/class_banco.php");
 		include ("classes/class_pesquisar.php");
 		include ("classes/class_insert.php");
+		include ("classes/class_upload.php");
 		include("class_editar_caracteres.php");
 		$banco_dados = new Banco();
 
@@ -21,7 +22,62 @@
 		
 		if(isset($_POST['cadastrarLivro']))
 		{
+			$nome = $_POST['nome'];
+			$edicao = $_POST['edicao'];
+			$isbn = $_POST['isbn'];
+			$editora = $_POST['cmbEditora'];
+			$autor = $_POST['cmbAutor'];
+			$categoria = $_POST['cmbGenero'];
+			$sinopse = $_POST['sinopse'];
+			$numero_paginas = $_POST['numero_paginas'];
+
+			$editar_nome = new EditarCaracteres($nome);
+			$nome = utf8_decode($editar_nome->sanitizeStringNome($_POST['nome']));
+
+			$editar_edicao = new EditarCaracteres($edicao);
+			$edicao = $editar_edicao->sanitizeNumber($_POST['edicao']);
+
+			$editar_isbn = new EditarCaracteres($isbn);
+			$isbn = $editar_isbn->sanitizeNumber($_POST['isbn']);
+
+			$editar_editora = new EditarCaracteres($editora);
+			$editora = $editar_editora->sanitizeNumber($_POST['cmbEditora']);
+
+			$editar_autor = new EditarCaracteres($autor);
+			$autor = $editar_autor->sanitizeNumber($_POST['cmbAutor']);
+
+			$editar_categoria = new EditarCaracteres($categoria);
+			$categoria = $editar_categoria->sanitizeNumber($_POST['cmbGenero']);
 			
+			$editar_sinopse = new EditarCaracteres($sinopse);
+			$autor_sinopse = utf8_decode($editar_sinopse->sanitizeStringNome($_POST['sinopse']));
+			
+			$editar_numero_paginas = new EditarCaracteres($numero_paginas);
+			$numero_paginas = $editar_numero_paginas->sanitizeNumber($_POST['numero_paginas']);	
+
+			$pasta = "content/imagens/livros_gerais/";
+			$nome = $_FILES['file']['name'];	
+	   		$ext = @end(explode(".", $nome));
+			$upload = new Upload($_FILES['file'], 1000, 1000, $pasta);
+			$nome = "tmp_profile_".$_SESSION["id"];
+	       	$caminho = @$upload->salvar_normal($nome);
+			$caminho_cadastrar = $pasta."".$nome.".".$ext;
+
+			$campos = "NULL,'$nome','',$edicao,'$isbn','$sinopse',1,0,0,0,$numero_paginas,$editora,$autor,$categoria";
+			$cadastrar_livro = new Inserir("tbl_livro",$campos);
+			$resultado_livro = $cadastrar_livro->inserir();
+			if($resultado_livro == 1)
+			{
+				echo "<section class='alert alert-dismissable alert-success' style='width:40%;margin-left:30%;'>					  
+					<strong>Livro alterado com sucesso!</strong>
+				</section>";
+			}
+			else
+			{
+				echo "<section class='alert alert-dismissable alert-danger' style='width:40%;margin-left:30%;'>				  
+					<strong>Erro ao alterar livro.</strong> Tente novamente!
+				</section>";
+			}
 		}		
 	}
 	else
@@ -41,10 +97,6 @@
 		<fieldset>
 			<legend>Cadastrar Livro</legend>
 			<section class="form-group">
-				<label for="inputID" class="col-lg-2 control-label">ID:</label>
-				<section class="col-lg-9">
-					<input type="text" class="form-control" name = "id_livro" value="<?php echo $id ;?>" placeholder = "ID" >
-				</section>
 				<label for="inputNome" class="col-lg-2 control-label">Nome:</label>
 				<section class="col-lg-9">
 					<input type="text" class="form-control" value="<?php echo $nome ;?>" name = "nome" required placeholder = "Nome do Livro" maxlength = "100">
@@ -55,37 +107,37 @@
 				</section>	 
 				<label for="inputIsnblivro" class="col-lg-2 control-label">ISBN:</label>
 				<section class="col-lg-9">
-					<input type="number" class="form-control" value="<?php echo $isbn ;?>" name="isbn" id="inputISBN" required maxlength = "17" placeholder = "ISBN" min="0" max = "20000">				  
+					<input type="number" class="form-control" value="<?php echo $isbn ;?>" name="isbn" id="inputISBN" required maxlength = "13" placeholder = "ISBN" min="0" max = "9999999999999">				  
 				</section>
 				<label for="select" class="col-lg-2 control-label">Editora:</label>
 				<section class="col-lg-9">
-					<select class="form-control" value="<?php echo $editora ;?>" name = "cmbEditora" id="select">
+					<select class="form-control" name = "cmbEditora" id="select">
 						<?php
-							while($dados_editora = mysql_fetch_row($resultado_editora))
+							while($dados_editora = mysql_fetch_assoc($resultado_editora))
 							{
-								echo "<option value = ".$dados_editora[0].">".$dados_editora[1]."</option>";
+								echo "<option value = ".$dados_editora['id_editora'].">".utf8_encode($dados_editora['nome'])."</option>";
 							}
 						?>
 					</select>
 				</section> 
 				<label for="select" class="col-lg-2 control-label">Autor:</label>
 				<section class="col-lg-9">
-					<select class="form-control" value="<?php echo $autor ;?>"name = "cmbAutor" id="select">
+					<select class="form-control" name = "cmbAutor" id="select">
 						<?php
-							while($dados_autor = mysql_fetch_row($resultado_autor))
+							while($dados_autor = mysql_fetch_assoc($resultado_autor))
 							{
-								echo "<option value = ".$dados_autor[0].">".$dados_autor[1]."</option>";
+								echo "<option value = ".$dados_autor['id_autor'].">".utf8_encode($dados_autor['nome'])."</option>";
 							}
 						?>
 					</select>
 				</section>
 				<label for="select" class="col-lg-2 control-label">Gênero:</label>
 				<section class="col-lg-9">
-					<select class="form-control" value="<?php echo $genero ;?>"name = "cmbGenero" id="select">
+					<select class="form-control" name = "cmbGenero" id="select">
 						<?php
-							while($dados_genero = mysql_fetch_row($resultado_genero))
+							while($dados_genero = mysql_fetch_assoc($resultado_genero))
 							{
-								echo "<option value = ".$dados_genero[0].">".$dados_genero[1]."</option>";
+								echo "<option value = ".$dados_genero['id_categoria'].">".utf8_encode($dados_genero['nome'])."</option>";
 							}
 						?>
 					</select>
@@ -98,29 +150,16 @@
 				<section class="col-lg-9">
 					<input type="number" class="form-control" value="<?php echo $numero_paginas ;?>" name = "numero_paginas" id="inputNumeros" required placeholder = "Números de páginas" maxlength = "20" min = "0" max = "20000">
 				</section>
-				<label for="inputFotolivro" class="col-lg-2 control-label">Foto: </label>
+				<!--<label for="inputFotolivro" class="col-lg-2 control-label">Foto: </label>
 				<section class="col-lg-9">
 					<input type="file"  name="file" "position:relative; width:25%; height: 5%;left:20%;top:2%; "/>
-				</section> 
+				</section>--> 
 				<section class="col-lg-9 col-lg-offset-2">                    
 					<button style="margin-left: 5px; float:right;" type="submit" name = "cadastrarLivro" class="btn btn-primary">Cadastrar</button>
-					<button style="margin-left: 5px; float:right;" type="submit" name = "alterar" class="btn btn-primary">Alterar</button>
 					<button style="float:right;" type = "reset" class="btn btn-default">Cancelar</button>
 				</section>
 			</section>
 		</fieldset>
 	</form>
 	</article>
-	<section id="body_cadastrar_editora" style = "display:none">
-		<form id = "cadastrar_editora" method="post" action = "">
-			<input type = "text" name = "editora_nome" required placeholder = "Nome" maxlength = "100">
-			<input type = "submit" name = "cadastrar_editora" value = "Cadastrar Editora">
-		</form>	
-	</section>
-	<section id="body_cadastrar_autor" style = "display:none">
-		<form id = "cadastrar_autor" method="post" action = "">
-			<input type = "text" name = "autor_nome" required placeholder = "Nome" maxlength = "100">
-			<input type = "submit" name = "cadastrar_autor" value = "Cadastrar Autor">
-		</form>
-	</section>
 </article>
