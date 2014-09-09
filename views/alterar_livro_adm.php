@@ -19,12 +19,132 @@
 		$pesquisar_genero = new Pesquisar("tbl_categoria","*","1=1");
 		$resultado_genero = $pesquisar_genero->pesquisar();
 		
-		if(isset($_POST['alterar_livro']))
+		if(isset($_POST['alterar']))
+		{			
+			
+			$id = $_POST['id_livro'];
+			
+			$editar_id = new EditarCaracteres($id);
+			$id = $editar_id->sanitizeString($_POST['id_livro']);
+
+			if($id != "")
+			{
+				$nome = $_POST['nome'];
+				$edicao = $_POST['edicao'];
+				$isbn = $_POST['isbn'];
+				$editora = $_POST['cmbEditora'];
+				$autor = $_POST['cmbAutor'];
+				$categoria = $_POST['cmbGenero'];
+				$sinopse = $_POST['sinopse'];
+				$numero_paginas = $_POST['numero_paginas'];
+
+				$editar_nome = new EditarCaracteres($nome);
+				$nome = utf8_decode($editar_nome->sanitizeStringNome($_POST['nome']));
+
+				$editar_edicao = new EditarCaracteres($edicao);
+				$edicao = $editar_edicao->sanitizeNumber($_POST['edicao']);
+
+				$editar_isbn = new EditarCaracteres($isbn);
+				$isbn = $editar_isbn->sanitizeNumber($_POST['isbn']);
+
+				$editar_editora = new EditarCaracteres($editora);
+				$editora = $editar_editora->sanitizeNumber($_POST['cmbEditora']);
+
+				$editar_autor = new EditarCaracteres($autor);
+				$autor = $editar_autor->sanitizeNumber($_POST['cmbAutor']);
+
+				$editar_categoria = new EditarCaracteres($categoria);
+				$categoria = $editar_categoria->sanitizeNumber($_POST['cmbGenero']);
+				
+				$editar_sinopse = new EditarCaracteres($sinopse);
+				$autor_sinopse = utf8_decode($editar_sinopse->sanitizeStringNome($_POST['sinopse']));
+				
+				$editar_numero_paginas = new EditarCaracteres($numero_paginas);
+				$numero_paginas = $editar_numero_paginas->sanitizeNumber($_POST['numero_paginas']);			
+			
+				$campos = "nome = '$nome', edicao = $edicao, isbn = '$isbn', editora_id = $editora, autor_id = $autor, categoria_id = $categoria, sinopse = '$sinopse', numero_paginas = $numero_paginas ";
+				$codição = "id_livro = ".$id;
+				$alterar_livro = new Alterar("tbl_livro",$campos,$codição);
+				$resultado_livro = $alterar_livro->alterar();
+				if($resultado_livro == 1)
+				{
+					echo "<section class='alert alert-dismissable alert-success' style='width:40%;margin-left:30%;'>					  
+						<strong>Livro alterado com sucesso!</strong>
+					</section>";
+
+					$id = $_GET['cod'];
+			
+					$editar_id = new EditarCaracteres($id);
+					$id = $editar_id->sanitizeNumber($_GET['cod']);
+					
+					$tabelas = "tbl_livro";
+					$campos="id_livro,nome, edicao,imagem_livros, isbn, sinopse, numero_paginas, editora_id, autor_id, categoria_id";
+					$condicao = "id_livro = ".$id;
+					
+					$pesquisar_livro = new Pesquisar($tabelas,$campos,$condicao);
+					$resultado = $pesquisar_livro->pesquisar();			
+					
+					while($pesquisar_livro=mysql_fetch_assoc($resultado))
+					{
+						$tabelas = "tbl_categoria";
+						$campos="nome";
+						$condicao = "id_categoria = ".$pesquisar_livro['categoria_id'];
+						
+						$pesquisar_categoria = new Pesquisar($tabelas,$campos,$condicao);
+						$categoria_nome = $pesquisar_categoria->pesquisar();
+
+						$dados = mysql_fetch_assoc($categoria_nome);
+						$categoria_nome = $dados['nome'];
+						
+						$tabelas = "tbl_autor";
+						$campos="nome";
+						$condicao = "id_autor = ".$pesquisar_livro['autor_id'];
+						
+						$pesquisar_autor = new Pesquisar($tabelas,$campos,$condicao);
+						$autor_nome = $pesquisar_autor->pesquisar();
+
+						$dados = mysql_fetch_assoc($autor_nome);
+						$autor_nome = $dados['nome'];
+						
+						$tabelas = "tbl_editora";
+						$campos="nome";
+						$condicao = "id_editora = ".$pesquisar_livro['editora_id'];
+						
+						$pesquisar_editora = new Pesquisar($tabelas,$campos,$condicao);
+						$editora_nome = $pesquisar_editora->pesquisar();
+
+						$dados = mysql_fetch_assoc($editora_nome);
+						$editora_nome = $dados['nome'];
+						
+						$id = $pesquisar_livro['id_livro'];
+						$nome = $pesquisar_livro['nome'];
+						$edicao = $pesquisar_livro['edicao'];
+						$isbn = $pesquisar_livro['isbn'];
+						$sinopse = $pesquisar_livro['sinopse'];
+						$numero_paginas = $pesquisar_livro['numero_paginas'];
+						$imagem = $pesquisar_livro['imagem_livros'];
+					}
+				}
+				else
+				{
+					echo "<section class='alert alert-dismissable alert-danger' style='width:40%;margin-left:30%;'>				  
+						<strong>Erro ao alterar livro.</strong> Tente novamente!
+					</section>";
+				}
+			}
+			else
+			{
+				echo "<section class='alert alert-dismissable alert-danger' style='width:40%;margin-left:30%;'>				  
+							<strong>Código inválido!</strong>
+					</section>";
+			}
+		}
+		else if(isset($_POST['alterar_livro']))
 		{
 			$id = $_GET['cod'];
 			
 			$editar_id = new EditarCaracteres($id);
-			$id = $editar_id->sanitizeString($_GET['cod']);
+			$id = $editar_id->sanitizeNumber($_GET['cod']);
 			
 			$tabelas = "tbl_livro";
 			$campos="id_livro,nome, edicao,imagem_livros, isbn, sinopse, numero_paginas, editora_id, autor_id, categoria_id";
@@ -74,35 +194,6 @@
 				$imagem = $pesquisar_livro['imagem_livros'];
 			}
 		}
-		else if(isset($_POST['alterar']))
-		{			
-			$id = $_POST['id_livro'];
-			
-			$editar_id = new EditarCaracteres($id);
-			$id = $editar_id->sanitizeString($_POST['id_livro']);
-		
-			$nome = $_POST['nome'];
-			
-			$editar_nome = new EditarCaracteres($nome);
-			$nome = $editar_nome->sanitizeStringNome($_POST['nome']);
-		
-			$campos = "nome = '".$nome."'";
-			$codição = "id_livro = ".$id;
-			$alterar_livro = new Alterar("tbl_livro",$campos,$codição);
-			$resultado_livro = $alterar_livro->alterar();
-			if($resultado_livro == 1)
-			{
-				echo "<section class='alert alert-dismissable alert-success' style='width:40%;margin-left:30%;'>					  
-					<strong>Livro alterado com sucesso!</strong>
-				</section>";
-			}
-			else
-			{
-				echo "<section class='alert alert-dismissable alert-danger' style='width:40%;margin-left:30%;'>				  
-					<strong>Erro ao alterar livro.</strong> Tente novamente!
-				</section>";
-			}
-		}
 		else
 		{
 			echo "<section class='alert alert-dismissable alert-danger' style='width:40%;margin-left:30%;'>				  
@@ -124,7 +215,7 @@
 ?>
 <script>
 	var UploadFoto = function()
-	{	
+	{
 		$("#alterar_livro").ajaxSubmit(
 			{
 				url: 'ajax/upload.php', 
@@ -133,8 +224,9 @@
 				success : function( data ){RetornaImagem(data.caminho,data.caminho_a);},
 				resetForm : false
 			}
-		);	
+		);
 	}
+
 	var RetornaImagem = function(caminho,outro){
 		$.post("ajax/abre_imagem.php",{caminho : caminho}, function(data){
 				$("#img_perfil").attr("src", data.imagem);
@@ -159,7 +251,7 @@
 				<input type="text" class="form-control" name = "id_livro" value="<?php echo $id ;?>" placeholder = "ID" style= "display:none">
 				<label for="inputNome" class="col-lg-2 control-label">Nome:</label>
 				<section class="col-lg-9">
-					<input type="text" class="form-control" value="<?php echo $nome ;?>" name = "nome" required placeholder = "Nome do Livro" maxlength = "100">
+					<input type="text" class="form-control" value="<?php echo utf8_encode($nome) ;?>" name = "nome" required placeholder = "Nome do Livro" maxlength = "100">
 				</section>
 				<label for="inputEdicaolivro" class="col-lg-2 control-label">Edição:</label>				  
 				<section class="col-lg-9">
@@ -210,7 +302,7 @@
 				</section>
 				<label for="textArea" class="col-lg-2 control-label">Sinopse:</label>
 				<section class="col-lg-9">
-					<textarea class="form-control" rows="3" name="sinopse" id="textArea"><?php echo utf8_encode($sinopse); ?></textarea>
+					<textarea class="form-control" rows="3" name="sinopse" id="textArea"><?php echo $sinopse; ?></textarea>
 				</section>
 				<label for="inputEdicaolivro" class="col-lg-2 control-label">Páginas:</label>				  
 				<section class="col-lg-9">

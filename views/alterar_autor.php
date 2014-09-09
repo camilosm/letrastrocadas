@@ -11,27 +11,34 @@
 
 		if(isset($_POST['alterar_autor']))
 		{
-			$id = $_GET['cod'];
-
-			$editar_id = new EditarCaracteres($id);
-			$id = $editar_id->sanitizeNumber($_GET['cod']);
-
-			if($id != "")
+			if(!empty($_GET['cod']))
 			{
-				$pesquisar = new Pesquisar('tbl_autor','nome','id_autor = '.$id);
-				$resposta = $pesquisar->pesquisar();
-				$dados = mysql_fetch_assoc($resposta);
-				$nome = $dados['nome'];	
+				$id = $_GET['cod'];
+
+				$editar_id = new EditarCaracteres($id);
+				$id = $editar_id->sanitizeNumber($_GET['cod']);
+
+				if($id != "")
+				{
+					$pesquisar = new Pesquisar('tbl_autor','nome','id_autor = '.$id);
+					$resposta = $pesquisar->pesquisar();
+					$dados = mysql_fetch_assoc($resposta);
+					$nome = $dados['nome'];	
+				}
+				else
+				{
+					
+					echo "<section class='alert alert-dismissable alert-danger' style='width:40%;margin-left:30%;'>				  
+							<strong>Código inválido!</strong>
+					</section>";	
+				}
 			}
 			else
 			{
-				
 				echo "<section class='alert alert-dismissable alert-danger' style='width:40%;margin-left:30%;'>				  
-						<strong>Código inválido!</strong>
-				</section>";	
-				
-				
-			}
+						<strong>Primeiro faça a pesquisa!</strong>
+				</section>";
+			}		
 		} 	
 		else if(isset($_POST['alterar']))
 		{			

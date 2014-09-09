@@ -74,6 +74,7 @@
 			imagedestroy($novaimagem);
 			imagedestroy($origem);
 		}
+
 		public function salvar($nome)
 		{
 			$extensao = $this->getExtensao();
@@ -99,7 +100,6 @@
 				if(($novaLargura > $this->largura) || ($altura > $this->altura)) 
 				$this->redimensionar($novaLargura, $altura, $tipo, $destino); 
 			}
-
 			$pastas = explode('/',$this->pasta);
 			$caminho = "/wamp/www/Letras_Trocadas";
 			foreach($pastas as $p)
@@ -114,6 +114,35 @@
 			}
 			$caminho = $caminho."".$nome.".".$extensao;
 			return $caminho;
+		}
+
+		public function salvar_normal($nome)
+		{
+			$extensao = $this->getExtensao();
+
+			//gera um nome unico para a imagem em funcao do tempo
+			$novo_nome = $nome . '.' . $extensao; 
+
+			//localizacao do arquivo 
+			$destino = '../'.$this->pasta . $novo_nome; 
+			//move o arquivo 
+			if (! move_uploaded_file($this->arquivo['tmp_name'], $destino))
+			{
+				if ($this->arquivo['error'] == 1)
+					return "Tamanho excede o permitido";
+				else 
+					return "Erro " . $this->arquivo['error']; 
+			}
+			if ($this->ehImagem($extensao))
+			{
+				//pega a largura, altura, tipo e atributo da imagem 
+				list($novaLargura, $altura, $tipo, $atributo) = getimagesize($destino);
+				// testa se é preciso redimensionar a imagem 
+				if(($novaLargura > $this->largura) || ($altura > $this->altura)) 
+				$this->redimensionar($novaLargura, $altura, $tipo, $destino); 
+			}
+
+			return "Sucesso";
 		}
 	}
 ?>
