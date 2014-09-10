@@ -69,7 +69,7 @@
 											<section class="panel-heading">
 												<h4 class="panel-title">
 													<a data-toggle="collapse" data-parent="#accordion" href="#collapse1">'
-														 .$Denuncias["email"]. ' - ' .$Denuncias["nome"]. ' - ' .$Denuncias["data"].
+														 .$Denuncias["email"]. ' - ' .utf8_encode($Denuncias["nome"]). ' - ' .$Denuncias["data"].
 													' - <a href = "?url=banimento&cod_d='.$Denuncias['id_denuncias'].'&cod_usu='.$Denuncias['id_usuario'].'">'	
 														.$status.
 													'</a>
