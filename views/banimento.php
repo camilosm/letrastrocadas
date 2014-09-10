@@ -18,6 +18,9 @@
 		$resultado_den_usu = $pesquisa_den_usu->pesquisar();
 		$Dados_Den_Usu = mysql_fetch_assoc($resultado_den_usu);
 		
+		$pesquisa_numero_den_usu = new Pesquisar("tbl_usuario JOIN tbl_denuncias ON usuario_denunciado_id = id_usuario","COUNT(*) AS total","usuario_denunciado_id = $id_usu");
+		$resul_pesquisa_n_den = $pesquisa_numero_den_usu->pesquisar();
+		$num_den = mysql_fetch_assoc($resul_pesquisa_n_den);
 		
 		
 ?>
@@ -55,7 +58,24 @@
 					<section class="panel-heading">Medidas</section>
 					<section class="panel-body">
 						<form method="post" action="">
-							<p> Qual medida você deseja tomar? </p>
+							<p>
+								<?php 
+									if($num_den['total'] > 2) echo "Esse usuário já tem mais de 2 denuncias, o que deseja fazer?";
+									
+									switch($num_den['total'])
+										{
+											case "0":
+												echo "Esse usuário nunca foi denunciado, o que deseja fazer?";
+												break;
+											case "1":
+												echo "Esse usuário já teve uma denuncia, o que deseja fazer?";
+												break;
+											case "2":
+												echo "Esse usuário já foi denunciado duas vezes, o que deseja fazer?";
+												break;
+										}
+								?>
+							</p>
 							<section class="radio">
 								<label> Banir do site por 1 mês</label>
 									<input type="radio" name="Ban" id="optionsRadios1" value="1">
@@ -65,11 +85,7 @@
 									<input type="radio" name="Ban" id="optionsRadios3" value="3">    
 							</section>
 							<section class="radio">
-								<label>Emitir aviso de 1ª denuncia</label>
-									<input type="radio" name="Ban" id="optionsRadios4" value="2">                   
-							</section>
-							<section class="radio">
-								<label>Emitir aviso de 2ª denuncia</label>
+								<label>Emitir aviso de denuncia</label>
 									<input type="radio" name="Ban" id="optionsRadios4" value="2">                   
 							</section>
 							<button type="submit" class="btn btn-primary" name = "btnBanir">
