@@ -16,7 +16,7 @@
 		
 		$pesquisa_numero_den_usu = new Pesquisar("tbl_usuario JOIN tbl_denuncias ON usuario_denunciado_id = id_usuario","nome,email, COUNT(*) as Numero_Denuncias","1=1 GROUP BY id_usuario ORDER BY COUNT(*) DESC");
 		$resul_pesquisa_n_den = $pesquisa_numero_den_usu->pesquisar();
-		$Num_Den = mysql_fetch_assoc($resul_pesquisa_n_den);	
+		$_SESSION['Num_Den'] = mysql_fetch_assoc($resul_pesquisa_n_den);
 	/*}
 	else
 	{
@@ -63,30 +63,30 @@
 								}
 								
 							
-							if ($Denuncias["status"] == 1){
-								echo '<section class="panel-group" id="accordion">
-									<section class="panel panel-default">
-										<section class="panel-heading">
-											<h4 class="panel-title">
-												<a data-toggle="collapse" data-parent="#accordion" href="#collapse1">'
-													 .$Denuncias["email"]. ' - ' .$Denuncias["nome"]. ' - ' .$Denuncias["data"].
-												' - <a href = "?url=banimento&cod_d='.$Denuncias['id_denuncias'].'&cod_usu='.$Denuncias['id_usuario'].'">'	
-													.$status.
-												'</a>
-												</a>
-											</h4>
-										</section>
-										<section id="collapse1" class="panel-collapse collapse in">
-											<section class="panel-body">
-												 '. 
-												 utf8_encode($Denuncias["motivo"]). '. ' 
-												 . utf8_encode($Denuncias["outro_motivo"])
-												 .' 	
+								if ($Denuncias["status"] == 1){
+									echo '<section class="panel-group" id="accordion">
+										<section class="panel panel-default">
+											<section class="panel-heading">
+												<h4 class="panel-title">
+													<a data-toggle="collapse" data-parent="#accordion" href="#collapse1">'
+														 .$Denuncias["email"]. ' - ' .$Denuncias["nome"]. ' - ' .$Denuncias["data"].
+													' - <a href = "?url=banimento&cod_d='.$Denuncias['id_denuncias'].'&cod_usu='.$Denuncias['id_usuario'].'">'	
+														.$status.
+													'</a>
+													</a>
+												</h4>
+											</section>
+											<section id="collapse1" class="panel-collapse collapse in">
+												<section class="panel-body">
+													 '. 
+													 utf8_encode($Denuncias["motivo"]). '. ' 
+													 . utf8_encode($Denuncias["outro_motivo"])
+													 .' 	
+												</section>
 											</section>
 										</section>
-									</section>
-								</section>';
-							   }
+									</section>';
+								}
 							}
 							?>
 
