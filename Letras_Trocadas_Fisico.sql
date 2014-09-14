@@ -111,6 +111,19 @@ CREATE TABLE tbl_usuario(
 ALTER TABLE tbl_usuario DROP genero_favorito;
  */
  
+CREATE TABLE tbl_comentarios(
+
+	id_comentario INT UNSIGNED AUTO_INCREMENT NOT NULL,
+	usuario_id INT UNSIGNED NOT NULL,
+	livro_id INT UNSIGNED NOT NULL,
+	comentario TEXT NOT NULL,
+	tempo timestamp NOT NULL,
+	PRIMARY KEY(id_comentario),
+	FOREIGN KEY(usuario_id) REFERENCES tbl_usuario(id_usuario),
+	FOREIGN KEY(livro_id) REFERENCES tbl_livro(id_livro)
+
+);
+
 CREATE TABLE tbl_generos_favoritos(
 
 	id_generos_favotiros INT UNSIGNED AUTO_INCREMENT NOT NULL,
@@ -143,12 +156,6 @@ CREATE TABLE tbl_generos_desapreciados(
 	FOREIGN KEY(usuario_id) REFERENCES tbl_usuario(id_usuario)
 
 );
-
-/*
-
-	DROP TABLE tbl_generos_desapreciados;
-	
-*/
 
 CREATE TABLE tbl_autores_desapreciados(
 
