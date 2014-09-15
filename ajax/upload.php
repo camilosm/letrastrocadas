@@ -5,7 +5,6 @@
 	{	
 		include("../views/classes/class_upload.php");
 		$pasta = "content/imagens/fotos_perfil/tmp/";
-		$nome = $_FILES['file']['name'];	
    		$ext = @end(explode(".", $nome));
 		$upload = new Upload($_FILES['file'], 1000, 1000, $pasta);
 		$nome = "tmp_profile_".$_SESSION["id"];

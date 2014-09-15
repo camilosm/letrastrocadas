@@ -54,11 +54,6 @@
 			$novaimagem = imagecreatetruecolor($novaLarg, $novaAlt);
 			switch ($tipo)
 			{
-				case 1: // gif
-					$origem = imagecreatefromgif($img_localizacao);
-					imagecopyresampled($novaimagem, $origem, 0, 0, 0, 0, $novaLarg, $novaAlt, $imgLarg, $imgAlt); 
-					imagegif($novaimagem, $img_localizacao); 
-					break;
 				case 2: // jpg 
 					$origem = imagecreatefromjpeg($img_localizacao); 
 					imagecopyresampled($novaimagem, $origem, 0, 0, 0, 0, $novaLarg, $novaAlt, $imgLarg, $imgAlt); 
@@ -118,31 +113,39 @@
 
 		public function salvar_normal($nome)
 		{
+
 			$extensao = $this->getExtensao();
 
-			//gera um nome unico para a imagem em funcao do tempo
-			$novo_nome = $nome . '.' . $extensao; 
-
-			//localizacao do arquivo 
-			$destino = '../'.$this->pasta . $novo_nome; 
-			//move o arquivo 
-			if (! move_uploaded_file($this->arquivo['tmp_name'], $destino))
+			if($this->ehImagem($extensao))
 			{
-				if ($this->arquivo['error'] == 1)
-					return "Tamanho excede o permitido";
-				else 
-					return "Erro " . $this->arquivo['error']; 
-			}
-			if ($this->ehImagem($extensao))
-			{
-				//pega a largura, altura, tipo e atributo da imagem 
-				list($novaLargura, $altura, $tipo, $atributo) = getimagesize($destino);
-				// testa se é preciso redimensionar a imagem 
-				if(($novaLargura > $this->largura) || ($altura > $this->altura)) 
-				$this->redimensionar($novaLargura, $altura, $tipo, $destino); 
-			}
+				//gera um nome unico para a imagem em funcao do tempo
+				$novo_nome = $nome . '.' . $extensao; 
 
-			return "Sucesso";
+				//localizacao do arquivo 
+				$destino = ''.$this->pasta . $novo_nome; 
+				//move o arquivo 
+				if (! move_uploaded_file($this->arquivo['tmp_name'], $destino))
+				{
+					if ($this->arquivo['error'] == 1)
+						return "Tamanho excede o permitido";
+					else 
+						return "Erro " . $this->arquivo['error']; 
+				}
+				if ($this->ehImagem($extensao))
+				{
+					//pega a largura, altura, tipo e atributo da imagem 
+					list($novaLargura, $altura, $tipo, $atributo) = getimagesize($destino);
+					// testa se é preciso redimensionar a imagem 
+					if(($novaLargura > $this->largura) || ($altura > $this->altura)) 
+					$this->redimensionar($novaLargura, $altura, $tipo, $destino); 
+				}
+
+				return "Sucesso";
+			}
+			else
+			{
+				return "Não aceitamos esse tipo de arquivo";
+			}
 		}
 	}
 ?>

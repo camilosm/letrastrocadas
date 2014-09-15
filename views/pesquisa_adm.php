@@ -86,6 +86,21 @@
 				$total = 6;// total de páginas
 
 				break;
+			case 'Gênero':
+				$limite = 18;
+				$inicio = ($pagina * $limite) - $limite;
+
+				$pesquisa_editora = new Pesquisar('tbl_categoria','id_categoria,nome',"nome like '%$pesquisa_adm%' ORDER BY nome LIMIT $inicio,$limite");
+				$resposta = $pesquisa_editora->pesquisar();
+
+				$quantidade = new Pesquisar('tbl_categoria','COUNT(id_categoria)',"nome like '%$pesquisa_adm%'");
+				$resultado_quantidade = $quantidade->pesquisar();
+				$total_registros = mysql_num_rows($resultado_quantidade);
+				$total_paginas = Ceil($total_registros / $limite);
+				//paginação
+				$total = 6;// total de páginas
+
+				break;
 		}
 		
 		$aspas = "'";
@@ -232,7 +247,33 @@
 										echo '</section><br>';
 									}
 							}
-							break;					
+							break;
+						case 'Gênero':
+							while($pesquisa = mysql_fetch_assoc($resposta))
+							{
+								$ct++;
+								if(($ct == 1) OR ($ct == 7) OR ($ct == 13))
+								{
+									echo '<section class="row">';
+								}
+								echo '<section class="col-md-2">
+										<section class="col-md-14">
+											<section>
+												<center>
+													<a href="?url=livro title = "Clique para ver mais informações sobre o livro"> <h3> '.utf8_encode($pesquisa['nome']).'</h3></a>
+													<form action = "?url=alterar_genero&cod='.$pesquisa['id_categoria'].'" method = "post">
+														<input type = "submit" class="btn btn-primary btn-xs" name = "alterar_categoria" value = "Alterar categoria" />
+													</form>
+												</center>
+											</section>
+										</section>
+									</section>';
+									if(($ct == 6) OR ($ct == 12) OR ($ct == 18))
+									{
+										echo '</section><br>';
+									}
+							}
+							break;				
 					}
 				}
 				else 
