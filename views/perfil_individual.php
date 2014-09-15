@@ -7,14 +7,13 @@
 		
 		$id = $_SESSION['id'];	
 
-		    $pesquisa_dados = new Pesquisar("tbl_usuario","id_usuario,nome,email,foto,idade,avaliacoes_negativas,avaliacoes_positivas,uf,cidade,genero_favorito", " id_usuario = $id");
+		    $pesquisa_dados = new Pesquisar("tbl_usuario","id_usuario,nome,email,foto,idade,avaliacoes_negativas,avaliacoes_positivas,uf,cidade", " id_usuario = $id");
 		    $resul_pesquisa = $pesquisa_dados->pesquisar();
 		    $pesq = mysql_fetch_array($resul_pesquisa);
 		    
 		    $nome = $pesq['nome'];
 		    $foto = $pesq['foto'];
 		    $idade = $pesq['idade'];
-		    $genero_favorito = $pesq['genero_favorito'];
 		    $uf = $pesq['uf'];
 		    $cidade = $pesq['cidade'];	
 		    $avaliacoes_negativas = $pesq['avaliacoes_negativas'];
@@ -66,9 +65,6 @@
 			      <td id = "cidade_usuario" colspan = "2"><b> Cidade:&nbsp;</b> <?php echo utf8_encode($cidade); ?> </td>
 			      <td id = "uf_usuario"><b>UF:&nbsp;</b> <?php echo utf8_encode($uf); ?></td>
 			      <td id = "idade_usuario"> <b>Idade:&nbsp;</b> <?php  echo utf8_encode($idade);?> </td>
-            </tr>
-            <tr>
-                  <td id = "generos_fav_usuario" colspan = "4" ><b> Gênero favorito: &nbsp;</b> <?php echo utf8_encode($genero_favorito); ?></td>
             </tr>
             <tr>
 		          <td colspan="5">

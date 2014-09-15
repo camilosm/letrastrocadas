@@ -39,6 +39,7 @@
 			        	<option <?php echo selected('Livro',$Filtro); ?> >Livro</option>
 			        	<option <?php echo selected('Autor',$Filtro); ?> >Autor</option>
 			        	<option <?php echo selected('Editora',$Filtro); ?> >Editora</option>
+			        	<option <?php echo selected('Gênero',$Filtro); ?> >Gênero</option>
 			        </select>
 					<input type="text" class="form-control" placeholder="Procurar" name = "pesquisa_adm">
 				</section>

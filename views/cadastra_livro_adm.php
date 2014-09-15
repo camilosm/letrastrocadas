@@ -31,6 +31,9 @@
 			$sinopse = $_POST['sinopse'];
 			$numero_paginas = $_POST['numero_paginas'];
 
+			$editar_nome_imagem = new EditarCaracteres($nome);
+			$nome_p_imagem = utf8_decode($editar_nome_imagem->sanitizeString($_POST['nome']));
+
 			$editar_nome = new EditarCaracteres($nome);
 			$nome = utf8_decode($editar_nome->sanitizeStringNome($_POST['nome']));
 
@@ -50,33 +53,42 @@
 			$categoria = $editar_categoria->sanitizeNumber($_POST['cmbGenero']);
 			
 			$editar_sinopse = new EditarCaracteres($sinopse);
-			$autor_sinopse = utf8_decode($editar_sinopse->sanitizeStringNome($_POST['sinopse']));
+			$sinopse = utf8_decode($editar_sinopse->sanitizeStringNome($_POST['sinopse']));
 			
 			$editar_numero_paginas = new EditarCaracteres($numero_paginas);
 			$numero_paginas = $editar_numero_paginas->sanitizeNumber($_POST['numero_paginas']);	
 
-			$pasta = "content/imagens/livros_gerais/";
-			$nome = $_FILES['file']['name'];	
-	   		$ext = @end(explode(".", $nome));
+			$pasta = "content/imagens/livros_gerais/";	
+			$nome_original = $_FILES['file']['name'];	
+			$ext = @end(explode(".", $nome_original));
 			$upload = new Upload($_FILES['file'], 1000, 1000, $pasta);
-			$nome = "tmp_profile_".$_SESSION["id"];
-	       	$caminho = @$upload->salvar_normal($nome);
-			$caminho_cadastrar = $pasta."".$nome.".".$ext;
-
-			$campos = "NULL,'$nome','',$edicao,'$isbn','$sinopse',1,0,0,0,$numero_paginas,$editora,$autor,$categoria";
-			$cadastrar_livro = new Inserir("tbl_livro",$campos);
-			$resultado_livro = $cadastrar_livro->inserir();
-			if($resultado_livro == 1)
+			$nome_imagem = "capa_$nome_p_imagem";
+			$caminho_cadastrar = $pasta."".$nome_imagem.".".$ext;
+		   	$resposta_upload = @$upload->salvar_normal($nome_imagem);
+			
+			if($resposta_upload == "Sucesso")
 			{
-				echo "<section class='alert alert-dismissable alert-success' style='width:40%;margin-left:30%;'>					  
-					<strong>Livro alterado com sucesso!</strong>
-				</section>";
+				$campos = "NULL,'$nome','$caminho_cadastrar',$edicao,'$isbn','$sinopse',1,0,0,0,$numero_paginas,$editora,$autor,$categoria";
+				$cadastrar_livro = new Inserir("tbl_livro",$campos);
+				$resultado_livro = $cadastrar_livro->inserir();
+				if($resultado_livro == 1)
+				{
+					echo "<section class='alert alert-dismissable alert-success' style='width:40%;margin-left:30%;'>					  
+						<strong>Livro alterado com sucesso!</strong>
+					</section>";
+				}
+				else
+				{
+					echo '<section class="alert alert-dismissable alert-danger" style="width:40%;margin-left:30%;"">				  
+						<strong>Erro ao alterar livro.</strong> Tente novamente!
+					</section>';
+				}
 			}
 			else
 			{
-				echo "<section class='alert alert-dismissable alert-danger' style='width:40%;margin-left:30%;'>				  
-					<strong>Erro ao alterar livro.</strong> Tente novamente!
-				</section>";
+				echo '<section class="alert alert-dismissable alert-danger" style="width:40%;margin-left:30%;"">				  
+						<strong>'.$resposta_upload.'</strong>
+					</section>';
 			}
 		}		
 	}
@@ -144,16 +156,16 @@
 				</section>
 				<label for="textArea" class="col-lg-2 control-label">Sinopse:</label>
 				<section class="col-lg-9">
-					<textarea class="form-control" rows="3" value="<?php echo $sinopse ;?>" name="sinopse" id="textArea"></textarea>
+					<textarea class="form-control" rows="3" name="sinopse" id="textArea"> <?php echo $sinopse ;?> </textarea>
 				</section>
 				<label for="inputEdicaolivro" class="col-lg-2 control-label">Páginas:</label>				  
 				<section class="col-lg-9">
 					<input type="number" class="form-control" value="<?php echo $numero_paginas ;?>" name = "numero_paginas" id="inputNumeros" required placeholder = "Números de páginas" maxlength = "20" min = "0" max = "20000">
 				</section>
-				<!--<label for="inputFotolivro" class="col-lg-2 control-label">Foto: </label>
+				<label for="inputFotolivro" class="col-lg-2 control-label">Foto: </label>
 				<section class="col-lg-9">
-					<input type="file"  name="file" "position:relative; width:25%; height: 5%;left:20%;top:2%; "/>
-				</section>--> 
+					<input type="file"  name="file" required "position:relative; width:25%; height: 5%;left:20%;top:2%; "/>
+				</section>
 				<section class="col-lg-9 col-lg-offset-2">                    
 					<button style="margin-left: 5px; float:right;" type="submit" name = "cadastrarLivro" class="btn btn-primary">Cadastrar</button>
 					<button style="float:right;" type = "reset" class="btn btn-default">Cancelar</button>

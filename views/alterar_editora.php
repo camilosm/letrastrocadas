@@ -14,14 +14,14 @@
 		{
 			if(!empty($_GET['cod']))
 			{
-				$id = $_GET['cod'];
+				$id_editora = $_GET['cod'];
 
-				$editar_id = new EditarCaracteres($id);
-				$id = $editar_id->sanitizeNumber($_GET['cod']);
+				$editar_id = new EditarCaracteres($id_editora);
+				$id_editora = $editar_id->sanitizeNumber($_GET['cod']);
 
-				if($id != "")
+				if($id_editora != "")
 				{
-					$pesquisar = new Pesquisar('tbl_editora','nome','id_editora = '.$id);
+					$pesquisar = new Pesquisar('tbl_editora','nome','id_editora = '.$id_editora);
 					$resposta = $pesquisar->pesquisar();
 					$dados = mysql_fetch_assoc($resposta);
 					$nome = $dados['nome'];	
@@ -42,10 +42,10 @@
 		}
 		else if(isset($_POST['alterar']))
 		{
-			$id_editora = $_POST['id_editora'];
+			$id_editora = $_GET['id_editora'];
 			
 			$editar_id = new EditarCaracteres($id_editora);
-			$id_editora = $editar_id->sanitizeString($_POST['id_editora']);
+			$id_editora = $editar_id->sanitizeString($_GET['id_editora']);
 		
 			$nome = $_POST['nome'];
 			
@@ -95,13 +95,13 @@
 ?>	
 
 <article id  = "cadastro_usuario" style = "width: 60%; margin-left:20%;">
-	<form class="form-horizontal" method = "post" action = "">
+	<form class="form-horizontal" method = "post" action = "?url=alterar_editora&id_editora=<?php echo $id?>">
 		<fieldset>
 			<legend>Alterar Editora</legend>
 			<section class="form-group">
 				<label for="inputID" class="col-md-2 control-label">ID:</label>
 				<section class="col-md-10">
-					<input type="text" class="form-control" name = "id_editora" value="<?php echo $id?>" placeholder = "ID" >	  
+					<input type="text" class="form-control" name = "id_editora" value="<?php echo $id_editora?>" disabled placeholder = "ID" >	  
 				</section>
 				<br>
 				<label for="inputDescricao" class="col-md-2 control-label">Editora:</label>

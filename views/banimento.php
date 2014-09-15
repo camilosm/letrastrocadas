@@ -16,7 +16,7 @@
 		
 		$pesquisa_den_usu = new Pesquisar("$tabela","$campos","$condicao");
 		$resultado_den_usu = $pesquisa_den_usu->pesquisar();
-		$Dados_Den_Usu = mysql_fetch_assoc($resultado_den_usu);
+		//$Dados_Den_Usu = mysql_fetch_assoc($resultado_den_usu);
 		
 		$pesquisa_numero_den_usu = new Pesquisar("tbl_usuario JOIN tbl_denuncias ON usuario_denunciado_id = id_usuario","COUNT(*) AS total","usuario_denunciado_id = $id_usu");
 		$resul_pesquisa_n_den = $pesquisa_numero_den_usu->pesquisar();
