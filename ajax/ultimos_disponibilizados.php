@@ -1,102 +1,38 @@
 <?php
-	
+	session_start();
+
 	if((isset($_GET['lista_lvro'])) && (isset($_GET['acao'])))
 	{
-		session_start();
-
 		include("../views/classes/class_banco.php");
 		include("../views/class_editar_caracteres.php");
 		include("../views/classes/class_pesquisar.php");
 		
 		$bd = new Banco();
 		
-		$id = $_GET['lista_lvro'];
-		
-		// Pesquisando o filtro de gêneros ruins para a pesquisa de últimos disponibilizados 
-			$pesquisa_generos_ruins = new Pesquisar("tbl_generos_desapreciados","genero_id","usuario_id = ".$_SESSION['id']);
-			$resultado = $pesquisa_generos_ruins->pesquisar();
-			
-			// Quantidade de gêneros marcados pelo usuário como fora do seu gosto.
-			$pesquisa_generos_ruins_quantidade = new Pesquisar("tbl_generos_desapreciados","COUNT(genero_id)As quantidade","usuario_id = ".$_SESSION['id']);
-			$resultado_quantidade = $pesquisa_generos_ruins_quantidade->pesquisar();
-			$array = mysql_fetch_assoc($resultado_quantidade);
-			$qt_genero = $array['quantidade'];
-			
-			// Fazendo a condição da pesquisa 
-			$string_condicao_genero = "";
-			$contador_genero = 0;
-			while($generos_ruins=mysql_fetch_assoc($resultado))
-			{	
-				$contador_genero++;
-				if(($qt_genero != 1) AND ($qt_genero == $contador_genero))
-				{
-					$string_condicao_genero.= "categoria_id <> ".$generos_ruins['genero_id'];
-				}
-				else if($qt_genero == 1)
-				{
-					$string_condicao_genero.= " AND categoria_id <> ".$generos_ruins['genero_id'];
-				}
-				else if($qt_genero == 0)
-				{
-					$string_condicao_genero = "";
-				}
-				else
-				{
-					$string_condicao_genero.= " AND categoria_id <> ".$generos_ruins['genero_id']." AND ";
-				}
-		
-			}
-			
-			// Pesquisando o filtro de autores ruins para a pesquisa de últimos disponibilizados 
-			$pesquisa_autores_ruins = new Pesquisar("tbl_autores_desapreciados","autor_id","usuario_id = ".$_SESSION['id']);
-			$resultado_autores = $pesquisa_autores_ruins->pesquisar();
-			
-			// Quantidade de autores marcados pelo usuário como fora do seu gosto.
-			$pesquisa_autores_ruins_quantidade = new Pesquisar("tbl_autores_desapreciados","COUNT(autor_id)As quantidade","usuario_id = ".$_SESSION['id']);
-			$resultado_quantidade = $pesquisa_autores_ruins_quantidade->pesquisar();
-			$array_autor = mysql_fetch_assoc($resultado_quantidade);
-			$qt_autor = $array_autor['quantidade'];
-			
-			// Fazendo a condição da pesquisa 
-			$string_condicao_autor = "";
-			$contador_autor = 0;
-			while($autores_ruins=mysql_fetch_assoc($resultado_autores))
-			{	
-				$contador_autor++;
-				if(($qt_autor != 1) && ($qt_autor == $contador_autor))
-				{
-					$string_condicao_autor.= " 	autor_id <> ".$autores_ruins['autor_id'];
-				}
-				else if($qt_autor == 1)
-				{
-					$string_condicao_autor.= " AND autor_id <> ".$autores_ruins['autor_id'];
-				}
-				else if($qt_autor == 0)
-				{
-					$string_condicao_autor = "";
-				}
-				else
-				{
-					$string_condicao_autor.= " AND autor_id <> ".$autores_ruins['autor_id']." AND ";
-				}
-		
-			}	
+		$id = $_GET['lista_lvro'];	
 
 		$aspas = "'";
 		
 		if($_GET['acao'] == "Novo")
 		{
-			
-			
 			//Pesquisa dos ultimos livros disponibilizados do site
 			$campos = "id_lista_livros,id_usuario,usuario.nome As usuario,id_livro,imagem_livros,livro.nome AS Livro,edicao,autor.nome AS Autor,editora.nome As Editora,primeira_foto,segunda_foto,terceira_foto";
 			$tabelas = "tbl_fotos_livros INNER JOIN tbl_lista_livros INNER JOIN tbl_usuario usuario INNER JOIN tbl_livro livro INNER JOIN tbl_editora editora INNER JOIN tbl_autor autor ON id_livro = livro_id AND id_usuario = usuario_id AND id_editora = editora_id AND id_autor = autor_id AND id_lista_livros = lista_livro_id";
-			$condição = "id_lista_livros < ".$id." AND tbl_lista_livros.status = 1 $string_condicao_autor $string_condicao_genero ORDER BY data_cadastro DESC LIMIT 6";
+			$condição = "id_lista_livros < ".$id." 
+			AND tbl_lista_livros.status = 1 
+			AND autor_id NOT IN (SELECT autor_id FROM tbl_autores_desapreciados WHERE usuario_id = ".$_SESSION['id'].")
+			AND categoria_id NOT IN (SELECT genero_id FROM tbl_generos_desapreciados WHERE usuario_id = ".$_SESSION['id'].") 
+			ORDER BY data_cadastro DESC LIMIT 6";
 			$pesquisar_ultimos = new Pesquisar($tabelas,$campos,$condição);
 			$resultado_ultimos = $pesquisar_ultimos->pesquisar();
 			
 			//Pesquisa a quantidade de livros no banco de dados
-			$pesquisar_quantidade_ultimos = new Pesquisar("tbl_lista_livros ","COUNT(id_lista_livros) As Quantidade","id_lista_livros > ".$id);
+			$pesquisar_quantidade_ultimos = new Pesquisar("tbl_fotos_livros INNER JOIN tbl_lista_livros INNER JOIN tbl_usuario usuario INNER JOIN tbl_livro livro INNER JOIN tbl_editora editora INNER JOIN tbl_autor autor ON id_livro = livro_id AND id_usuario = usuario_id AND id_editora = editora_id AND id_autor = autor_id AND id_lista_livros = lista_livro_id",
+			"COUNT(id_lista_livros) As Quantidade",
+			"tbl_lista_livros.status = 1 
+			AND autor_id NOT IN (SELECT autor_id FROM tbl_autores_desapreciados WHERE usuario_id = ".$_SESSION['id'].")
+			AND categoria_id NOT IN (SELECT genero_id FROM tbl_generos_desapreciados WHERE usuario_id = ".$_SESSION['id'].") 
+			AND id_lista_livros > ".$id);
 			$resultado_quantidade_ultimos = $pesquisar_quantidade_ultimos->pesquisar();			
 			$array_quantidade_ultimos = mysql_fetch_assoc($resultado_quantidade_ultimos);
 			$quantidade_ultimos = $array_quantidade_ultimos['Quantidade'];
@@ -173,7 +109,7 @@
 									<section class="col-md-4">
 										<center>
 											<section class = "bs-component" style = "maxheight: 177px; width:120px;"> 
-												<a href="?url=livro "class = "thumbnail">
+												<a href="?url=livro&livro='.$ultimos['id_livro'].'" class = "thumbnail">
 													<img src = "'.$ultimos['imagem_livros'].'" alt = "'.utf8_encode($ultimos['Livro']).'" /> 
 												</a>	
 											</section>
@@ -181,7 +117,7 @@
 									</section>
 									<section class="col-md-6">								
 										<center>
-											<a href="?url=livro"> <h3> '.utf8_encode($ultimos['Livro']).'</h3></a>				  
+											<a href="?url=livro&livro='.$ultimos['id_livro'].'"> <h3> '.utf8_encode($ultimos['Livro']).'</h3></a>				  
 											<a href="?url=livros_autores"> <h4>'.utf8_encode($ultimos['Autor']).' </h4></a>
 											<a href="?url=livros_editora"> <h5>'.utf8_encode($ultimos['Editora']).' </h5></a>
 											<a href="?url=perfil_usuario&cod='.$ultimos['id_usuario'].'"> <h4>'.utf8_encode($ultimos['usuario']).' </h4></a>
@@ -212,7 +148,6 @@
 		}
 		if($_GET['acao'] == "Antigo")
 		{
-		
 			//Pesquisa dos ultimos livros disponibilizados do site
 			$campos = "id_lista_livros,id_usuario,usuario.nome As usuario,id_livro,imagem_livros,livro.nome AS Livro,edicao,autor.nome AS Autor,editora.nome As Editora,primeira_foto,segunda_foto,terceira_foto";
 			$tabelas = "tbl_fotos_livros INNER JOIN tbl_lista_livros INNER JOIN tbl_usuario usuario INNER JOIN tbl_livro livro INNER JOIN tbl_editora editora INNER JOIN tbl_autor autor ON id_livro = livro_id AND id_usuario = usuario_id AND id_editora = editora_id AND id_autor = autor_id AND id_lista_livros = lista_livro_id";
@@ -298,7 +233,7 @@
 									<section class="col-md-4">
 										<center>
 											<section class = "bs-component" style = "maxheight: 177px; width:120px;"> 
-												<a href="?url=livro "class = "thumbnail">
+												<a href="?url=livro&livro='.$ultimos['id_livro'].'" class = "thumbnail">
 													<img src = "'.$ultimos['imagem_livros'].'" alt = "'.utf8_encode($ultimos['Livro']).'" /> 
 												</a>	
 											</section>
@@ -306,7 +241,7 @@
 									</section>
 									<section class="col-md-6">								
 										<center>
-											<a href="?url=livro"> <h3> '.utf8_encode($ultimos['Livro']).'</h3></a>				  
+											<a href="?url=livro&livro='.$ultimos['id_livro'].'"> <h3> '.utf8_encode($ultimos['Livro']).'</h3></a>				  
 											<a href="?url=livros_autores"> <h4>'.utf8_encode($ultimos['Autor']).' </h4></a>
 											<a href="?url=livros_editora"> <h5>'.utf8_encode($ultimos['Editora']).' </h5></a>
 											<a href="?url=perfil_usuario&cod='.$ultimos['id_usuario'].'"> <h4>'.utf8_encode($ultimos['usuario']).' </h4></a>
