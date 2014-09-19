@@ -1,89 +1,16 @@
 <script type="text/javascript" src="ajax/ajax.js"></script>
-
 <?php
 	//Verifica se o usuário tem acesso à essa página
 	if($_SESSION['nivel_acesso'] == 1)
 	{
-
 			include("classes/class_banco.php");
 			include("class_editar_caracteres.php");
 			include("classes/class_pesquisar.php");
 			
 			$bd = new Banco();			
-			
-			// Pesquisando o filtro de gêneros ruins para a pesquisa de últimos disponibilizados 
-			$pesquisa_generos_ruins = new Pesquisar("tbl_generos_desapreciados","genero_id","usuario_id = ".$_SESSION['id']);
-			$resultado = $pesquisa_generos_ruins->pesquisar();
-			
-			// Quantidade de gêneros marcados pelo usuário como fora do seu gosto.
-			$pesquisa_generos_ruins_quantidade = new Pesquisar("tbl_generos_desapreciados","COUNT(genero_id)As quantidade","usuario_id = ".$_SESSION['id']);
-			$resultado_quantidade = $pesquisa_generos_ruins_quantidade->pesquisar();
-			$array = mysql_fetch_assoc($resultado_quantidade);
-			$qt_genero = $array['quantidade'];
-			
-			// Fazendo a condição da pesquisa 
-			$string_condicao_genero = "";
-			$contador_genero = 0;
-			while($generos_ruins=mysql_fetch_assoc($resultado))
-			{	
-				$contador_genero++;
-				if(($qt_genero != 1) AND ($qt_genero == $contador_genero))
-				{
-					$string_condicao_genero.= "categoria_id <> ".$generos_ruins['genero_id'];
-				}
-				else if($qt_genero == 1)
-				{
-					$string_condicao_genero.= " AND categoria_id <> ".$generos_ruins['genero_id'];
-				}
-				else if($qt_genero == 0)
-				{
-					$string_condicao_genero = "";
-				}
-				else
-				{
-					$string_condicao_genero.= " AND categoria_id <> ".$generos_ruins['genero_id']." AND ";
-				}
-		
-			}
-			
-			// Pesquisando o filtro de autores ruins para a pesquisa de últimos disponibilizados 
-			$pesquisa_autores_ruins = new Pesquisar("tbl_autores_desapreciados","autor_id","usuario_id = ".$_SESSION['id']);
-			$resultado_autores = $pesquisa_autores_ruins->pesquisar();
-			
-			// Quantidade de autores marcados pelo usuário como fora do seu gosto.
-			$pesquisa_autores_ruins_quantidade = new Pesquisar("tbl_autores_desapreciados","COUNT(autor_id)As quantidade","usuario_id = ".$_SESSION['id']);
-			$resultado_quantidade = $pesquisa_autores_ruins_quantidade->pesquisar();
-			$array_autor = mysql_fetch_assoc($resultado_quantidade);
-			$qt_autor = $array_autor['quantidade'];
-			
-			// Fazendo a condição da pesquisa 
-			$string_condicao_autor = "";
-			$contador_autor = 0;
-			while($autores_ruins=mysql_fetch_assoc($resultado_autores))
-			{	
-				$contador_autor++;
-				if(($qt_autor != 1) && ($qt_autor == $contador_autor))
-				{
-					$string_condicao_autor.= "autor_id <> ".$autores_ruins['autor_id'];
-				}
-				else if($qt_autor == 1)
-				{
-					$string_condicao_autor.= " autor_id <> ".$autores_ruins['autor_id'];
-				}
-				else if($qt_autor == 0)
-				{
-					$string_condicao_autor = "";
-				}
-				else
-				{
-					$string_condicao_autor.= " AND autor_id <> ".$autores_ruins['autor_id']." AND ";
-				}
-		
-			}	
 
 			//Só pra uma futura concatenação
-			$aspas = "'";
-			
+			$aspas = "'";	
 	}
 	else
 	{		
@@ -104,7 +31,7 @@
 	<section class="row">
 		<section class="col-md-6">
 			<section class="panel panel-default">
-				<section class="panel-heading"><h4>Livros que você deseja:</h4></section>
+				<section class="panel-heading"><h4>Seus interesses:</h4></section>
 				<section class="panel-body" id="pag_inicial_livros_desejados">
 						<?php
 							
@@ -135,7 +62,7 @@
 													<section class = "col-md-4">	  
 														<center>
 															<section class = "bs-component" style = "maxheight: 177px; width:120px;">
-																<a href="?url=livro&livro='.$ultimos['id_livro'].'" class = "thumbnail">
+																<a href="?url=livro&livro='.$lista_desejo['id_livro'].'" class = "thumbnail">
 																	<img src = "'.$lista_desejo['imagem_livros'].'" alt = "'.utf8_encode($lista_desejo['Livro']).'" /> 
 																</a>	
 															</section>
@@ -174,8 +101,9 @@
 							//Se não tiver resposta para mostrar, faz uma pesquisa para dar sujestões ao usuário
 							if($ct_desejo < 6)
 							{
-
+								
 								$limite = 6 - $ct_desejo;
+								
 								// Pesquisando o filtro de gêneros favoritos para a pesquisa de últimos disponibilizados 
 								$pesquisa_generos_favoritos = new Pesquisar("tbl_generos_favoritos","categoria_id","usuario_id = ".$_SESSION['id']);
 								$resultado_generos_favoritos = $pesquisa_generos_favoritos->pesquisar();
@@ -185,7 +113,7 @@
 								$resultado_quantidade_favoritos = $pesquisa_generos_favoritos_qt->pesquisar();
 								$array_generos_favoritos = mysql_fetch_assoc($resultado_quantidade_favoritos);
 								$qt_genero_favoritos = $array_generos_favoritos['quantidade'];
-								
+			
 								// Fazendo a condição da pesquisa 
 								$string_condicao_genero_favoritos = "";
 								$contador_genero_favoritos = 0;
@@ -242,6 +170,7 @@
 									}
 							
 								}
+
 								// Utilizando um recurso técnico necessário
 								if($contador_autores == 0)
 								{
@@ -250,7 +179,7 @@
 
 								// Verifica se tem algum filtro para a pesquisa, se não será exibido uma mensagem para o usuário para que ele cadastre autores ou gênero preferidos para podermos dar sujestões
 								if(($string_condicao_autores_fvrt != "1=1") OR ($string_condicao_genero_favoritos != "1=1"))
-								{
+								{	
 									$string_condicao = "";
 									if(($string_condicao_autores_fvrt != "1=1") && ($string_condicao_autores_fvrt != ""))
 									{
@@ -274,78 +203,90 @@
 											$string_condicao = "1=1";
 										}
 									}
-									
-									//Pesquisa da lista de desejo do site
-									$campos_lista = "id_livro,imagem_livros,livro.nome AS Livro,edicao,autor.nome AS Autor,editora.nome As Editora";
-									$tabelas_lista = "tbl_livro livro INNER JOIN tbl_editora editora INNER JOIN tbl_autor autor ON id_editora = editora_id AND id_autor = autor_id";
-									$condição_lista = "$string_condicao_autor $string_condicao_genero $string_condicao LIMIT '$limite";
-
-									$pesquisar_lista_desejo = new Pesquisar($tabelas_lista,$campos_lista,$condição_lista);
-									$resultado_lista_desejo = $pesquisar_lista_desejo->pesquisar();
-									
-									//Pesquisa a quantidade de livros na lista de desejo no banco de dados
-									$pesquisar_quantidade_lista_desejo = new Pesquisar("tbl_livro ","COUNT(id_livro) As Quantidade","$string_condicao_autor $string_condicao_genero $string_condicao ");
-									$resultado_quantidade_lista_desejo = $pesquisar_quantidade_lista_desejo->pesquisar();			
-									$array_quantidade_lista_desejo = mysql_fetch_assoc($resultado_quantidade_lista_desejo);
-									$quantidade_lista_desejo = $array_quantidade_lista_desejo['Quantidade'];	
-									
-									$id_ultima = array();
-									$ct_desejo = 0;
-									while($lista_desejo=mysql_fetch_assoc($resultado_lista_desejo))
-									{
-										$ct_desejo++;
-										$id_ultima[] = $lista_desejo['id_livro'];
-										echo'	<section class="panel panel-default">
-													<section class="panel panel-body">
-														<section class="row">
-															<section class = "col-md-5">
-																<center>
-																	<section class = "bs-component" style = "max-height: 177px; width:120px;">
-																		<a href="?url=livro&livro='.$lista_desejo['id_livro'].'" class = "thumbnail">
-																			<img src = "'.$lista_desejo['imagem_livros'].'" alt = "'.utf8_encode($lista_desejo['Livro']).'" /> 
-																		</a>	
-																	</section>
-																</center>
-															</section>
-															<section class="col-md-7">
-																<center>
-																	<a href="?url=livro&livro='.$lista_desejo['id_livro'].'" title = "Clique para ver mais informações sobre o livro"> <h3> '.utf8_encode($lista_desejo['Livro']).'</h3></a>				  
-																	<a href="?url=livros_autores" title = "Clique para ver mais livros deste autor"> <h4> '.utf8_encode($lista_desejo['Autor']).' </h4></a>
-																	<a href="?url=livros_editora" title = "Clique para ver mais livros desta editora"> <h5> '.utf8_encode($lista_desejo['Editora']).' </h5></a>
-																</center>
-															</section>
-														</section>
-													
-														<section class="row">
-															<center>
-																<section>
-																	<a href="?url=pesquisa&cod='.$lista_desejo['id_livro'].'"><input type = "button" class="btn btn-primary btn-sm" name = "botao_pesquisar" value = "Pesquisar" /></a>
-																	<a href="?url=passo-a-passo-dados-usuario&cod='.$lista_desejo['id_livro'].'"><input type = "button" class="btn btn-primary btn-sm" name = "botao_disponibilizar_livro" value = "Disponibilizar Livro" /></a>													 
-																	<section class = "btn-group">
-																		<button id = "Resultado'.$lista_desejo['id_livro'].'" value = "QueroLer" name = "QueroLer" type="button" class="btn btn-primary btn-sm">Quero Ler</button>
-																		<button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
-																		<ul id = "acoes" class="dropdown-menu">
-																			<li><a onClick="AcoesLivro('.$lista_desejo['id_livro'].','.$aspas.'Desmarcar'.$aspas.',Resultado'.$lista_desejo['id_livro'].','.$aspas.'QueroLer'.$aspas.');">Desmarcar</a></li>
-																			<li><a onClick="AcoesLivro('.$lista_desejo['id_livro'].','.$aspas.'JaLi'.$aspas.',Resultado'.$lista_desejo['id_livro'].','.$aspas.'QueroLer'.$aspas.');">Já li</a></li>
-																			<li><a onClick="AcoesLivro('.$lista_desejo['id_livro'].','.$aspas.'Lendo'.$aspas.',Resultado'.$lista_desejo['id_livro'].','.$aspas.'QueroLer'.$aspas.');">Estou lendo</a></li>
-																		</ul>
-																	</section>
-																</section>
-															</center>
-														</section>
-													</section>
-												</section>';
-									}
 								}
 								else
 								{
-									echo '<section class="alert alert-dismissable alert-info">
-										<button type="button" class="close" data-dismiss="alert">×</button>
-										<p> 
-											Se você quiser que nós lhe dêmos sujestões de livros basta 
-											colocar no seu <a class = "alert-link" href = "?url=alterar_dados_perfil">perfil</a> os seus autores e gêneros favoritos!
-										</p>
-									</section>';
+									$string_condicao = "1=1";
+								}
+								
+									
+								//Pesquisa da lista de desejo do site
+								$campos_lista = "id_livro,imagem_livros,livro.nome AS Livro,edicao,autor.nome AS Autor,editora.nome As Editora";
+								$tabelas_lista = "tbl_livro livro INNER JOIN tbl_editora editora INNER JOIN tbl_autor autor ON id_editora = editora_id AND id_autor = autor_id";
+								$condição_lista = "autor_id NOT IN (SELECT autor_id FROM tbl_autores_desapreciados WHERE usuario_id = ".$_SESSION['id'].")
+								AND categoria_id NOT IN (SELECT genero_id FROM tbl_generos_desapreciados WHERE usuario_id = ".$_SESSION['id'].") 
+								AND $string_condicao 
+								AND id_livro NOT IN (SELECT DISTINCT livro_id FROM tbl_marcacao where usuario_id = ".$_SESSION['id'].")";
+
+								$pesquisar_lista_desejo = new Pesquisar($tabelas_lista,$campos_lista,$condição_lista);
+								$resultado_lista_desejo = $pesquisar_lista_desejo->pesquisar();
+								
+								//Pesquisa a quantidade de livros na lista de desejo no banco de dados
+								$pesquisar_quantidade_lista_desejo = new Pesquisar("tbl_livro livro INNER JOIN tbl_editora editora INNER JOIN tbl_autor autor ON id_editora = editora_id AND id_autor = autor_id",
+								"COUNT(id_livro) As Quantidade",
+								"autor_id NOT IN (SELECT autor_id FROM tbl_autores_desapreciados WHERE usuario_id = ".$_SESSION['id'].")
+								AND categoria_id NOT IN (SELECT genero_id FROM tbl_generos_desapreciados WHERE usuario_id = ".$_SESSION['id'].") 
+								AND $string_condicao 
+								AND id_livro NOT IN (SELECT DISTINCT livro_id FROM tbl_marcacao where usuario_id = ".$_SESSION['id'].")");
+								$resultado_quantidade_lista_desejo = $pesquisar_quantidade_lista_desejo->pesquisar();			
+								$array_quantidade_lista_desejo = mysql_fetch_assoc($resultado_quantidade_lista_desejo);
+								$quantidade_lista_desejo = $array_quantidade_lista_desejo['Quantidade'];	
+								
+								$id_ultima = array();
+								$ct_desejo = 0;
+
+								echo '
+									<fielset>
+									<a href="?url=sugestoes" title="Clique para ver mais sugestões!"><legend>Sugestões do LetrasTrocadas para você!</legend></a>
+								';
+								while($lista_desejo=mysql_fetch_assoc($resultado_lista_desejo))
+								{
+	
+									$botões = '
+												<button id = "Resultado'.$lista_desejo['id_livro'].'" value = "" name = "Eu" type="button" class="btn btn-primary btn-sm">Eu...</button>
+												<button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+												<ul id = "acoes" class="dropdown-menu">
+													<li><a onClick="AcoesLivro('.$lista_desejo['id_livro'].','.$aspas.'QueroLer'.$aspas.',Resultado'.$lista_desejo['id_livro'].','.$aspas.''.$aspas.');">Quero Ler</a></li>
+													<li><a onClick="AcoesLivro('.$lista_desejo['id_livro'].','.$aspas.'JaLi'.$aspas.',Resultado'.$lista_desejo['id_livro'].','.$aspas.''.$aspas.');">Já li</a></li>
+													<li><a onClick="AcoesLivro('.$lista_desejo['id_livro'].','.$aspas.'Lendo'.$aspas.',Resultado'.$lista_desejo['id_livro'].','.$aspas.''.$aspas.');">Estou lendo</a></li>
+												</ul>';
+									
+									$ct_desejo++;
+									$id_ultima[] = $lista_desejo['id_livro'];
+									echo'	<section class="panel panel-default">
+												<section class="panel panel-body">
+													<section class="row">
+														<section class = "col-md-4">
+															<center>
+																<section class = "bs-component" style = "max-height: 177px; width:120px;">
+																	<a href="?url=livro&livro='.$lista_desejo['id_livro'].'" class = "thumbnail">
+																		<img src = "'.$lista_desejo['imagem_livros'].'" alt = "'.utf8_encode($lista_desejo['Livro']).'" /> 
+																	</a>	
+																</section>
+															</center>
+														</section>
+														<section class="col-md-6">
+															<center>
+																<a href="?url=livro&livro='.$lista_desejo['id_livro'].'" title = "Clique para ver mais informações sobre o livro"> <h3> '.utf8_encode($lista_desejo['Livro']).'</h3></a>				  
+																<a href="?url=livros_autores" title = "Clique para ver mais livros deste autor"> <h4> '.utf8_encode($lista_desejo['Autor']).' </h4></a>
+																<a href="?url=livros_editora" title = "Clique para ver mais livros desta editora"> <h5> '.utf8_encode($lista_desejo['Editora']).' </h5></a>
+															</center>
+														</section>
+													</section>
+												
+													<section class="row">
+														<center>
+															<section>
+																<a href="?url=pesquisa&nome='.$lista_desejo['Livro'].'"><input type = "button" class="btn btn-primary btn-sm" name = "botao_pesquisar" value = "Pesquisar" /></a>
+																<a href="?url=passo-a-passo-dados-usuario&cod='.$lista_desejo['id_livro'].'"><input type = "button" class="btn btn-primary btn-sm" name = "botao_disponibilizar_livro" value = "Disponibilizar Livro" /></a>													 
+																<section class = "btn-group">
+																	'.$botões.'
+																</section>
+															</section>
+														</center>
+													</section>
+												</section>
+											</section>';
 								}
 							}
 						?>
@@ -365,24 +306,25 @@
 				<section class="panel-body" id="pag_inicial_livros_ultimos_disponibilizados">
 						<?php
 
-							if($contador_autor == 0)
-							{
-								$string_condicao_autor = "1=1";
-							}
-
 							//Pesquisa dos ultimos livros disponibilizados do site
 							$campos = "DISTINCT id_lista_livros,id_usuario,usuario.nome As usuario,id_livro,imagem_livros,livro.nome AS Livro,edicao,autor.nome AS Autor,editora.nome As Editora,primeira_foto,segunda_foto,terceira_foto";
 							$tabelas = "tbl_fotos_livros INNER JOIN tbl_lista_livros INNER JOIN tbl_usuario usuario INNER JOIN tbl_livro livro INNER JOIN tbl_editora editora INNER JOIN tbl_autor autor ON id_livro = livro_id AND id_usuario = usuario_id AND id_editora = editora_id AND id_autor = autor_id AND id_lista_livros = lista_livro_id";
-							$condição = "tbl_lista_livros.status = 1 AND $string_condicao_autor $string_condicao_genero ORDER BY data_cadastro DESC LIMIT 6";
+							$condição = "tbl_lista_livros.status = 1 
+							AND autor_id NOT IN (SELECT autor_id FROM tbl_autores_desapreciados WHERE usuario_id = ".$_SESSION['id'].")
+							AND categoria_id NOT IN (SELECT genero_id FROM tbl_generos_desapreciados WHERE usuario_id = ".$_SESSION['id'].") 
+							ORDER BY data_cadastro DESC LIMIT 6";
 							$pesquisar_ultimos = new Pesquisar($tabelas,$campos,$condição);
 							$resultado_ultimos = $pesquisar_ultimos->pesquisar();
 							
 							//Pesquisa a quantidade de livros no banco de dados
-							$pesquisar_quantidade_ultimos = new Pesquisar("tbl_lista_livros INNER JOIN tbl_livro ON id_livro = livro_id ","COUNT(id_lista_livros) As Quantidade","tbl_lista_livros.status = 1  AND $string_condicao_genero $string_condicao_autor");
+							$pesquisar_quantidade_ultimos = new Pesquisar("tbl_fotos_livros INNER JOIN tbl_lista_livros INNER JOIN tbl_usuario usuario INNER JOIN tbl_livro livro INNER JOIN tbl_editora editora INNER JOIN tbl_autor autor ON id_livro = livro_id AND id_usuario = usuario_id AND id_editora = editora_id AND id_autor = autor_id AND id_lista_livros = lista_livro_id",
+							"COUNT(id_lista_livros) As Quantidade",
+							"tbl_lista_livros.status = 1 
+							AND autor_id NOT IN (SELECT autor_id FROM tbl_autores_desapreciados WHERE usuario_id = ".$_SESSION['id'].")
+							AND categoria_id NOT IN (SELECT genero_id FROM tbl_generos_desapreciados WHERE usuario_id = ".$_SESSION['id'].")");
 							$resultado_quantidade_ultimos = $pesquisar_quantidade_ultimos->pesquisar();			
 							$array_quantidade_ultimos = mysql_fetch_assoc($resultado_quantidade_ultimos);
 							$quantidade_ultimos = $array_quantidade_ultimos['Quantidade'];
-							
 							if($quantidade_ultimos < 50)
 							{	
 									echo '

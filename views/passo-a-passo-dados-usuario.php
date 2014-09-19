@@ -4,91 +4,130 @@
 		include("class_editar_caracteres.php");
 		include("classes/class_pesquisar.php");
 		include("classes/class_banco.php");
+		include("classes/class_upload.php");
 		
 		$bd = new Banco();
 		
 		$id = $_GET['cod'];
 		
 		if(isset($_POST['cadastrarLivroUsuario']))
-		{
-			//Pasta onde vai ser salvo
-			$pasta = 'content/imagens/livro_usuario/';
-			
-			//Tipo de imagens permitidos
-			$permite = array('image/jpg','image/jpeg');//'image/pjpeg'
-			
-			//Pegando a imagem enviada pelo formulário
-			$imagem_primeira = $_FILES['primeira_foto'];
-			//Não entendi isso mas eu sei que precisa 
-			$destino_primeira = $imagem_primeira['tmp_name'];
-			//Nome do arquivo
-			$nome_primeira = $imagem_primeira['name'];
-			//Tipo do arquivo
-			$tipo_primeira = $imagem_primeira['type'];
-			
-			$imagem_segunda = $_FILES['segunda_foto'];
-			$destino_segunda = $imagem_segunda['tmp_name'];
-			$nome_segunda = $imagem_segunda['name'];
-			$tipo_segunda = $imagem_segunda['type'];
-			
-			$imagem_terceira = $_FILES['terceira_foto'];
-			$destino_terceira = $imagem_terceira['tmp_name'];
-			$nome_terceira = $imagem_terceira['name'];
-			$tipo_terceira = $imagem_terceira['type'];
-			
-			//Chama a classe de upload
-			include("classes/class_upload.php");
-			
-			if(!empty($nome_primeira) && in_array($tipo_primeira, $permite))
+		{	
+			$pasta = "content/imagens/livro_usuario/";
+
+			$nome = $_POST['nome'];
+			$estado = $_POST['estado'];
+			$creditos = $_POST['creditos'];
+			$ano = $_POST['ano'];
+
+			$editar_nome = new EditarCaracteres($nome);
+			$nome = $editar_nome->sanitizeString($_POST['nome']);
+
+			$editar_estado = new EditarCaracteres($estado);
+			$estado = $editar_estado->sanitizeString($_POST['estado']);
+
+			$editar_ano = new EditarCaracteres($ano);
+			$ano = $editar_ano->sanitizeString($_POST['ano']);
+
+			$pesquisar = new Pesquisar('tbl_lista_livros','MAX(id_lista_livros) as quantidade','1=1');
+			$resultado = $pesquisar->pesquisar();
+
+			$ultimos = mysql_fetch_assoc($resultado);
+
+			if(empty($ultimos['quantidade']))
 			{
-				//Evetua o upload
-				upload($destino_primeira, $nome_primeira, 120, $pasta);
-				
-				if(!empty($nome_segunda) && in_array($tipo_segunda, $permite))
+				$ultimo = 0;
+			}
+			else
+			{
+				$ultimo = $ultimos['quantidade'];
+			}
+
+			if(!empty($_FILES['primeira_foto']))
+			{	
+				$ultimo++;
+				$nome_original = $_FILES['primeira_foto']['name'];	
+				$ext = @end(explode(".", $nome_original));
+				$upload = new Upload($_FILES['primeira_foto'], 1000, 1000, $pasta);
+				$nome_imagem = "$nome_fotos_$ultimo";
+				$caminho_cadastrar = $pasta."".$nome_imagem.".".$ext;
+			   	$resposta_upload = @$upload->salvar_normal($nome_imagem);
+
+			   	if($resposta_upload == "Sucesso")
 				{
-					upload($destino_segunda, $nome_segunda, 120, $pasta);
-					
-					if(!empty($nome_terceira) && in_array($tipo_terceira, $permite))
-					{
-						upload($destino_terceira, $nome_terceira, 120, $pasta);
-						header("location: ?url=passo-a-passo-confirmar-dados&cod=$id");
-						
-						$_SESSION['estado'] = $_POST['estado'];
-						$_SESSION['ano'] = $_POST['ano'];
-						$_SESSION['livro'] = $_POST['nome'];
-						$_SESSION['edicao'] = $_POST['edicao'];
-						$_SESSION['isbn'] = $_POST['isbn'];
-						$_SESSION['imagem1'] = $pasta."".$nome_primeira;
-						$_SESSION['imagem2'] = $pasta."".$nome_segunda;
-						$_SESSION['imagem3'] = $pasta."".$nome_terceira;
-						
-						
-						
-					}
-					else
-					{
-						echo "Aceitamos apenas imagens no formato JPEG";
-						unlink("content/imagens/livro_usuario/$nome_primeira");
-						unlink("content/imagens/livro_usuario/$nome_segunda");
-					}
+					$foto_1 = $caminho_cadastrar;
 				}
 				else
 				{
-					echo "Aceitamos apenas imagens no formato JPEG";
-					unlink("content/imagens/livro_usuario/$nome_primeira");
-					
+					$foto_1 = '';
 				}
 			}
 			else
 			{
-				echo "Aceitamos apenas imagens no formato JPEG";
+				$foto_1 = '';
 			}
+
+			if(!empty($_FILES['segunda_foto']))
+			{
+				$ultimo++;
+				$nome_original = $_FILES['segunda_foto']['name'];	
+				$ext = @end(explode(".", $nome_original));
+				$upload = new Upload($_FILES['segunda_foto'], 1000, 1000, $pasta);
+				$nome_imagem = "$nome_fotos_$ultimo";
+				$caminho_cadastrar = $pasta."".$nome_imagem.".".$ext;
+			   	$resposta_upload = @$upload->salvar_normal($nome_imagem);
+
+			   	if($resposta_upload == "Sucesso")
+				{
+					$foto_2 = $caminho_cadastrar;
+				}
+				else
+				{
+					$foto_2 = '';
+				}
+			}
+			else
+			{
+				$foto_2 = '';
+			}
+
+			if(!empty($_FILES['terceira_foto']))
+			{
+				$ultimo++;
+				$nome_original = $_FILES['terceira_foto']['name'];	
+				$ext = @end(explode(".", $nome_original));
+				$upload = new Upload($_FILES['terceira_foto'], 1000, 1000, $pasta);
+				$nome_imagem = "$nome_fotos_$ultimo";
+				$caminho_cadastrar = $pasta."".$nome_imagem.".".$ext;
+			   	$resposta_upload = @$upload->salvar_normal($nome_imagem);
+
+			   	if($resposta_upload == "Sucesso")
+				{
+					$foto_3 = $caminho_cadastrar;
+				}
+				else
+				{
+					$foto_3 = '';
+				}
+			}
+			else
+			{
+				$foto_3 = '';
+			}
+
+			$_SESSION['estado'] = $estado;
+			$_SESSION['creditos'] = $creditos;
+			$_SESSION['ano'] = $ano;
+			$_SESSION['imagem1'] = $foto_1;
+			$_SESSION['imagem2'] = $foto_2;
+			$_SESSION['imagem3'] = $foto_3;
+
+			header('Location:?url=passo-a-passo-confirmar-dados&cod='.$id);
 		}
 		
 		$editar_id = new EditarCaracteres($id);
 		$id = $editar_id->sanitizeString($_GET['cod']);
 		
-		$pesquisar_livro = new Pesquisar("tbl_livro","nome,edicao,isbn"," id_livro = '$id' LIMIT 1");
+		$pesquisar_livro = new Pesquisar("tbl_livro livro JOIN tbl_categoria categoria ON id_categoria = categoria_id","creditos,livro.nome as nome,edicao,isbn"," id_livro = '$id' LIMIT 1");
 		$resultado = $pesquisar_livro->pesquisar();
 		
 		while($resposta=mysql_fetch_assoc($resultado))
@@ -96,6 +135,7 @@
 			$nome = $resposta['nome'];
 			$edicao = $resposta['edicao'];
 			$isbn = $resposta['isbn'];
+			$creditos = $resposta['creditos'];
 		}
 	}
 	else
@@ -121,36 +161,36 @@
 				<section class="col-lg-10">
 					<input type="text" class="form-control" value="<?php echo utf8_encode($nome) ;?>" rows="3" name = "nome" required style = "width: 50%;"id="Nome" readonly ></input> 
 				</section>
-				
 				<label for="Edicao" class="col-lg-2 control-label">Edição:</label>
 				<section class="col-lg-10">
 					<input type="text" class="form-control" value="<?php echo $edicao ;?>" rows="3" name = "edicao" required style = "width: 50%;"id="Edicao" readonly ></input> 
 				</section>
-				
 				<label for="ISBN" class="col-lg-2 control-label">ISBN:</label>
 				<section class="col-lg-10">
 					<input type="text" class="form-control" rows="3" value="<?php echo $isbn ;?>" name = "isbn" required style = "width: 50%;"id="ISBN" readonly ></input> 
 				</section>
-			
+				<label for="Creditos" class="col-lg-2 control-label">Créditos:</label>
+				<section class="col-lg-10">
+					<input type="text" class="form-control" rows="3" value="<?php echo $creditos ;?>" name = "creditos" required style = "width: 50%;" id="Creditos" readonly ></input> 
+				</section>
 				<label for="textArea" class="col-lg-2 control-label">Estado:</label>
 				<section class="col-lg-10">
 					<textarea class="form-control" name = "estado" rows="3" required style = "width: 50%;"id="textArea" placeholder = "Escreva aqui as condições do livro que deseja disponibilizar(danos, observações, adicionais)"></textarea> 
 				</section>
-				
 				<label for="txtAno" class="col-lg-2 control-label">Ano:</label>
 				<section class="col-lg-10">
-					<input type="number" min = "1455" max="2014" class="form-control" required name = "ano" id = "txtAno" rows="3" style = "width: 50%;" placeholder = "Ano da fabricação"/>
+					<input type="number" min = "1455" max="2014" class="form-control" required name = "ano" id = "txtAno" rows="3" style = "width: 50%;" placeholder = "Ano da edição"/>
 				</section>
-				<label for="inputFotolivro" class="col-lg-2 control-label">Fotos: </label>
+				<label for="inputFotolivro" class="col-lg-6 control-label">Você pode adicionar as fotos dos seu livro! </label>
 				<section style = "position:relative; width:25%; height: 5%;left:20%;top:2%; ">		
 					<section class="col-lg-10">
-						<input type="file" id="inputFoto1" required name="primeira_foto" >
+						<input type="file" id="inputFoto1" name="primeira_foto" >
 					</section><br>
 					<section class="col-lg-10">
-						<input type="file" id="inputFoto2" required name="segunda_foto">
+						<input type="file" id="inputFoto2" name="segunda_foto">
 					</section><br>
 					<section class="col-lg-10">
-						<input type="file" id="inputFoto3" required name="terceira_foto" >
+						<input type="file" id="inputFoto3" name="terceira_foto" >
 					</section>
 				</section>
 				<br>

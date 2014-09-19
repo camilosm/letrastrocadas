@@ -30,9 +30,12 @@ CREATE TABLE tbl_categoria(
 
 	id_categoria INT UNSIGNED AUTO_INCREMENT NOT NULL,
 	nome VARCHAR(100) NOT NULL,
+	creditos INT NOT NULL,
 	PRIMARY KEY(id_categoria)
 	
 );
+
+/* ALTER TABLE tbl_categoria ADD creditos INT NOT NULL */
 
 CREATE TABLE tbl_estados(
 
@@ -232,6 +235,7 @@ CREATE TABLE tbl_lista_livros(
 	id_lista_livros INT UNSIGNED AUTO_INCREMENT NOT NULL,
 	livro_id INT UNSIGNED NOT NULL,
 	usuario_id INT UNSIGNED NOT NULL,
+	creditos INT NOT NULL,
 	status INT NOT NULL, /* 1 = Disponivel, 2 = Trocado e 3 = Congelado*/
 	data_cadastro DATETIME NOT NULL,
 	ano CHAR(4) NOT NULL,
@@ -241,6 +245,8 @@ CREATE TABLE tbl_lista_livros(
 	FOREIGN KEY(usuario_id) REFERENCES tbl_usuario(id_usuario)
 	
 );
+
+/* ALTER TABLE tbl_lista_livros ADD creditos INT NOT NULL AFTER usuario_id */
 
 /* Ai pra mudar o banco sem precisar deletar ALTER TABLE tbl_lista_livros CHANGE data_cadastro data_cadastro DATETIME NOT NULL;*/
 
