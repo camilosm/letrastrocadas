@@ -36,10 +36,17 @@
 
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="?url=perfil_individual"><span class="glyphicon glyphicon-user"></span>&nbsp Perfil</a></li>
+				<li><a href="?url=duvidas">LT&nbsp<span id="Moedas" class="navbar-right badge">0</span></a></li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-globe"></span>&nbsp Site<b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						<li><a  href = "?url=acervo"> Acervo </a></li>
+						<li><a href = "?url=sugestoes"> Sugestões </a></li>					
+					</ul>
+				</li>
 				<li class="dropdown"> 
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-exclamation-sign"></span>&nbsp Notificações<b class="caret"></b></a>
 					<ul class="dropdown-menu">
-						<li><a> Moedas <span id="Moedas" class="navbar-right badge">0</span></a></li>
 						<li><a href = "?url=trocas">Trocas <span id="Trocas_aceitas" class="navbar-right badge">0</span></a></li>
 						<li><a href = "?url=solicitacoes_recebidas">Solicitações <span id="Solicitacoes_recebidas" class="navbar-right badge">0</span></a></li>
 						<li><a href = "?url=cade_meus_livros">Cadê meus livros?</a></li>					
