@@ -1,8 +1,7 @@
 <?php
-
+	session_start();
 	if((isset($_GET['acao'])) && (isset($_GET['id'])))
 	{
-		session_start();
 		
 		include("../views/classes/class_banco.php");
 		include("../views/classes/class_update.php");
