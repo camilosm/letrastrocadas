@@ -120,17 +120,40 @@
 				}
 				if(!empty($_SESSION['id']))
 				{
-					echo '
+					if($_SESSION['status'] == 4)
+					{
+						echo '
+											</section>
+											<form class="form-horizontal" action = "" method = "post">
+												<input type="text" class="form-control" name = "comentario" id="comentario" placeholder="O que você achou desse livro?">
+												<button type="submit" name = "Comentar" class="btn btn-primary">Enviar</button>
+											<form>
+										</fieldset>
 									</section>
-										<form class="form-horizontal" action = "" method = "post">
-											<input type="text" class="form-control" name = "comentario" id="comentario" placeholder="O que você achou desse livro?">
-											<button type="submit" name = "Comentar" class="btn btn-primary">Enviar</button>
-										<form>
-									</fieldset>
 								</section>
+						';
+					}
+					else
+					{
+						echo '</section>
+									<section class="alert alert-dismissable alert-info" style="width:40%;margin-left:30%";>
+										<strong>Você precisa completar seu <a href="?url=alterar_dados_perfil">perfil</a> para conversar sobre este livro!</strong>
+									</section>
+								</fieldset>
 							</section>
-					';
+						</section>';
+					}
 				}
+				else
+					{
+						echo '</section>
+									<section class="alert alert-dismissable alert-info" style="width:40%;margin-left:30%";>
+										<strong>Você precisa se <a href="?url=cadastro_usuario">cadastrar</a> no nosso site para poder conversar sobre este livro!</strong>
+									</section>
+								</fieldset>
+							</section>
+						</section>';
+					}
 
 			?>
 		</section>

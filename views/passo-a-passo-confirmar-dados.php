@@ -1,110 +1,100 @@
 <?php
 	if($_SESSION['nivel_acesso'] == 1)
 	{
-		include("class_editar_caracteres.php");
-		include("classes/class_pesquisar.php");
-		include("classes/class_banco.php");
-		include("classes/class_insert.php");
-		
-		$bd = new Banco();
-		
-		$id = $_GET['cod'];
-
-		$editar_id = new EditarCaracteres($id);
-		$id = $editar_id->sanitizeNumber($id);
-
-		if($id != "")
+		if($_SESSION['status'] == 4)
 		{
-			if(isset($_POST['confirmaLivroUsuario']))
-			{
+			include("class_editar_caracteres.php");
+			include("classes/class_pesquisar.php");
+			include("classes/class_banco.php");
+			include("classes/class_insert.php");
+			
+			$bd = new Banco();
+			
+			$id = $_GET['cod'];
 
-				$ano = $_POST['ano'];
-				$estado = $_POST['estado'];
+			$editar_id = new EditarCaracteres($id);
+			$id = $editar_id->sanitizeNumber($id);
+
+			if($id != "")
+			{
+				if(isset($_POST['confirmaLivroUsuario']))
+				{
+
+					$ano = $_POST['ano'];
+					$estado = $_POST['estado'];
+					$creditos = $_SESSION['creditos'];
+					$imagem1 = $_SESSION['imagem1'];
+					$imagem2 = $_SESSION['imagem2'];
+					$imagem3 = $_SESSION['imagem3'];
+					
+					$editar_estado = new EditarCaracteres($estado);
+					$estado = $editar_estado->sanitizeStringNome($estado);
+					
+					$editar_ano = new EditarCaracteres($ano);
+					$ano = $editar_ano->sanitizeString($ano);
+
+					$campos = "NULL,$id,".$_SESSION['id'].",$creditos,1,NOW(),'$ano','$estado'";
+					$cadastrar_livros = new Inserir("tbl_lista_livros",$campos);	
+					$resposta = $cadastrar_livros->inserir();
+					if($resposta == 1)
+					{
+						$campos = "NULL,'$imagem1','$imagem2','$imagem3',(SELECT id_lista_livros FROM tbl_lista_livros WHERE livro_id = $id AND usuario_id = ".$_SESSION['id']." LIMIT 1)";	
+						$cadastrar_fotos = new Inserir("tbl_fotos_livros",$campos);	
+						$resposta_fotos = $cadastrar_fotos->inserir();
+						if($resposta_fotos == 1)
+						{
+							unset ($_SESSION['creditos']);
+							unset ($_SESSION['ano']);
+							unset ($_SESSION['estado']);
+							unset ($_SESSION['imagem1']);
+							unset ($_SESSION['imagem2']);
+							unset ($_SESSION['imagem3']);
+							header("location: ?url=livros_disponibilizados");
+						}
+						else
+						{
+							echo "Erro ao cadastrar fotos";
+						}
+					}
+					else
+					{
+						echo "Erro ao cadastrar o seu livro!Tente mais tarde";
+					}
+				}
+				
+				$id = $_GET['cod'];
+
+				$ano = $_SESSION['ano'];
+				$estado = $_SESSION['estado'];
 				$creditos = $_SESSION['creditos'];
 				$imagem1 = $_SESSION['imagem1'];
 				$imagem2 = $_SESSION['imagem2'];
 				$imagem3 = $_SESSION['imagem3'];
 				
-				$editar_estado = new EditarCaracteres($estado);
-				$estado = $editar_estado->sanitizeStringNome($estado);
+				$editar_id = new EditarCaracteres($id);
+				$id = $editar_id->sanitizeString($_GET['cod']);
 				
-				$editar_ano = new EditarCaracteres($ano);
-				$ano = $editar_ano->sanitizeString($ano);
-
-				$campos = "NULL,$id,".$_SESSION['id'].",$creditos,1,NOW(),'$ano','$estado'";
-				$cadastrar_livros = new Inserir("tbl_lista_livros",$campos);	
-				$resposta = $cadastrar_livros->inserir();
-				if($resposta == 1)
-				{
-					$campos = "NULL,'$imagem1','$imagem2','$imagem3',(SELECT id_lista_livros FROM tbl_lista_livros WHERE livro_id = $id AND usuario_id = ".$_SESSION['id']." LIMIT 1)";	
-					$cadastrar_fotos = new Inserir("tbl_fotos_livros",$campos);	
-					$resposta_fotos = $cadastrar_fotos->inserir();
-					if($resposta_fotos == 1)
-					{
-						unset ($_SESSION['creditos']);
-						unset ($_SESSION['ano']);
-						unset ($_SESSION['estado']);
-						unset ($_SESSION['imagem1']);
-						unset ($_SESSION['imagem2']);
-						unset ($_SESSION['imagem3']);
-						header("location: ?url=livros_disponibilizados");
-					}
-					else
-					{
-						echo "Erro ao cadastrar fotos";
-					}
-				}
-				else
-				{
-					echo "Erro ao cadastrar o seu livro!Tente mais tarde";
-				}
+				$tabelas = "tbl_livro livro JOIN tbl_editora editora JOIN tbl_autor autor JOIN tbl_categoria categoria ON id_editora = editora_id AND id_autor = autor_id AND id_categoria = categoria_id ";
+				$campos=" imagem_livros,livro.nome as livro, edicao, isbn, numero_paginas,autor.nome As autor,editora.nome As editora,categoria.nome As categoria";
+				
+				$pesquisar_livro = new Pesquisar($tabelas,$campos,"id_livro = $id LIMIT 1");
+				$resultado = $pesquisar_livro->pesquisar();
+				
+				$dados=mysql_fetch_assoc($resultado);
+				
+				$nome = $dados['livro'];
+				$edicao = $dados['edicao'];
+				$isbn = $dados['isbn'];
+				$imagem = $dados['imagem_livros'];
+				$num_paginas = $dados['numero_paginas'];
+				$autor = $dados['autor'];
+				$editora = $dados['editora'];
+				$categoria = $dados['categoria'];
 			}
-			
-			$id = $_GET['cod'];
-
-			$ano = $_SESSION['ano'];
-			$estado = $_SESSION['estado'];
-			$creditos = $_SESSION['creditos'];
-			$imagem1 = $_SESSION['imagem1'];
-			$imagem2 = $_SESSION['imagem2'];
-			$imagem3 = $_SESSION['imagem3'];
-			
-			$editar_id = new EditarCaracteres($id);
-			$id = $editar_id->sanitizeString($_GET['cod']);
-			
-			$tabelas = "tbl_livro livro JOIN tbl_editora editora JOIN tbl_autor autor JOIN tbl_categoria categoria ON id_editora = editora_id AND id_autor = autor_id AND id_categoria = categoria_id ";
-			$campos=" imagem_livros,livro.nome as livro, edicao, isbn, numero_paginas,autor.nome As autor,editora.nome As editora,categoria.nome As categoria";
-			
-			$pesquisar_livro = new Pesquisar($tabelas,$campos,"id_livro = $id LIMIT 1");
-			$resultado = $pesquisar_livro->pesquisar();
-			
-			$dados=mysql_fetch_assoc($resultado);
-			
-			$nome = $dados['livro'];
-			$edicao = $dados['edicao'];
-			$isbn = $dados['isbn'];
-			$imagem = $dados['imagem_livros'];
-			$num_paginas = $dados['numero_paginas'];
-			$autor = $dados['autor'];
-			$editora = $dados['editora'];
-			$categoria = $dados['categoria'];
-		}
-		else
-		{
-			header('Location: ?url=passo-a-passo-pesquisa');
-		}
-	}
-	else
-	{
-		if($_SESSION['nivel_acesso'] == 2)
-		{
-			header('Location:?url=home_admin');
-		}
-		else
-		{
-			header('Location:?url=home_visitante');
-		}
-	}
+			else
+			{
+				header('Location: ?url=passo-a-passo-pesquisa');
+			}
 
 ?>
 <article id  = "body_cadastra_livro_usu" style = "width:80%; margin-left:10%;">
@@ -208,3 +198,27 @@
 		</fieldset>
 	</form>
 </article>
+
+<?php
+
+		}
+		else
+		{
+			echo '<section class="alert alert-dismissable alert-info" style="width:40%;margin-left:30%";>
+				<strong>Você precisa completar seu <a href="?url=alterar_dados_perfil">perfil</a> para disponibilizar um livo!</strong>
+			</section>';
+		}
+	}
+	else
+	{
+		if($_SESSION['nivel_acesso'] == 2)
+		{
+			header('Location:?url=home_admin');
+		}
+		else
+		{
+			header('Location:?url=home_visitante');
+		}
+	}
+
+?>

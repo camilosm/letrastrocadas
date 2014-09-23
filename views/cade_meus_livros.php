@@ -16,7 +16,7 @@
 		echo '
 		<section class="panel panel-default" style="margin-left:5%; width:70%;">
 			<section class="panel-heading">
-				<h3 class="panel-title">WHERE IS MY DRAGONS</h3>
+				<h3 class="panel-title">WHERE ARE MY DRAGONS</h3>
 			</section>
 			<section class="panel-body">';
 		$ct = 0;

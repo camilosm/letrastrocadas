@@ -1,70 +1,59 @@
 <?php
 	if($_SESSION['nivel_acesso'] == 1)
 	{ 
-		include("classes/class_pesquisar.php");
-		include("classes/class_banco.php");
-		include("class_editar_caracteres.php");
-
-		if(isset($_POST['pesquisar_livro']))
+		if($_SESSION['status'] == 4)
 		{
-			//Instancia e faz conexão com o banco de dados
-			$banco = new Banco();
+			include("classes/class_pesquisar.php");
+			include("classes/class_banco.php");
+			include("class_editar_caracteres.php");
 
-			$nome = $_POST['pesquisa'];
-				
-			$editar_nome = new EditarCaracteres($nome);
-			$nome = $editar_nome->sanitizeStringNome($_POST['pesquisa']);
-
-			$limite = 6;
-			$pagina = $_GET['pag'];
-
-			if(!$pagina)
+			if(isset($_POST['pesquisar_livro']))
 			{
-				$pagina = 1;
+				//Instancia e faz conexão com o banco de dados
+				$banco = new Banco();
+
+				$nome = $_POST['pesquisa'];
+					
+				$editar_nome = new EditarCaracteres($nome);
+				$nome = $editar_nome->sanitizeStringNome($_POST['pesquisa']);
+
+				$limite = 6;
+				$pagina = $_GET['pag'];
+
+				if(!$pagina)
+				{
+					$pagina = 1;
+				}
+
+				$inicio = ($pagina * $limite) - $limite;
+				
+				$campos = "id_livro,imagem_livros,livro.nome AS NomeLivro,edicao,autor.nome AS NomeAutor,editora.nome As NomeEditora, categoria.nome As NomeCategoria ";
+				$tabelas = "tbl_livro livro JOIN tbl_editora editora JOIN tbl_autor autor JOIN tbl_categoria categoria ON id_editora = editora_id AND id_autor = autor_id AND id_categoria = categoria_id";
+				$condicao = "livro.nome like '%$nome%'";
+
+				$pesquisa_dados = new Pesquisar($tabelas,$campos,$condicao);
+				 
+				$resultado_dados = $pesquisa_dados->pesquisar();
+				
+				$quantidade = new Pesquisar($tabelas,'id_livro',$condicao);
+				  
+				$resultado_quantidade = $quantidade->pesquisar();
+				$total_registros = mysql_num_rows($resultado_quantidade);
+				$total_paginas = Ceil($total_registros / $limite);
+				
+				//paginação
+				$total = 6;// total de páginas
+
+				$max_links = 4;// número máximo de links da paginação: na verdade o total será cinco 4+1=5
+
+				//$pagina = 3; // página corrente
+
+				// calcula quantos links haverá à esquerda e à direita da página corrente
+				// usa-se ceil() para assegurar que o número será inteirolinks_laterais
+				  
+				
+				$aspas = "'";
 			}
-
-			$inicio = ($pagina * $limite) - $limite;
-			
-			$campos = "id_livro,imagem_livros,livro.nome AS NomeLivro,edicao,autor.nome AS NomeAutor,editora.nome As NomeEditora, categoria.nome As NomeCategoria ";
-			$tabelas = "tbl_livro livro JOIN tbl_editora editora JOIN tbl_autor autor JOIN tbl_categoria categoria ON id_editora = editora_id AND id_autor = autor_id AND id_categoria = categoria_id";
-			$condicao = "livro.nome like '%$nome%'";
-
-			$pesquisa_dados = new Pesquisar($tabelas,$campos,$condicao);
-			 
-			$resultado_dados = $pesquisa_dados->pesquisar();
-			
-			$quantidade = new Pesquisar($tabelas,'id_livro',$condicao);
-			  
-			$resultado_quantidade = $quantidade->pesquisar();
-			$total_registros = mysql_num_rows($resultado_quantidade);
-			$total_paginas = Ceil($total_registros / $limite);
-			
-			//paginação
-			$total = 6;// total de páginas
-
-			$max_links = 4;// número máximo de links da paginação: na verdade o total será cinco 4+1=5
-
-			//$pagina = 3; // página corrente
-
-			// calcula quantos links haverá à esquerda e à direita da página corrente
-			// usa-se ceil() para assegurar que o número será inteirolinks_laterais
-			  
-			
-			$aspas = "'";
-		}
-	}
-	else
-	{	
-		//Redireciona pra página principal
-		if($_SESSION['nivel_acesso'] == 2)
-		{
-			header("location: ?url=home_admin");
-		}
-		else
-		{
-			header("location: ?url=home_visitante");
-		}
-	}
 ?>
 
 <article id  = "body_cadastra_livro_usu" style="width: 80%; margin-left: 10%;">
@@ -121,14 +110,7 @@
 							{
 								echo '<section class="col-md-10">
 											<section class = "btn-group" style="left:45%;">
-												<a href="?url=passo-a-passo-dados-usuario&cod='.$dados_pesq['id_livro'].'"><input type = "button" class="btn btn-primary btn-xs" name = "botao_disponibilizar_livro" value = "Disponibilizar Livro" /></a>													 
-												<button id = "Resultado'.$dados_pesq['id_livro'].'" value = "QueroLer" name = "QueroLer" type="button" class="btn btn-primary btn-xs">Quero Ler</button>
-												<button type="button" class="btn btn-primary btn-xs dropdown-toggle"><span class="caret"></span></button>
-												<ul id = "acoes" class="dropdown-menu">
-													<li><a onClick="AcoesLivro('.$dados_pesq['id_livro'].','.$aspas.'Desmarcar'.$aspas.',Resultado'.$dados_pesq['id_livro'].','.$aspas.'QueroLer'.$aspas.');">Desmarcar</a></li>
-													<li><a onClick="AcoesLivro('.$dados_pesq['id_livro'].','.$aspas.'JaLi'.$aspas.',Resultado'.$dados_pesq['id_livro'].','.$aspas.'QueroLer'.$aspas.');">Já li</a></li>
-													<li><a onClick="AcoesLivro('.$dados_pesq['id_livro'].','.$aspas.'Lendo'.$aspas.',Resultado'.$dados_pesq['id_livro'].','.$aspas.'QueroLer'.$aspas.');">Estou lendo</a></li>
-												</ul>
+												<a href="?url=passo-a-passo-dados-usuario&cod='.$dados_pesq['id_livro'].'"><input type = "button" class="btn btn-primary btn-xs" name = "botao_disponibilizar_livro" value = "Disponibilizar Livro" /></a>
 											</section>
 									</section>
 								</section>';
@@ -179,3 +161,27 @@
 		?>
 	</fieldset>
 </article>
+<?php
+
+		}
+		else
+		{
+			echo '<section class="alert alert-dismissable alert-info" style="width:40%;margin-left:30%";>
+				<strong>Você precisa completar seu <a href="?url=alterar_dados_perfil">perfil</a> para disponibilizar um livo!</strong>
+			</section>';
+		}
+	}
+	else
+	{	
+		//Redireciona pra página principal
+		if($_SESSION['nivel_acesso'] == 2)
+		{
+			header("location: ?url=home_admin");
+		}
+		else
+		{
+			header("location: ?url=home_visitante");
+		}
+	}
+
+?>

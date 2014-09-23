@@ -48,7 +48,7 @@ if(isset($_POST['entrar']))
 	else
 	{
 		// Verifica se o usuário existe
-		$pesquisar_usuario = new Pesquisar("tbl_usuario","id_usuario,nivel_acesso,status,nome,email"," email = '".$login."' AND senha = '".$senha."' LIMIT 1");
+		$pesquisar_usuario = new Pesquisar("tbl_usuario","id_usuario,nivel_acesso,status,nome,email,status"," email = '".$login."' AND senha = '".$senha."' LIMIT 1");
 		$resultado_pesquisa = $pesquisar_usuario->pesquisar();
 		if(mysql_num_rows($resultado_pesquisa) == 1)
 		{
@@ -63,6 +63,7 @@ if(isset($_POST['entrar']))
 				$_SESSION["id"] = $dadosusu["id_usuario"];
 				$_SESSION["nome"] = $dadosusu["nome"];
 				$_SESSION["email"]=$dadosusu["email"];
+				$_SESSION["status"]=$dadosusu["status"];
 				// Redireciona para a página de usário
 				header("Location:?url=index_usuario");
 				

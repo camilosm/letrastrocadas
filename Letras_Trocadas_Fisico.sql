@@ -129,25 +129,29 @@ CREATE TABLE tbl_comentarios(
 
 CREATE TABLE tbl_generos_favoritos(
 
-	id_generos_favotiros INT UNSIGNED AUTO_INCREMENT NOT NULL,
+	id_generos_favoritos INT UNSIGNED AUTO_INCREMENT NOT NULL,
 	categoria_id INT UNSIGNED NOT NULL,
 	usuario_id INT UNSIGNED NOT NULL,
-	PRIMARY KEY(id_generos_favotiros),
+	PRIMARY KEY(id_generos_favoritos),
 	FOREIGN KEY(categoria_id) REFERENCES tbl_categoria(id_categoria),
 	FOREIGN KEY(usuario_id) REFERENCES tbl_usuario(id_usuario)
 
 );
 
+/*ALTER TABLE tbl_generos_favoritos CHANGE id_generos_favotiros id_generos_favoritos INT UNSIGNED AUTO_INCREMENT NOT NULL*/
+
 CREATE TABLE tbl_autores_favoritos(
 
-	id_autores_favotiros INT UNSIGNED AUTO_INCREMENT NOT NULL,
+	id_autores_favoritos INT UNSIGNED AUTO_INCREMENT NOT NULL,
 	autor_id INT UNSIGNED NOT NULL,
 	usuario_id INT UNSIGNED NOT NULL,
-	PRIMARY KEY(id_autores_favotiros),
+	PRIMARY KEY(id_autores_favoritos),
 	FOREIGN KEY(autor_id) REFERENCES tbl_autor(id_autor),
 	FOREIGN KEY(usuario_id) REFERENCES tbl_usuario(id_usuario)
 
 );
+
+/*ALTER TABLE tbl_autores_favoritos CHANGE id_autores_favotiros id_autores_favoritos INT UNSIGNED AUTO_INCREMENT NOT NULL*/
 
 CREATE TABLE tbl_generos_desapreciados(
 
