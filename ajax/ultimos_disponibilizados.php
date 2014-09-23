@@ -132,7 +132,7 @@
 											<section class = "btn-group">
 												'.$botões.'
 											</section>
-											<a href="?url=pesquisa&cod='.$ultimos['id_livro'].'"><input type = "button" class="btn btn-primary btn-xs" name = "botao_solicitar_livro" value = "Veja +"/></a>
+											<a href="?url=pesquisa&nome='.utf8_encode($ultimos['Livro']).'"><input type = "button" class="btn btn-primary btn-xs" name = "botao_solicitar_livro" value = "Veja +"/></a>
 										</section>
 									</center>
 								</section>
@@ -256,7 +256,7 @@
 											<section class = "btn-group">
 												'.$botões.'
 											</section>
-											<a href="?url=pesquisa&cod='.$ultimos['id_livro'].'"><input type = "button" class="btn btn-primary btn-xs" name = "botao_solicitar_livro" value = "Veja +"/></a>
+											<a href="?url=pesquisa&nome='.utf8_encode($ultimos['Livro']).'"><input type = "button" class="btn btn-primary btn-xs" name = "botao_solicitar_livro" value = "Veja +"/></a>
 										</section>
 									</center>
 								</section>

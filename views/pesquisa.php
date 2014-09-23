@@ -112,53 +112,60 @@
 					$ct=0;
 					while($dados_pesq = mysql_fetch_assoc($resultado_dados))
 					{
-						$pesquisar_marcacões = new Pesquisar("tbl_marcacao","tipo","livro_id =".$dados_pesq['id_livro']." AND usuario_id=".$_SESSION['id']);
-						$resultado_marcacao = $pesquisar_marcacões->pesquisar();
-						$array_marcacao = mysql_fetch_assoc($resultado_marcacao);
-						
-						if($array_marcacao['tipo'] == 1)
+						if(!empty($_SESSION['id']))
 						{
-							$botões = ' 
-										<button id = "Resultado'.$dados_pesq['id_livro'].'" value = "QueroLer" name = "QueroLer" type="button" class="btn btn-primary btn-xs">Quero Ler</button>
+							$pesquisar_marcacões = new Pesquisar("tbl_marcacao","tipo","livro_id =".$dados_pesq['id_livro']." AND usuario_id=".$_SESSION['id']);
+							$resultado_marcacao = $pesquisar_marcacões->pesquisar();
+							$array_marcacao = mysql_fetch_assoc($resultado_marcacao);
+							
+							if($array_marcacao['tipo'] == 1)
+							{
+								$botões = ' 
+											<button id = "Resultado'.$dados_pesq['id_livro'].'" value = "QueroLer" name = "QueroLer" type="button" class="btn btn-primary btn-xs">Quero Ler</button>
+											<button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+											<ul id = "acoes" class="dropdown-menu">
+												<li><a onClick="AcoesLivro('.$dados_pesq['id_livro'].','.$aspas.'Desmarcar'.$aspas.',Resultado'.$dados_pesq['id_livro'].','.$aspas.'QueroLer'.$aspas.');">Desmarcar</a></li>
+												<li><a onClick="AcoesLivro('.$dados_pesq['id_livro'].','.$aspas.'JaLi'.$aspas.',Resultado'.$dados_pesq['id_livro'].','.$aspas.'QueroLer'.$aspas.');">Já li</a></li>
+												<li><a onClick="AcoesLivro('.$dados_pesq['id_livro'].','.$aspas.'Lendo'.$aspas.',Resultado'.$dados_pesq['id_livro'].','.$aspas.'QueroLer'.$aspas.');">Estou lendo</a></li>
+											</ul>';
+							}
+							else if($array_marcacao['tipo'] == 2)
+							{
+								$botões = ' 
+										<button id = "Resultado'.$dados_pesq['id_livro'].'" value = "JaLi" name = "JaLi" type="button" class="btn btn-primary btn-xs">Já Li</button>
 										<button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
 										<ul id = "acoes" class="dropdown-menu">
-											<li><a onClick="AcoesLivro('.$dados_pesq['id_livro'].','.$aspas.'Desmarcar'.$aspas.',Resultado'.$dados_pesq['id_livro'].','.$aspas.'QueroLer'.$aspas.');">Desmarcar</a></li>
-											<li><a onClick="AcoesLivro('.$dados_pesq['id_livro'].','.$aspas.'JaLi'.$aspas.',Resultado'.$dados_pesq['id_livro'].','.$aspas.'QueroLer'.$aspas.');">Já li</a></li>
-											<li><a onClick="AcoesLivro('.$dados_pesq['id_livro'].','.$aspas.'Lendo'.$aspas.',Resultado'.$dados_pesq['id_livro'].','.$aspas.'QueroLer'.$aspas.');">Estou lendo</a></li>
+											<li><a onClick="AcoesLivro('.$dados_pesq['id_livro'].','.$aspas.'Desmarcar'.$aspas.',Resultado'.$dados_pesq['id_livro'].','.$aspas.'JaLi'.$aspas.');">Desmarcar</a></li>
+											<li><a onClick="AcoesLivro('.$dados_pesq['id_livro'].','.$aspas.'Lendo'.$aspas.',Resultado'.$dados_pesq['id_livro'].','.$aspas.'JaLi'.$aspas.');">Já li</a></li>
+											<li><a onClick="AcoesLivro('.$dados_pesq['id_livro'].','.$aspas.'QueroLer'.$aspas.',Resultado'.$dados_pesq['id_livro'].','.$aspas.'JaLi'.$aspas.');">Estou lendo</a></li>
 										</ul>';
-						}
-						else if($array_marcacao['tipo'] == 2)
-						{
-							$botões = ' 
-									<button id = "Resultado'.$dados_pesq['id_livro'].'" value = "JaLi" name = "JaLi" type="button" class="btn btn-primary btn-xs">Já Li</button>
-									<button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
-									<ul id = "acoes" class="dropdown-menu">
-										<li><a onClick="AcoesLivro('.$dados_pesq['id_livro'].','.$aspas.'Desmarcar'.$aspas.',Resultado'.$dados_pesq['id_livro'].','.$aspas.'JaLi'.$aspas.');">Desmarcar</a></li>
-										<li><a onClick="AcoesLivro('.$dados_pesq['id_livro'].','.$aspas.'Lendo'.$aspas.',Resultado'.$dados_pesq['id_livro'].','.$aspas.'JaLi'.$aspas.');">Já li</a></li>
-										<li><a onClick="AcoesLivro('.$dados_pesq['id_livro'].','.$aspas.'QueroLer'.$aspas.',Resultado'.$dados_pesq['id_livro'].','.$aspas.'JaLi'.$aspas.');">Estou lendo</a></li>
-									</ul>';
-						}
-						else if($array_marcacao['tipo'] == 3)
-						{
-							$botões = ' 
-									<button id = "Resultado'.$dados_pesq['id_livro'].'" value = "Lendo" name = "Lendo" type="button" class="btn btn-primary btn-xs">Já Li</button>
-									<button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
-									<ul id = "acoes" class="dropdown-menu">
-										<li><a onClick="AcoesLivro('.$dados_pesq['id_livro'].','.$aspas.'Desmarcar'.$aspas.',Resultado'.$dados_pesq['id_livro'].','.$aspas.'Lendo'.$aspas.');">Desmarcar</a></li>
-										<li><a onClick="AcoesLivro('.$dados_pesq['id_livro'].','.$aspas.'QueroLer'.$aspas.',Resultado'.$dados_pesq['id_livro'].','.$aspas.'Lendo'.$aspas.');">Já li</a></li>
-										<li><a onClick="AcoesLivro('.$dados_pesq['id_livro'].','.$aspas.'JaLi'.$aspas.',Resultado'.$dados_pesq['id_livro'].','.$aspas.'Lendo'.$aspas.');">Estou lendo</a></li>
-									</ul>';
+							}
+							else if($array_marcacao['tipo'] == 3)
+							{
+								$botões = ' 
+										<button id = "Resultado'.$dados_pesq['id_livro'].'" value = "Lendo" name = "Lendo" type="button" class="btn btn-primary btn-xs">Já Li</button>
+										<button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+										<ul id = "acoes" class="dropdown-menu">
+											<li><a onClick="AcoesLivro('.$dados_pesq['id_livro'].','.$aspas.'Desmarcar'.$aspas.',Resultado'.$dados_pesq['id_livro'].','.$aspas.'Lendo'.$aspas.');">Desmarcar</a></li>
+											<li><a onClick="AcoesLivro('.$dados_pesq['id_livro'].','.$aspas.'QueroLer'.$aspas.',Resultado'.$dados_pesq['id_livro'].','.$aspas.'Lendo'.$aspas.');">Já li</a></li>
+											<li><a onClick="AcoesLivro('.$dados_pesq['id_livro'].','.$aspas.'JaLi'.$aspas.',Resultado'.$dados_pesq['id_livro'].','.$aspas.'Lendo'.$aspas.');">Estou lendo</a></li>
+										</ul>';
+							}
+							else
+							{
+								$botões = '
+											<button id = "Resultado'.$dados_pesq['id_livro'].'" value = "" name = "Eu" type="button" class="btn btn-primary btn-xs">Eu...</button>
+											<button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+											<ul id = "acoes" class="dropdown-menu">
+												<li><a onClick="AcoesLivro('.$dados_pesq['id_livro'].','.$aspas.'QueroLer'.$aspas.',Resultado'.$dados_pesq['id_livro'].','.$aspas.''.$aspas.');">Quero Ler</a></li>
+												<li><a onClick="AcoesLivro('.$dados_pesq['id_livro'].','.$aspas.'JaLi'.$aspas.',Resultado'.$dados_pesq['id_livro'].','.$aspas.''.$aspas.');">Já li</a></li>
+												<li><a onClick="AcoesLivro('.$dados_pesq['id_livro'].','.$aspas.'Lendo'.$aspas.',Resultado'.$dados_pesq['id_livro'].','.$aspas.''.$aspas.');">Estou lendo</a></li>
+											</ul>';
+							}
 						}
 						else
 						{
-							$botões = '
-										<button id = "Resultado'.$dados_pesq['id_livro'].'" value = "" name = "Eu" type="button" class="btn btn-primary btn-xs">Eu...</button>
-										<button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
-										<ul id = "acoes" class="dropdown-menu">
-											<li><a onClick="AcoesLivro('.$dados_pesq['id_livro'].','.$aspas.'QueroLer'.$aspas.',Resultado'.$dados_pesq['id_livro'].','.$aspas.''.$aspas.');">Quero Ler</a></li>
-											<li><a onClick="AcoesLivro('.$dados_pesq['id_livro'].','.$aspas.'JaLi'.$aspas.',Resultado'.$dados_pesq['id_livro'].','.$aspas.''.$aspas.');">Já li</a></li>
-											<li><a onClick="AcoesLivro('.$dados_pesq['id_livro'].','.$aspas.'Lendo'.$aspas.',Resultado'.$dados_pesq['id_livro'].','.$aspas.''.$aspas.');">Estou lendo</a></li>
-										</ul>';
+							$botões = "";
 						}
 						$ct++;
 						if(($ct == 1) OR ($ct == 3) OR ($ct == 5))
@@ -168,7 +175,7 @@
 						echo '<section class="col-md-6">
 								<section class = "col-md-4">	
 									<section class = "bs-component" style = "margin-left: 10%; maxheight: 177px; width: 120px;"> 
-										<a href="?url=livro" class = "thumbnail">
+										<a href="?url=livro&livro='.$dados_pesq["id_livro"].'" class = "thumbnail">
 											<img src = "'.$dados_pesq['imagem_livros'].'" alt = ""/> 
 										</a>	
 									</section>
@@ -176,7 +183,7 @@
 								<section class="col-md-4">
 									<section style="">
 										<center>
-											<a href="?url=livro" title = "Clique para ver mais informações sobre o livro"> <h3> '.utf8_encode($dados_pesq['NomeLivro']).'</h3></a>				  
+											<a href="?url=livro&livro='.$dados_pesq["id_livro"].'" title = "Clique para ver mais informações sobre o livro"> <h3> '.utf8_encode($dados_pesq['NomeLivro']).'</h3></a>				  
 											<a href="?url=livros_autores" title = "Clique para ver mais livros deste autor"> <h4> '.utf8_encode($dados_pesq['NomeAutor']).' </h4></a>
 											<a href="?url=livros_editora" title = "Clique para ver mais livros desta editora"> <h5> '.utf8_encode($dados_pesq['NomeEditora']).' </h5></a>
 											<a href="?url=perfil_usuario&cod='.$dados_pesq['id_usuario'].'"> <h4>'.utf8_encode($dados_pesq['NomeUsuario']).' </h4></a>

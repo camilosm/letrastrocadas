@@ -1,5 +1,4 @@
-<?php
-        
+<?php 
 		include("classes/class_banco.php");
 		include("classes/class_pesquisar.php");
 		
@@ -131,134 +130,122 @@
 ?>
 
 <article id = "body_perfil_usuario" style="width: 80%; margin-left: 10%">
-            <section class="panel panel-default">
-
-	
-
-			<section class="panel-body">
-			
+	<section class="panel panel-default">
+		<section class="panel-body">
 			<table class="table table-striped table-hover" style = "table-layout:fixed">
-            <tbody>
-            <tr>
-				  <td id = "foto_usuario" rowspan = "3"> <img src = " <?php echo $foto; ?>" width="100%" ></td>
-			      <td id = "nome_usuario" colspan = "4"><b>Nome:&nbsp;</b> <?php echo utf8_encode($nome); ?> </td>
-            </tr>
-            <tr>
-			      <td id = "cidade_usuario" colspan = "2"><b> Cidade:&nbsp;</b> <?php echo utf8_encode($cidade); ?> </td>
-			      <td id = "uf_usuario"><b>UF:&nbsp;</b> <?php echo utf8_encode($uf); ?></td>
-			      <td id = "idade_usuario"> <b>Idade:&nbsp;</b> <?php  echo utf8_encode($idade);?> </td>
-            </tr>
-            <tr>
-		          <td colspan="5">
-				       <ul class="nav nav-tabs" style="margin-bottom: 15px;">
-					  <li class="active"><a href="#livrosdisponiveis" data-toggle="tab"><span class="glyphicon glyphicon-book"></span> Livros Disponiveis</a></li>
-					  <li><a href="#jali" data-toggle="tab"><span class="glyphicon glyphicon-book"></span> Já li</a></li>
-					  <li><a href="#queroler" data-toggle="tab"><span class="glyphicon glyphicon-book"></span> Quero Ler</a></li>
-					  <li><a href="#lendo" data-toggle="tab"><span class="glyphicon glyphicon-book"></span> Lendo </a></li>
-					</ul>
-					<div id="myTabContent" class="tab-content">
-					  <div class="tab-pane fade active in" id="livrosdisponiveis">
-		 <?php
-				if ($resul_pesquisa_lista_livros != 0){
-					while($pesq_lista_livro = mysql_fetch_assoc($resul_pesquisa_lista_livros))
-						{
-						echo
-							'<img src ="'.$imagem_lista_livro.'" alt = "'.$nome_livro_lista_livro.'" height = "177px" width = "120px">';
-						}
-				}
-				else
-				{
-					echo 'Nenhum livro está disponível';
-				}
-		?>
-					  </div>
-					  <div class="tab-pane fade" id="jali">
-		 <?php
-				if ($resul_pesquisa_marcacao != 0 AND $tipo_marcacao == 2){
-					while($pesq_marcacao = mysql_fetch_assoc($resul_pesquisa_marcacao))
-						{
-					if ($tipo_marcacao == 2)
-					{
-						echo
-							'<img src ="'.$imagem_marcacao.'" alt = "'.$nome_livro_marcacao.'" height = "177px" width = "120px">';
-						}
-					}
-				}
-				else
-				{
-					echo 'Nenhum livro está disponível';
-				}
-		?>
-					  </div>
-					  <div class="tab-pane fade" id="queroler">
-		 <?php
-				if ($resul_pesquisa_marcacao != 0 AND $tipo_marcacao == 1){
-					while($pesq_marcacao = mysql_fetch_assoc($resul_pesquisa_marcacao))
-						{
-					if ($tipo_marcacao == 1)
-					{
-						echo
-							'<img src ="'.$imagem_marcacao.'" alt = "'.$nome_livro_marcacao.'" height = "177px" width = "120px">';
-						}
-					}
-				}
-				else
-				{
-					echo 'Nenhum livro está disponível';
-				}
-		?>
-					  </div>
-					<div class="tab-pane fade" id="lendo">
-		 <?php
-				if ($resul_pesquisa_marcacao != 0 AND $tipo_marcacao == 3){
-					while($pesq_marcacao = mysql_fetch_assoc($resul_pesquisa_marcacao))
-						{
-					if ($tipo_marcacao == 3)
-					{
-						echo
-							'<img src ="'.$imagem_marcacao.'" alt = "'.$nome_livro_marcacao.'" height = "177px" width = "120px">';
-						}
-					}
-				}
-				else
-				{
-					echo 'Nenhum livro está disponível';
-				}
-		?>
-					</div>					  
-					</div>
-				  </td>
-				  			  
-			</tr>
-			<tr>
-				<td colspan = "5"> 				             
-					<section id = "avaliações" style = "position:relative; left:50%; width:30%;">
-						<label> Avaliações: </label>
-						&nbsp  
-						<span class= "glyphicon glyphicon-thumbs-up"></span> <span class = "badge"> <?php echo $avaliacoes_positivas; ?> </span> 
-						&nbsp
-						<span class= "glyphicon glyphicon-thumbs-down"> </span> <span class = "badge"> <?php echo $avaliacoes_negativas; ?> </span>
-					</section>
-				</td>
-				  
-				  
-			</tr>
-            </tbody>
-			
-            </table>
+				<tbody>
+					<tr>
+						<td id = "foto_usuario" rowspan = "3"> <img src = " <?php echo $foto; ?>" width="100%" ></td>
+						<td id = "nome_usuario" colspan = "4"><b>Nome:&nbsp;</b> <?php echo utf8_encode($nome); ?> </td>
+					</tr>
+					<tr>
+						<td id = "cidade_usuario" colspan = "2"><b> Cidade:&nbsp;</b> <?php echo utf8_encode($cidade); ?> </td>
+						<td id = "uf_usuario"><b>UF:&nbsp;</b> <?php echo utf8_encode($uf); ?></td>
+						<td id = "idade_usuario"> <b>Idade:&nbsp;</b> <?php  echo utf8_encode($idade);?> </td>
+					</tr>
+					<tr>
+						<td colspan="5">
+							<ul class="nav nav-tabs" style="margin-bottom: 15px;">
+								<li class="active"><a href="#livrosdisponiveis" data-toggle="tab"><span class="glyphicon glyphicon-book"></span> Livros Disponiveis</a></li>
+								<li><a href="#jali" data-toggle="tab"><span class="glyphicon glyphicon-book"></span> Já li</a></li>
+								<li><a href="#queroler" data-toggle="tab"><span class="glyphicon glyphicon-book"></span> Quero Ler</a></li>
+								<li><a href="#lendo" data-toggle="tab"><span class="glyphicon glyphicon-book"></span> Lendo </a></li>
+							</ul>
+							<section id="myTabContent" class="tab-content">
+								<section class="tab-pane fade active in" id="livrosdisponiveis">
+									<?php
+										if ($resul_pesquisa_lista_livros != 0)
+										{
+											while($pesq_lista_livro = mysql_fetch_assoc($resul_pesquisa_lista_livros))
+											{
+												echo '<img src ="'.$imagem_lista_livro.'" alt = "'.$nome_livro_lista_livro.'" height = "177px" width = "120px">';
+											}
+										}
+										else
+										{
+											echo 'Nenhum livro está disponível';
+										}
+									?>
+								</section>
+								<section class="tab-pane fade" id="jali">
+									<?php
+										if ($resul_pesquisa_marcacao != 0 AND $tipo_marcacao == 2)
+										{
+											while($pesq_marcacao = mysql_fetch_assoc($resul_pesquisa_marcacao))
+											{
+												if ($tipo_marcacao == 2)
+												{
+													echo '<img src ="'.$imagem_marcacao.'" alt = "'.$nome_livro_marcacao.'" height = "177px" width = "120px">';
+												}
+											}
+										}
+										else
+										{
+											echo 'Nenhum livro está disponível';
+										}
+									?>
+								</section>
+								<section class="tab-pane fade" id="queroler">
+									<?php
+										if ($resul_pesquisa_marcacao != 0 AND $tipo_marcacao == 1)
+										{
+											while($pesq_marcacao = mysql_fetch_assoc($resul_pesquisa_marcacao))
+											{
+												if ($tipo_marcacao == 1)
+												{
+													echo '<img src ="'.$imagem_marcacao.'" alt = "'.$nome_livro_marcacao.'" height = "177px" width = "120px">';
+												}
+											}
+										}
+										else
+										{
+											echo 'Nenhum livro está disponível';
+										}
+									?>
+								</section>
+								<section class="tab-pane fade" id="lendo">
+									<?php
+										if ($resul_pesquisa_marcacao != 0 AND $tipo_marcacao == 3)
+										{
+											while($pesq_marcacao = mysql_fetch_assoc($resul_pesquisa_marcacao))
+											{
+												if ($tipo_marcacao == 3)
+												{
+												echo '<img src ="'.$imagem_marcacao.'" alt = "'.$nome_livro_marcacao.'" height = "177px" width = "120px">';
+												}
+											}
+										}
+										else
+										{
+											echo 'Nenhum livro está disponível';
+										}
+									?>
+								</section>					  
+							</section>
+						</td>
+					</tr>
+					<tr>
+						<td colspan = "5"> 				             
+							<section id = "avaliações" style = "position:relative; left:50%; width:30%;">
+								<label> Avaliações: </label>
+								&nbsp  
+								<span class= "glyphicon glyphicon-thumbs-up"></span> <span class = "badge"> <?php echo $avaliacoes_positivas; ?> </span> 
+								&nbsp
+								<span class= "glyphicon glyphicon-thumbs-down"> </span> <span class = "badge"> <?php echo $avaliacoes_negativas; ?> </span>
+							</section>
+						</td>
+					</tr>
+				</tbody>
+			</table>
 			<?php
 				if ($id != $id_p)
 				{
-				echo 
-				    '<section style = "position:relative; left:50%; width:23%"> 
-				    	   <a href = "?url=denunciar_usuario&cod='.$id_outro_usu.'"> Denunciar usuário </a>
-				    </section>' ;
+					echo 
+					'<section style = "position:relative; left:50%; width:23%"> 
+					<a href = "?url=denunciar_usuario&cod='.$id_outro_usu.'"> Denunciar usuário </a>
+					</section>';
 				}
 			?>
-			</section>
-			</section>
-
-		
-		
-
+		</section>
+	</section>
 </article>
