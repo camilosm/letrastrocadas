@@ -3,7 +3,7 @@
 	{
 		$.ajax({
 			
-			url : "ajax/retorna_lista.php?livro="+id,
+			url : "ajax/livros_lidos.php?livro="+id,
 			dataType : "json",
 			success : function(data){
 				document.getElementById('livro').innerHTML = data.section;
