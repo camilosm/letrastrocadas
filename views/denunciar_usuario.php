@@ -35,7 +35,7 @@
 		$outro_motiv = $editar_motivo->sanitizeStringNome($_POST['outroMotivo']);
 		
 		//Realiza a inserção
-		$values_denuncia = "NULL,".$id_outro_usu.",1, DATE(NOW()),".$motivo.",'".$outro_motiv."'";
+		$values_denuncia = "NULL,".$id_outro_usu.",DATE(NOW()),".$motivo.",'".$outro_motiv."'";
 		$cadastra_denuncia = new Inserir("tbl_denuncias",$values_denuncia);
 		$res = $cadastra_denuncia->inserir();
 		
@@ -43,6 +43,16 @@
 		if ($res)
 		{
 			echo "Denuncia feita com sucesso!";
+			$pesquisa_dados = new Pesquisar("tbl_denuncias join tbl_usuario on usuario_denunciado_id = id_usuario","count(id_denuncias) as ndenuncias", "usuario = $id_outro_usu");
+			$resultado = $pesquisa_dados->pesquisar();
+			$ndenuncias = mysql_fetch_array($resul_pesquisa);
+			if($ndenuncias['ndenuncias'] > 2)
+			{
+				include "classes/class_update.php");
+				
+				$banir = new Alterar("tbl_usuario","status = 3","where usuario = $cod_usu");
+				$baniu = $banir->alterar();
+			}
 		}
 		else
 		{
