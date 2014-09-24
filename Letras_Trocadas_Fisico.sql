@@ -360,7 +360,6 @@ CREATE TABLE tbl_denuncias(
 
 	id_denuncias INT UNSIGNED AUTO_INCREMENT NOT NULL,
 	usuario_denunciado_id INT UNSIGNED NOT NULL,
-	status INT NOT NULL, /* Caso aberto = 1 ,Caso Fechado = 2 */
 	data DATE NOT NULL,
 	motivo_id INT UNSIGNED NOT NULL,
 	outro_motivo VARCHAR(255) NULL,
@@ -368,3 +367,5 @@ CREATE TABLE tbl_denuncias(
 	FOREIGN KEY(motivo_id) REFERENCES tbl_motivos(id_motivo),
 	FOREIGN KEY(usuario_denunciado_id) REFERENCES tbl_usuario(id_usuario)
 );
+
+/* ALTER TABLE tbl_denuncias DROP status; */
