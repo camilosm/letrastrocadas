@@ -144,12 +144,12 @@
 	//Instancia e faz conexão com o banco de dados
 	$banco = new Banco();
 	
-	$id = $_SESSION['id'];
+	$id = 1;
 	
-	/*if(isset($_POST['alterarDados']))
+	if(isset($_POST['alterarDados']))
 	{
 		include("alterar_dados_perfil_n.php");
-	}*/
+	}
 	
 	//Pega os dados para mostrar no formulário
 		
@@ -159,15 +159,21 @@
 	
 	$pesquisa_generos = new Pesquisar("tbl_categoria","*"," 1=1 GROUP BY nome ASC");
 	$resul_pesq_genero = $pesquisa_generos->pesquisar();
-	$resul_pesq_generoD = $pesquisa_generos->pesquisar();
 	
-	$pesquisar_autor = new Pesquisar("tbl_autor","*","1=1 GROUP BY nome ASC");
+	$pesquisar_autor = new Pesquisar('tbl_autor','*','1=1 GROUP BY nome ASC');
 	$resultado_autor = $pesquisar_autor->pesquisar();
-	$resultado_autorC = $pesquisar_autor->pesquisar();
-	
-	$pesquisa_estado = new Pesquisar("tbl_estados","*"," 1=1");
-	$resul_pesq_estado = $pesquisa_estado->pesquisar();
-	$estados = mysql_fetch_assoc($resul_pesq_estado);
+
+	$pesquisa_generos_fav = new Pesquisar('tbl_generos_favoritos','*','usuario_id = 1');
+	$res_genero_fav = $pesquisa_generos_fav->pesquisar();
+
+	$pesquisa_autor_fav = new Pesquisar('tbl_autores_favoritos','*','usuario_id = 1');
+	$res_autor_fav = $pesquisa_autor_fav->pesquisar();
+
+	$pesquisa_generos_des = new Pesquisar('tbl_generos_desapreciados','*','usuario_id = 1');
+	$res_genero_des = $pesquisa_generos_des->pesquisar();
+
+	$pesquisa_autor_des = new Pesquisar('tbl_autores_desapreciados','*','usuario_id = 1');
+	$res_autor_des = $pesquisa_autor_des->pesquisar();
 	
 	$foto_p = $dados_usu["foto"];
 	$nome_p = $dados_usu["nome"];
@@ -184,73 +190,25 @@
 	$foto = $foto_p != "" ? $foto_p : "content/imagens/fotos_perfil/avatar-250.png";
 	// Verifica se o botão foi acionado
 
-	$genero = $_POST['genero'];
-	$quantidade = count($genero);
-	for ($i=0; $i<$quantidade; $i++) 
-	{ 
-		if($genero[$i] != "Escolha o seu gênero favorito...")
-		{
-			$pes_genero_fav = new Pesquisar('tbl_generos_favoritos','*','categoria_id ='.$genero[$i].' AND usuario_id = '.$_SESSION['id']);
-			$res_genero_fav = $pes_genero_fav->pesquisar();
-			$qt_genero_fav = mysql_num_rows($res_genero_fav);
-			if($qt_genero_fav == 0)
-			{
-				$ins_genero_fav = new Inserir('tbl_generos_favoritos','NULL,'.$genero[$i].','.$_SESSION['id']);
-				$res_genero_fav = $ins_genero_fav->inserir();
-			}
-		}
+	$generos_id = array();
+	$generos_nome = array();
+	while ($generos = mysql_fetch_assoc($resul_pesq_genero))
+	{
+		$generos_id[] = $generos['id_categoria'];
+		$generos_nome[] = $generos['nome'];
 	}
 
-	$autor = $_POST['autor'];
-	$quantidade = count($autor);
-	for ($i=0; $i<$quantidade; $i++) 
-	{ 
-		if($autor[$i] != "Escolha o seu autor favorito...")
-		{
-			$pes_autor_fav = new Pesquisar('tbl_autores_favoritos','*','autor_id ='.$autor[$i].' AND usuario_id = '.$_SESSION['id']);
-			$res_autor_fav = $pes_autor_fav->pesquisar();
-			$qt_autor_fav = mysql_num_rows($res_autor_fav);
-			if($qt_autor_fav == 0)
-			{
-				$ins_autor_fav = new Inserir('tbl_autores_favoritos','NULL,'.$autor[$i].','.$_SESSION['id']);
-				$res_autor_fav = $ins_autor_fav->inserir();
-			}
-		}
+	$qt_gen = count($generos_id);
+
+	$autor_id = array();
+	$autor_nome = array();
+	while ($autores = mysql_fetch_assoc($resultado_autor))
+	{
+		$autor_id[] = $autores['id_autor'];
+		$autor_nome[] = $autores['nome'];
 	}
 
-	$generoD = $_POST['generoD'];
-	$quantidade = count($generoD);
-	for ($i=0; $i<$quantidade; $i++) 
-	{ 
-		if(($generoD[$i] != "Escolha um gênero que você não gosta...") AND ($generoD[$i] != "Nenhum"))
-		{
-			$pes_genero_des = new Pesquisar('tbl_generos_desapreciados','*','genero_id ='.$generoD[$i].' AND usuario_id = '.$_SESSION['id']);
-			$res_genero_des = $pes_genero_des->pesquisar();
-			$qt_genero_des = mysql_num_rows($res_genero_des);
-			if($qt_genero_des == 0)
-			{
-				$ins_genero_des = new Inserir('tbl_generos_desapreciados','NULL,'.$generoD[$i].','.$_SESSION['id']);
-				$res_genero_des = $ins_genero_des->inserir();
-			}
-		}
-	}
-
-	$autorC = $_POST['autorC'];
-	$quantidade = count($autorC);
-	for ($i=0; $i<$quantidade; $i++) 
-	{ 
-		if(($autorC[$i] != "Escolha um autor que você não gosta...") AND ($autorC[$i] != "Nenhum"))
-		{
-			$pes_autor_cha = new Pesquisar('tbl_autores_desapreciados','*','autor_id ='.$autorC[$i].' AND usuario_id = '.$_SESSION['id']);
-			$res_autor_cha = $pes_autor_cha->pesquisar();
-			$qt_autor_cha = mysql_num_rows($res_autor_cha);
-			if($qt_autor_cha == 0)
-			{
-				$ins_autor_cha = new Inserir('tbl_autores_desapreciados','NULL,'.$autorC[$i].','.$_SESSION['id']);
-				$res_autor_cha = $ins_autor_cha->inserir();
-			}
-		}
-	}
+	$qt_aut = count($autor_id);
 	
 ?>
 <form name="frm_upload" id="frm_upload" class="form-horizontal" enctype="multipart/form-data" method="post" action="">
@@ -307,114 +265,201 @@
 				<section class="col-md-12">
 					<br>
 					<fieldset>
-						<legend>Gêneros Favoritos: &nbsp;&nbsp; <a class="adicionarGeneroF" title="Clique para adicionar mais um gênero"><button type="button" name="plus" id="plus"><span class="glyphicon glyphicon-plus"></span></button></a></legend>
+						<legend>Gêneros Favoritos: &nbsp;&nbsp; <a class="adicionarGeneroF" style="color:grey" title="Clique para adicionar mais um gênero"><button type="button" name="plus" id="plus">+</button></a></legend>
 						<section class="col-md-10" style="margin-left:15.8%;">
-							<section class="generosF"> 
-								<p class="camposGenerosF">
-									<select type="text" class="form-control" name = "genero[]" id="genero" required>	
-											<?php 
-												if ($genero_fav_p == "")
-												{
-													echo '<option> Escolha o seu gênero favorito... </option>';
-													while ($generos = mysql_fetch_assoc($resul_pesq_genero))
-													{
-														echo '<option value = "'.$generos["id_categoria"].'">' .utf8_encode($generos["nome"]). '</option>';						
-													}
-												}
-												else
-												{
-													while ($generos = mysql_fetch_assoc($resul_pesq_genero))
-													{
-														$selected = $genero_fav_p == $generos["nome"] ? 'selected="selected"' : '' ;
-												    	echo '<option '. $selected .' value = "'.$generos["id_categoria"].'" >' .utf8_encode($generos["nome"]). '</option>';					
-													}
-												}
-											?>				
-									</select>
-									<a class="removerGenerosF" title="Clique para remover este campo"><button type="button" name="minus" id="minus"><span class="glyphicon glyphicon-minus"></span></button></a>
-								</p>
-							</section>
+							<?php
+								$ct_gen_fav = 0;
+								while($generos_usu = mysql_fetch_assoc($res_genero_fav))
+								{
+									$ct_gen_fav++;
+							    	for($i=0;$i<$qt_gen;$i++)
+							    	{
+							    		$selected = $generos_usu["categoria_id"] == $generos_id[$i] ? 'selected="selected"' : '' ;
+							    		$conteudo .= '<option '. $selected .' value = "'.$generos_usu["categoria_id"].'" >' .utf8_encode($generos_nome[$i]). '</option>';
+							    	}
+									echo '
+										<section class="generosF"> 
+											<p class="camposGenerosF">
+												<select type="text" class="form-control"  name = "genero[]" id="genero" required>	
+													'.$conteudo.'
+												</select>
+												<a class="removerGenerosF" style="color:grey" title="Clique para remover este campo"><button type="button" name="minus" id="minus"><span class="glyphicon glyphicon-minus"></span></button></a>
+											</p>
+										</section>
+									';
+								}
+								if($ct_gen_fav == 0)
+								{
+									$conteudo = '<option> Escolha o seu gênero favorito ...</option>';
+									for($i=0;$i<$qt_gen;$i++)
+							    	{
+							    		$conteudo .= '<option '. $selected .' value = "'.$generos_usu["categoria_id"].'" >' .utf8_encode($generos_nome[$i]). '</option>';
+							    	}
+									echo '
+
+										<section class="generosF"> 
+											<p class="camposGenerosF">
+												<select type="text" class="form-control"  name = "genero[]" id="genero" required>
+													'.$conteudo.'
+												</select>
+												<a class="removerGenerosF" style="color:grey" title="Clique para remover este campo"><button type="button" name="minus" id="minus"><span class="glyphicon glyphicon-minus"></span></button></a>
+											</p>
+										</section>
+									</section>
+									';
+								}
+							?>
+					</fieldset>
+				</section>
+				<section class="col-md-12">
+					<br>
+					<fieldset>
+						<legend>Autores Favoritos: &nbsp;&nbsp; <a class="adicionarAutoresF" style="color:grey" title="Clique para adicionar mais um autor"><button type="button" name="plus" id="plus">+</button></a></legend>
+						<section class="col-md-10" style="margin-left:15.8%;">	
+							<?php
+								$ct_aut_fav = 0;
+								while($autor_usu = mysql_fetch_assoc($res_autor_fav))
+								{
+									$ct_aut_fav++;
+							    	for($i=0;$i<$qt_gen;$i++)
+							    	{
+							    		$selected = $autor_usu["autor_id"] == $autor_id[$i] ? 'selected="selected"' : '' ;
+							    		$conteudo .= '<option '. $selected .' value = "'.$autor_usu["autor_id"].'" >' .utf8_encode($autor_nome[$i]). '</option>';
+							    	}
+									echo '
+										<section class="autoresF"> 
+											<p class="camposAutoresF">
+												<select type="text" class="form-control"  name = "autor[]" id="autor" required>	
+													'.$conteudo.'
+												</select>
+												<a class="removerAutoresF" style="color:grey" title="Clique para remover este campo"><button type="button" name="minus" id="minus"><span class="glyphicon glyphicon-minus"></span></button></a>
+											</p>
+										</section>
+									';
+								}
+								if($ct_aut_fav == 0)
+								{
+									$conteudo = '<option> Escolha o seu autor favorito ...</option>';
+									for($i=0;$i<$qt_gen;$i++)
+							    	{
+							    		$conteudo .= '<option '. $selected .' value = "'.$autor_usu["autor_id"].'" >' .utf8_encode($autor_nome[$i]). '</option>';
+							    	}
+									echo '
+
+										<section class="generosF"> 
+											<p class="camposGenerosF">
+												<select type="text" class="form-control"  name = "genero[]" id="genero" required>
+													'.$conteudo.'
+												</select>
+												<a class="removerGenerosF" style="color:grey" title="Clique para remover este campo"><button type="button" name="minus" id="minus"><span class="glyphicon glyphicon-minus"></span></button></a>
+											</p>
+										</section>
+									</section>
+									';
+								}
+							?>
 						</section>
 					</fieldset>
 				</section>
 				<section class="col-md-12">
 					<br>
 					<fieldset>
-						<legend>Autores Favoritos: &nbsp;&nbsp; <a class="adicionarAutoresF" title="Clique para adicionar mais um autor"><button type="button" name="plus" id="plus"><span class="glyphicon glyphicon-plus"></span></button></a></legend>
+						<legend>Gêneros Desagradáveis: &nbsp;&nbsp; <a class="adicionarGeneroD" style="color:grey" title="Clique para adicionar mais um gênero"><button type="button" name="plus" id="plus">+</button></a></legend>
 						<section class="col-md-10" style="margin-left:15.8%;">
-							<section class="autoresF"> 
-								<p class="camposAutoresF">
-									<select type="text" class="form-control" name = "autor[]" id="autor" required>	
-											<?php 
-												echo "<option> Escolha o seu autor favorito...</option>";
-												while($dados_autor = mysql_fetch_assoc($resultado_autor))
-												{
-													echo "<option value = ".$dados_autor['id_autor'].">".utf8_encode($dados_autor['nome'])."</option>";
-												}
-											?>				
-									</select>
-									<a class="removerAutoresF" title="Clique para remover este campo"><button type="button" name="minus" id="minus"><span class="glyphicon glyphicon-minus"></span></button></a>
-								</p>
-							</section>
+							<?php
+								$ct_gen_des = 0;
+								while($gen_des_usu = mysql_fetch_assoc($res_genero_des))
+								{
+									$ct_gen_des++;
+									$conteudo = '<option> Escolha um gênero que você não gosta ...</option>';
+							    	for($i=0;$i<$qt_gen;$i++)
+							    	{
+							    		$selected = $gen_des_usu["genero_id"] == $generos_id[$i] ? 'selected="selected"' : '' ;
+							    		$conteudo .= '<option '. $selected .' value = "'.$gen_des_usu["genero_id"].'" >' .utf8_encode($generos_nome[$i]). '</option>';
+							    	}
+									echo '
+										<section class="generosD"> 
+											<p class="camposGenerosD">
+												<select type="text" class="form-control"  name = "generoD[]" id="generoD" required>	
+													'.$conteudo.'
+												</select>
+												<a class="removerGenerosD" style="color:grey" title="Clique para remover este campo"><button type="button" name="minus" id="minus"><span class="glyphicon glyphicon-minus"></span></button></a>
+											</p>
+										</section>
+									';
+								}
+								if($ct_gen_des == 0)
+								{
+									$conteudo = '<option> Escolha um gênero que você não gosta...</option>';
+									for($i=0;$i<$qt_gen;$i++)
+							    	{
+							    		$conteudo .= '<option '. $selected .' value = "'.$gen_des_usu["autor_id"].'" >' .utf8_encode($autor_nome[$i]). '</option>';
+							    	}
+									echo '
+
+										<section class="generosD"> 
+											<p class="camposGenerosD">
+												<select type="text" class="form-control"  name = "generoD[]" id="genero" required>
+													'.$conteudo.'
+												</select>
+												<a class="removerGenerosD" style="color:grey" title="Clique para remover este campo"><button type="button" name="minus" id="minus"><span class="glyphicon glyphicon-minus"></span></button></a>
+											</p>
+										</section>
+									</section>
+									';
+								}
+							?>
 						</section>
 					</fieldset>
 				</section>
 				<section class="col-md-12">
 					<br>
 					<fieldset>
-						<legend>Gêneros Desagradáveis: &nbsp;&nbsp; <a class="adicionarGeneroD" title="Clique para adicionar mais um gênero"><button type="button" name="plus" id="plus"><span class="glyphicon glyphicon-plus"></span></button></a></legend>
+						<legend>Autores Chatos: &nbsp;&nbsp; <a class="adicionarAutoresC" style="color:grey" title="Clique para adicionar mais um autor"><button type="button" name="plus" id="plus">+</button></a></legend>
 						<section class="col-md-10" style="margin-left:15.8%;">
-							<section class="generosD"> 
-								<p class="camposGenerosD">
-									<select type="text" class="form-control" name = "generoD[]" id="generoD" required>	
-											<?php 
-												if ($genero_fav_p == "")
-												{
-													echo '<option> Escolha um gênero que você não gosta... </option>';
-													echo '<option> Nenhum </option>';
-													while ($generos = mysql_fetch_assoc($resul_pesq_generoD))
-													{
-														echo '<option value = "'.$generos['id_categoria'].'">' .utf8_encode($generos["nome"]). '</option>';						
-													}
-												}
-												else
-												{
-													echo '<option> Nenhum </option>';
-													while ($generos = mysql_fetch_assoc($resul_pesq_generoD))
-													{
-														$selected = $genero_fav_p == $generos["nome"] ? 'selected="selected"' : '' ;
-														echo '<option '. $selected .' value = "'.$generos['id_categoria'].'">' .utf8_encode($generos["nome"]). '</option>';					
-													}
-												}
-											?>				
-									</select>
-									<a class="removerGenerosD" title="Clique para remover este campo"><button type="button" name="minus" id="minus"><span class="glyphicon glyphicon-minus"></span></button></a>
-								</p>
-							</section>
-						</section>
-					</fieldset>
-				</section>
-				<section class="col-md-12">
-					<br>
-					<fieldset>
-						<legend>Autores Chatos: &nbsp;&nbsp; <a class="adicionarAutoresC" title="Clique para adicionar mais um autor"><button type="button" name="plus" id="plus"><span class="glyphicon glyphicon-plus"></span></button></a></legend>
-						<section class="col-md-10" style="margin-left:15.8%;">
-							<section class="autoresC"> 
-								<p class="camposAutoresC">
-									<select type="text" class="form-control" name = "autorC[]" id="autorC" required>	
-											<?php 
-												echo "<option> Escolha um autor que você não gosta...</option>";
-												echo '<option> Nenhum </option>';
-												while($dados_autor = mysql_fetch_assoc($resultado_autorC))
-												{
-													echo "<option value = ".$dados_autor['id_autor'].">".utf8_encode($dados_autor['nome'])."</option>";
-												}
-											?>				
-									</select>
-									<a class="removerAutoresC" title="Clique para remover este campo"><button type="button" name="minus" id="minus"><span class="glyphicon glyphicon-minus"></span></button></a>
-								</p>
-							</section>
-						</section>
+							<?php
+								$ct_aut_fav = 0;
+								while($autor_des_usu = mysql_fetch_assoc($res_autor_des))
+								{
+									$ct_aut_fav++;
+									$conteudo = '<option> Escolha um autor que você não gosta ...</option>';
+							    	for($i=0;$i<$qt_gen;$i++)
+							    	{
+							    		$selected = $autor_des_usu["autor_id"] == $autor_id[$i] ? 'selected="selected"' : '' ;
+							    		$conteudo .= '<option '. $selected .' value = "'.$autor_des_usu["autor_id"].'" >' .utf8_encode($autor_nome[$i]). '</option>';
+							    	}
+									echo '
+										<section class="autoresC"> 
+											<p class="camposAutoresC">
+												<select type="text" class="form-control"  name = "autorC[]" id="autor" required>	
+													'.$conteudo.'
+												</select>
+												<a class="removerAutoresC" style="color:grey" title="Clique para remover este campo"><button type="button" name="minus" id="minus"><span class="glyphicon glyphicon-minus"></span></button></a>
+											</p>
+										</section>
+									';
+								}
+								if($ct_aut_fav == 0)
+								{
+									$conteudo = '<option> Escolha um autor que você não gosta...</option>';
+									for($i=0;$i<$qt_gen;$i++)
+							    	{
+							    		$conteudo .= '<option '. $selected .' value = "'.$autor_des_usu["autor_id"].'" >' .utf8_encode($autor_nome[$i]). '</option>';
+							    	}
+									echo '
+
+										<section class="autoresC"> 
+											<p class="camposAutoresC">
+												<select type="text" class="form-control"  name = "genero[]" id="genero" required>
+													'.$conteudo.'
+												</select>
+												<a class="removerAutoresC" style="color:grey" title="Clique para remover este campo"><button type="button" name="minus" id="minus"><span class="glyphicon glyphicon-minus"></span></button></a>
+											</p>
+										</section>
+									</section>
+									';
+								}
+							?>
 					</fieldset>
 				</section>
 				<section class="col-md-10 col-md-offset-2">
