@@ -37,7 +37,7 @@
 			<section class = "col-lg-4" style = "width: auto;">	
 				<section class = "bs-component"> 
 					<a class = "thumbnail">
-						<img src = "'.$imagem['0'].'>" alt = "'.utf8_encode($nome[0]).'" height = "177px" width = "120px"/> 
+						<img id = "imagem" src = "'.$imagem['0'].'" alt = "'.utf8_encode($nome[0]).'" height = "177px" width = "120px"/> 
 					</a>
 				</section>
 			</section>
