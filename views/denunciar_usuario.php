@@ -7,14 +7,13 @@
 		
 		$id_outro_usu = $_GET['cod'];
 			
-		$pesquisa_dados = new Pesquisar("tbl_usuario","id_usuario,nome,foto,email,idade,uf,cidade,genero_favorito", " id_usuario = $id_outro_usu");
+		$pesquisa_dados = new Pesquisar("tbl_usuario","id_usuario,nome,foto,email,idade,bairro,uf,cidade", " id_usuario = $id_outro_usu");
 		$resul_pesquisa = $pesquisa_dados->pesquisar();
 		$pesq = mysql_fetch_array($resul_pesquisa);
 		
 		$nome = $pesq['nome'];
 		$foto = $pesq['foto'];
 		$idade = $pesq['idade'];
-		$genero_favorito = $pesq['genero_favorito'];
 		$uf = $pesq['uf'];
 		$cidade = $pesq['cidade'];
 		$bairro = $pesq['bairro'];	
@@ -48,7 +47,7 @@
 			$ndenuncias = mysql_fetch_array($resul_pesquisa);
 			if($ndenuncias['ndenuncias'] > 2)
 			{
-				include "classes/class_update.php");
+				include ("classes/class_update.php");
 				
 				$banir = new Alterar("tbl_usuario","status = 3","where usuario = $cod_usu");
 				$baniu = $banir->alterar();
@@ -80,7 +79,7 @@
 			      <td id = "idade_usuario"> <b>Idade:&nbsp;</b> <?php  echo utf8_encode($idade);?> </td>
             </tr>
             <tr>
-                  <td id = "generos_fav_usuario" colspan = "4" ><b> Gênero favorito: &nbsp;</b> <?php echo utf8_encode($genero_favorito); ?></td>
+                  
             </tr>
 			<tbody>
 			

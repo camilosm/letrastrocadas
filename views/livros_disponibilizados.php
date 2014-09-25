@@ -101,7 +101,7 @@
 					</section> 
 				</section>
 				<br>
-				<section id = "imagens" style = "position:relative; left:3%;">
+				<section style="max-width:100%;overflow:auto;">
 					<?php
 						for($contador=0;$contador<=$quantidade-1;$contador++)
 						{

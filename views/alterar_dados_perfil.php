@@ -121,7 +121,6 @@
 			url : 'http://cep.correiocontrol.com.br/'+ cep +'.json',
 			dataType : 'json',
 			success : function(data){
-				alert(data.localidade);
 				$('#inputCidade').attr({'value': data.localidade, 'text' : data.localidade});	
 				$('#logradouro').attr({'value': data.logradouro, 'text' : data.logradouro});
 				$('#bairro').attr({'value': data.bairro, 'text' : data.bairro});
@@ -144,7 +143,7 @@
 	//Instancia e faz conexão com o banco de dados
 	$banco = new Banco();
 	
-	$id = 1;
+	$id = $_SESSION['id'];
 	
 	if(isset($_POST['alterarDados']))
 	{
@@ -163,16 +162,16 @@
 	$pesquisar_autor = new Pesquisar('tbl_autor','*','1=1 GROUP BY nome ASC');
 	$resultado_autor = $pesquisar_autor->pesquisar();
 
-	$pesquisa_generos_fav = new Pesquisar('tbl_generos_favoritos','*','usuario_id = 1');
+	$pesquisa_generos_fav = new Pesquisar('tbl_generos_favoritos','*',"usuario_id = $id");
 	$res_genero_fav = $pesquisa_generos_fav->pesquisar();
 
-	$pesquisa_autor_fav = new Pesquisar('tbl_autores_favoritos','*','usuario_id = 1');
+	$pesquisa_autor_fav = new Pesquisar('tbl_autores_favoritos','*',"usuario_id = $id");
 	$res_autor_fav = $pesquisa_autor_fav->pesquisar();
 
-	$pesquisa_generos_des = new Pesquisar('tbl_generos_desapreciados','*','usuario_id = 1');
+	$pesquisa_generos_des = new Pesquisar('tbl_generos_desapreciados','*',"usuario_id = $id");
 	$res_genero_des = $pesquisa_generos_des->pesquisar();
 
-	$pesquisa_autor_des = new Pesquisar('tbl_autores_desapreciados','*','usuario_id = 1');
+	$pesquisa_autor_des = new Pesquisar('tbl_autores_desapreciados','*',"usuario_id = $id");
 	$res_autor_des = $pesquisa_autor_des->pesquisar();
 	
 	$foto_p = $dados_usu["foto"];
@@ -256,7 +255,7 @@
 				</section>
 				<label for="inputComplemento" class="col-md-2 control-label">Complemento</label>
 				<section class="col-md-10">
-					<input type="text" class="form-control" name = "complemento" id="complemento" required placeholder = "Complemento" maxlength = "100" value = "<?php echo utf8_encode($complemento_p); ?>">
+					<input type="text" class="form-control" name = "complemento" id="complemento" placeholder = "Complemento" maxlength = "100" value = "<?php echo utf8_encode($complemento_p); ?>">
 				</section>
 				<label for="inputCEP" class="col-md-2 control-label">CEP</label>
 				<section class="col-md-10">
@@ -348,7 +347,7 @@
 
 										<section class="generosF"> 
 											<p class="camposGenerosF">
-												<select type="text" class="form-control"  name = "genero[]" id="genero" required>
+												<select type="text" class="form-control"  name = "autor[]" id="autor" required>
 													'.$conteudo.'
 												</select>
 												<a class="removerGenerosF" style="color:grey" title="Clique para remover este campo"><button type="button" name="minus" id="minus"><span class="glyphicon glyphicon-minus"></span></button></a>
@@ -399,7 +398,7 @@
 
 										<section class="generosD"> 
 											<p class="camposGenerosD">
-												<select type="text" class="form-control"  name = "generoD[]" id="genero" required>
+												<select type="text" class="form-control"  name = "generoD[]" id="generoD" required>
 													'.$conteudo.'
 												</select>
 												<a class="removerGenerosD" style="color:grey" title="Clique para remover este campo"><button type="button" name="minus" id="minus"><span class="glyphicon glyphicon-minus"></span></button></a>
@@ -450,7 +449,7 @@
 
 										<section class="autoresC"> 
 											<p class="camposAutoresC">
-												<select type="text" class="form-control"  name = "genero[]" id="genero" required>
+												<select type="text" class="form-control"  name = "autorC[]" id="autorC" required>
 													'.$conteudo.'
 												</select>
 												<a class="removerAutoresC" style="color:grey" title="Clique para remover este campo"><button type="button" name="minus" id="minus"><span class="glyphicon glyphicon-minus"></span></button></a>

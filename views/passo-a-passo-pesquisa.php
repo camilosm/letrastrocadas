@@ -1,3 +1,64 @@
+<script type="text/javascript">
+	function CriaRequest()
+	{ 
+		try
+		{
+			request = new XMLHttpRequest(); 
+		}
+		catch (IEAtual)
+		{ 
+			try
+			{ 
+				request = new ActiveXObject("Msxml2.XMLHTTP");
+			}
+			catch(IEAntigo)
+			{
+				try
+				{ 
+					request = new ActiveXObject("Microsoft.XMLHTTP");
+				}
+				catch(falha)
+				{ 
+					request = false; 
+				} 
+			} 
+		} 
+		if (!request)
+		alert("Seu Navegador não suporta Ajax!");
+		else return request;
+	}
+
+	function AcoesLivro(id,acao,section,tabela)
+	{
+		var xmlreq = CriaRequest();
+		// Iniciar uma requisição
+		xmlreq.open("GET", "ajax/acoes_livros.php?acao="+acao+"&id="+id+"&tabela="+tabela, true); 
+		// Atribui uma função para ser executada sempre que houver uma mudança de ado
+		xmlreq.onreadystatechange = function()
+		{
+			// Verifica se foi concluído com sucesso e a conexão fechada (readyState=4) 
+			if (xmlreq.readyState == 4)
+			{ 
+				// Verifica se o arquivo foi encontrado com sucesso
+				if (xmlreq.status == 200)
+				{ 
+					var texto = xmlreq.responseText;
+					$(section).text(texto).attr({
+						title:texto
+					});
+				}
+				else
+				{ 
+					var texto = "Erro: " + xmlreq.statusText;
+					$(section).text(texto).attr({
+						title:texto
+					});
+				}
+			} 
+		};
+		xmlreq.send(null);
+	}
+</script>
 <?php
 	if($_SESSION['nivel_acesso'] == 1)
 	{ 
@@ -83,6 +144,54 @@
 						$ct=0;
 						while($dados_pesq = mysql_fetch_assoc($resultado_dados))
 						{
+							$pesquisar_marcacões = new Pesquisar("tbl_marcacao","tipo","livro_id =".$dados_pesq['id_livro']." AND usuario_id=".$_SESSION['id']);
+							$resultado_marcacao = $pesquisar_marcacões->pesquisar();
+							$array_marcacao = mysql_fetch_assoc($resultado_marcacao);
+							
+							if($array_marcacao['tipo'] == 1)
+							{
+								$botões = ' 
+											<button id = "Resultado'.$dados_pesq['id_livro'].'" value = "QueroLer" name = "QueroLer" type="button" class="btn btn-primary btn-xs">Quero Ler</button>
+											<button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+											<ul id = "acoes" class="dropdown-menu">
+												<li><a onClick="AcoesLivro('.$dados_pesq['id_livro'].','.$aspas.'Desmarcar'.$aspas.',Resultado'.$dados_pesq['id_livro'].','.$aspas.'QueroLer'.$aspas.');">Desmarcar</a></li>
+												<li><a onClick="AcoesLivro('.$dados_pesq['id_livro'].','.$aspas.'JaLi'.$aspas.',Resultado'.$dados_pesq['id_livro'].','.$aspas.'QueroLer'.$aspas.');">Já li</a></li>
+												<li><a onClick="AcoesLivro('.$dados_pesq['id_livro'].','.$aspas.'Lendo'.$aspas.',Resultado'.$dados_pesq['id_livro'].','.$aspas.'QueroLer'.$aspas.');">Estou lendo</a></li>
+											</ul>';
+							}
+							else if($array_marcacao['tipo'] == 2)
+							{
+								$botões = ' 
+										<button id = "Resultado'.$dados_pesq['id_livro'].'" value = "JaLi" name = "JaLi" type="button" class="btn btn-primary btn-xs">Já Li</button>
+										<button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+										<ul id = "acoes" class="dropdown-menu">
+											<li><a onClick="AcoesLivro('.$dados_pesq['id_livro'].','.$aspas.'Desmarcar'.$aspas.',Resultado'.$dados_pesq['id_livro'].','.$aspas.'JaLi'.$aspas.');">Desmarcar</a></li>
+											<li><a onClick="AcoesLivro('.$dados_pesq['id_livro'].','.$aspas.'Lendo'.$aspas.',Resultado'.$dados_pesq['id_livro'].','.$aspas.'JaLi'.$aspas.');">Estou lendo</a></li>
+											<li><a onClick="AcoesLivro('.$dados_pesq['id_livro'].','.$aspas.'QueroLer'.$aspas.',Resultado'.$dados_pesq['id_livro'].','.$aspas.'JaLi'.$aspas.');">Quero Ler</a></li>
+										</ul>';
+							}
+							else if($array_marcacao['tipo'] == 3)
+							{
+								$botões = ' 
+										<button id = "Resultado'.$dados_pesq['id_livro'].'" value = "Lendo" name = "Lendo" type="button" class="btn btn-primary btn-xs">Estou lendo</button>
+										<button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+										<ul id = "acoes" class="dropdown-menu">
+											<li><a onClick="AcoesLivro('.$dados_pesq['id_livro'].','.$aspas.'Desmarcar'.$aspas.',Resultado'.$dados_pesq['id_livro'].','.$aspas.'Lendo'.$aspas.');">Desmarcar</a></li>
+											<li><a onClick="AcoesLivro('.$dados_pesq['id_livro'].','.$aspas.'QueroLer'.$aspas.',Resultado'.$dados_pesq['id_livro'].','.$aspas.'Lendo'.$aspas.');">Quero Ler</a></li>
+											<li><a onClick="AcoesLivro('.$dados_pesq['id_livro'].','.$aspas.'JaLi'.$aspas.',Resultado'.$dados_pesq['id_livro'].','.$aspas.'Lendo'.$aspas.');">Já li</a></li>
+										</ul>';
+							}
+							else
+							{
+								$botões = '
+											<button id = "Resultado'.$dados_pesq['id_livro'].'" value = "" name = "Eu" type="button" class="btn btn-primary btn-xs">Eu...</button>
+											<button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+											<ul id = "acoes" class="dropdown-menu">
+												<li><a onClick="AcoesLivro('.$dados_pesq['id_livro'].','.$aspas.'QueroLer'.$aspas.',Resultado'.$dados_pesq['id_livro'].','.$aspas.''.$aspas.');">Quero Ler</a></li>
+												<li><a onClick="AcoesLivro('.$dados_pesq['id_livro'].','.$aspas.'JaLi'.$aspas.',Resultado'.$dados_pesq['id_livro'].','.$aspas.''.$aspas.');">Já li</a></li>
+												<li><a onClick="AcoesLivro('.$dados_pesq['id_livro'].','.$aspas.'Lendo'.$aspas.',Resultado'.$dados_pesq['id_livro'].','.$aspas.''.$aspas.');">Estou lendo</a></li>
+											</ul>';
+							}
 							$ct++;
 							if(($ct == 1) OR ($ct == 3) OR ($ct == 5))
 							{
@@ -111,6 +220,7 @@
 								echo '<section class="col-md-10">
 											<section class = "btn-group" style="left:45%;">
 												<a href="?url=passo-a-passo-dados-usuario&cod='.$dados_pesq['id_livro'].'"><input type = "button" class="btn btn-primary btn-xs" name = "botao_disponibilizar_livro" value = "Disponibilizar Livro" /></a>
+												'.$botões.'
 											</section>
 									</section>
 								</section>';

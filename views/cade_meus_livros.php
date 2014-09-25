@@ -41,7 +41,15 @@
 				$colapse = "";
 			}
 			
-			$background_transporte = $cambio['status'] == 2 ? 'style = "background-color:green;"' : "";
+			if($cambio['status'] == 2 OR  $cambio['status'] ==3)
+			{
+				$background_transporte = 'style = "background-color:green;"';
+			}
+			else
+			{
+				$background_transporte = '';
+			}
+			$background_transporte = $cambio['status'] <> 1 ? 'style = "background-color:green;"' : "";
 			$background_livro_entregue = $cambio['entregue'] == "Sim" ? 'style = "background-color:green;"' : "";
 			
 			 echo '

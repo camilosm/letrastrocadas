@@ -200,7 +200,7 @@
 	
 	<footer>
 		<?php
-			include("views/base/footer.php");
+			//include("views/base/footer.php");
 		?>
 	</footer>
 	
