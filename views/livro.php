@@ -84,7 +84,7 @@
 							</section>
 							<section class = "col-lg-4" style = "width:48%;">
 								<textarea class="form-control" rows="9" disabled>
-									'.$livro['sinopse'].'
+									'.utf8_encode($livro['sinopse']).'
 								</textarea>
 							</section> 
 						</section>
