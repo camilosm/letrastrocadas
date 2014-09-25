@@ -57,7 +57,7 @@
 				$categoria = $editar_categoria->sanitizeNumber($_POST['cmbGenero']);
 				
 				$editar_sinopse = new EditarCaracteres($sinopse);
-				$autor_sinopse = utf8_decode($editar_sinopse->sanitizeStringNome($_POST['sinopse']));
+				$sinopse = utf8_decode($editar_sinopse->sanitizeStringNome($_POST['sinopse']));
 				
 				$editar_numero_paginas = new EditarCaracteres($numero_paginas);
 				$numero_paginas = $editar_numero_paginas->sanitizeNumber($_POST['numero_paginas']);			
@@ -302,31 +302,18 @@
 				</section>
 				<label for="textArea" class="col-lg-2 control-label">Sinopse:</label>
 				<section class="col-lg-9">
-					<textarea class="form-control" rows="3" name="sinopse" id="textArea"><?php echo $sinopse; ?></textarea>
+					<textarea class="form-control" rows="3" name="sinopse" id="textArea"><?php echo utf8_encode($sinopse); ?></textarea>
 				</section>
 				<label for="inputEdicaolivro" class="col-lg-2 control-label">Páginas:</label>				  
 				<section class="col-lg-9">
 					<input type="number" class="form-control" value="<?php echo $numero_paginas ;?>" name = "numero_paginas" id="inputNumeros" required placeholder = "Números de páginas" maxlength = "20" min = "0" max = "20000">
 				</section>
 				<section class="col-lg-9 col-lg-offset-2">                    
-					<button style="margin-left: 5px; float:right;" type="submit" name = "cadastrarLivro" class="btn btn-primary">Cadastrar</button>
 					<button style="margin-left: 5px; float:right;" type="submit" name = "alterar" class="btn btn-primary">Alterar</button>
 					<button style="float:right;" type = "reset" class="btn btn-default">Cancelar</button>
 				</section>
 			</section>
 		</fieldset>
 	</form>
-	</article>
-	<section id="body_cadastrar_editora" style = "display:none">
-		<form id = "cadastrar_editora" method="post" action = "">
-			<input type = "text" name = "editora_nome" required placeholder = "Nome" maxlength = "100">
-			<input type = "submit" name = "cadastrar_editora" value = "Cadastrar Editora">
-		</form>	
-	</section>
-	<section id="body_cadastrar_autor" style = "display:none">
-		<form id = "cadastrar_autor" method="post" action = "">
-			<input type = "text" name = "autor_nome" required placeholder = "Nome" maxlength = "100">
-			<input type = "submit" name = "cadastrar_autor" value = "Cadastrar Autor">
-		</form>
-	</section>
 </article>
+
