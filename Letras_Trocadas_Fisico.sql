@@ -218,21 +218,6 @@ CREATE TABLE tbl_notificacoes(
    ALTER TABLE tbl_notificacoes ADD data_enviada DATETIME NOT NULL AFTER usuario_id;
 */
 
-CREATE TABLE tbl_lista_banidos(
-
-	id_lista_banidos INT UNSIGNED AUTO_INCREMENT NOT NULL,
-	data DATE NOT NULL,
-	adiministrador_id INT UNSIGNED NOT NULL,
-	usuario_id INT UNSIGNED NOT NULL,
-	PRIMARY KEY(id_lista_banidos),
-	FOREIGN KEY(adiministrador_id) REFERENCES tbl_administrador(id_administrador),
-	FOREIGN KEY(usuario_id) REFERENCES tbl_usuario(id_usuario)
-	
-);
-
-/* ALTER TABLE tbl_lista_banidos DROP motivo;
-ALTER TABLE tbl_lista_banidos DROP 
-*/
 
 CREATE TABLE tbl_lista_livros(
 	
@@ -347,7 +332,6 @@ CREATE TABLE tbl_motivos(
 
 	id_motivo INT UNSIGNED AUTO_INCREMENT NOT NULL,
 	motivo VARCHAR(255) NOT NULL,
-	penalidade INT NOT NULL, /* 1 = Banir do site por 1 mês, 2 =  emitir aviso, 3 = banir email do usuário de cadastrar novamente e desativar sua conta, 4 = à escolha do adm  */ 
 	PRIMARY KEY(id_motivo)
 );
 /* ALTER TABLE tbl_motivos CHANGE descricao motivo VARCHAR(255) NOT NULL*/
