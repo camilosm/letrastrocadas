@@ -22,7 +22,7 @@
 		
 		<style>
 			body { padding-top: 70px; }
-			footer { background-color: #dd4814; position: fixed; left: 0; bottom: 0; width: 100%; overflow:hidden; }
+			footer { background-color: #dd4814; padding-top:49px;}
 		</style>
 		
 	</head>
@@ -199,10 +199,8 @@
 
 	</body>
 	
-	<footer>
-		<?php
-			//include("views/base/footer.php");
-		?>
+	<footer>	
+		<?php @include("views/base/footer.php"); ?>
 	</footer>
 	
 </html>

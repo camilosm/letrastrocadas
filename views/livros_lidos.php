@@ -1,4 +1,65 @@
 <script type="text/javascript">
+	function CriaRequest()
+	{ 
+		try
+		{
+			request = new XMLHttpRequest(); 
+		}
+		catch (IEAtual)
+		{ 
+			try
+			{ 
+				request = new ActiveXObject("Msxml2.XMLHTTP");
+			}
+			catch(IEAntigo)
+			{
+				try
+				{ 
+					request = new ActiveXObject("Microsoft.XMLHTTP");
+				}
+				catch(falha)
+				{ 
+					request = false; 
+				} 
+			} 
+		} 
+		if (!request)
+		alert("Seu Navegador não suporta Ajax!");
+		else return request;
+	}
+
+	function AcoesLivro(id,acao,section,tabela)
+	{
+		var xmlreq = CriaRequest();
+		// Iniciar uma requisição
+		xmlreq.open("GET", "ajax/acoes_livros.php?acao="+acao+"&id="+id+"&tabela="+tabela, true); 
+		// Atribui uma função para ser executada sempre que houver uma mudança de ado
+		xmlreq.onreadystatechange = function()
+		{
+			// Verifica se foi concluído com sucesso e a conexão fechada (readyState=4) 
+			if (xmlreq.readyState == 4)
+			{ 
+				// Verifica se o arquivo foi encontrado com sucesso
+				if (xmlreq.status == 200)
+				{ 
+					var texto = xmlreq.responseText;
+					$(section).text(texto).attr({
+						title:texto
+					});
+				}
+				else
+				{ 
+					var texto = "Erro: " + xmlreq.statusText;
+					$(section).text(texto).attr({
+						title:texto
+					});
+				}
+			} 
+		};
+		xmlreq.send(null);
+	}
+</script>
+<script type="text/javascript">
 	function Abrir(id)
 	{
 		$.ajax({
@@ -88,18 +149,24 @@
 			<section class = "row" id="livro">
 				<section class = "col-lg-4" style = "width: auto;">	
 					<section class = "bs-component"> 
-						<a class = "thumbnail">
+						<a href="?url=livro&livro=<?php echo $id_livro[0];?>" class = "thumbnail">
 							<img id = "imagem" src = "<?php echo $imagem[0];?>" alt = "<?php echo $nome[0];?>" height = "177px" width = "120px"/> 
 						</a>
 					</section>
 				</section>
 				<section class = "col-lg-4">
-					<a> <h3> <?php echo utf8_encode($nome[0]); ?> </h3> </a>				  
+					<a href="?url=livro&livro=<?php echo $id_livro[0];?>"> <h3> <?php echo utf8_encode($nome[0]); ?> </h3> </a>				  
 					<a> <h4> <?php echo utf8_encode($autor[0]); ?> </h4></a>
 					<a> <h5> <?php echo utf8_encode($editora[0]); ?> </h5></a>
-					<form method="post" action="?url=alterar_livro_usuario&cod=<?php echo $id_livro[0];?>">
-						<input type="submit" class="btn btn-primary btn-sm" name="alterarlivro" value="Alterar Livro"/>
-					</form>
+					<section class = "btn-group" id="botoes">
+						<button id = "Resultado" value = "JaLi" name = "JaLi" type="button" class="btn btn-primary btn-sm">Já Li</button>
+						<button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+						<ul id = "acoes" class="dropdown-menu">
+							<li><a onClick="AcoesLivro(<?php echo $id_livro[0];?>,'Desmarcar',Resultado,'JaLi');">Desmarcar</a></li>
+							<li><a onClick="AcoesLivro(<?php echo $id_livro[0];?>,'Lendo,Resultado,'JaLi');">Estou lendo</a></li>
+							<li><a onClick="AcoesLivro(<?php echo $id_livro[0];?>,'QueroLer',Resultado,'JaLi');">Quero Ler</a></li>
+						</ul>
+					</section>
 				</section>
 				<section class = "col-lg-4" style = "width:48%;">
 					<textarea class="form-control" rows="9" readonly>

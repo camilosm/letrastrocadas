@@ -29,26 +29,21 @@
 			
 			/* Pesquisa de livros que o usuário disponibilizou */ 
 			
-			$pesquisa_dados_lista_livros = new Pesquisar("tbl_usuario usu JOIN tbl_livro liv JOIN tbl_lista_livros list_liv ON list_liv.livro_id = id_livro AND list_liv.usuario_id = id_usuario","imagem_livros,liv.nome,id_lista_livros","id_usuario = $id GROUP BY id_lista_livros");
+			$pesquisa_dados_lista_livros = new Pesquisar("tbl_usuario usu JOIN tbl_livro liv JOIN tbl_lista_livros list_liv ON list_liv.livro_id = id_livro AND list_liv.usuario_id = id_usuario","imagem_livros,liv.nome as Nome,id_lista_livros","id_usuario = $id GROUP BY id_lista_livros");
 			$resul_pesquisa_lista_livros = $pesquisa_dados_lista_livros->pesquisar();
-			$pesq_lista_livro = mysql_fetch_assoc($resul_pesquisa_lista_livros);
-		    
-			$imagem_lista_livro = $pesq_lista_livro['imagem_livros'];
-			$nome_livro_lista_livro = $pesq_lista_livro['liv.nome'];
-			$id_lista_livro = $pesq_lista_livro['id_lista_livros'];
 			
 			/* Pesquisa de livros marcados como quero ler, lidos, lendo */
 
-			$pesquisa_dados_marcacao = new Pesquisar("tbl_marcacao JOIN tbl_usuario ON usuario_id = id_usuario JOIN tbl_livro ON livro_id = id_livro","tipo,id_livro,imagem_livros,tbl_livro.nome","usuario_id = $id");
-			$resul_pesquisa_marcacao = $pesquisa_dados_marcacao->pesquisar();
-			$pesq_marcacao = mysql_fetch_assoc($resul_pesquisa_marcacao);
-		    
-			$imagem_marcacao = $pesq_marcacao['imagem_livros'];
-			$nome_livro_marcacao = $pesq_marcacao['tbl_livro.nome'];
-			$id_livro_marcacao = $pesq_marcacao['id_livro'];			
-			$tipo_marcacao = $pesq_marcacao['tipo'];
-			
-			
+			$pesquisar_quero_ler = new Pesquisar("tbl_marcacao JOIN tbl_usuario ON usuario_id = id_usuario JOIN tbl_livro ON livro_id = id_livro"," id_livro,imagem_livros,tbl_livro.nome as Nome"," tipo = 1 AND usuario_id = $id");
+			$resul_quero_ler = $pesquisar_quero_ler->pesquisar();	
+
+			$pesquisar_ja_li = new Pesquisar("tbl_marcacao JOIN tbl_usuario ON usuario_id = id_usuario JOIN tbl_livro ON livro_id = id_livro"," id_livro,imagem_livros,tbl_livro.nome as Nome"," tipo = 2 AND usuario_id = $id");
+			$resul_ja_li = $pesquisar_ja_li->pesquisar();
+
+			$pesquisar_lendo = new Pesquisar("tbl_marcacao JOIN tbl_usuario ON usuario_id = id_usuario JOIN tbl_livro ON livro_id = id_livro"," id_livro,imagem_livros,tbl_livro.nome as Nome"," tipo = 3 AND usuario_id = $id");
+			$resul_lendo = $pesquisar_lendo->pesquisar();		
+
+
 		}
 		else if($id != $id_outro_usu)
 		{
@@ -68,31 +63,30 @@
 			
 			/* Pesquisa de livros que o usuário disponibilizou */ 
 			
-			$pesquisa_dados_lista_livros = new Pesquisar("tbl_usuario usu JOIN tbl_livro liv JOIN tbl_lista_livros list_liv ON list_liv.livro_id = id_livro AND list_liv.usuario_id = id_usuario","imagem_livros,liv.nome,id_lista_livros","id_usuario = $id_outro_usu GROUP BY id_lista_livros");
+			$pesquisa_dados_lista_livros = new Pesquisar("tbl_usuario usu JOIN tbl_livro liv JOIN tbl_lista_livros list_liv ON list_liv.livro_id = id_livro AND list_liv.usuario_id = id_usuario","imagem_livros,liv.nome as Nome,id_lista_livros","id_usuario = $id_outro_usu GROUP BY id_lista_livros");
 			$resul_pesquisa_lista_livros = $pesquisa_dados_lista_livros->pesquisar();
-			$pesq_lista_livro = mysql_fetch_assoc($resul_pesquisa_lista_livros);
-		    
-			$imagem_lista_livro = $pesq_lista_livro['imagem_livros'];
-			$nome_livro_lista_livro = $pesq_lista_livro['liv.nome'];
-			$id_lista_livro = $pesq_lista_livro['id_lista_livros'];
 			
 			/* Pesquisa de livros marcados como quero ler, lidos, lendo */
 
-			$pesquisa_dados_marcacao = new Pesquisar("tbl_marcacao JOIN tbl_usuario ON usuario_id = id_usuario JOIN tbl_livro ON livro_id = id_livro"," tipo,id_livro,imagem_livros,tbl_livro.nome"," usuario_id = $id_outro_usu");
-			$resul_pesquisa_marcacao = $pesquisa_dados_marcacao->pesquisar();
-			$pesq_marcacao = mysql_fetch_assoc($resul_pesquisa_marcacao);
-		    
-			$imagem_marcacao = $pesq_marcacao['imagem_livros'];
-			$nome_livro_marcacao = $pesq_marcacao['nome'];
-			$id_livro_marcacao = $pesq_marcacao['id_livro'];			
-			$tipo_marcacao = $pesq_marcacao['tipo'];
+			$pesquisar_quero_ler = new Pesquisar("tbl_marcacao JOIN tbl_usuario ON usuario_id = id_usuario JOIN tbl_livro ON livro_id = id_livro"," id_livro,imagem_livros,tbl_livro.nome as Nome"," tipo = 1 AND usuario_id = $id_outro_usu");
+			$resul_quero_ler = $pesquisar_quero_ler->pesquisar();	
+
+			$pesquisar_ja_li = new Pesquisar("tbl_marcacao JOIN tbl_usuario ON usuario_id = id_usuario JOIN tbl_livro ON livro_id = id_livro"," id_livro,imagem_livros,tbl_livro.nome as Nome"," tipo = 2 AND usuario_id = $id_outro_usu");
+			$resul_ja_li = $pesquisar_ja_li->pesquisar();
+
+			$pesquisar_lendo = new Pesquisar("tbl_marcacao JOIN tbl_usuario ON usuario_id = id_usuario JOIN tbl_livro ON livro_id = id_livro"," id_livro,imagem_livros,tbl_livro.nome as Nome"," tipo = 3 AND usuario_id = $id_outro_usu");
+			$resul_lendo = $pesquisar_lendo->pesquisar();	
+
+			
 		}
 		else
 		{
+		   /* Pesquisa de dados Básicos usuário */
+			
 		    $pesquisa_dados = new Pesquisar("tbl_usuario","id_usuario,nome,email,foto,idade,avaliacoes_negativas,avaliacoes_positivas,uf,cidade", " id_usuario = $id");
 		    $resul_pesquisa = $pesquisa_dados->pesquisar();
-		    $pesq = mysql_fetch_array($resul_pesquisa);
-		    
+		    $pesq = mysql_fetch_assoc($resul_pesquisa);
+			
 		    $nome = $pesq['nome'];
 		    $foto = $pesq['foto'];
 		    $idade = $pesq['idade'];
@@ -101,28 +95,23 @@
 		    $avaliacoes_negativas = $pesq['avaliacoes_negativas'];
 		    $avaliacoes_positivas = $pesq['avaliacoes_positivas'];
 		    $id_p = $pesq['id_usuario'];
-		    $email_p = $pesq['email'];		
-			
-			/* Pesquisa de livros marcados como quero ler, lidos, lendo */
-
-			$pesquisa_dados_marcacao = new Pesquisar("tbl_marcacao JOIN tbl_usuario ON usuario_id = id_usuario JOIN tbl_livro ON livro_id = id_livro","tipo,id_livro,imagem_livros,tbl_livro.nome","usuario_id = $id");
-			$resul_pesquisa_marcacao = $pesquisa_dados_marcacao->pesquisar();
-			$pesq_marcacao = mysql_fetch_assoc($resul_pesquisa_marcacao);
-		    
-			$imagem_marcacao = $pesq_marcacao['imagem_livros'];
-			$nome_livro_marcacao = $pesq_marcacao['tbl_livro.nome'];
-			$id_livro_marcacao = $pesq_marcacao['id_livro'];			
-			$tipo_marcacao = $pesq_marcacao['tipo'];
+		    $email_p = $pesq['email'];
 			
 			/* Pesquisa de livros que o usuário disponibilizou */ 
 			
-			$pesquisa_dados_lista_livros = new Pesquisar("tbl_usuario usu JOIN tbl_livro liv JOIN tbl_lista_livros list_liv ON list_liv.livro_id = id_livro AND list_liv.usuario_id = id_usuario","imagem_livros,liv.nome,id_lista_livros","id_usuario = $id_outro_usu GROUP BY id_lista_livros");
+			$pesquisa_dados_lista_livros = new Pesquisar("tbl_usuario usu JOIN tbl_livro liv JOIN tbl_lista_livros list_liv ON list_liv.livro_id = id_livro AND list_liv.usuario_id = id_usuario","imagem_livros,liv.nome as Nome,id_lista_livros","id_usuario = $id GROUP BY id_lista_livros");
 			$resul_pesquisa_lista_livros = $pesquisa_dados_lista_livros->pesquisar();
-			$pesq_lista_livro = mysql_fetch_assoc($resul_pesquisa_lista_livros);
-		    
-			$imagem_lista_livro = $pesq_lista_livro['imagem_livros'];
-			$nome_livro_lista_livro = $pesq_lista_livro['liv.nome'];
-			$id_lista_livro = $pesq_lista_livro['id_lista_livros'];
+			
+			/* Pesquisa de livros marcados como quero ler, lidos, lendo */
+
+			$pesquisar_quero_ler = new Pesquisar("tbl_marcacao JOIN tbl_usuario ON usuario_id = id_usuario JOIN tbl_livro ON livro_id = id_livro"," id_livro,imagem_livros,tbl_livro.nome as Nome"," tipo = 1 AND usuario_id = $id");
+			$resul_quero_ler = $pesquisar_quero_ler->pesquisar();	
+
+			$pesquisar_ja_li = new Pesquisar("tbl_marcacao JOIN tbl_usuario ON usuario_id = id_usuario JOIN tbl_livro ON livro_id = id_livro"," id_livro,imagem_livros,tbl_livro.nome as Nome"," tipo = 2 AND usuario_id = $id");
+			$resul_ja_li = $pesquisar_ja_li->pesquisar();
+
+			$pesquisar_lendo = new Pesquisar("tbl_marcacao JOIN tbl_usuario ON usuario_id = id_usuario JOIN tbl_livro ON livro_id = id_livro"," id_livro,imagem_livros,tbl_livro.nome as Nome"," tipo = 3 AND usuario_id = $id");
+			$resul_lendo = $pesquisar_lendo->pesquisar();
 		}
 
 		
@@ -154,32 +143,29 @@
 							<section id="myTabContent" class="tab-content">
 								<section class="tab-pane fade active in" id="livrosdisponiveis">
 									<?php
-										if ($resul_pesquisa_lista_livros != 0)
+										$qt = 0;		
+										while($pesq_lista_livro = mysql_fetch_assoc($resul_pesquisa_lista_livros))
 										{
-											while($pesq_lista_livro = mysql_fetch_assoc($resul_pesquisa_lista_livros))
-											{
-												echo '<img src ="'.$imagem_lista_livro.'" alt = "'.$nome_livro_lista_livro.'" height = "177px" width = "120px">';
-											}
+											$qt++;
+											echo '<img src ="'.$pesq_lista_livro['imagem_livros'].'" alt = "'.$pesq_lista_livro['nome'].'" height = "177px" width = "120px">';
 										}
-										else
+										if($qt == 0)
 										{
 											echo 'Nenhum livro está disponível';
 										}
+										
 									?>
 								</section>
 								<section class="tab-pane fade" id="jali">
 									<?php
-										if ($resul_pesquisa_marcacao != 0 AND $tipo_marcacao == 2)
+										$qt_ja_li = 0;	
+										while($pesq_ja_li = mysql_fetch_assoc($resul_ja_li))
 										{
-											while($pesq_marcacao = mysql_fetch_assoc($resul_pesquisa_marcacao))
-											{
-												if ($tipo_marcacao == 2)
-												{
-													echo '<img src ="'.$imagem_marcacao.'" alt = "'.$nome_livro_marcacao.'" height = "177px" width = "120px">';
-												}
-											}
+											$qt_ja_li++;
+											echo '<img src ="'.$pesq_ja_li['imagem_livros'].'" alt = "'.$pesq_ja_li['nome'].'" height = "177px" width = "120px">';
 										}
-										else
+										
+										if($qt_ja_li == 0)
 										{
 											echo 'Nenhum livro está disponível';
 										}
@@ -187,35 +173,30 @@
 								</section>
 								<section class="tab-pane fade" id="queroler">
 									<?php
-										if ($resul_pesquisa_marcacao != 0 AND $tipo_marcacao == 1)
+										$qt_quero = 0;	
+										while($pesq_quero_ler = mysql_fetch_assoc($resul_quero_ler))
 										{
-											while($pesq_marcacao = mysql_fetch_assoc($resul_pesquisa_marcacao))
-											{
-												if ($tipo_marcacao == 1)
-												{
-													echo '<img src ="'.$imagem_marcacao.'" alt = "'.$nome_livro_marcacao.'" height = "177px" width = "120px">';
-												}
-											}
+											$qt_quero++;
+											echo '<img src ="'.$pesq_quero_ler['imagem_livros'].'" alt = "'.$pesq_quero_ler['nome'].'" height = "177px" width = "120px">';
 										}
-										else
+
+										if($qt_quero == 0)
 										{
 											echo 'Nenhum livro está disponível';
 										}
+										
 									?>
 								</section>
 								<section class="tab-pane fade" id="lendo">
 									<?php
-										if ($resul_pesquisa_marcacao != 0 AND $tipo_marcacao == 3)
+										$qt_lendo = 0;	
+										while($pesq_lendo = mysql_fetch_assoc($resul_lendo))
 										{
-											while($pesq_marcacao = mysql_fetch_assoc($resul_pesquisa_marcacao))
-											{
-												if ($tipo_marcacao == 3)
-												{
-												echo '<img src ="'.$imagem_marcacao.'" alt = "'.$nome_livro_marcacao.'" height = "177px" width = "120px">';
-												}
-											}
+											$qt_lendo++;
+											echo '<img src ="'.$pesq_lendo['imagem_livros'].'" alt = "'.$pesq_lendo['nome'].'" height = "177px" width = "120px">';
 										}
-										else
+
+										if($qt_lendo == 0)
 										{
 											echo 'Nenhum livro está disponível';
 										}
