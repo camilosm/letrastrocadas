@@ -98,7 +98,7 @@ CREATE TABLE tbl_usuario(
 	limite_troca INT NOT NULL,
 	avaliacoes_negativas INT NOT NULL,
 	avaliacoes_positivas INT NOT NULL,
-	status INT NOT NULL, /* 1 = ativo, 2 = inativo, 3 = banido e 4 = Cadastro Completo*/
+	status INT NOT NULL, /* 1 = ativo, 2 = inativo, 3 = banido, 4 = Cadastro Completo e 5 = aguandarndo aprovação para reativação de conta */
 	logradouro VARCHAR(100) NULL,
 	numero INT NULL,
 	cep CHAR(9) NULL,
