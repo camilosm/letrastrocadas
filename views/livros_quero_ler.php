@@ -173,7 +173,8 @@
 					</textarea>
 				</section> 		
 			</section>
-			<?php
+			<section style="max-width:100%;overflow:auto;">
+				<?php
 					for($contador=0;$contador<=$quantidade-1;$contador++)
 					{
 						echo '
@@ -183,6 +184,9 @@
 								</a>
 							</section>'; 
 					}
+				?>
+			</section>
+			<?php
 				}
 				else
 				{

@@ -37,6 +37,23 @@
 
 		$pesquisar_lendo = new Pesquisar("tbl_marcacao JOIN tbl_usuario ON usuario_id = id_usuario JOIN tbl_livro ON livro_id = id_livro"," id_livro,imagem_livros,tbl_livro.nome as Nome"," tipo = 3 AND usuario_id = $id");
 		$resul_lendo = $pesquisar_lendo->pesquisar();
+
+		/* Pesquisa das preferências do usuário */
+
+		$pesquisar_autor = new Pesquisar('tbl_autor','*','1=1 GROUP BY nome ASC');
+		$resultado_autor = $pesquisar_autor->pesquisar();
+
+		$pesquisa_generos_fav = new Pesquisar('tbl_generos_favoritos','*',"usuario_id = $id");
+		$res_genero_fav = $pesquisa_generos_fav->pesquisar();
+
+		$pesquisa_autor_fav = new Pesquisar('tbl_autores_favoritos','*',"usuario_id = $id");
+		$res_autor_fav = $pesquisa_autor_fav->pesquisar();
+
+		$pesquisa_generos_des = new Pesquisar('tbl_generos_desapreciados','*',"usuario_id = $id");
+		$res_genero_des = $pesquisa_generos_des->pesquisar();
+
+		$pesquisa_autor_des = new Pesquisar('tbl_autores_desapreciados','*',"usuario_id = $id");
+		$res_autor_des = $pesquisa_autor_des->pesquisar();
 ?>
 
 <article id = "body_perfil_usuario" style="width: 80%; margin-left: 10%">
@@ -62,22 +79,24 @@
 								<li><a href="#lendo" data-toggle="tab"><span class="glyphicon glyphicon-book"></span> Lendo </a></li>
 							</ul>
 							<section id="myTabContent" class="tab-content">
-								<section class="tab-pane fade active in" id="livrosdisponiveis">
-									<?php
-										$qt = 0;		
-										while($pesq_lista_livro = mysql_fetch_assoc($resul_pesquisa_lista_livros))
-										{
-											$qt++;
-											echo '<img src ="'.$pesq_lista_livro['imagem_livros'].'" alt = "'.$pesq_lista_livro['nome'].'" height = "177px" width = "120px">';
-										}
-										if($qt == 0)
-										{
-											echo 'Nenhum livro está disponível';
-										}
-										
-									?>
+								<section class="tab-pane fade active in" id="livrosdisponiveis" style="max-width:100%;overflow:auto;">
+
+										<?php
+											$qt = 0;		
+											while($pesq_lista_livro = mysql_fetch_assoc($resul_pesquisa_lista_livros))
+											{
+												$qt++;
+												echo '<img src ="'.$pesq_lista_livro['imagem_livros'].'" alt = "'.$pesq_lista_livro['nome'].'" height = "177px" width = "120px">';
+											}
+											if($qt == 0)
+											{
+												echo 'Nenhum livro está disponível';
+											}
+											
+										?>
+									
 								</section>
-								<section class="tab-pane fade" id="jali">
+								<section class="tab-pane fade" id="jali" style="max-width:100%;overflow:auto;">
 									<?php
 										$qt_ja_li = 0;	
 										while($pesq_ja_li = mysql_fetch_assoc($resul_ja_li))
@@ -92,7 +111,7 @@
 										}
 									?>
 								</section>
-								<section class="tab-pane fade" id="queroler">
+								<section class="tab-pane fade" id="queroler" style="max-width:100%;overflow:auto;">
 									<?php
 										$qt_quero = 0;	
 										while($pesq_quero_ler = mysql_fetch_assoc($resul_quero_ler))
@@ -108,7 +127,7 @@
 										
 									?>
 								</section>
-								<section class="tab-pane fade" id="lendo">
+								<section class="tab-pane fade" id="lendo" style="max-width:100%;overflow:auto;">
 									<?php
 										$qt_lendo = 0;	
 										while($pesq_lendo = mysql_fetch_assoc($resul_lendo))
@@ -124,6 +143,11 @@
 									?>
 								</section>					  
 							</section>
+						</td>
+					</tr>
+					<tr>
+						</td>
+							
 						</td>
 					</tr>
 					<tr>

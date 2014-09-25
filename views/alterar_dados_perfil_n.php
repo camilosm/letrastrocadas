@@ -11,24 +11,16 @@
 		//Repassa os valores enviados pelo formulário para uma variável
 		$nome = $_POST['nome'];
 		$data_nasc = $_POST['data_nascimento'];
-		$genero_fav = $_POST['genero'];
 		$logradouro = $_POST['logradouro'];
 		$numero = $_POST['numero'];
 		$cep = $_POST['cep'];
-		$uf = $_POST['uf'];
+		$uf = $_POST['inputUF'];
 		$complemento = $_POST['complemento'];
 		$cidade = $_POST['cidade'];
 		$bairro = $_POST['bairro'];	
 		$nova_imagem = $_POST['caminho'];
 		$explode = explode('.',$nova_imagem);
-		if($explode[1] == "jpg")
-		{
-			$imagem = $nova_imagem;
-		}
-		else
-		{
-			$imagem = $nova_imagem.".jpg";
-		}
+		$imagem = $nova_imagem;
 		
 		//Instancia a classe que tenta evitar o MySql Inject
 		$editar_nome = new EditarCaracteres($nome);
@@ -39,7 +31,6 @@
 		status = 4,
 		foto = '".$imagem."',
         data_nasc = '".$data_nasc."',
-        genero_favorito = '".utf8_decode($genero_fav)."',
 		logradouro = '".utf8_decode($logradouro)."',
 		numero = ".$numero.",
 		cep = '".$cep."',
@@ -90,7 +81,7 @@
 		$quantidade = count($generoD);
 		for ($i=0; $i<$quantidade; $i++) 
 		{ 
-			if(($generoD[$i] != "Escolha um gênero que você não gosta ...") AND ($generoD[$i] != "Nenhum"))
+			if(($generoD[$i] != "Escolha um gênero que você não gosta...") AND ($generoD[$i] != "Nenhum"))
 			{
 				$pes_genero_des = new Pesquisar('tbl_generos_desapreciados','*','genero_id ='.$generoD[$i].' AND usuario_id = '.$_SESSION['id']);
 				$res_genero_des = $pes_genero_des->pesquisar();
@@ -107,7 +98,7 @@
 		$quantidade = count($autorC);
 		for ($i=0; $i<$quantidade; $i++) 
 		{ 
-			if(($autorC[$i] != "Escolha um autor que você não gosta ...") AND ($autorC[$i] != "Nenhum"))
+			if(($autorC[$i] != "Escolha um autor que você não gosta...") AND ($autorC[$i] != "Nenhum"))
 			{
 				$pes_autor_cha = new Pesquisar('tbl_autores_desapreciados','*','autor_id ='.$autorC[$i].' AND usuario_id = '.$_SESSION['id']);
 				$res_autor_cha = $pes_autor_cha->pesquisar();
