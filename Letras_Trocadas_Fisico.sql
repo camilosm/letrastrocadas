@@ -218,6 +218,7 @@ CREATE TABLE tbl_notificacoes(
    ALTER TABLE tbl_notificacoes ADD data_enviada DATETIME NOT NULL AFTER usuario_id;
 */
 
+/* DROP TABLE tbl_lista_banidos; */
 
 CREATE TABLE tbl_lista_livros(
 	
@@ -334,7 +335,10 @@ CREATE TABLE tbl_motivos(
 	motivo VARCHAR(255) NOT NULL,
 	PRIMARY KEY(id_motivo)
 );
-/* ALTER TABLE tbl_motivos CHANGE descricao motivo VARCHAR(255) NOT NULL*/
+
+
+/* ALTER TABLE tbl_motivos CHANGE descricao motivo VARCHAR(255) NOT NULL; */
+/* ALTER TABLE tbl_motivos DROP penalidade; */
 
 CREATE TABLE tbl_roda_procedure_ban(
 	data DATE NOT NULL
