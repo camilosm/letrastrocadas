@@ -11,7 +11,7 @@
 
 		$campos = "id_marcacao,imagem_livros,id_livro,livro.nome AS Livro,autor.nome AS Autor,editora.nome As Editora, livro.sinopse As sinopse";
 		$tabelas = "tbl_marcacao marcacao INNER JOIN tbl_livro livro INNER JOIN tbl_editora editora INNER JOIN tbl_autor autor ON id_editora = editora_id AND id_autor = autor_id AND id_livro = livro_id";
-		$pesquisar_livro = new Pesquisar($tabelas,$campos,'tipo = 2 AND usuario_id = '.$_SESSION['id'].' AND livro_id = '.$livro);
+		$pesquisar_livro = new Pesquisar($tabelas,$campos,'tipo = 1 AND usuario_id = '.$_SESSION['id'].' AND livro_id = '.$livro);
 		$resposta = $pesquisar_livro->pesquisar();
 
 		$id_livro = array();
@@ -48,12 +48,12 @@
 				<a> <h4> '.utf8_encode($autor[0]).' </h4></a>
 				<a> <h5> '.utf8_encode($editora[0]).' </h5></a>
 				<section class = "btn-group" id="botoes">
-					<button id = "Resultado" value = "JaLi" name = "JaLi" type="button" class="btn btn-primary btn-sm">Já Li</button>
+					<button id = "Resultado" value = "QueroLer" name = "QueroLer" type="button" class="btn btn-primary btn-sm">Quero Ler</button>
 					<button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
 					<ul id = "acoes" class="dropdown-menu">
-						<li><a onClick="AcoesLivro('.$id_livro[0].','.$aspas.'Desmarcar'.$aspas.',Resultado,'.$aspas.'JaLi'.$aspas.');">Desmarcar</a></li>
-						<li><a onClick="AcoesLivro('.$id_livro[0].','.$aspas.'Lendo'.$aspas.',Resultado,'.$aspas.'JaLi'.$aspas.');">Estou lendo</a></li>
-						<li><a onClick="AcoesLivro('.$id_livro[0].','.$aspas.'QueroLer'.$aspas.',Resultado,'.$aspas.'JaLi'.$aspas.');">Quero Ler</a></li>
+						<li><a onClick="AcoesLivro('.$id_livro[0].','.$aspas.'Desmarcar'.$aspas.',Resultado,'.$aspas.'QueroLer'.$aspas.');">Desmarcar</a></li>
+						<li><a onClick="AcoesLivro('.$id_livro[0].','.$aspas.'JaLi'.$aspas.',Resultado,'.$aspas.'QueroLer'.$aspas.');">Já li</a></li>
+						<li><a onClick="AcoesLivro('.$id_livro[0].','.$aspas.'Lendo'.$aspas.',Resultado,'.$aspas.'QueroLer'.$aspas.');">Estou lendo</a></li>
 					</ul>
 				</section>
 			</section>

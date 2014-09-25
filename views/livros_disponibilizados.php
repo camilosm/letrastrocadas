@@ -1,25 +1,32 @@
+<script type="text/javascript">
+	function Abrir(id)
+	{
+		$.ajax({
+			
+			url : "ajax/livros_disponibilizados.php?livro="+id,
+			dataType : "json",
+			success : function(data){
+				document.getElementById('livro').innerHTML = data.section;
+			},
+			error : function(data){
+			alert("Ops! Ocorreu um erro, contate nossos administradores para mais informações.");
+			}
+	
+		});
+		
+	}
+</script>
 <?php
 	//Verifica se o usuário tem acesso à essa página
 	if($_SESSION['nivel_acesso'] == 1)
-	{ 
-			
+	{
 			include("classes/class_banco.php");
 			include("classes/class_pesquisar.php");
-			
-			$codigo_ultimo = $_GET['livro'];
-			if(!empty($codigo_ultimo))
-			{
-				$codigo = $codigo_ultimo;
-			}
-			else
-			{
-				$codigo = "0";
-			}
 			
 			$bd = new Banco();
 			$campos = "id_lista_livros,imagem_livros,livro.nome AS Livro,livro.id_livro as id_livro,autor.nome AS Autor,editora.nome As Editora, livro.sinopse As sinopse";
 			$tabelas = "tbl_lista_livros lista INNER JOIN tbl_livro livro INNER JOIN tbl_editora editora INNER JOIN tbl_autor autor ON id_editora = editora_id AND id_autor = autor_id AND id_livro = livro_id";
-			$pesquisar_livros = new Pesquisar($tabelas,$campos,"id_lista_livros > ".$codigo." AND usuario_id =".$_SESSION['id']." LIMIT 7");
+			$pesquisar_livros = new Pesquisar($tabelas,$campos,"usuario_id =".$_SESSION['id']);
 			$resultado = $pesquisar_livros->pesquisar();
 			
 			$pesquisar_quantidade = new Pesquisar($tabelas,"COUNT(id_lista_livros) As quantidade","usuario_id =".$_SESSION['id']);
@@ -46,6 +53,8 @@
 				$autor[] = $pesquisa['Autor'];
 				$sinopse[] = $pesquisa['sinopse'];
 			}
+
+			$aspas = "'";
 		}
 	else
 	{			
@@ -62,16 +71,14 @@
 ?>
 
 <section id = "body_livros_lidos" style = "width:80%; margin-left:10%;">
-
      <section class="panel panel-default">
         <section class="panel-heading">Livros diponibilizados</section>
 			<?php
-			
-				if($resultado != 0)
+				if($quantidade >= 1)
 				{
 			?>
             <section class="panel-body">
-			    <section class = "row">
+			    <section class = "row" id="livro">
 					<section class = "col-lg-4" style = "width: auto;">	
 						<section class = "bs-component"> 
 								<a class = "thumbnail">
@@ -92,36 +99,32 @@
 						<?php echo $sinopse[0];?>
 						</textarea>
 					</section> 
-					
 				</section>
 				<br>
 				<section id = "imagens" style = "position:relative; left:3%;">
 					<?php
-					
 						for($contador=0;$contador<=$quantidade-1;$contador++)
 						{
-							echo '<img src = "'.$imagem[$contador].'" alt = "'.$nome[$contador].'" height = "177px" width = "120px">'; 
+							echo '
+							<section class="col-lg-2">
+								<a class = "thumbnail" onClick="Abrir('.$aspas.''.$id_livro[$contador].''.$aspas.')">
+									<img src = "'.$imagem[$contador].'" alt = "'.$nome[$contador].'" height = "177px" width = "120px"/> 
+								</a>
+							</section>'; 
 						}
-					
 					?>
 				</section>
-				<ul class="pager">
-					<li class="previous disabled"><a href="#">← Anterior</a></li>
-					<li class="next"><a href="?url=livros_disponibilizados&livro=
-																				<?php 
-																					if(!$quantidade < 7)
-																					{
-																						echo $id[6];
-																					}
-																				?>">Próximo →</a></li>
-				</ul>
 			</section>
 			<?php
-			}
-			
-			
+				}
+				else
+				{
 			?>
-			 
+			<section class="alert alert-dismissable alert-info">
+				<strong>Você não adicionou nenhum livro a sua estante de livros lidos! Para adicionar é só pesquisar o livro, ir no botão "Eu..." e clicar em "Lido"!</strong>
+			</section>
+			<?php
+				}
+			?>
        </section>
-
 </section>
