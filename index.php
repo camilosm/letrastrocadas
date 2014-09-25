@@ -1,7 +1,5 @@
-<?php 
-
+<?php
 	session_start();
-
 ?>
 <!DOCTYPE HTML>
 <html lang="pt-br">
@@ -15,6 +13,8 @@
 		
 		<!-- Bootstrap -->
 		<link rel="stylesheet" type="text/css" href="bootstrap/bootstrap.min.css"/>
+		<!--Footer-->
+		<link rel="stylesheet" type="text/css" href="bootstrap/sticky-footer.css">
 		<!-- Include all compiled plugins (below), or include insectionidual files as needed -->
 		<script src="scripts/jquery.min.js"></script>
 		<script src="scripts/bootstrap.min.js"></script>
@@ -22,7 +22,6 @@
 		
 		<style>
 			body { padding-top: 70px; }
-			footer { background-color: #dd4814; padding-top:49px;}
 		</style>
 		
 	</head>
@@ -199,8 +198,10 @@
 
 	</body>
 	
-	<footer>	
-		<?php @include("views/base/footer.php"); ?>
+	<footer>
+		<?php
+			include("views/base/footer.php");
+		?>
 	</footer>
 	
 </html>
