@@ -3,7 +3,7 @@
 	//Verifica se o usuário tem acesso à essa página
 	if($_SESSION['nivel_acesso'] == 1)
 	{ 
-		include("class_editar_caracteres.php");
+		include("classes/class_editar_caracteres.php");
 		include("classes/class_pesquisar.php");
 		include("classes/class_banco.php");
 		include("classes/class_update.php");

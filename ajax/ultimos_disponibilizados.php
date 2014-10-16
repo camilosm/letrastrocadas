@@ -4,7 +4,7 @@
 	if((isset($_GET['lista_lvro'])) && (isset($_GET['acao'])))
 	{
 		include("../views/classes/class_banco.php");
-		include("../views/class_editar_caracteres.php");
+		include("../views/classes/class_editar_caracteres.php");
 		include("../views/classes/class_pesquisar.php");
 		
 		$bd = new Banco();

@@ -4,7 +4,7 @@
 		if(isset($_POST['cadastrar_genero']))
 		{
 			include("classes/class_banco.php");
-			include("class_editar_caracteres.php");
+			include("classes/class_editar_caracteres.php");
 			include("classes/class_insert.php");
 
 			$banco = new Banco();

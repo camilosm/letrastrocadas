@@ -43,7 +43,7 @@
 		$aspas = "'";
 		include("classes/class_banco.php");
 		include("classes/class_pesquisar.php");
-		include("class_editar_caracteres.php");
+		include("classes/class_editar_caracteres.php");
 		include("classes/class_update.php");
 		include("classes/class_insert.php");
 		

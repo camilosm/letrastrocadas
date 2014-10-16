@@ -3,7 +3,7 @@
 
 		include("classes/class_pesquisar.php");
 		include("classes/class_banco.php");
-		include("class_editar_caracteres.php");
+		include("classes/class_editar_caracteres.php");
 
 		//Instancia e faz conexão com o banco de dados
 		$banco = new Banco();
@@ -17,6 +17,8 @@
 
 		$editar = new EditarCaracteres($texto_pesquisa);
 		$texto_pesquisa = utf8_decode($editar->Pesquisa($texto_pesquisa));
+
+
 
 		$limite = 6;
 		$pagina = $_GET['pag'];
@@ -94,7 +96,6 @@
 
 		// calcula quantos links haverá à esquerda e à direita da página corrente
 		// usa-se ceil() para assegurar que o número será inteirolinks_laterais
-		  
 		
 		$aspas = "'";
 ?>

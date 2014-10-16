@@ -3,7 +3,7 @@
 	{
 		if($_SESSION['status'] == 4)
 		{
-			include("class_editar_caracteres.php");
+			include("classes/class_editar_caracteres.php");
 			include("classes/class_pesquisar.php");
 			include("classes/class_banco.php");
 			include("classes/class_upload.php");

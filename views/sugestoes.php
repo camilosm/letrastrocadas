@@ -4,7 +4,7 @@
 	{
 		include("classes/class_pesquisar.php");
 		include("classes/class_banco.php");
-		include("class_editar_caracteres.php");
+		include("classes/class_editar_caracteres.php");
 
 		//Instancia e faz conexão com o banco de dados
 		$banco = new Banco();
@@ -142,33 +142,31 @@
 				}
 								
 			?>
-			<br>
-			</section>
-				<?php
-					echo '<ul class="pagination" style = "margin-left:40%;">
-							<li class="disabled"><a>«</a></li>';
-
-					for($i=1; $i <= $total_paginas; $i++)
-					{
-						if($pagina == $i)
-						{
-							echo '<li class="active"><a>'.$i.'</a></li>';
-						}
-						else
-						{
-							if ($i >= 1 && $i <= $total)
-							{
-								echo '						
-									  <li><a href="?url=pesquisa&pag='.$i.'&nome='.$conteudo_text.'">'.$i.'</a></li>
-								';
-							}
-						}
-						
-					}
-
-					echo ' <li class="disabled"><a>»</a></li>
-						</ul>';
-				?>
 		</section>
+		<?php
+			echo '<ul class="pagination" style = "margin-left:40%;">
+					<li class="disabled"><a>«</a></li>';
+
+			for($i=1; $i <= $total_paginas; $i++)
+			{
+				if($pagina == $i)
+				{
+					echo '<li class="active"><a>'.$i.'</a></li>';
+				}
+				else
+				{
+					if ($i >= 1 && $i <= $total)
+					{
+						echo '						
+							  <li><a href="?url=pesquisa&pag='.$i.'&nome='.$conteudo_text.'">'.$i.'</a></li>
+						';
+					}
+				}
+				
+			}
+
+			echo ' <li class="disabled"><a>»</a></li>
+				</ul>';
+		?>
 	</section>
 </article>

@@ -3,7 +3,7 @@
 	if(isset($_POST['alterarSenha']))
 	{
 		
-		include("class_editar_caracteres.php");
+		include("classes/class_editar_caracteres.php");
 		include("classes/class_update.php");
 		include("classes/class_banco.php");
 		
