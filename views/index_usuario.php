@@ -4,7 +4,7 @@
 	if($_SESSION['nivel_acesso'] == 1)
 	{
 			include("classes/class_banco.php");
-			include("class_editar_caracteres.php");
+			include("classes/class_editar_caracteres.php");
 			include("classes/class_pesquisar.php");
 			
 			$bd = new Banco();			

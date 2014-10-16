@@ -3,7 +3,7 @@
 	if($_SESSION['nivel_acesso'] == 2)
 	{	
 
-		include("class_editar_caracteres.php");
+		include("classes/class_editar_caracteres.php");
 		include("classes/class_banco.php");
 		include("classes/class_update.php");
 		include("classes/class_pesquisar.php");

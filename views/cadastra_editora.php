@@ -2,7 +2,7 @@
 	//Verifica se o botão foi acionado
 	if(isset($_POST['cadastrar_editora']))
 	{
-		include("class_editar_caracteres.php");
+		include("classes/class_editar_caracteres.php");
 		include("classes/class_insert.php");
 		
 		//Repassa os valores enviados pelo formulário para uma variável

@@ -3,7 +3,7 @@ class Banco
 {
 	private $host;
 	private $user;
-	private $passward;
+	private $password;
 	private $database;
 	private $status;
 	

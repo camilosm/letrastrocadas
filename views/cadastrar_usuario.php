@@ -5,7 +5,7 @@
 		// Inclui classes com nomes auto-explicativos
 		include("classes/class_cadastrar_usuario.php");
 		include("classes/class_banco.php");
-		include("class_editar_caracteres.php");
+		include("classes/class_editar_caracteres.php");
 		include ("classes/class_pesquisar.php");
 
 		//Instancia o Classe de Banco de dados que já realiza a conexão.

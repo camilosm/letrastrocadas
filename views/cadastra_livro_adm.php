@@ -7,7 +7,7 @@
 		include ("classes/class_pesquisar.php");
 		include ("classes/class_insert.php");
 		include ("classes/class_upload.php");
-		include("class_editar_caracteres.php");
+		include("classes/class_editar_caracteres.php");
 		$banco_dados = new Banco();
 
 		// Realiza as pesquisas para a gente poder preencher os combobox da página de cadastro livro do adm

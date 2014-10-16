@@ -66,7 +66,7 @@
 		{
 			include("classes/class_pesquisar.php");
 			include("classes/class_banco.php");
-			include("class_editar_caracteres.php");
+			include("classes/class_editar_caracteres.php");
 
 			if(isset($_POST['pesquisar_livro']))
 			{

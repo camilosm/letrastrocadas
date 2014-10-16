@@ -3,13 +3,16 @@
 	{
 		include("classes/class_pesquisar.php");
 		include("classes/class_banco.php");
-		include("class_editar_caracteres.php");
+		include("classes/class_editar_caracteres.php");
 
 		//Instancia e faz conexão com o banco de dados
 		$banco = new Banco();
 
 		$limite = 6;
 		$pagina = $_GET['pag'];
+
+		$editar_pagina = new EditarCaracteres($pagina);
+		$pagina = $editar_pagina->sanitizeNumber($_GET['pag']);
 
 		if(!$pagina)
 		{
@@ -29,18 +32,18 @@
 		}
 			
 		//Pesquisa da lista de desejo do site
-		$campos_lista = "COUNT(id_livro) as Qt,imagem_livros,livro.nome AS Livro";
+		$campos_lista = "COUNT(id_livro) as Qt,id_livro,imagem_livros,livro.nome AS Livro";
 		$tabelas_lista = "tbl_livro livro INNER JOIN tbl_lista_livros lista INNER JOIN tbl_editora editora INNER JOIN tbl_autor autor ON id_livro = livro_id AND id_editora = editora_id AND id_autor = autor_id";
 		$condição_lista = "livro.nome like '%$livro%'
 		GROUP BY Livro
-		ORDER BY Livro LIMIT $limite"; 
+		ORDER BY Livro LIMIT $inicio,$limite"; 
 
 		$pesquisar = new Pesquisar($tabelas_lista,$campos_lista,$condição_lista);
 		$res = $pesquisar->pesquisar();
 
 		//Pesquisa a quantidade de livros na lista de desejo no banco de dados
 		$pesquisar_qt = new Pesquisar("tbl_livro livro INNER JOIN tbl_lista_livros lista INNER JOIN tbl_editora editora INNER JOIN tbl_autor autor ON id_livro = livro_id AND id_editora = editora_id AND id_autor = autor_id",
-		"COUNT(id_lista_livros) As Quantidade",
+		"id_lista_livros",
 		"livro.nome like '%$livro%'");
 		$resultado_qt = $pesquisar_qt->pesquisar();			
 
@@ -49,13 +52,6 @@
 
 		//paginação
 		$total = 6;// total de páginas
-
-		$max_links = 4;// número máximo de links da paginação: na verdade o total será cinco 4+1=5
-
-		//$pagina = 3; // página corrente
-
-		// calcula quantos links haverá à esquerda e à direita da página corrente
-		// usa-se ceil() para assegurar que o número será inteirolinks_laterais
 
 		//Só pra uma futura concatenação
 		$aspas = "'";	
@@ -73,11 +69,10 @@
 		}
 	}
 ?>
-
 <article id = "body_pesquisa">
 	<section class="panel panel-default" style="width: 80%; margin-left: 10%;">
 		<section class="panel-heading">
-			<h4>Nossos acervo!</h4>
+			<h4>Nosso acervo!</h4>
 		</section>
 		<br>
 		<form action="" method="post">
@@ -105,10 +100,14 @@
 						{
 							echo '<section class="row">';
 						}
+
+						$editar_id = new EditarCaracteres($livro);
+						$dados_pesq['Livro'] = $editar_id->Url($dados_pesq['Livro']);
+
 						echo '<section class="col-md-6">
 								<section class = "col-md-4">	
 									<section class = "bs-component" style = "margin-left: 10%; maxheight: 177px; width: 120px;"> 
-										<a href="?url=livro" class = "thumbnail">
+										<a href="?url=livro&livro='.$dados_pesq['id_livro'].'" class = "thumbnail">
 											<img src = "'.$dados_pesq['imagem_livros'].'" alt = "'.$dados_pesq['Livro'].'"/> 
 										</a>	
 									</section>
@@ -116,7 +115,7 @@
 								<section class="col-md-4"  style="max-height:1%;">
 									<section>
 										<center>
-											<a href="?url=livro" title = "Clique para ver mais informações sobre o livro"> <h3> '.utf8_encode($dados_pesq['Livro']).'</h3></a>				  
+											<a href="?url=livro&livro='.$dados_pesq['id_livro'].'" title = "Clique para ver mais informações sobre o livro"> <h3> '.utf8_encode($dados_pesq['Livro']).'</h3></a>				  
 											<a href="" title = "Quantidade deste livro disponível no nosso site! "> <h4> Quantidade: '.utf8_encode($dados_pesq['Qt']).' </h4></a>
 										</center>
 									</section>

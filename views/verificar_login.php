@@ -3,7 +3,7 @@
 if(isset($_POST['entrar']))
 {	
 	//Inclui classes de nome auto-explicativos
-	include("class_editar_caracteres.php");
+	include("classes/class_editar_caracteres.php");
 	include("classes/class_pesquisar.php");
 	
 	//Coloca em variaveis os valores passados pelo formulário

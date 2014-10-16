@@ -6,7 +6,7 @@
 		if($_GET['acao'] == "Novo")
 		{
 			include("../views/classes/class_banco.php");
-			include("../views/class_editar_caracteres.php");
+			include("../views/classes/class_editar_caracteres.php");
 			include("../views/classes/class_pesquisar.php");
 			
 			$bd = new Banco();

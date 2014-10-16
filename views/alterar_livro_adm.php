@@ -5,7 +5,7 @@
 		// Include na classes de conexão com o banco de dados
 		include ("classes/class_banco.php");
 		include ("classes/class_pesquisar.php");
-		include ("class_editar_caracteres.php");
+		include ("classes/class_editar_caracteres.php");
 		include ("classes/class_update.php");
 		
 		$banco_dados = new Banco();		

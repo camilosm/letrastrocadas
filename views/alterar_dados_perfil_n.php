@@ -5,7 +5,7 @@
 	{
 		$id = $_SESSION['id'];
 		
-		include("class_editar_caracteres.php");
+		include("classes/class_editar_caracteres.php");
 		include("classes/class_update.php");
 		
 		//Repassa os valores enviados pelo formulário para uma variável
