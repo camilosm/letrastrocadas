@@ -15,7 +15,7 @@ class Inserir
 	{
 		
 		$sql = "INSERT INTO $this->tabela VALUES ($this->campos)";
-		//echo $sql;
+		//echo $sql.'<BR>';
 		$resultado = mysql_query($sql) or die(mysql_error());
 		
 		return $resultado;

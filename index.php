@@ -30,14 +30,14 @@
 			
 			if(empty($_SESSION['email']))
 			{
-				include("views/base/header_visitante.php");
+				@include("views/base/header_visitante.php");
 			}
 			else
 			{	
 				$nivel_acesso = $_SESSION["nivel_acesso"];
 				if($nivel_acesso == 1)
 				{
-					include("views/base/header_usuario.php");
+					@include("views/base/header_usuario.php");
 					echo "
 						<style type='text/css'>
 
@@ -158,7 +158,7 @@
 				}
 				else
 				{
-					include("views/base/header_admin.php");
+					@include("views/base/header_admin.php");
 				}
 			}
 		?>
@@ -177,17 +177,17 @@
 			{
 				if(empty($_SESSION['email']))
 				{
-					include("views/home_visitante.php");
+					@include("views/home_visitante.php");
 				}
 				else
 				{
 					if($_SESSION["nivel_acesso"] == 1)
 					{
-						include("views/index_usuario.php");
+						@include("views/index_usuario.php");
 					}
 					else
 					{
-						include("views/home_admin.php");
+						@include("views/home_admin.php");
 					}
 					
 				}
@@ -196,7 +196,7 @@
 	</body>
 	<footer>
 		<?php
-			//include("views/base/footer.php");
+			//@include("views/base/footer.php");
 		?>
 	</footer>
 </html>

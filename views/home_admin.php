@@ -8,7 +8,7 @@
 		
 		/* Pesquisa Denuncias recentes */ 
 		
-		$pesquisa_denuncias = new Pesquisar("tbl_usuario usu JOIN tbl_denuncias den ON usuario_denunciado_id = id_usuario JOIN tbl_motivos ON motivo_id = id_motivo","id_denuncias,usu.nome, id_usuario, usu.email, motivo_id, outro_motivo,motivo, penalidade, data","1=1 GROUP BY id_denuncias ORDER BY data DESC");
+		$pesquisa_denuncias = new Pesquisar("tbl_usuario usu JOIN tbl_denuncias den ON usuario_denunciado_id = id_usuario JOIN tbl_motivos ON motivo_id = id_motivo","id_denuncias,usu.nome, id_usuario, usu.email, motivo_id, outro_motivo,motivo, data","1=1 GROUP BY id_denuncias ORDER BY data DESC");
 		$resul_pesquisa_den = $pesquisa_denuncias->pesquisar();		
 		$Denuncias = mysql_fetch_assoc($resul_pesquisa_den);
 		

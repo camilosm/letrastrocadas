@@ -52,7 +52,7 @@
 			$editar_nome = new EditarCaracteres($nome);
 			$nome = $editar_nome->sanitizeStringNome($_POST['nome']);
 		
-			$campos = "nome = '".$nome."'";
+			$campos = "nome = '".utf8_decode($nome)."'";
 			$condicao = "id_autor = ".$id_autor;
 			$alterar_autor= new Alterar("tbl_autor",$campos,$condicao);
 			$resultado_autor = $alterar_autor->alterar();
@@ -71,6 +71,7 @@
 				
 				
 			}
+			$nome = utf8_decode($editar_nome->sanitizeStringNome($_POST['nome']));
 		}
 		else
 		{
@@ -99,17 +100,15 @@
 			<section class="form-group">
 				<label for="inputID" class="col-md-2 control-label">ID:</label>
 				<section class="col-md-10">
-					<input type="text" class="form-control" name = "id_autor" value="<?php echo $id; ?>" id="inputID" placeholder = "ID" >
+					<input type="text" class="form-control" name = "id_autor" value="<?php echo $id; ?>" readonly id="inputID" placeholder = "ID" >
 				</section>
-				<br>
 				<label for="inputDescricao" class="col-md-2 control-label">Autor:</label>			  
 				<section class="col-md-10">	 
 					<input type="text" class="form-control"  name = "nome" value="<?php echo utf8_encode($nome); ?>" required placeholder = "Nome" maxlength = "100">			  
 				</section>
-				<br>
 				<section class="col-md-10 col-md-offset-2">
 					<button type="submit" name = "alterar" class="btn btn-primary">Alterar</button>
-					<input type = "reset" value="Limpar" class="btn btn-default"/>
+					<input type = "reset" value = "Original" class="btn btn-default"/>
 				</section>
 			</section>
 		</fieldset>

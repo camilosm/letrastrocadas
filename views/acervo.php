@@ -101,8 +101,8 @@
 							echo '<section class="row">';
 						}
 
-						$editar_id = new EditarCaracteres($livro);
-						$dados_pesq['Livro'] = $editar_id->Url($dados_pesq['Livro']);
+						$livro_url = new EditarCaracteres($dados_pesq['Livro']);
+						$url = $livro_url->Url($dados_pesq['Livro']);
 
 						echo '<section class="col-md-6">
 								<section class = "col-md-4">	
@@ -124,7 +124,7 @@
 							echo '<section class="col-md-8">
 									<section>
 										<section class = "btn-group">
-												<a href="?url=pesquisa&nome='.utf8_encode($dados_pesq['Livro']).'"><input style="margin-left:50%;" type = "button" class="btn btn-primary btn-xs" name = "botao_pesquisar" value = "Pesquisar" /></a>
+												<a href="?url=pesquisa&nome='.utf8_encode($url).'"><input style="margin-left:50%;" type = "button" class="btn btn-primary btn-xs" name = "botao_pesquisar" value = "Pesquisar" /></a>
 										</section>
 									</section>
 								</section>

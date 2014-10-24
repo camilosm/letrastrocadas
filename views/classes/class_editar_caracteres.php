@@ -60,7 +60,7 @@ class EditarCaracteres
 	function sanitizeStringNome($str)
 	{
 		$str = preg_replace('/[();:|!"#$%><ªº-]/', '', $str);
-		$str = preg_replace('/[^ÁÃÂÉÊÍÎÓÔÕÚÛáãâéêíîóõôúû., a-z0-9]/i', '', $str);
+		$str = preg_replace('/[^ÁÃÂÉÊÍÎÓÔÕÚÛáãâéêíîóõôúûç., a-z0-9]/i', '', $str);
 		$str = preg_replace('/_+/', '', $str);
 		return $str;
 	}
