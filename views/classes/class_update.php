@@ -16,7 +16,6 @@ class Alterar
 	public function alterar()
 	{
 		$sql = "UPDATE $this->tabela SET $this->campos WHERE $this->condicao";
-		//echo $sql;
 		$resultado = mysql_query($sql) or die(mysql_error());
 		
 		return $resultado;

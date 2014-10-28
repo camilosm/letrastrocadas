@@ -50,7 +50,7 @@
 			$nome = $_POST['nome'];
 			
 			$editar_nome = new EditarCaracteres($nome);
-			$nome = $editar_nome->sanitizeStringNome($_POST['nome']);
+			$nome = utf8_decode($editar_nome->sanitizeStringNome($_POST['nome']));
 		
 			$campos = "nome = '".$nome."'";
 			$condicao = "id_editora = ".$id_editora;
@@ -95,7 +95,7 @@
 ?>	
 
 <article id  = "cadastro_usuario" style = "width: 60%; margin-left:20%;">
-	<form class="form-horizontal" method = "post" action = "?url=alterar_editora&id_editora=<?php echo $id?>">
+	<form class="form-horizontal" method = "post" action = "?url=alterar_editora&id_editora=<?php echo $id_editora?>">
 		<fieldset>
 			<legend>Alterar Editora</legend>
 			<section class="form-group">
@@ -106,7 +106,7 @@
 				<br>
 				<label for="inputDescricao" class="col-md-2 control-label">Editora:</label>
 				<section class="col-md-10">	 
-					<input type="text" class="form-control" value="<?php echo utf8_encode($nome) ;?>"  name = "nome" required placeholder = "Editora" maxlength = "100">			  
+					<input type="text" class="form-control" autofocus value="<?php echo utf8_encode($nome) ;?>"  name = "nome" required placeholder = "Editora" maxlength = "100">			  
 				</section>
 				<br>						
 				<section class="col-md-10 col-md-offset-2">

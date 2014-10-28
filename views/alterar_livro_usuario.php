@@ -227,12 +227,10 @@
 		);
 	}
 </script>
-
 <article id  = "body_cadastra_livro_usu" style = "width:50%;height:60%;position:relative;left:20%;">
 	<form name="frm_upload" class="form-horizontal" method="post" action="?url=alterar_livro_usuario&cod=<?php echo $id;?>&lista=<?php echo $lista;?>"  enctype="multipart/form-data">
 		<fieldset>
-			<legend>Alterar Livros</legend>
-			
+			<legend>Alterar Livros</legend>	
 			<section class="form-group" style="position:relative;left:5%;">
 				<section class="col-md-6" style="left:7%;">
 					<section class="thumbnail">
@@ -241,72 +239,50 @@
 					</section>
 				</section>
 				<section class="col-md-10">
-				
 					<label for="Nome" class="col-md-2 control-label">Nome:</label>		
-					<input type="text" class="form-control" value="<?php echo $nome ;?>" rows="3" name = "nome" required style = "width: 50%;"id="Nome" readonly ></input> 
-					
+					<input type="text" class="form-control" value="<?php echo $nome ;?>" rows="3" name = "nome" required style = "width: 50%;"id="Nome" readonly ></input>
 					<label for="Edicao" class="col-md-2 control-label">Edição:</label>
 					<input type="text" class="form-control" value="<?php echo $edicao ;?>" rows="3" name = "edicao" required style = "width: 50%;"id="Edicao" readonly ></input> 
-
-					
 					<label for="Numero" class="col-md-2 control-label">Páginas:</label>
 					<input type="text" class="form-control" value="<?php echo $num_paginas ;?>" rows="3" name = "num_paginas" required style = "width: 50%;"id="Edicao" readonly ></input> 
-
-					
 					<label for="ISBN" class="col-md-2 control-label">ISBN:</label>
 					<input type="text" class="form-control" rows="3" value="<?php echo $isbn ;?>" name = "isbn" required style = "width: 50%;"id="ISBN" readonly ></input> 
-	
-					
 					<label for="Autor" class="col-md-2 control-label">Autor:</label>
 					<input type="text" class="form-control" rows="3" value="<?php echo $autor ;?>" name = "autor" required style = "width: 50%;"id="ISBN" readonly ></input> 
-			
-					
 					<label for="Editora" class="col-md-2 control-label">Editora:</label>
 					<input type="text" class="form-control" rows="3" value="<?php echo $editora ;?>" name = "editora" required style = "width: 50%;"id="ISBN" readonly ></input> 
-			
-					
 					<label for="Categoria" class="col-md-2 control-label">Categoria:</label>
 					<input type="text" class="form-control" rows="3" value="<?php echo $categoria ;?>" name = "categoria" required style = "width: 50%;"id="ISBN" readonly ></input> 
-				
-				
 					<label for="textArea" class="col-md-2 control-label">Estado:</label>
 					<textarea class="form-control" name = "estado" rows="3" required style = "width: 50%;" id="textArea" placeholder = "Escreva aqui as condições do livro que deseja disponibilizar(danos, observações, adicionais)"><?php echo utf8_encode($estado);?></textarea> 
-				
-					
 					<label for="txtAno" class="col-md-2 control-label">Ano:</label>
 					<input type="number" min = "1455" max="<?php echo $data;?>" class="form-control" value = "<?php echo $ano;?>" required name = "ano" id = "txtAno" rows="3" style = "width: 50%;" placeholder = "Ano da fabricação"/>
-				
-					<br><br>
-
 					<?php
-							$aspas = "'";
-							echo '
-								<label class="col-md-2 control-label">Suas fotos :</label>
-								
-								<img alt="" id="primeira_imagem" class = "thumbnail" style="cursor:pointer;" onclick="$('.$aspas.'#file_primeira'.$aspas.').click();" src = "'.$primeira_foto.'">
-								
-								<img alt="" id="segunda_imagem" class = "thumbnail" style="cursor:pointer;" onclick="$('.$aspas.'#file_segunda'.$aspas.').click();" src = "'.$segunda_foto.'">
-								
-								<img alt="" id="terceira_imagem" class = "thumbnail" style="cursor:pointer;" onclick="$('.$aspas.'#file_terceira'.$aspas.').click();" src = "'.$terceira_foto.'">
-								
-								<input type="file" style="visibility:hidden;" name="file_primeira" onchange="UploadFotoPrimeira();" id="file_primeira" class="btn btn-primary btn-sm"/>
-								<input type="text" value = "'.$primeira_foto.'" style="visibility:hidden;" name="caminho_primeira" id="caminho_primeira" class="btn btn-primary btn-sm"/>
-								
-								<input type="file" style="visibility:hidden;" name="file_segunda" onchange="UploadFotoSegunda();" id="file_segunda" class="btn btn-primary btn-sm"/>
-								<input type="text" value = "'.$segunda_foto.'" style="visibility:hidden;" name="caminho_segunda" id="caminho_segunda" class="btn btn-primary btn-sm"/>
-								
-								<input type="file" style="visibility:hidden;" name="file_terceira" onchange="UploadFotoTerceira();" id="file_terceira" class="btn btn-primary btn-sm"/>
-								<input type="text" value = "'.$terceira_foto.'" style="visibility:hidden;" name="caminho_terceira" id="caminho_terceira" class="btn btn-primary btn-sm"/>
-							';
-					
+						$aspas = "'";
+						echo '
+							<label class="col-md-2 control-label">Suas fotos :</label>
+							
+							<img alt="" id="primeira_imagem" class = "thumbnail" style="cursor:pointer;" onclick="$('.$aspas.'#file_primeira'.$aspas.').click();" src = "'.$primeira_foto.'">
+							
+							<img alt="" id="segunda_imagem" class = "thumbnail" style="cursor:pointer;" onclick="$('.$aspas.'#file_segunda'.$aspas.').click();" src = "'.$segunda_foto.'">
+							
+							<img alt="" id="terceira_imagem" class = "thumbnail" style="cursor:pointer;" onclick="$('.$aspas.'#file_terceira'.$aspas.').click();" src = "'.$terceira_foto.'">
+							
+							<input type="file" style="visibility:hidden;" name="file_primeira" onchange="UploadFotoPrimeira();" id="file_primeira" class="btn btn-primary btn-sm"/>
+							<input type="text" value = "'.$primeira_foto.'" style="visibility:hidden;" name="caminho_primeira" id="caminho_primeira" class="btn btn-primary btn-sm"/>
+							
+							<input type="file" style="visibility:hidden;" name="file_segunda" onchange="UploadFotoSegunda();" id="file_segunda" class="btn btn-primary btn-sm"/>
+							<input type="text" value = "'.$segunda_foto.'" style="visibility:hidden;" name="caminho_segunda" id="caminho_segunda" class="btn btn-primary btn-sm"/>
+							
+							<input type="file" style="visibility:hidden;" name="file_terceira" onchange="UploadFotoTerceira();" id="file_terceira" class="btn btn-primary btn-sm"/>
+							<input type="text" value = "'.$terceira_foto.'" style="visibility:hidden;" name="caminho_terceira" id="caminho_terceira" class="btn btn-primary btn-sm"/>
+						';
 					?>
-
 				</section>
 			</section> 
 			<section class="col-md-10 col-md-offset-2">
-				<br>
-				<input type = "reset"class="btn btn-default" value="Limpar"/>
 				<button type="submit" name = "alterar_livro_usuario" value ="Alterar" class="btn btn-primary">Alterar</button>
+				<button type = "reset"class="btn btn-default" value="Limpar"/>
 			</section>
 		</fieldset>
 	</form>
