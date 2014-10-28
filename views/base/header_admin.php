@@ -25,7 +25,9 @@
 													}
 													else
 													{
-														echo utf8_encode($_SESSION['nome']); 
+														$explode = explode(" ",$_SESSION['nome']);
+														$nome = $explode[0];
+														echo utf8_encode($nome);
 													}
 												?>!
 			</a>
