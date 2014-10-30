@@ -42,18 +42,18 @@
 		} 	
 		else if(isset($_POST['alterar']))
 		{			
-			$id_autor = $_POST['id_autor'];
+			$id = $_POST['id_autor'];
 			
-			$editar_id = new EditarCaracteres($id_autor);
-			$id_autor = $editar_id->sanitizeString($_POST['id_autor']);
+			$editar_id = new EditarCaracteres($id);
+			$id = $editar_id->sanitizeString($_POST['id_autor']);
 		
 			$nome = $_POST['nome'];
 			
 			$editar_nome = new EditarCaracteres($nome);
-			$nome = $editar_nome->sanitizeStringNome($_POST['nome']);
-		
-			$campos = "nome = '".utf8_decode($nome)."'";
-			$condicao = "id_autor = ".$id_autor;
+			$nome = utf8_decode($editar_nome->sanitizeStringNome($_POST['nome']));
+			
+			$campos = "nome = '".$nome."'";
+			$condicao = "id_autor = ".$id;
 			$alterar_autor= new Alterar("tbl_autor",$campos,$condicao);
 			$resultado_autor = $alterar_autor->alterar();
 			if($resultado_autor == 1)
@@ -71,7 +71,6 @@
 				
 				
 			}
-			$nome = utf8_decode($editar_nome->sanitizeStringNome($_POST['nome']));
 		}
 		else
 		{

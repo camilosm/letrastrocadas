@@ -1,4 +1,10 @@
-﻿<?php
+﻿<script src="scripts/MaskedInput.js" type="text/javascript"></script>
+<script type="text/javascript">
+	jQuery(function($){
+	   $("#ISBN").mask("999-99-9999-999-9");
+	});
+</script>
+<?php
 	
 	if($_SESSION['nivel_acesso'] == 2)
 	{
@@ -19,6 +25,8 @@
 		
 		$pesquisar_genero = new Pesquisar("tbl_categoria","*","1=1");
 		$resultado_genero = $pesquisar_genero->pesquisar();
+
+		$nome = "";
 		
 		if(isset($_POST['cadastrarLivro']))
 		{
@@ -74,13 +82,13 @@
 				if($resultado_livro == 1)
 				{
 					echo "<section class='alert alert-dismissable alert-success' style='width:40%;margin-left:30%;'>					  
-						<strong>Livro alterado com sucesso!</strong>
+						<strong>Livro cadastrador com sucesso!</strong>
 					</section>";
 				}
 				else
 				{
 					echo '<section class="alert alert-dismissable alert-danger" style="width:40%;margin-left:30%;"">				  
-						<strong>Erro ao alterar livro.</strong> Tente novamente!
+						<strong>Erro ao cadastrar livro.</strong> Tente novamente!
 					</section>';
 				}
 			}
@@ -117,9 +125,9 @@
 				<section class="col-lg-9">
 					<input type="number" class="form-control" value="<?php echo $edicao ;?>" name = "edicao" id="inputEdicao" required placeholder = "Edição do livro" maxlength = "20" min = "0" max = "20000">
 				</section>	 
-				<label for="inputIsnblivro" class="col-lg-2 control-label">ISBN:</label>
+				<label for="inputIsnblivro" class="col-lg-2 control-label">ISBN13:</label>
 				<section class="col-lg-9">
-					<input type="number" class="form-control" value="<?php echo $isbn ;?>" name="isbn" id="inputISBN" required maxlength = "13" placeholder = "ISBN" min="0" max = "9999999999999">				  
+					<input type="text" class="form-control" value="<?php echo $isbn ;?>" name="isbn" id="ISBN" required placeholder = "ISBN">				  
 				</section>
 				<label for="select" class="col-lg-2 control-label">Editora:</label>
 				<section class="col-lg-9">
