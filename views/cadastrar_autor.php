@@ -1,6 +1,7 @@
 <?php
 	if($_SESSION['nivel_acesso'] == 2)
 	{
+		$nome = "";
 		if(isset($_POST['cadastrar_autor']))
 		{
 			include("classes/class_banco.php");
@@ -13,7 +14,7 @@
 			
 			//Instancia a classe que tenta evitar o MySql Inject
 			$editar_nome = new EditarCaracteres($nome);
-			$nome = $editar_nome->sanitizeStringNome($_POST['nome']);
+			$nome = utf8_decode($editar_nome->sanitizeStringNome($_POST['nome']));
 			
 			//Instancia e passa os valores para a classe de Insert que cadastrará o autor
 			$valores_autor = "NULL,'".$nome."'";
@@ -54,7 +55,7 @@
 			<section class="form-group">
 				<label for="inputDescricao" class="col-md-2 control-label">Autor:</label>			  
 				<section class="col-md-10">	 
-					<input type="text" class="form-control"  name = "nome" value="<?php echo $nome?>" required placeholder = "Nome" maxlength = "100">			  
+					<input type="text" class="form-control"  name = "nome" value="<?php echo utf8_encode($nome)?>" required placeholder = "Nome" maxlength = "100">			  
 				</section>
 				<br>
 				<section class="col-md-10 col-md-offset-2">
