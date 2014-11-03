@@ -6,7 +6,7 @@
 	<head>
 
 		<title>Letras Trocadas</title>
-		<link rel="shortcut icon" href="content/ico/icone.ico">
+		<link rel="shortcut icon" href="content/ico/favicon.ico">
 		<meta charset="UTF-8"/>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1"/>
