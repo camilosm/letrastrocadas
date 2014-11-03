@@ -320,9 +320,7 @@ CREATE TABLE tbl_avaliacao(
 
 );
 
-
 /* ALTER TABLE tbl_denuncias ADD status INT NOT NULL; */
-
 /* ALTER TABLE tbl_denuncias DROP motivo;*/
 /* ALTER TABLE tbl_denuncias ADD outro_motivo VARCHAR(255) NULL*/
 /* ALTER TABLE tbl_denuncias ADD motivo_id INT UNSIGNED NOT NULL*/
@@ -348,12 +346,16 @@ CREATE TABLE tbl_denuncias(
 
 	id_denuncias INT UNSIGNED AUTO_INCREMENT NOT NULL,
 	usuario_denunciado_id INT UNSIGNED NOT NULL,
+	usuario_acusador INT UNSIGNED NOT NULL,
 	data DATE NOT NULL,
 	motivo_id INT UNSIGNED NOT NULL,
 	outro_motivo VARCHAR(255) NULL,
 	PRIMARY KEY(id_denuncias),
 	FOREIGN KEY(motivo_id) REFERENCES tbl_motivos(id_motivo),
-	FOREIGN KEY(usuario_denunciado_id) REFERENCES tbl_usuario(id_usuario)
+	FOREIGN KEY(usuario_denunciado_id) REFERENCES tbl_usuario(id_usuario),
+	FOREIGN KEY(usuario_acusador) REFERENCES tbl_usuario(id_usuario)
 );
 
 /* ALTER TABLE tbl_denuncias DROP status; */
+/*ALTER TABLE tbl_denuncias ADD usuario_acusador INT UNSIGNED NOT NULL;*/
+/*DROP TABLE tbl_denuncias*/

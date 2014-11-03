@@ -43,12 +43,12 @@ INSERT INTO tbl_notificacoes
 VALUES(NULL, 1, 'Sua solicitação foi aceita!', 1, DATE(NOW()),'false');
 
 INSERT INTO tbl_motivos 
-VALUES(NULL,'Livro com mais danos que o previsto na descrição.',2);
+VALUES(NULL,'Livro com mais danos que o previsto na descrição.');
 INSERT INTO tbl_motivos 
-VALUES(NULL,'Livro recebido é diferente do livro solicitado',1);
+VALUES(NULL,'Livro recebido é diferente do livro solicitado');
 INSERT INTO tbl_motivos 
-VALUES(NULL,'Livro não foi enviado',3);
+VALUES(NULL,'Livro não foi enviado');
 INSERT INTO tbl_motivos 
-VALUES(NULL,'Outro',4);
+VALUES(NULL,'Outro');
 
 INSERT INTO tbl_denuncias VALUES(null, 1,1,'1997-06-08',1,''),(null, 2, 2,DATE(NOW()),2,''),(null, 2, 1,DATE(NOW()),2,''),(null,3,1,DATE(NOW()),3,''),(null, 3,2,DATE(NOW()),4,'Nada'),(null, 2, 1,DATE(NOW()),3,''),(null, 3,2,DATE(NOW()),2,'');>>>>>>> .r158
