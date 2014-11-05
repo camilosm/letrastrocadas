@@ -1,8 +1,3 @@
-<style>
-	.coments{
-		cursor: pointer;
-	}
-</style>
 <?php
 
 	include("classes/class_editar_caracteres.php");
@@ -83,7 +78,7 @@
 								<a><h5>'.utf8_encode($livro['Editora']).'</h5></a>
 							</section>
 							<section class = "col-lg-4" style = "width:48%;">
-								<textarea class="form-control" rows="9" disabled>
+								<textarea class="form-control" rows="9" style="background-color:white;cursor:default;" readonly>
 									'.utf8_encode($livro['sinopse']).'
 								</textarea>
 							</section> 

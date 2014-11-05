@@ -68,17 +68,24 @@
 			include("classes/class_banco.php");
 			include("classes/class_editar_caracteres.php");
 
-			if(isset($_POST['pesquisar_livro']))
+			if((isset($_POST['pesquisar_livro'])) OR (!empty($_GET['pag'])))
 			{
 				//Instancia e faz conexão com o banco de dados
 				$banco = new Banco();
 
-				$nome = $_POST['pesquisa'];
-					
+				if(empty($_GET['pag']))
+				{
+					$nome = $_POST['pesquisa'];
+				}
+				else
+				{
+					$nome = $_GET['nome'];
+				}
+
 				$editar_nome = new EditarCaracteres($nome);
 				$nome = $editar_nome->sanitizeStringNome($_POST['pesquisa']);
 
-				$limite = 6;
+				$limite = 8;
 				$pagina = $_GET['pag'];
 
 				if(!$pagina)
@@ -90,7 +97,7 @@
 				
 				$campos = "id_livro,imagem_livros,livro.nome AS NomeLivro,edicao,autor.nome AS NomeAutor,editora.nome As NomeEditora, categoria.nome As NomeCategoria ";
 				$tabelas = "tbl_livro livro JOIN tbl_editora editora JOIN tbl_autor autor JOIN tbl_categoria categoria ON id_editora = editora_id AND id_autor = autor_id AND id_categoria = categoria_id";
-				$condicao = "livro.nome like '%$nome%'";
+				$condicao = "livro.nome like '%$nome%' LIMIT $inicio,$limite";
 
 				$pesquisa_dados = new Pesquisar($tabelas,$campos,$condicao);
 				 
@@ -211,7 +218,7 @@
 												<a href="?url=livro&livro='.$dados_pesq['id_livro'].'" title = "Clique para ver mais informações sobre o livro"> <h3> '.utf8_encode($dados_pesq['NomeLivro']).'</h3></a>				  
 												<a href="?url=livros_autores" title = "Clique para ver mais livros deste autor"><h4>'.utf8_encode($dados_pesq['NomeAutor']).' </h4></a>
 												<a href="?url=livros_editora" title = "Clique para ver mais livros desta editora"><h5>'.utf8_encode($dados_pesq['NomeEditora']).'</h5></a>
-												<a href="?url=perfil_categoria title = "Clique para ver mais livros desta editora"><h5>'.utf8_encode($dados_pesq['NomeCategoria']).'</h5></a>
+												<a href="#" title = "Clique para ver mais livros desta editora"><h5>'.utf8_encode($dados_pesq['NomeCategoria']).'</h5></a>
 											</center>
 										</section>
 									</section>';
@@ -259,7 +266,7 @@
 					if ($i >= 1 && $i <= $total)
 					{
 						echo '						
-							  <li><a href="?url=pesquisa&pag='.$i.'&nome='.$conteudo_text.'">'.$i.'</a></li>
+							  <li><a href="?url=passo-a-passo-pesquisa&pag='.$i.'&nome='.$nome.'">'.$i.'</a></li>
 						';
 					}
 				}
@@ -280,7 +287,7 @@
 				<strong>Você precisa completar seu <a href="?url=alterar_dados_perfil">perfil</a> para disponibilizar um livo!</strong>
 			</section>';
 		}
-	}
+	} 
 	else
 	{	
 		//Redireciona pra página principal

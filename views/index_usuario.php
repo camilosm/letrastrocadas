@@ -26,7 +26,6 @@
 	}
 ?>	
 <article style="width: 84%; margin-left: 8%;">
-
 	<section class="row">
 		<section class="col-md-6">
 			<section class="panel panel-default">
@@ -54,6 +53,11 @@
 							while($lista_desejo=mysql_fetch_assoc($resultado_lista_desejo))
 							{
 								$ct_desejo++;
+								$livro = $lista_desejo['Livro'];
+
+								$editar_livro = new EditarCaracteres($lista_desejo['Livro']);
+								$livro = $editar_livro->Url($livro);
+
 								$id_ultima[] = $lista_desejo['id_lista'];
 								echo'	<section class="panel panel-default">
 											<section class="panel panel-body">
@@ -74,12 +78,11 @@
 															<a href="?url=livros_editora" title = "Clique para ver mais livros desta editora"> <h5> '.utf8_encode($lista_desejo['Editora']).' </h5></a>
 														</center>
 													</section>
-												</section>
-											
+												</section>										
 												<section class="row">
 													<center>
 														<section>
-															<a href="?url=pesquisa&nome='.utf8_encode($lista_desejo['Livro']).'"><input type = "button" class="btn btn-primary btn-sm" name = "botao_pesquisar" value = "Pesquisar" /></a>
+															<a href="?url=pesquisa&nome='.utf8_encode($livro).'"><input type = "button" class="btn btn-primary btn-sm" name = "botao_pesquisar" value = "Pesquisar" /></a>
 															<a href="?url=passo-a-passo-dados-usuario&cod='.$lista_desejo['id_livro'].'"><input type = "button" class="btn btn-primary btn-sm" name = "botao_disponibilizar_livro" value = "Disponibilizar Livro" /></a>													 
 															<section class = "btn-group">
 																<button id = "Resultado'.$lista_desejo['id_livro'].'" value = "QueroLer" name = "QueroLer" type="button" class="btn btn-primary btn-sm">Quero Ler</button>
@@ -136,6 +139,12 @@
 												</ul>';
 									
 									$ct_desejo++;
+
+									$livro = $lista_desejo['Livro'];
+
+									$editar_livro = new EditarCaracteres($lista_desejo['Livro']);
+									$livro = $editar_livro->Url($livro);
+
 									$id_ultima[] = $lista_desejo['id_livro'];
 									echo'	<section class="panel panel-default">
 												<section class="panel panel-body">
@@ -157,11 +166,10 @@
 															</center>
 														</section>
 													</section>
-												
 													<section class="row">
 														<center>
 															<section>
-																<a href="?url=pesquisa&nome='.$lista_desejo['Livro'].'"><input type = "button" class="btn btn-primary btn-sm" name = "botao_pesquisar" value = "Pesquisar" /></a>
+																<a href="?url=pesquisa&nome='.$livro.'"><input type = "button" class="btn btn-primary btn-sm" name = "botao_pesquisar" value = "Pesquisar" /></a>
 																<a href="?url=passo-a-passo-dados-usuario&cod='.$lista_desejo['id_livro'].'"><input type = "button" class="btn btn-primary btn-sm" name = "botao_disponibilizar_livro" value = "Disponibilizar Livro" /></a>													 
 																<section class = "btn-group">
 																	'.$botões.'
@@ -173,9 +181,7 @@
 											</section>';
 								}
 							}
-						?>
-						<br>
-					
+						?>					
 				</section>
 				<ul class="pager">
 					<li id = "li_antigo" class="previous disabled"><a id = "a_antigo" onClick = "" >← Antigo</a></li>
@@ -183,7 +189,6 @@
 				</ul>
 			</section>
 		</section>
-
 		<section class="col-md-6">
 			<section class="panel panel-default">
 				<section class="panel-heading"><h4>Últimos livros disponibilizados:</h4></section>
@@ -269,6 +274,12 @@
 													<li><a onClick="AcoesLivro('.$ultimos['id_livro'].','.$aspas.'Lendo'.$aspas.',Resultado'.$ultimos['id_livro'].','.$aspas.''.$aspas.');">Estou lendo</a></li>
 												</ul>';
 								}
+
+								$livro = $ultimos['Livro'];
+
+								$editar_livro = new EditarCaracteres($ultimos['Livro']);
+								$livro = $editar_livro->Url($livro);
+
 								$quantidade_pagina++;
 								$id_ultima_ultimos[] = $ultimos['id_lista_livros'];
 								echo'
@@ -302,7 +313,7 @@
 																<section class = "btn-group">
 																	'.$botões.'
 																</section>
-																<a href="?url=pesquisa&nome='.utf8_encode($ultimos['Livro']).'"><input type = "button" class="btn btn-primary btn-xs" name = "botao_solicitar_livro" value = "Veja +"/></a>
+																<a href="?url=pesquisa&nome='.utf8_encode($livro).'"><input type = "button" class="btn btn-primary btn-xs" name = "veja+" value = "Veja +"/></a>
 															</section>
 														</center>
 													</section>
@@ -316,12 +327,9 @@
 						<li id = "li_ultimos_antigo" class="previous disabled"><a id = "a_ultimos_antigo" onClick = "" >← Antigo</a></li>
 						<li id = "li_ultimos_novo" class="<?php echo ($quantidade_ultimos >= 7) ? "next" : "next disabled"; ?>"><a id = "a_ultimos_novo" onClick="NovaDisponibilizados('<?php echo ($quantidade_ultimos >= 7) ? "$id_ultima_ultimos[5]','$id_ultima_ultimos[0]','1" : "None','None','1";?>');">Nova →</a></li>
 					</ul>
-				
 			</section>
 		</section>
 	</section>
-
 </article>
-
 <section class="modal" id="myModal">
 </section>

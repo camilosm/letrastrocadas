@@ -12,79 +12,92 @@
 	}
 </script>
 <?php
-        
-	include("classes/class_banco.php");
-	include("classes/class_pesquisar.php");
-	
-	$banco = new Banco();
-	
-	$id_outro_usu = $_GET['cod'];
-	$id =  $_SESSION['id'];
-		
-	$pesquisa_dados = new Pesquisar("tbl_usuario","id_usuario,nome,foto,email,idade,bairro,uf,cidade", " id_usuario = $id_outro_usu");
-	$resul_pesquisa = $pesquisa_dados->pesquisar();
-	$pesq = mysql_fetch_array($resul_pesquisa);
-	
-	$nome = $pesq['nome'];
-	$foto = $pesq['foto'];
-	$idade = $pesq['idade'];
-	$uf = $pesq['uf'];
-	$cidade = $pesq['cidade'];
-	$bairro = $pesq['bairro'];	
-	$email = $pesq['email'];
-	$cod_usu = $pesq['id_usuario'];
-
-	$pesquisa_motivos = new Pesquisar('tbl_motivos','*', '1=1');
-	$motivos = $pesquisa_motivos->pesquisar();
-		
-	if(isset($_POST['btnDenunciar']))
+    if($_SESSION['nivel_acesso'] == 1)
 	{
-		include("classes/class_editar_caracteres.php");
-		include("classes/class_insert.php");
+		include("classes/class_banco.php");
+		include("classes/class_pesquisar.php");
 		
-		//Repassa os valores enviados pelo formulário para uma variável
-		$motivo = $_POST['MotivoDenuncia'];
+		$banco = new Banco();
 		
-		if($motivo == 4)
-		{
-			echo $motivo;
-			$outro_motiv = $_POST['outroMotivo'];
+		$id_outro_usu = $_GET['cod'];
+		$id =  $_SESSION['id'];
+			
+		$pesquisa_dados = new Pesquisar("tbl_usuario","id_usuario,nome,foto,email,idade,bairro,uf,cidade", " id_usuario = $id_outro_usu");
+		$resul_pesquisa = $pesquisa_dados->pesquisar();
+		$pesq = mysql_fetch_array($resul_pesquisa);
+		
+		$nome = $pesq['nome'];
+		$foto = $pesq['foto'];
+		$idade = $pesq['idade'];
+		$uf = $pesq['uf'];
+		$cidade = $pesq['cidade'];
+		$bairro = $pesq['bairro'];	
+		$email = $pesq['email'];
+		$cod_usu = $pesq['id_usuario'];
 
-			$editar_motivo = new EditarCaracteres($outro_motiv);
-			$outro_motiv = $editar_motivo->sanitizeStringNome($_POST['outroMotivo']);
-
-			$outro_motiv = "'$outro_motiv'";
-		}
-		else
+		$pesquisa_motivos = new Pesquisar('tbl_motivos','*', '1=1');
+		$motivos = $pesquisa_motivos->pesquisar();
+			
+		if(isset($_POST['btnDenunciar']))
 		{
-			$outro_motiv = 'NULL';
-		}
-		
-		//Realiza a inserção
-		$values_denuncia = "NULL,$id_outro_usu,$id,DATE(NOW()),$motivo,$outro_motiv";
-		$cadastra_denuncia = new Inserir('tbl_denuncias',$values_denuncia);
-		$res = $cadastra_denuncia->inserir();
-		
-		//Conferir se foi inserido 
-		if ($res)
-		{
-			echo "Denuncia feita com sucesso!";
-			$pesquisa_dados = new Pesquisar("tbl_denuncias join tbl_usuario on usuario_denunciado_id = id_usuario","count(id_denuncias) as ndenuncias", "id_usuario = $id_outro_usu");
-			$resultado = $pesquisa_dados->pesquisar();
-			$ndenuncias = mysql_fetch_array($resul_pesquisa);
-			if($ndenuncias['ndenuncias'] > 2)
+			include("classes/class_editar_caracteres.php");
+			include("classes/class_insert.php");
+			
+			//Repassa os valores enviados pelo formulário para uma variável
+			$motivo = $_POST['MotivoDenuncia'];
+			
+			if($motivo == 4)
 			{
-				include ("classes/class_update.php");
-				
-				$banir = new Alterar("tbl_usuario","status = 3","where usuario = $cod_usu");
-				$baniu = $banir->alterar();
+				echo $motivo;
+				$outro_motiv = $_POST['outroMotivo'];
+
+				$editar_motivo = new EditarCaracteres($outro_motiv);
+				$outro_motiv = $editar_motivo->sanitizeStringNome($_POST['outroMotivo']);
+
+				$outro_motiv = "'$outro_motiv'";
+			}
+			else
+			{
+				$outro_motiv = 'NULL';
+			}
+			
+			//Realiza a inserção
+			$values_denuncia = "NULL,$id_outro_usu,$id,DATE(NOW()),$motivo,$outro_motiv";
+			$cadastra_denuncia = new Inserir('tbl_denuncias',$values_denuncia);
+			$res = $cadastra_denuncia->inserir();
+			
+			//Conferir se foi inserido 
+			if ($res)
+			{
+				echo "Denuncia feita com sucesso!";
+				$pesquisa_dados = new Pesquisar("tbl_denuncias join tbl_usuario on usuario_denunciado_id = id_usuario","count(id_denuncias) as ndenuncias", "id_usuario = $id_outro_usu");
+				$resultado = $pesquisa_dados->pesquisar();
+				$ndenuncias = mysql_fetch_array($resul_pesquisa);
+				if($ndenuncias['ndenuncias'] > 2)
+				{
+					include ("classes/class_update.php");
+					
+					$banir = new Alterar("tbl_usuario","status = 3","where usuario = $cod_usu");
+					$baniu = $banir->alterar();
+				}
+			}
+			else
+			{
+				echo "Erro ao cadastrar denuncia. Tente mais tarde ou entre em contado com nossos administradores";
 			}
 		}
+	}
+	else
+	{
+		if($_SESSION['nivel_acesso'] == 2)
+		{
+			header('Location:?url=home_admin');
+		}
 		else
 		{
-			echo "Erro ao cadastrar denuncia. Tente mais tarde ou entre em contado com nossos administradores";
+			header('Location:?url=home_visitante');
 		}
-	}	
+	}
 ?>
 <article id = "body_perfil_usuario">
 	<section class="panel panel-default" style="width: 65%; position: relative; left: 5%">

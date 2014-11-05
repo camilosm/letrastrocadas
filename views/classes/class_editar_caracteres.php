@@ -52,7 +52,7 @@ class EditarCaracteres
 	// Esse é para todos os campos que contenham nome ou textos
 	function sanitizeStringNome($str)
 	{
-		$str = preg_replace('/[^ÁÃÂÉÊÍÎÓÔÕÚÛáãâéêíîóõôûúùç., a-z0-9]/i', '', $str);
+		$str = preg_replace('/[^-ÁÃÂÉÊÍÎÓÔÕÚÛÀàáãâéêíîóõôûúùç., a-z0-9]/i', '', $str);
 		$str = preg_replace('/_+/', '', $str);
 		return $str;
 	}
