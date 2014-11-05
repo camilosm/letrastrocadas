@@ -1,6 +1,7 @@
 <?php
 	if($_SESSION['nivel_acesso'] == 2)
 	{
+		$nome = "";
 		if(isset($_POST['cadastrar_genero']))
 		{
 			include("classes/class_banco.php");

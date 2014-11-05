@@ -119,15 +119,15 @@
 			<section class="form-group">
 				<label for="inputNome" class="col-lg-2 control-label">Nome:</label>
 				<section class="col-lg-9">
-					<input type="text" class="form-control" value="<?php echo $nome ;?>" name = "nome" required placeholder = "Nome do Livro" maxlength = "100">
+					<input type="text" class="form-control" name = "nome" required placeholder = "Nome do Livro" maxlength = "100">
 				</section>
 				<label for="inputEdicaolivro" class="col-lg-2 control-label">Edição:</label>				  
 				<section class="col-lg-9">
-					<input type="number" class="form-control" value="<?php echo $edicao ;?>" name = "edicao" id="inputEdicao" required placeholder = "Edição do livro" maxlength = "20" min = "0" max = "20000">
+					<input type="number" class="form-control" name = "edicao" id="inputEdicao" required placeholder = "Edição do livro" maxlength = "20" min = "0" max = "20000">
 				</section>	 
 				<label for="inputIsnblivro" class="col-lg-2 control-label">ISBN13:</label>
 				<section class="col-lg-9">
-					<input type="text" class="form-control" value="<?php echo $isbn ;?>" name="isbn" id="ISBN" required placeholder = "ISBN">				  
+					<input type="text" class="form-control" name="isbn" id="ISBN" required placeholder = "ISBN">				  
 				</section>
 				<label for="select" class="col-lg-2 control-label">Editora:</label>
 				<section class="col-lg-9">
@@ -164,19 +164,19 @@
 				</section>
 				<label for="textArea" class="col-lg-2 control-label">Sinopse:</label>
 				<section class="col-lg-9">
-					<textarea class="form-control" rows="3" name="sinopse" id="textArea"> <?php echo $sinopse ;?> </textarea>
+					<textarea class="form-control" rows="3" name="sinopse" id="textArea"></textarea>
 				</section>
 				<label for="inputEdicaolivro" class="col-lg-2 control-label">Páginas:</label>				  
 				<section class="col-lg-9">
-					<input type="number" class="form-control" value="<?php echo $numero_paginas ;?>" name = "numero_paginas" id="inputNumeros" required placeholder = "Números de páginas" maxlength = "20" min = "0" max = "20000">
+					<input type="number" class="form-control" name = "numero_paginas" id="inputNumeros" required placeholder = "Números de páginas" maxlength = "20" min = "0" max = "20000">
 				</section>
 				<label for="inputFotolivro" class="col-lg-2 control-label">Foto: </label>
 				<section class="col-lg-9">
-					<input type="file"  name="file" required "position:relative; width:25%; height: 5%;left:20%;top:2%; "/>
+					<input type="file"  name="file" required />
 				</section>
 				<section class="col-lg-9 col-lg-offset-2">                    
-					<button style="margin-left: 5px; float:right;" type="submit" name = "cadastrarLivro" class="btn btn-primary">Cadastrar</button>
-					<button style="float:right;" type = "reset" class="btn btn-default">Cancelar</button>
+					<button type="submit" name = "cadastrarLivro" class="btn btn-primary">Cadastrar</button>
+					<button type = "reset" class="btn btn-default">Cancelar</button>
 				</section>
 			</section>
 		</fieldset>

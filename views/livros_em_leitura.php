@@ -145,7 +145,7 @@
 				<section class = "col-lg-4" style = "width: auto;">	
 					<section class = "bs-component"> 
 						<a href="?url=livro&livro=<?php echo $id_livro[0]; ?>" class = "thumbnail">
-							<img src = "<?php echo $imagem[0];?>" alt = "<?php echo $nome[0];?>" height = "177px" width = "120px"/> 
+							<img src = "<?php echo $imagem[0];?>" alt = "<?php echo utf8_encode($nome[0]);?>" height = "177px" width = "120px"/> 
 						</a>
 					</section>
 				</section>
@@ -176,7 +176,7 @@
 						echo '
 							<section class="col-lg-2">
 								<a class = "thumbnail" onClick="Abrir('.$aspas.''.$id_livro[$contador].''.$aspas.')">
-									<img src = "'.$imagem[$contador].'" alt = "'.$nome[$contador].'" height = "177px" width = "120px"/> 
+									<img src = "'.$imagem[$contador].'" alt = "'.utf8_encode($nome[$contador]).'" height = "177px" width = "120px"/> 
 								</a>
 							</section>'; 
 					}

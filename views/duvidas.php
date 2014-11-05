@@ -1,5 +1,5 @@
-<article id = "body_duvida">
-<h3 style="text-align: center;"><strong> &nbsp; DÚVIDAS FREQUÊNTES</strong></h3>
+<article id = "body_duvida">	
+	<h3 style="text-align: center;"><strong> &nbsp; DÚVIDAS FREQUÊNTES</strong></h3>
 	<div class="panel panel-body" style="width:90%; margin-left:5%;">
 	<div class="panel-group" id="accordion" style="text-align:center;">
 	  <div class="panel panel-default">

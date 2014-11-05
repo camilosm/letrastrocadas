@@ -101,8 +101,8 @@
 				<p id = "TextDialog" >Você tem certeza? Desativar sua conta é uma ação permanente.</p>
 			</section>
 			<section class="modal-footer">
-				<button id = "cancelar" class="btn btn-default" data-dismiss="modal">Não</button>
 				<button id = "confirmar_solicitação" class="btn btn-primary">Sim</button>
+				<button id = "cancelar" class="btn btn-default" data-dismiss="modal">Não</button>
 			</section>
 		</section>
 	</section>
