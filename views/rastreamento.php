@@ -1,51 +1,44 @@
-<?php header('Content-Type: text/html; charset=utf-8'); ?>
-<!DOCTYPE html>
-<html>
-
-	<head>
-		<title>Rastreamento nos correios</title>
-	</head>
-
-	<body>
-		<?php
-			$code = @$_REQUEST['code'];
-		?>
-		<h1>Rastreamento<?php echo $code ? ': ' . $code : ''?></h1>
-		
-		<form action = "" method="post">
-		<fieldset><legend>Pesquisar</legend>
-			
-			<p><label>Código para rastreamento:</label> <input type="text" size="14" maxlength="13" name="code" value="<?php echo $code ? $code : ''?>" />
-			<button>Pesquisar!</button>
+<?php
+	$code = @$_REQUEST['code'];
+?>
+<article style="width: 80%; margin-left: 10%;">
+	<h2> Rastreamento <?php echo $code ? ': ' . $code : ''?> </h2>
+	<BR />
+	<form class="form-horizontal" action = "" method="post">
+		<fieldset>
+			<legend>Pesquisar</legend>
+			<section class="form-group">
+				<label>Código para rastreamento:</label>
+				<input type="text" size="14" maxlength="13" name="code" value="<?php echo $code ? $code : ''?>" />
+				<button >Pesquisar!</button>
+			</section>
 		</fieldset>
-		</form>
-		<?php
+	</form>
+	<BR />
+	<?php
 		if ($code):
 		include_once 'classes/class_correios.php';
 		$c = new Correio($code);
 		if (!$c->erro):
-		?>
-
-		<h2>Status: <?php echo $c->status ?></h2>
-		
-		<table>
-			<tr>
-				<td>Data</td>
-				<td>Local</td>
-				<td>Ação</td>
-				<td>Detalhes</td>
-			</tr>
-			<?php foreach ($c->track as $l): ?>
-				<tr>
-					<td><?php echo $l->data ?></td>
-					<td><?php echo $l->local ?></td>
-					<td><?php echo $l->acao ?></td>
-					<td><?php echo $l->detalhes ?></td>
-				</tr>
-			<?php endforeach; ?>
-		</table>
-		<?php else: ?>
-		<?php echo $c->erro_msg ?>
-		<?php endif; endif;?>
-	</body>
-</html>
+	?>
+	<h3>Status: <?php echo $c->status ?></h3>
+	<table class="table table-striped table-hover">
+		<tr>
+			<th>Data</th>
+			<th>Local</th>
+			<th>Ação</th>
+			<th>Detalhes</th>
+		</tr>
+		<?php foreach ($c->track as $l): ?>
+		<tr>
+			<td><p><?php echo $l->data ?></p></td>
+			<td><p><?php echo $l->local ?></p></td>
+			<td><p><?php echo $l->acao ?></p></td>
+			<td><p><?php echo $l->detalhes ?></p></td>
+		</tr>
+		<?php endforeach; ?>
+	</table>
+	<?php else: ?>
+	<?php echo $c->erro_msg ?>
+	<?php endif; endif;?>
+</article>
