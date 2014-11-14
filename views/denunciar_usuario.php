@@ -20,7 +20,7 @@
 		$banco = new Banco();
 		
 		$id_outro_usu = $_GET['cod'];
-		$id =  $_SESSION['id'];
+		$id = $_SESSION['id'];
 			
 		$pesquisa_dados = new Pesquisar("tbl_usuario","id_usuario,nome,foto,email,idade,bairro,uf,cidade", " id_usuario = $id_outro_usu");
 		$resul_pesquisa = $pesquisa_dados->pesquisar();

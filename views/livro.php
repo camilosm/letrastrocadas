@@ -1,12 +1,54 @@
+<script type="text/javascript">
+    function EditarComentario(publicacao)
+    {
+		$.ajax({
+	            // url para o arquivo json.php
+	                    url : "ajax/edita_comentario.php?id="+publicacao,
+	            // dataType json
+	                    dataType : "json",
+	            success : function(data){
+	                document.getElementById('myModal').innerHTML =  data.section;
+	                $('#myModal').modal('show');
+	            },
+	            error : function(data){
+	                alert("Ops! Ocorreu um erro, tente mais tarde.");
+	            }	
+		});
+    }
+</script>
 <?php
-
 	include("classes/class_editar_caracteres.php");
 	include("classes/class_banco.php");
 	include("classes/class_pesquisar.php");
 	include("classes/class_insert.php");
+	include("classes/class_update.php");
+	include("classes/class_delete.php");
+
+	$bd = new Banco(); 
+
+	if(isset($_POST['excluirComentario']))
+	{
+		$id_comentario = $_POST['id_coments'];
+
+		$editar_comentário = new Deletar('tbl_comentarios',"id_comentario = $id_comentario");
+		$resultado_coment = $editar_comentário->deletar();
+	}
+
+	if(isset($_POST['editar_coments']))
+	{
+		$id_comentario = $_POST['id_coments'];
+		$edit_coment =  $_POST['coment'];
+
+		$editar_comenta = new EditarCaracteres($edit_coment);
+		$edit_coment = $editar_comenta->sanitizeStringNome($edit_coment);
+
+		$editar_comentário = new Alterar('tbl_comentarios',"comentario = '$edit_coment'",'id_comentario = '.$id_comentario);
+		$resultado_coment = $editar_comentário->alterar();
+	}
 
 	if(!empty($_GET['livro']))
 	{
+		$aspas = "'";
 		$id_livro = $_GET['livro'];
 
 		$editar_id = new EditarCaracteres($id_livro);
@@ -14,7 +56,6 @@
 
 		if($id_livro != "")
 		{
-			$bd = new Banco(); 
 
 			if(isset($_POST['Comentar']))
 			{
@@ -23,13 +64,16 @@
 				$editar_coment = new EditarCaracteres($coment);
 				$coment = $editar_coment->sanitizeStringNome($_POST['comentario']);
 
-				$cadastrar_comentario = new Inserir('tbl_comentarios','NULL,'.$_SESSION['id'].','.$id_livro.',"'.utf8_decode($coment).'",NULL');
-				$resultado = $cadastrar_comentario->inserir();
-				if($resultado != 1)
+				if($coment != "")
 				{
-					echo "<section class='alert alert-dismissable alert-success' style='width:40%;margin-left:30%;'>					  
-								<strong>Alguma coisa deu errado! Por favor, tente mais tarde.</strong>
-							</section>";
+					$cadastrar_comentario = new Inserir('tbl_comentarios','NULL,'.$_SESSION['id'].','.$id_livro.',"'.utf8_decode($coment).'",NULL');
+					$resultado = $cadastrar_comentario->inserir();
+					if($resultado != 1)
+					{
+						echo "<section class='alert alert-dismissable alert-success' style='width:40%;margin-left:30%;'>					  
+									<strong>Alguma coisa deu errado! Por favor, tente mais tarde.</strong>
+								</section>";
+					}
 				}
 			}
 
@@ -101,25 +145,52 @@
 				echo '
 					<section class = "row">
 						<section class = "col-lg-10" style="margin-left:7%">
-							<fieldset>									
-								<legend>Comentários</legend>
-								<section class="panel panel-default" style="height:300px;overflow:auto;">
+							<section class="panel panel-default">
+								<section class="panel-heading">
+					                <h3 class="panel-title">Cometários</h3>
+					            </section>
+					            <section class="panel-body" style="height:315px;overflow:auto;">
 					';
+					echo '';
 				while($comentario=mysql_fetch_assoc($comentarios))
 				{
+					if($_SESSION['id'] == $comentario['usuario_id'])
+	                {
+	                    $editar_coments = '
+	                    <section style="margin-left:98%;margin-top:0%;">
+		                    <button title="Clique para editar seu comentário!" id="editar" onClick="EditarComentario('.$aspas.''.$comentario['id_comentario'].''.$aspas.')">
+		                    	<span class="glyphicon glyphicon-edit"></span>
+		                    </button>
+		                    <form action="" method="post" name="frmExcluir">
+			                    <input type="text" name="id_coments" style="display:none" value="'.$comentario['id_comentario'].'">
+			                    <button type="submit" name = "excluirComentario" title="Clique para excluir seu comentário!" id="excluir">
+			                    	<span class="glyphicon glyphicon-remove"></span>
+			                    </button>
+		                    </form>
+		                </section>
+	                    ';
+	                }
+	                else
+	                {
+	                    $editar_coments = ""; 
+	                }
 					echo '
-									<section style="min-height:13%;">
-										<p><a class = "coments">'.utf8_encode($comentario['nome']).'</a> '.utf8_encode($comentario['comentario']).'<p>
-									</section>
+						<section class="well" style="border:1px solid black;margin-top:-2%;">
+							<p>'.$editar_coments.'</p>
+	                        <p class="text-primary" style="margin-top:-7%;">'.utf8_encode($comentario['nome']).' disse :</p>
+	                        <p>'.utf8_encode($comentario['comentario']).'</p>
+	                    </section>
 					';
 				}
+
 				if(!empty($_SESSION['id']))
 				{
 					if($_SESSION['status'] == 4)
 					{
 						echo '
+												</section>
 											</section>
-											<form class="form-horizontal" action = "" method = "post">
+											<form class="form-horizontal" action = "" method = "post" style="margin-top:-2%;">
 												<input type="text" class="form-control" name = "comentario" id="comentario" placeholder="O que você achou desse livro?">
 												<button type="submit" name = "Comentar" class="btn btn-primary">Enviar</button>
 											<form>
@@ -149,6 +220,7 @@
 							</section>
 						</section>';
 					}
+			
 
 			?>
 		</section>
@@ -178,3 +250,5 @@
 	}
 
 ?>
+<section class="modal" id="myModal">
+</section>

@@ -147,7 +147,7 @@
 										while($pesq_lista_livro = mysql_fetch_assoc($resul_pesquisa_lista_livros))
 										{
 											$qt++;
-											echo '<img src ="'.$pesq_lista_livro['imagem_livros'].'" alt = "'.$pesq_lista_livro['nome'].'" height = "177px" width = "120px">';
+											echo '<img src ="'.$pesq_lista_livro['imagem_livros'].'" alt = "'.$pesq_lista_livro['nome'].'" height = "177px" width = "120px">&nbsp;';
 										}
 										if($qt == 0)
 										{
@@ -162,7 +162,7 @@
 										while($pesq_ja_li = mysql_fetch_assoc($resul_ja_li))
 										{
 											$qt_ja_li++;
-											echo '<img src ="'.$pesq_ja_li['imagem_livros'].'" alt = "'.$pesq_ja_li['nome'].'" height = "177px" width = "120px">';
+											echo '<img src ="'.$pesq_ja_li['imagem_livros'].'" alt = "'.$pesq_ja_li['nome'].'" height = "177px" width = "120px">&nbsp;';
 										}
 										
 										if($qt_ja_li == 0)
@@ -177,7 +177,7 @@
 										while($pesq_quero_ler = mysql_fetch_assoc($resul_quero_ler))
 										{
 											$qt_quero++;
-											echo '<img src ="'.$pesq_quero_ler['imagem_livros'].'" alt = "'.$pesq_quero_ler['nome'].'" height = "177px" width = "120px">';
+											echo '<img src ="'.$pesq_quero_ler['imagem_livros'].'" alt = "'.$pesq_quero_ler['nome'].'" height = "177px" width = "120px">&nbsp;';
 										}
 
 										if($qt_quero == 0)
@@ -193,7 +193,7 @@
 										while($pesq_lendo = mysql_fetch_assoc($resul_lendo))
 										{
 											$qt_lendo++;
-											echo '<img src ="'.$pesq_lendo['imagem_livros'].'" alt = "'.$pesq_lendo['nome'].'" height = "177px" width = "120px">';
+											echo '<img src ="'.$pesq_lendo['imagem_livros'].'" alt = "'.$pesq_lendo['nome'].'" height = "177px" width = "120px">&nbsp;	';
 										}
 
 										if($qt_lendo == 0)
@@ -222,7 +222,7 @@
 				if ($id != $id_p)
 				{
 					echo 
-					'<section style = "position:relative; left:50%; width:23%"> 
+					'<section style = "position:relative; left:44%; width:30%"> 
 					<a href = "?url=denunciar_usuario&cod='.$id_outro_usu.'"> Denunciar usuário </a>
 					</section>';
 				}
