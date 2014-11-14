@@ -105,7 +105,6 @@
 		
 		$aspas = "'";
 ?>
-
 <article id = "body_pesquisa">
 	<section class="panel panel-default" style="width: 80%; margin-left: 10%;">
 		<section class="panel-heading">
@@ -130,20 +129,20 @@
 								echo '<section class="col-md-6">
 										<section class="col-md-4">	
 											<section class = "bs-component" style = "margin-left: 10%; maxheight: 177px; width: 120px;"> 
-												<a href="?url=livro" class = "thumbnail">
+												<a href="#" class = "thumbnail">
 													<img src = "'.$pesquisa['foto'].'" alt = ""/> 
 												</a>	
 											</section>
 										</section>
 										<section class="col-md-6">
 											<section>
-													<a href="#" title = "Clique para ver mais informações sobre o livro"> <h4> '.utf8_encode($pesquisa['nome']).'</h4></a>				  
-													<a href="#" title = "Clique para ver mais livros desta editora"> <h5> '.utf8_encode($pesquisa['cidade']).' </h5></a>
-													<a href="#" title = "Clique para ver mais livros deste autor"> <h5> '.utf8_encode($pesquisa['uf']).' </h5></a>
+													<a href="#"> <h4> '.utf8_encode($pesquisa['nome']).'</h4></a>				  
+													<a href="#"> <h5> '.utf8_encode($pesquisa['cidade']).' </h5></a>
+													<a href="#"> <h5> '.$pesquisa['uf'].' </h5></a>
 													<section id = "avaliações" style = "position:relative;">
 														<label> Avaliações: </label>
-														<span class= "glyphicon glyphicon-thumbs-up"></span> <span class = "badge"> 1000 </span> 
-														<span class= "glyphicon glyphicon-thumbs-down"> </span> <span class = "badge"> 1000 </span>
+														<span class= "glyphicon glyphicon-thumbs-up"></span> <span class = "badge"> '.$pesquisa['avaliacoes_positivas'].' </span> 
+														<span class= "glyphicon glyphicon-thumbs-down"> </span> <span class = "badge"> '.$pesquisa['avaliacoes_negativas'].' </span>
 													</section>
 												
 											</section>
@@ -173,7 +172,7 @@
 								echo '<section class="col-md-6">
 										<section class = "col-md-4">	
 											<section class = "bs-component" style = "margin-left: 30%; max-height: 177px; width:120px;"> 
-												<a href="?url=livro" class = "thumbnail">
+												<a href="?url=livro&livro='.$pesquisa['id_livro'].'" class = "thumbnail">
 													<img src = "'.$pesquisa['imagem_livros'].'" alt = ""/> 
 												</a>	
 											</section>
@@ -181,7 +180,7 @@
 										<section class="col-md-6" style="margin-bottom:5%;">
 											<section>
 												<center>
-													<a href="?url=livro" title = "Clique para ver mais informações sobre o livro"> <h3> '.utf8_encode($pesquisa['livro']).'</h3></a>				  
+													<a href="?url=livro&livro='.$pesquisa['id_livro'].'" title = "Clique para ver mais informações sobre o livro"> <h3> '.utf8_encode($pesquisa['livro']).'</h3></a>				  
 													<a href="?url=livros_autores" title = "Clique para ver mais livros deste autor"> <h4> '.utf8_encode($pesquisa['autor']).' </h4></a>
 													<a href="?url=livros_editora" title = "Clique para ver mais livros desta editora"> <h5> '.utf8_encode($pesquisa['editora']).' </h5></a>
 													<form action = "?url=alterar_livro_adm&cod='.$pesquisa['id_livro'].'" method = "post">
@@ -209,9 +208,9 @@
 										<section class="col-md-14">
 											<section>
 												<center>
-													<a href="?url=livro title = "Clique para ver mais informações sobre o livro"> <h3> '.utf8_encode($pesquisa['nome']).'</h3></a>
+													<a> <h3> '.utf8_encode($pesquisa['nome']).'</h3></a>
 													<form action = "?url=alterar_autor&cod='.$pesquisa['id_autor'].'" method = "post">
-														<input type = "submit" class="btn btn-primary btn-xs" name = "alterar_autor" value = "Alterar Autora" />													</form>
+														<input type = "submit" class="btn btn-primary btn-xs" name = "alterar_autor" value = "Alterar Autor" />													</form>
 												</center>
 											</section>
 										</section>
@@ -234,7 +233,7 @@
 										<section class="col-md-14">
 											<section>
 												<center>
-													<a href="?url=livro title = "Clique para ver mais informações sobre o livro"> <h3> '.utf8_encode($pesquisa['nome']).'</h3></a>
+													<a> <h3> '.utf8_encode($pesquisa['nome']).'</h3></a>
 													<form action = "?url=alterar_editora&cod='.$pesquisa['id_editora'].'" method = "post">
 														<input type = "submit" class="btn btn-primary btn-xs" name = "alterar_editora" value = "Alterar editora" />
 													</form>
@@ -260,7 +259,7 @@
 										<section class="col-md-14">
 											<section>
 												<center>
-													<a href="?url=livro title = "Clique para ver mais informações sobre o livro"> <h3> '.utf8_encode($pesquisa['nome']).'</h3></a>
+													<a> <h3> '.utf8_encode($pesquisa['nome']).'</h3></a>
 													<form action = "?url=alterar_genero&cod='.$pesquisa['id_categoria'].'" method = "post">
 														<input type = "submit" class="btn btn-primary btn-xs" name = "alterar_categoria" value = "Alterar categoria" />
 													</form>

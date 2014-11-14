@@ -73,14 +73,13 @@
 					<tr>
 						<td colspan="5">
 							<ul class="nav nav-tabs" style="margin-bottom: 15px;">
-								<li class="active"><a href="#livrosdisponiveis" data-toggle="tab"><span class="glyphicon glyphicon-book"></span> Livros Disponiveis</a></li>
+								<li class="active"><a href="#livrosdisponiveis" data-toggle="tab"><span class="glyphicon glyphicon-book"></span> Livros Disponibilidados </a></li>
 								<li><a href="#jali" data-toggle="tab"><span class="glyphicon glyphicon-book"></span> Já li</a></li>
 								<li><a href="#queroler" data-toggle="tab"><span class="glyphicon glyphicon-book"></span> Quero Ler</a></li>
 								<li><a href="#lendo" data-toggle="tab"><span class="glyphicon glyphicon-book"></span> Lendo </a></li>
 							</ul>
 							<section id="myTabContent" class="tab-content">
 								<section class="tab-pane fade active in" id="livrosdisponiveis" style="max-width:100%;overflow:auto;">
-
 										<?php
 											$qt = 0;		
 											while($pesq_lista_livro = mysql_fetch_assoc($resul_pesquisa_lista_livros))
@@ -90,11 +89,10 @@
 											}
 											if($qt == 0)
 											{
-												echo 'Nenhum livro está disponível';
+												echo 'Nenhum livro adicionado';
 											}
 											
 										?>
-									
 								</section>
 								<section class="tab-pane fade" id="jali" style="max-width:100%;overflow:auto;">
 									<?php
@@ -107,7 +105,7 @@
 										
 										if($qt_ja_li == 0)
 										{
-											echo 'Nenhum livro está disponível';
+											echo 'Nenhum livro adicionado';
 										}
 									?>
 								</section>
@@ -122,7 +120,7 @@
 
 										if($qt_quero == 0)
 										{
-											echo 'Nenhum livro está disponível';
+											echo 'Nenhum livro adicionado';
 										}
 										
 									?>
@@ -138,7 +136,7 @@
 
 										if($qt_lendo == 0)
 										{
-											echo 'Nenhum livro está disponível';
+											echo 'Nenhum livro adicionado';
 										}
 									?>
 								</section>					  
