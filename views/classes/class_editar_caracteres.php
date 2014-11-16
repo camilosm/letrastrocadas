@@ -6,9 +6,7 @@ class EditarCaracteres
 	
 	function __construct($var_str="")
 	{
-	
 		$this->str = $var_str;
-	
 	}
 	
 	// São os metódos que tentam evitar o MySql Inject
@@ -60,7 +58,7 @@ class EditarCaracteres
 	// Esse é para todos os campos que contenham nome ou textos
 	function Pesquisa($str)
 	{
-		$str = preg_replace('/[^ÁÃÂÉÊÍÎÓÔÕÚÛáãâéêíîóõôúû., a-z0-9]/i', '', $str);
+		$str = preg_replace('/[^ÁÃÂÉÊÍÎÓÔÕÚÛáãâéêíîóõôúû a-z0-9]/i', '', $str);
 		$str = preg_replace('/[+]/ui', ' ', $str);
 		$str = preg_replace('/_+/', '', $str);
 		return $str;
@@ -72,5 +70,4 @@ class EditarCaracteres
 		return $str;
 	}
 }
-
 ?>

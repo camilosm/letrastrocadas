@@ -309,7 +309,7 @@ CREATE TABLE tbl_livros_trocados(
 );
 
 CREATE TABLE tbl_avaliacao(
-
+	
 	id_avaliacao INT UNSIGNED AUTO_INCREMENT NOT NULL,
 	livro_id INT UNSIGNED NOT NULL,
 	usuario_id INT UNSIGNED NOT NULL,
