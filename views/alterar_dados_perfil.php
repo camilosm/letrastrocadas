@@ -322,73 +322,112 @@
 	
 ?>
 <form name="frm_upload" id="frm_upload" class="form-horizontal" enctype="multipart/form-data" method="post" action="">
-	<article id  = "alterar_dados_perfil" style = "width: 80%; margin-left: 10%;">
+	<article id  = "alterar_dados_perfil" class="col-sm-10 col-sm-offset-1">
 		<fieldset>
 			<legend>Alterar dados</legend>
-			<section class="form-group">	
-		        <label class="col-md-2 control-label">Se deseja alterar <br> sua foto de perfil,<br> clique na imagem.</label>
-				<img alt="" id="img_perfil" class = "thumbnail" style="cursor:pointer;" onclick="$('#file').click();" src = "<?=$foto?>">
-				<input type="text" value = "<?=$foto?>" style="visibility:hidden;" name="caminho" id="caminho" class="btn btn-primary btn-sm"/>
-				<input type="file" style="visibility:hidden;" name="file" onchange="UploadFoto();" id="file" class="btn btn-primary btn-sm"/>
-			</section>
-			<section class="form-group">
-				<label for="inputEmail" class="col-md-2 control-label">E-mail</label>
-				<section class="col-md-10">	 
-					<input type="text" class="form-control"  name = "email" id="email" required  placeholder = "E-mail" maxlength = "100" value = "<?php echo utf8_encode($_SESSION["email"]); ?>">			  
+			<section class="row">
+				<section class="col-lg-4">
+					<center><label>Se deseja alterar sua foto de perfil, clique na imagem.</label></center>
+					<center><img alt="" id="img_perfil" class = "thumbnail" style="cursor:pointer;" onclick="$('#file').click();" src = "<?=$foto?>"></center>
+					<input type="text" value = "<?=$foto?>" style="visibility:hidden;" name="caminho" id="caminho" class="btn btn-primary btn-sm"/>
+					<input type="file" style="visibility:hidden;" name="file" onchange="UploadFoto();" id="file" class="btn btn-primary btn-sm"/>
 				</section>
-				<label for="inputNome" class="col-md-2 control-label">Nome</label>
-				<section class="col-md-10">	 
-					<input type="text" class="form-control"  name = "nome" id="nome" required  placeholder = "Nome"  maxlength = "100" value = "<?php echo utf8_encode($nome_p); ?>">			  
-				</section>
-				<label for="inputDataNasc" class="col-md-2 control-label">Data Nascimento</label>
-				<section class="col-md-10">
-					<input type="date" class="form-control" name = "data_nascimento" id="data_nascimento" required value = "<?php echo $dados_usu["data_nasc"]; ?>">		  
-				</section>	
-				<label for="inputRua" class="col-md-2 control-label">Rua</label>
-				<section class="col-md-10">
-					<input type="text" class="form-control" name = "logradouro" id="logradouro" required maxlength = "100" placeholder = "Rua" value = "<?php echo utf8_encode($logradouro_p); ?>">		  
-				</section>
-				<label for="inputNumero" class="col-md-2 control-label">Número</label>
-				<section class="col-md-10">
-					<input type="number" class="form-control" name = "numero" id="numero" required min = "1" placeholder = "Número" value = "<?php echo $numero_p; ?>">		  
+				
+				<section class="col-lg-4">
+					<section class="row">
+						<label for="inputEmail" class="col-md-3 control-label">E-mail</label>
+						<section class="col-md-9">	 
+							<input type="text" class="form-control"  name = "email" id="email" required  placeholder = "E-mail" maxlength = "100" value = "<?php echo utf8_encode($_SESSION["email"]); ?>">			  
+						</section>
 					</section>
-				<label for="inputBairro" class="col-md-2 control-label">Bairro</label>
-				<section class="col-md-10">
-					<input type="text" class="form-control" name = "bairro" id="bairro" required maxlength = "100" placeholder = "Bairro" value = "<?php echo utf8_encode($bairro_p); ?>">		  
+					<br>
+					<section class="row">
+						<label for="inputNome" class="col-md-3 control-label">Nome</label>
+						<section class="col-md-9	">	 
+							<input type="text" class="form-control"  name = "nome" id="nome" required  placeholder = "Nome"  maxlength = "100" value = "<?php echo utf8_encode($nome_p); ?>">			  
+						</section>
+					</section>
+					<br>
+					<section class="row">
+						<label for="inputDataNasc" class="col-md-6 control-label">Data Nascimento</label>
+						<section class="col-md-6">
+							<input type="date" class="form-control" name = "data_nascimento" id="data_nascimento" required value = "<?php echo $dados_usu["data_nasc"]; ?>">		  
+						</section>
+					</section>
 				</section>
-				<label for="inputUF" class="col-md-2 control-label">UF</label>
-				<section class="col-md-10">
-					<input type="text" class="form-control" name = "inputUF" id="inputUF" required maxlength = "100" placeholder = "UF" value = "<?php echo utf8_encode($uf_p); ?>">
+				
+				<section class="col-lg-4">
+					<section class="row">
+						<label for="inputCEP" class="col-sm-2 control-label">CEP</label>
+						<section class="col-sm-10">
+							<input type="text" class="form-control" onblur = "PegarCep()" name = "cep" id="cep" required placeholder = "CEP" maxlength = "9" value = "<?php echo utf8_encode($cep_p); ?>">
+						</section>
+					</section>
+					<br>
+					<section class="row">
+						<label for="inputRua" class="col-md-2 control-label">Rua</label>
+						<section class="col-md-10">
+							<input type="text" class="form-control" name = "logradouro" id="logradouro" required maxlength = "100" placeholder = "Rua" value = "<?php echo utf8_encode($logradouro_p); ?>" readonly>		  
+						</section>
+					</section>
+					<br>
+					<section class="row">
+						<label for="inputNumero" class="col-md-2 control-label">Número</label>
+						<section class="col-md-10">
+							<input type="number" class="form-control" name = "numero" id="numero" required min = "1" placeholder = "Número" value = "<?php echo $numero_p; ?>">		  
+						</section>
+					</section>
+					<br>
+					<section class="row">
+						<label for="inputBairro" class="col-md-2 control-label">Bairro</label>
+						<section class="col-md-10">
+							<input type="text" class="form-control" name = "bairro" id="bairro" required maxlength = "100" placeholder = "Bairro" value = "<?php echo utf8_encode($bairro_p); ?>" readonly>		  
+						</section>
+					</section>
+					<br>
+					<section class="row">
+						<label for="inputUF" class="col-md-2 control-label">UF</label>
+						<section class="col-md-10">
+							<input type="text" class="form-control" name = "inputUF" id="inputUF" required maxlength = "100" placeholder = "UF" value = "<?php echo utf8_encode($uf_p); ?>" readonly>
+						</section>
+					</section>
+					<br>
+					<section class="row">
+						<label for="inputCidade" class="col-md-2 control-label">Cidade</label>
+						<section class="col-md-10">
+							<input type="text" class="form-control" name = "cidade" id="inputCidade" required maxlength = "100" placeholder = "Cidade" value = "<?php echo utf8_encode($cidade_p); ?>" readonly>		  
+						</section>
+					</section>
+					<br>
+					<section class="row">
+						<label for="inputComplemento" class="col-md-4 control-label">Complemento</label>
+						<section class="col-md-8">
+							<input type="text" class="form-control" name = "complemento" id="complemento" placeholder = "Complemento" maxlength = "100" value = "<?php echo utf8_encode($complemento_p); ?>">
+						</section>
+					</section>
 				</section>
-				<label for="inputCidade" class="col-md-2 control-label">Cidade</label>
-				<section class="col-md-10">
-					<input type="text" class="form-control" name = "cidade" id="inputCidade" required maxlength = "100" placeholder = "Cidade" value = "<?php echo utf8_encode($cidade_p); ?>">		  
-				</section>
-				<label for="inputComplemento" class="col-md-2 control-label">Complemento</label>
-				<section class="col-md-10">
-					<input type="text" class="form-control" name = "complemento" id="complemento" placeholder = "Complemento" maxlength = "100" value = "<?php echo utf8_encode($complemento_p); ?>">
-				</section>
-				<label for="inputCEP" class="col-md-2 control-label">CEP</label>
-				<section class="col-md-10">
-					<input type="text" class="form-control" onblur = "PegarCep()" name = "cep" id="cep" required placeholder = "CEP" maxlength = "9" value = "<?php echo utf8_encode($cep_p); ?>">
-				</section>
+			</section>
+			<br>
+				<section class="row col-sm-10 col-sm-offset-1">
 				<!-- 
-					- Gêneros Favoritos 
+					Gêneros Favoritos 
 				-->
-				<section class="col-md-12">
+				
 					<section class="panel panel-default">
 						<section class="panel-heading"><b>Gêneros Favoritos:</b> &nbsp;&nbsp; <a class="adicionarGeneroF" style="color:grey" title="Clique para adicionar mais um gênero"><button type="button" name="plus" class="btn" id="plus"><span class="glyphicon glyphicon-plus"></button></a></section>
 						<section class="panel-body">
-							<section class="col-md-10" style="margin-left:7%;">
+							<section class="col-sm-10 col-sm-offset-1">
 								<?php
 									$qt_genero_fav = 0;
 									while($generos_usu = mysql_fetch_assoc($res_genero_fav))
 									{
 										$qt_genero_fav++;
 										echo '
-											<section class="generosF"> 
-												<p class="camposGenerosF" style="width:110%;">
-													<select type="text" class="form-control"  name = "genero[]" id="genero" required>
+											
+											<section class="input-group generosF"> 
+												<p class="camposGenerosF">
+													<select class="form-control"  name = "genero[]" id="genero" required>
+													
 
 										';
 										foreach ($generos_nome as $key => $value) 
@@ -404,7 +443,13 @@
 										}
 										echo '
 												</select>
-												<a class="removerGenerosF" style="color:grey" title="Clique para remover este campo"><button type="button" style="margin-left:0%;" class="btn" name="minus" id="minus"><span class="glyphicon glyphicon-minus"></span></button></a>
+												<span class="input-group-btn">
+													<a class="removerGenerosF" title="Clique para remover este campo">
+														<button type="button" class="btn btn-default" name="minus" id="minus">
+															Remover
+														</button>
+													</a>
+												</span>
 											</p>
 										</section>
 										';
@@ -433,121 +478,125 @@
 							</section>
 						</section>
 					</section>
-				</section>
 				<!-- 
-					- Autores Favoritos 
+					Autores Favoritos 
 				-->
-				<section class="col-md-12">
-					<fieldset>
-						<legend>Autores Favoritos: &nbsp;&nbsp; <a class="adicionarAutoresF" style="color:grey" title="Clique para adicionar mais um autor"><button type="button" name="plus" id="plus">+</button></a></legend>
-						<section class="col-md-10" style="margin-left:15.8%;">	
-							<?php
-								$qt_autores_fav = 0;
-								while($autor_usu = mysql_fetch_assoc($res_autor_fav))
-								{
-									echo '
-										<section class="autoresF"> 
-											<p class="camposAutoresF">
-												<select type="text" class="form-control"  name = "autor[]" id="autor" required>';
-									$qt_autores_fav++;
-									
+					<section class="panel panel-default">
+						<section class="panel-heading"><b>Autores Favoritos:</b> &nbsp;&nbsp; <a class="adicionarAutoresF" style="color:grey" title="Clique para adicionar mais um autor"><button type="button" name="plus" class="btn" id="plus"><span class="glyphicon glyphicon-plus"></button></a></section>
+						<section class="panel panel-body">
+							<section class="col-sm-10 col-sm-offset-1">	
+								<?php
+									$qt_autores_fav = 0;
+									while($autor_usu = mysql_fetch_assoc($res_autor_fav))
+									{
+										echo '
+											<section class=" input-group autoresF"> 
+												<p class="camposAutoresF">
+													<select class="form-control"  name = "autor[]" id="autor" required>';
+										$qt_autores_fav++;
+										
+											foreach ($autor_nome as $key => $value) 
+											{
+												if($autor_usu["nome"] == $value)
+												{
+													echo '<option selected value = "'.$autor_id[$key].'" >' .utf8_encode($value). '</option>';
+												}
+												else
+												{
+													echo '<option value = "'.$autor_id[$key].'" >' .utf8_encode($value). '</option>'; 
+												}
+											}
+										echo '
+													</select>
+													<a class="removerAutoresF" title="Clique para remover este campo">
+														<section class="input-group-btn">
+															<button type="button" class="btn btn-default" name="minus" id="minus">
+																Remover
+															</button>																
+														</section>
+													</a>
+												</p>
+											</section>';
+									}
+
+									if($qt_autores_fav == 0)
+									{
+										echo '
+											<section class="autoresF"> 
+												<p class="camposAutoresF">
+													<select type="text" class="form-control"  name = "autor[]" id="autor" required>';
+
 										foreach ($autor_nome as $key => $value) 
 										{
-											if($autor_usu["nome"] == $value)
+											echo '<option value = "'.$autor_id[$key].'" >' .utf8_encode($value). '</option>'; 
+										}
+
+										echo '
+													</select>
+													<a class="removerAutoresF" style="color:grey" title="Clique para remover este campo"><button type="button" name="minus" id="minus"><span class="glyphicon glyphicon-minus"></span></button></a>
+												</p>
+											</section>';
+									}
+								?>
+							</section>						
+						</section>
+					<!-- 
+						Gêneros Desapreciados 
+					-->
+					<section class="col-md-12">
+						<fieldset>
+							<legend>Gêneros Desagradáveis: &nbsp;&nbsp; <a class="adicionarGeneroD" style="color:grey" title="Clique para adicionar mais um gênero"><button type="button" name="plus" id="plus">+</button></a></legend>
+							<section class="col-md-10" style="margin-left:15.8%;">
+								<?php
+									$qt_genero_ruim = 0;
+									while($gen_des_usu = mysql_fetch_assoc($res_genero_des))
+									{
+										$qt_genero_ruim++;
+										echo '
+											<section class="generosD"> 
+												<p class="camposGenerosD">
+													<select type="text" class="form-control"  name = "generoD[]" id="generoD" required>';
+										foreach ($generos_nome as $key => $value) 
+										{
+											if($gen_des_usu["nome"] == $value)
 											{
-												echo '<option selected value = "'.$autor_id[$key].'" >' .utf8_encode($value). '</option>';
+												echo '<option selected value = "'.$generos_id[$key].'" >' .utf8_encode($value). '</option>';
 											}
 											else
 											{
-												echo '<option value = "'.$autor_id[$key].'" >' .utf8_encode($value). '</option>'; 
+												echo '<option value = "'.$generos_id[$key].'" >' .utf8_encode($value). '</option>'; 
 											}
 										}
-									echo '
-												</select>
-												<a class="removerAutoresF" style="color:grey" title="Clique para remover este campo"><button type="button" name="minus" id="minus"><span class="glyphicon glyphicon-minus"></span></button></a>
-											</p>
-										</section>';
-								}
-
-								if($qt_autores_fav == 0)
-								{
-									echo '
-										<section class="autoresF"> 
-											<p class="camposAutoresF">
-												<select type="text" class="form-control"  name = "autor[]" id="autor" required>';
-
-									foreach ($autor_nome as $key => $value) 
-									{
-										echo '<option value = "'.$autor_id[$key].'" >' .utf8_encode($value). '</option>'; 
+										echo '
+													</select>
+													<a class="removerGenerosD" style="color:grey" title="Clique para remover este campo"><button type="button" name="minus" id="minus"><span class="glyphicon glyphicon-minus"></span></button></a>
+												</p>
+											</section>';
 									}
-
-									echo '
-												</select>
-												<a class="removerAutoresF" style="color:grey" title="Clique para remover este campo"><button type="button" name="minus" id="minus"><span class="glyphicon glyphicon-minus"></span></button></a>
-											</p>
-										</section>';
-								}
-							?>
-						</section>
-					</fieldset>
-				</section>
-				<!-- 
-					- Gêneros Desapreciados 
-				-->
-				<section class="col-md-12">
-					<fieldset>
-						<legend>Gêneros Desagradáveis: &nbsp;&nbsp; <a class="adicionarGeneroD" style="color:grey" title="Clique para adicionar mais um gênero"><button type="button" name="plus" id="plus">+</button></a></legend>
-						<section class="col-md-10" style="margin-left:15.8%;">
-							<?php
-								$qt_genero_ruim = 0;
-								while($gen_des_usu = mysql_fetch_assoc($res_genero_des))
-								{
-									$qt_genero_ruim++;
-									echo '
-										<section class="generosD"> 
-											<p class="camposGenerosD">
-												<select type="text" class="form-control"  name = "generoD[]" id="generoD" required>';
-									foreach ($generos_nome as $key => $value) 
+									if($qt_genero_ruim == 0)
 									{
-										if($gen_des_usu["nome"] == $value)
-										{
-											echo '<option selected value = "'.$generos_id[$key].'" >' .utf8_encode($value). '</option>';
-										}
-										else
+										echo '
+											<section class="generosD"> 
+												<p class="camposGenerosD">
+													<select type="text" class="form-control"  name = "generoD[]" id="generoD" required>';
+										foreach ($generos_nome as $key => $value) 
 										{
 											echo '<option value = "'.$generos_id[$key].'" >' .utf8_encode($value). '</option>'; 
 										}
+										echo '
+													</select>
+													<a class="removerGenerosD" style="color:grey" title="Clique para remover este campo"><button type="button" name="minus" id="minus"><span class="glyphicon glyphicon-minus"></span></button></a>
+												</p>
+											</section>';
 									}
-									echo '
-												</select>
-												<a class="removerGenerosD" style="color:grey" title="Clique para remover este campo"><button type="button" name="minus" id="minus"><span class="glyphicon glyphicon-minus"></span></button></a>
-											</p>
-										</section>';
-								}
-								if($qt_genero_ruim == 0)
-								{
-									echo '
-										<section class="generosD"> 
-											<p class="camposGenerosD">
-												<select type="text" class="form-control"  name = "generoD[]" id="generoD" required>';
-									foreach ($generos_nome as $key => $value) 
-									{
-										echo '<option value = "'.$generos_id[$key].'" >' .utf8_encode($value). '</option>'; 
-									}
-									echo '
-												</select>
-												<a class="removerGenerosD" style="color:grey" title="Clique para remover este campo"><button type="button" name="minus" id="minus"><span class="glyphicon glyphicon-minus"></span></button></a>
-											</p>
-										</section>';
-								}
-							?>
-						</section>
-					</fieldset>
-				</section>
-				<!-- 
-					- Autores Desapreciados 
-				-->
-				<section class="col-md-12">
+								?>
+							</section>
+						</fieldset>
+					</section>
+					<!-- 
+						Autores Desapreciados 
+					-->
+					<section class="col-md-12">
 					<br>
 					<fieldset>
 						<legend>Autores Chatos: &nbsp;&nbsp; <a class="adicionarAutoresC" style="color:grey" title="Clique para adicionar mais um autor"><button type="button" name="plus" id="plus">+</button></a></legend>
