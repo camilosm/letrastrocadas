@@ -14,6 +14,8 @@
 		$id = $_GET['id'];
 		$tabela = $_GET['tabela'];
 		
+		$aspas = "'";
+		
 		
 		switch ($tabela) 
 		{
@@ -48,7 +50,16 @@
 							$resultado_quantidade_livros = $alterar_quantidade_livros->alterar();
 							if($resultado_quantidade_livros != 0)
 							{
-								echo "Já Li";
+								echo '
+									<section class ="btn-group" id="Resultado'.$id.'">
+										<button value = "JaLi" name = "JaLi" type="button" class="btn btn-primary btn-sm">Já Li</button>
+										<button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+										<ul id = "acoes" class="dropdown-menu">
+											<li><a onClick="AcoesLivro('.$id.','.$aspas.'Desmarcar'.$aspas.','.$aspas.'Resultado'.$id.''.$aspas.','.$aspas.'JaLi'.$aspas.');">Desmarcar</a></li>
+											<li><a onClick="AcoesLivro('.$id.','.$aspas.'Lendo'.$aspas.','.$aspas.'Resultado'.$id.''.$aspas.','.$aspas.'JaLi'.$aspas.');">Estou lendo</a></li>
+											<li><a onClick="AcoesLivro('.$id.','.$aspas.'QueroLer'.$aspas.','.$aspas.'Resultado'.$id.''.$aspas.','.$aspas.'JaLi'.$aspas.');">Quero Ler</a></li>
+										</ul>
+									</section>';
 							}
 						}
 					}
@@ -58,7 +69,16 @@
 						$resultado_quantidade_livros = $alterar_quantidade_livros->alterar();
 						if($resultado_quantidade_livros != 0)
 						{
-							echo "Já Li";
+							echo '
+									<section class ="btn-group" id="Resultado'.$id.'">
+										<button value = "JaLi" name = "JaLi" type="button" class="btn btn-primary btn-sm">Já Li</button>
+										<button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+										<ul id = "acoes" class="dropdown-menu">
+											<li><a onClick="AcoesLivro('.$id.','.$aspas.'Desmarcar'.$aspas.','.$aspas.'Resultado'.$id.''.$aspas.','.$aspas.'JaLi'.$aspas.');">Desmarcar</a></li>
+											<li><a onClick="AcoesLivro('.$id.','.$aspas.'Lendo'.$aspas.','.$aspas.'Resultado'.$id.''.$aspas.','.$aspas.'JaLi'.$aspas.');">Estou lendo</a></li>
+											<li><a onClick="AcoesLivro('.$id.','.$aspas.'QueroLer'.$aspas.','.$aspas.'Resultado'.$id.''.$aspas.','.$aspas.'JaLi'.$aspas.');">Quero Ler</a></li>
+										</ul>
+									</section>';
 						}
 					}
 				}
@@ -78,7 +98,15 @@
 							$resultado_quantidade_livros = $alterar_quantidade_livros->alterar();
 							if($resultado_quantidade_livros != 0)
 							{
-								echo "Lendo";
+								echo '<section class ="btn-group" id="Resultado'.$id.'">
+										<button value = "Lendo" name = "Lendo" type="button" class="btn btn-primary btn-sm">Estou lendo</button>
+										<button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+										<ul id = "acoes" class="dropdown-menu">
+											<li><a onClick="AcoesLivro('.$id.','.$aspas.'Desmarcar'.$aspas.','.$aspas.'Resultado'.$id.''.$aspas.','.$aspas.'Lendo'.$aspas.');">Desmarcar</a></li>
+											<li><a onClick="AcoesLivro('.$id.','.$aspas.'QueroLer'.$aspas.','.$aspas.'Resultado'.$id.''.$aspas.','.$aspas.'Lendo'.$aspas.');">Quero Ler</a></li>
+											<li><a onClick="AcoesLivro('.$id.','.$aspas.'JaLi'.$aspas.','.$aspas.'Resultado'.$id.''.$aspas.','.$aspas.'Lendo'.$aspas.');">Já li</a></li>
+										</ul>
+									</section>';
 							}
 						}
 					}
@@ -88,7 +116,15 @@
 						$resultado_quantidade_livros = $alterar_quantidade_livros->alterar();
 						if($resultado_quantidade_livros != 0)
 						{
-							echo "Lendo";
+							echo '<section class ="btn-group" id="Resultado'.$id.'">
+										<button value = "Lendo" name = "Lendo" type="button" class="btn btn-primary btn-sm">Estou lendo</button>
+										<button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+										<ul id = "acoes" class="dropdown-menu">
+											<li><a onClick="AcoesLivro('.$id.','.$aspas.'Desmarcar'.$aspas.','.$aspas.'Resultado'.$id.''.$aspas.','.$aspas.'Lendo'.$aspas.');">Desmarcar</a></li>
+											<li><a onClick="AcoesLivro('.$id.','.$aspas.'QueroLer'.$aspas.','.$aspas.'Resultado'.$id.''.$aspas.','.$aspas.'Lendo'.$aspas.');">Quero Ler</a></li>
+											<li><a onClick="AcoesLivro('.$id.','.$aspas.'JaLi'.$aspas.','.$aspas.'Resultado'.$id.''.$aspas.','.$aspas.'Lendo'.$aspas.');">Já li</a></li>
+										</ul>
+									</section>';
 						}
 					}
 				}
@@ -108,7 +144,15 @@
 							$resultado_quantidade_livros = $alterar_quantidade_livros->alterar();
 							if($resultado_quantidade_livros != 0)
 							{
-								echo "Quero Ler";
+								echo '<section class ="btn-group" id="Resultado'.$id.'">
+												<button value = "QueroLer" name = "QueroLer" type="button" class="btn btn-primary btn-sm">Quero Ler</button>
+												<button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+												<ul id = "acoes" class="dropdown-menu">
+													<li><a onClick="AcoesLivro('.$id.','.$aspas.'Desmarcar'.$aspas.','.$aspas.'Resultado'.$id.''.$aspas.','.$aspas.'QueroLer'.$aspas.');">Desmarcar</a></li>
+													<li><a onClick="AcoesLivro('.$id.','.$aspas.'JaLi'.$aspas.','.$aspas.'Resultado'.$id.''.$aspas.','.$aspas.'QueroLer'.$aspas.');">Já li</a></li>
+													<li><a onClick="AcoesLivro('.$id.','.$aspas.'Lendo'.$aspas.','.$aspas.'Resultado'.$id.''.$aspas.','.$aspas.'QueroLer'.$aspas.');">Estou lendo</a></li>
+												</ul>
+											</section>';
 							}
 						}
 					}
@@ -118,7 +162,15 @@
 						$resultado_quantidade_livros = $alterar_quantidade_livros->alterar();
 						if($resultado_quantidade_livros != 0)
 						{
-							echo "Quero Ler";
+							echo '<section class ="btn-group" id="Resultado'.$id.'">
+												<button value = "QueroLer" name = "QueroLer" type="button" class="btn btn-primary btn-sm">Quero Ler</button>
+												<button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+												<ul id = "acoes" class="dropdown-menu">
+													<li><a onClick="AcoesLivro('.$id.','.$aspas.'Desmarcar'.$aspas.','.$aspas.'Resultado'.$id.''.$aspas.','.$aspas.'QueroLer'.$aspas.');">Desmarcar</a></li>
+													<li><a onClick="AcoesLivro('.$id.','.$aspas.'JaLi'.$aspas.','.$aspas.'Resultado'.$id.''.$aspas.','.$aspas.'QueroLer'.$aspas.');">Já li</a></li>
+													<li><a onClick="AcoesLivro('.$id.','.$aspas.'Lendo'.$aspas.','.$aspas.'Resultado'.$id.''.$aspas.','.$aspas.'QueroLer'.$aspas.');">Estou lendo</a></li>
+												</ul>
+											</section>';
 						}
 					}
 				}
@@ -133,7 +185,15 @@
 						$resultado_quantidade_livros = $alterar_quantidade_livros->alterar();
 						if($resultado_quantidade_livros != 0)
 						{
-							echo "Eu...";
+							echo '<section class ="btn-group" id="Resultado'.$id.'">
+											<button value = "" name = "Eu" type="button" class="btn btn-primary btn-sm">Eu...</button>
+											<button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+											<ul id = "acoes" class="dropdown-menu">
+												<li><a onClick="AcoesLivro('.$id.','.$aspas.'QueroLer'.$aspas.','.$aspas.'Resultado'.$id.''.$aspas.','.$aspas.''.$aspas.');">Quero Ler</a></li>
+												<li><a onClick="AcoesLivro('.$id.','.$aspas.'JaLi'.$aspas.','.$aspas.'Resultado'.$id.''.$aspas.','.$aspas.''.$aspas.');">Já li</a></li>
+												<li><a onClick="AcoesLivro('.$id.','.$aspas.'Lendo'.$aspas.','.$aspas.'Resultado'.$id.''.$aspas.','.$aspas.''.$aspas.');">Estou lendo</a></li>
+											</ul>
+										</section>';
 						}
 					}
 				

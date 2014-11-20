@@ -9,7 +9,6 @@
 			
 			$bd = new Banco();			
 
-			//Só pra uma futura concatenação
 			$aspas = "'";	
 	}
 	else
@@ -73,7 +72,7 @@
 													</section>
 													<section class="col-md-6">
 														<center>
-															<a href="?url=livro&livro='.$ultimos['id_livro'].'" title = "Clique para ver mais informações sobre o livro"> <h3> '.utf8_encode($lista_desejo['Livro']).'</h3></a>				  
+															<a href="?url=livro&livro='.$lista_desejo['id_livro'].'" title = "Clique para ver mais informações sobre o livro"> <h3> '.utf8_encode($lista_desejo['Livro']).'</h3></a>				  
 															<a href="?url=livros_autores" title = "Clique para ver mais livros deste autor"> <h4> '.utf8_encode($lista_desejo['Autor']).' </h4></a>
 															<a href="?url=livros_editora" title = "Clique para ver mais livros desta editora"> <h5> '.utf8_encode($lista_desejo['Editora']).' </h5></a>
 														</center>
@@ -84,13 +83,13 @@
 														<section>
 															<a href="?url=pesquisa&nome='.utf8_encode($livro).'"><input type = "button" class="btn btn-primary btn-sm" name = "botao_pesquisar" value = "Pesquisar" /></a>
 															<a href="?url=passo-a-passo-dados-usuario&cod='.$lista_desejo['id_livro'].'"><input type = "button" class="btn btn-primary btn-sm" name = "botao_disponibilizar_livro" value = "Disponibilizar Livro" /></a>													 
-															<section class = "btn-group">
-																<button id = "Resultado'.$lista_desejo['id_livro'].'" value = "QueroLer" name = "QueroLer" type="button" class="btn btn-primary btn-sm">Quero Ler</button>
+															<section class ="btn-group" id="Resultado'.$lista_desejo['id_livro'].'">
+																<button value = "QueroLer" name = "QueroLer" type="button" class="btn btn-primary btn-sm">Quero Ler</button>
 																<button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
 																<ul id = "acoes" class="dropdown-menu">
-																	<li><a onClick="AcoesLivro('.$lista_desejo['id_livro'].','.$aspas.'Desmarcar'.$aspas.',Resultado'.$lista_desejo['id_livro'].','.$aspas.'QueroLer'.$aspas.');">Desmarcar</a></li>
-																	<li><a onClick="AcoesLivro('.$lista_desejo['id_livro'].','.$aspas.'JaLi'.$aspas.',Resultado'.$lista_desejo['id_livro'].','.$aspas.'QueroLer'.$aspas.');">Já li</a></li>
-																	<li><a onClick="AcoesLivro('.$lista_desejo['id_livro'].','.$aspas.'Lendo'.$aspas.',Resultado'.$lista_desejo['id_livro'].','.$aspas.'QueroLer'.$aspas.');">Estou lendo</a></li>
+																	<li><a onClick="AcoesLivro('.$lista_desejo['id_livro'].','.$aspas.'Desmarcar'.$aspas.','.$aspas.'Resultado'.$lista_desejo['id_livro'].''.$aspas.','.$aspas.'QueroLer'.$aspas.');">Desmarcar</a></li>
+																	<li><a onClick="AcoesLivro('.$lista_desejo['id_livro'].','.$aspas.'JaLi'.$aspas.','.$aspas.''.$aspas.'Resultado'.$lista_desejo['id_livro'].''.$aspas.''.$aspas.','.$aspas.'QueroLer'.$aspas.');">Já li</a></li>
+																	<li><a onClick="AcoesLivro('.$lista_desejo['id_livro'].','.$aspas.'Lendo'.$aspas.','.$aspas.'Resultado'.$lista_desejo['id_livro'].''.$aspas.','.$aspas.'QueroLer'.$aspas.');">Estou lendo</a></li>
 																</ul>
 															</section>
 														</section>
@@ -130,13 +129,15 @@
 								{
 	
 									$botões = '
-												<button id = "Resultado'.$lista_desejo['id_livro'].'" value = "" name = "Eu" type="button" class="btn btn-primary btn-sm">Eu...</button>
+											<section class ="btn-group" id="Resultado'.$lista_desejo['id_livro'].'">
+												<button value = "" name = "Eu" type="button" class="btn btn-primary btn-sm">Eu...</button>
 												<button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
 												<ul id = "acoes" class="dropdown-menu">
-													<li><a onClick="AcoesLivro('.$lista_desejo['id_livro'].','.$aspas.'QueroLer'.$aspas.',Resultado'.$lista_desejo['id_livro'].','.$aspas.''.$aspas.');">Quero Ler</a></li>
-													<li><a onClick="AcoesLivro('.$lista_desejo['id_livro'].','.$aspas.'JaLi'.$aspas.',Resultado'.$lista_desejo['id_livro'].','.$aspas.''.$aspas.');">Já li</a></li>
-													<li><a onClick="AcoesLivro('.$lista_desejo['id_livro'].','.$aspas.'Lendo'.$aspas.',Resultado'.$lista_desejo['id_livro'].','.$aspas.''.$aspas.');">Estou lendo</a></li>
-												</ul>';
+													<li><a onClick="AcoesLivro('.$lista_desejo['id_livro'].','.$aspas.'QueroLer'.$aspas.','.$aspas.'Resultado'.$lista_desejo['id_livro'].''.$aspas.','.$aspas.''.$aspas.');">Quero Ler</a></li>
+													<li><a onClick="AcoesLivro('.$lista_desejo['id_livro'].','.$aspas.'JaLi'.$aspas.','.$aspas.'Resultado'.$lista_desejo['id_livro'].''.$aspas.','.$aspas.''.$aspas.');">Já li</a></li>
+													<li><a onClick="AcoesLivro('.$lista_desejo['id_livro'].','.$aspas.'Lendo'.$aspas.','.$aspas.'Resultado'.$lista_desejo['id_livro'].''.$aspas.','.$aspas.''.$aspas.');">Estou lendo</a></li>
+												</ul>
+											</section>';
 									
 									$ct_desejo++;
 
@@ -171,9 +172,7 @@
 															<section>
 																<a href="?url=pesquisa&nome='.$livro.'"><input type = "button" class="btn btn-primary btn-sm" name = "botao_pesquisar" value = "Pesquisar" /></a>
 																<a href="?url=passo-a-passo-dados-usuario&cod='.$lista_desejo['id_livro'].'"><input type = "button" class="btn btn-primary btn-sm" name = "botao_disponibilizar_livro" value = "Disponibilizar Livro" /></a>													 
-																<section class = "btn-group">
-																	'.$botões.'
-																</section>
+																'.$botões.'
 															</section>
 														</center>
 													</section>
@@ -233,46 +232,54 @@
 								if($array_marcacao['tipo'] == 1)
 								{
 									$botões = ' 
-												<button id = "Resultado'.$ultimos['id_livro'].'" value = "QueroLer" name = "QueroLer" type="button" class="btn btn-primary btn-sm">Quero Ler</button>
+											<section class ="btn-group" id="Resultado'.$ultimos['id_livro'].'">
+												<button value = "QueroLer" name = "QueroLer" type="button" class="btn btn-primary btn-sm">Quero Ler</button>
 												<button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
 												<ul id = "acoes" class="dropdown-menu">
-													<li><a onClick="AcoesLivro('.$ultimos['id_livro'].','.$aspas.'Desmarcar'.$aspas.',Resultado'.$ultimos['id_livro'].','.$aspas.'QueroLer'.$aspas.');">Desmarcar</a></li>
-													<li><a onClick="AcoesLivro('.$ultimos['id_livro'].','.$aspas.'JaLi'.$aspas.',Resultado'.$ultimos['id_livro'].','.$aspas.'QueroLer'.$aspas.');">Já li</a></li>
-													<li><a onClick="AcoesLivro('.$ultimos['id_livro'].','.$aspas.'Lendo'.$aspas.',Resultado'.$ultimos['id_livro'].','.$aspas.'QueroLer'.$aspas.');">Estou lendo</a></li>
-												</ul>';
+													<li><a onClick="AcoesLivro('.$ultimos['id_livro'].','.$aspas.'Desmarcar'.$aspas.','.$aspas.'Resultado'.$ultimos['id_livro'].''.$aspas.','.$aspas.'QueroLer'.$aspas.');">Desmarcar</a></li>
+													<li><a onClick="AcoesLivro('.$ultimos['id_livro'].','.$aspas.'JaLi'.$aspas.','.$aspas.'Resultado'.$ultimos['id_livro'].''.$aspas.','.$aspas.'QueroLer'.$aspas.');">Já li</a></li>
+													<li><a onClick="AcoesLivro('.$ultimos['id_livro'].','.$aspas.'Lendo'.$aspas.','.$aspas.'Resultado'.$ultimos['id_livro'].''.$aspas.','.$aspas.'QueroLer'.$aspas.');">Estou lendo</a></li>
+												</ul>
+											</section>';
 								}
 								else if($array_marcacao['tipo'] == 2)
 								{
 									$botões = ' 
-											<button id = "Resultado'.$ultimos['id_livro'].'" value = "JaLi" name = "JaLi" type="button" class="btn btn-primary btn-sm">Já Li</button>
+										<section class ="btn-group" id="Resultado'.$ultimos['id_livro'].'">
+											<button value = "JaLi" name = "JaLi" type="button" class="btn btn-primary btn-sm">Já Li</button>
 											<button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
 											<ul id = "acoes" class="dropdown-menu">
-												<li><a onClick="AcoesLivro('.$ultimos['id_livro'].','.$aspas.'Desmarcar'.$aspas.',Resultado'.$ultimos['id_livro'].','.$aspas.'JaLi'.$aspas.');">Desmarcar</a></li>
-												<li><a onClick="AcoesLivro('.$ultimos['id_livro'].','.$aspas.'Lendo'.$aspas.',Resultado'.$ultimos['id_livro'].','.$aspas.'JaLi'.$aspas.');">Estou lendo</a></li>
-												<li><a onClick="AcoesLivro('.$ultimos['id_livro'].','.$aspas.'QueroLer'.$aspas.',Resultado'.$ultimos['id_livro'].','.$aspas.'JaLi'.$aspas.');">Quero Ler</a></li>
-											</ul>';
+												<li><a onClick="AcoesLivro('.$ultimos['id_livro'].','.$aspas.'Desmarcar'.$aspas.','.$aspas.'Resultado'.$ultimos['id_livro'].''.$aspas.','.$aspas.'JaLi'.$aspas.');">Desmarcar</a></li>
+												<li><a onClick="AcoesLivro('.$ultimos['id_livro'].','.$aspas.'Lendo'.$aspas.','.$aspas.'Resultado'.$ultimos['id_livro'].''.$aspas.','.$aspas.'JaLi'.$aspas.');">Estou lendo</a></li>
+												<li><a onClick="AcoesLivro('.$ultimos['id_livro'].','.$aspas.'QueroLer'.$aspas.','.$aspas.'Resultado'.$ultimos['id_livro'].''.$aspas.','.$aspas.'JaLi'.$aspas.');">Quero Ler</a></li>
+											</ul>
+										</section>';
 								}
 								else if($array_marcacao['tipo'] == 3)
 								{
 									$botões = ' 
-											<button id = "Resultado'.$ultimos['id_livro'].'" value = "Lendo" name = "Lendo" type="button" class="btn btn-primary btn-sm">Estou lendo</button>
+										<section class ="btn-group" id="Resultado'.$ultimos['id_livro'].'">
+											<button value = "Lendo" name = "Lendo" type="button" class="btn btn-primary btn-sm">Estou lendo</button>
 											<button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
 											<ul id = "acoes" class="dropdown-menu">
-												<li><a onClick="AcoesLivro('.$ultimos['id_livro'].','.$aspas.'Desmarcar'.$aspas.',Resultado'.$ultimos['id_livro'].','.$aspas.'Lendo'.$aspas.');">Desmarcar</a></li>
-												<li><a onClick="AcoesLivro('.$ultimos['id_livro'].','.$aspas.'QueroLer'.$aspas.',Resultado'.$ultimos['id_livro'].','.$aspas.'Lendo'.$aspas.');">Quero Ler</a></li>
-												<li><a onClick="AcoesLivro('.$ultimos['id_livro'].','.$aspas.'JaLi'.$aspas.',Resultado'.$ultimos['id_livro'].','.$aspas.'Lendo'.$aspas.');">Já li</a></li>
-											</ul>';
+												<li><a onClick="AcoesLivro('.$ultimos['id_livro'].','.$aspas.'Desmarcar'.$aspas.','.$aspas.'Resultado'.$ultimos['id_livro'].''.$aspas.','.$aspas.'Lendo'.$aspas.');">Desmarcar</a></li>
+												<li><a onClick="AcoesLivro('.$ultimos['id_livro'].','.$aspas.'QueroLer'.$aspas.','.$aspas.'Resultado'.$ultimos['id_livro'].''.$aspas.','.$aspas.'Lendo'.$aspas.');">Quero Ler</a></li>
+												<li><a onClick="AcoesLivro('.$ultimos['id_livro'].','.$aspas.'JaLi'.$aspas.','.$aspas.'Resultado'.$ultimos['id_livro'].''.$aspas.','.$aspas.'Lendo'.$aspas.');">Já li</a></li>
+											</ul>
+										</section>';
 								}
 								else
 								{
 									$botões = '
-												<button id = "Resultado'.$ultimos['id_livro'].'" value = "" name = "Eu" type="button" class="btn btn-primary btn-sm">Eu...</button>
+											<section class ="btn-group" id="Resultado'.$ultimos['id_livro'].'">
+												<button value = "" name = "Eu" type="button" class="btn btn-primary btn-sm">Eu...</button>
 												<button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
 												<ul id = "acoes" class="dropdown-menu">
-													<li><a onClick="AcoesLivro('.$ultimos['id_livro'].','.$aspas.'QueroLer'.$aspas.',Resultado'.$ultimos['id_livro'].','.$aspas.''.$aspas.');">Quero Ler</a></li>
-													<li><a onClick="AcoesLivro('.$ultimos['id_livro'].','.$aspas.'JaLi'.$aspas.',Resultado'.$ultimos['id_livro'].','.$aspas.''.$aspas.');">Já li</a></li>
-													<li><a onClick="AcoesLivro('.$ultimos['id_livro'].','.$aspas.'Lendo'.$aspas.',Resultado'.$ultimos['id_livro'].','.$aspas.''.$aspas.');">Estou lendo</a></li>
-												</ul>';
+													<li><a onClick="AcoesLivro('.$ultimos['id_livro'].','.$aspas.'QueroLer'.$aspas.','.$aspas.'Resultado'.$ultimos['id_livro'].''.$aspas.','.$aspas.''.$aspas.');">Quero Ler</a></li>
+													<li><a onClick="AcoesLivro('.$ultimos['id_livro'].','.$aspas.'JaLi'.$aspas.','.$aspas.'Resultado'.$ultimos['id_livro'].''.$aspas.','.$aspas.''.$aspas.');">Já li</a></li>
+													<li><a onClick="AcoesLivro('.$ultimos['id_livro'].','.$aspas.'Lendo'.$aspas.','.$aspas.'Resultado'.$ultimos['id_livro'].''.$aspas.','.$aspas.''.$aspas.');">Estou lendo</a></li>
+												</ul>
+											</section>';
 								}
 
 								$livro = $ultimos['Livro'];
