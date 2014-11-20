@@ -10,6 +10,7 @@
 		$nome = "tmp_profile_".$_SESSION["id"];
        	$caminho = @$upload->salvar($nome);
 		$caminho_a = $pasta."".$nome.".".$ext;
+		$arquivo = fopen($caminho);
 		echo json_encode(array("caminho" => $caminho, "caminho_a" => $caminho_a));
 	}
 	

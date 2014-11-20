@@ -42,9 +42,7 @@ function AcoesLivro(id,acao,section,tabela)
 			if (xmlreq.status == 200)
 			{ 
 				var texto = xmlreq.responseText;
-				$(section).text(texto).attr({
-					title:texto
-				});
+				document.getElementById(section).innerHTML = texto;
 			}
 			else
 			{ 
