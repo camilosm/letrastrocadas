@@ -79,6 +79,7 @@
 										$_SESSION["id"]=$dadosusu["id_usuario"];
 										$_SESSION["nome"]=$dadosusu["nome"];
 										$_SESSION["email"]=$dadosusu["email"];
+										$_SESSION["tutorial"]="ativo";
 										// Redireciona para o menu do usuário
 										header("Location: ?url=index_usuario");
 									
