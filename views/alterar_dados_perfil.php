@@ -343,7 +343,7 @@
 					<br>
 					<section class="row">
 						<label for="inputNome" class="col-md-3 control-label">Nome</label>
-						<section class="col-md-9	">	 
+						<section class="col-md-9">	 
 							<input type="text" class="form-control"  name = "nome" id="nome" required  placeholder = "Nome"  maxlength = "100" value = "<?php echo utf8_encode($nome_p); ?>">			  
 						</section>
 					</section>
@@ -408,73 +408,92 @@
 				</section>
 			</section>
 			<br>
-				<section class="row col-sm-10 col-sm-offset-1">
 				<!-- 
 					Gêneros Favoritos 
 				-->
-				
 					<section class="panel panel-default">
 						<section class="panel-heading"><b>Gêneros Favoritos:</b> &nbsp;&nbsp; <a class="adicionarGeneroF" style="color:grey" title="Clique para adicionar mais um gênero"><button type="button" name="plus" class="btn" id="plus"><span class="glyphicon glyphicon-plus"></button></a></section>
 						<section class="panel-body">
 							<section class="col-sm-10 col-sm-offset-1">
-								<?php
-									$qt_genero_fav = 0;
-									while($generos_usu = mysql_fetch_assoc($res_genero_fav))
-									{
-										$qt_genero_fav++;
-										echo '
-											
-											<section class="input-group generosF"> 
-												<p class="camposGenerosF">
-													<select class="form-control"  name = "genero[]" id="genero" required>
-													
-
-										';
-										foreach ($generos_nome as $key => $value) 
-										{
-											if($generos_usu["nome"] == $value)
-											{
-												echo '<option selected value = "'.$generos_id[$key].'" >' .utf8_encode($value). '</option>';
-											}
-											else
-											{
-												echo '<option value = "'.$generos_id[$key].'" >' .utf8_encode($value). '</option>'; 
-											}
-										}
-										echo '
-												</select>
-												<span class="input-group-btn">
-													<a class="removerGenerosF" title="Clique para remover este campo">
-														<button type="button" class="btn btn-default" name="minus" id="minus">
-															Remover
-														</button>
-													</a>
-												</span>
-											</p>
+								<section class="row">
+									<section class="col-lg-6">
+										<section class="row">
+											<section class="col-md-9">
+												<section class="form-group">
+													<input type="text" name = "pesquisa" class="form-control" placeholder="Procurar">
+												</section>
+											</section>
+											<section class="col-md-offset-1">
+												<button type="submit" name = "pesquisar_livro" class="btn btn-default">
+													<span class="glyphicon glyphicon-search"></span>
+												</button>
+											</section>
 										</section>
-										';
-									}
-
-									if($qt_genero_fav == 0)
-									{
-										echo '
-											<section class="generosF"> 
-												<p class="camposGenerosF" style="width:110%;">
-													<select type="text" class="form-control"  name = "genero[]" id="genero" required>
-
-										';
-										foreach ($generos_nome as $key => $value) 
-										{
-											echo '<option value = "'.$generos_id[$key].'" >' .utf8_encode($value). '</option>'; 
-										}
-										echo '
-												</select>
-												<a class="removerGenerosF" style="color:grey" title="Clique para remover este campo"><button type="button" style="margin-left:0%;" class="btn" name="minus" id="minus"><span class="glyphicon glyphicon-minus"></span></button></a>
-											</p>
+										<section class="row">
+											<section class="col-md-5">
+												<input id="a" type="checkbox" name="generos[]">
+												<label for="a"><img style="width:100%;cursor:pointer;" class="thumbnail" src="content/imagens/fotos_perfil/tmp/tmp_profile_1.jpg"></label>
+											</section>
+											<section class="col-md-5">
+												<input id="b" type="checkbox" name="generos[]">
+												<label for="b"><img style="width:100%;cursor:pointer;" class="thumbnail" src="content/imagens/fotos_perfil/tmp/tmp_profile_1.jpg"></label>
+											</section>
 										</section>
-										';
-									}
-								?>
+										<section class="row">
+											<section class="col-md-5">
+												<input id="c" type="checkbox" name="generos[]">
+												<label for="c"><img style="width:100%;cursor:pointer;" class="thumbnail" src="content/imagens/fotos_perfil/tmp/tmp_profile_1.jpg"></label>
+											</section>
+											<section class="col-md-5">
+												<input id="d" type="checkbox" name="generos[]">
+												<label for="d"><img style="width:100%;cursor:pointer;" class="thumbnail" src="content/imagens/fotos_perfil/tmp/tmp_profile_1.jpg"></label>
+											</section>
+										</section>
+										<section class="row">
+											<section class="col-md-5">
+												<input id="e" type="checkbox" name="generos[]">
+												<label for="e"><img style="width:100%;cursor:pointer;" class="thumbnail" src="content/imagens/fotos_perfil/tmp/tmp_profile_1.jpg"></label>
+											</section>
+											<section class="col-md-5">
+												<input id="f" type="checkbox" name="generos[]">
+												<label for="f"><img style="width:100%;cursor:pointer;" class="thumbnail" src="content/imagens/fotos_perfil/tmp/tmp_profile_1.jpg"></label>
+											</section>
+										</section>
+										<section class="row">
+											<button type="button" class="btn btn-primary">Adicionar</button>
+										</section>
+									</section>
+									<section class="col-lg-6">
+										<section class="panel panel-default">
+											<section class="panel-heading"><b>Seus Gêneros Favoritos:</b> &nbsp;&nbsp;</section>
+											<section class="panel-body">
+												<section class="row">
+													<section class="col-md-5">
+														<input id="1" type="checkbox" name="generos[]">
+														<label for="1"><img style="width:100%;cursor:pointer;" class="thumbnail" src="content/imagens/fotos_perfil/tmp/tmp_profile_1.jpg"></label>
+													</section>
+													<section class="col-md-5">
+														<input id="2" type="checkbox" name="generos[]">
+														<label for="2"><img style="width:100%;cursor:pointer;" class="thumbnail" src="content/imagens/fotos_perfil/tmp/tmp_profile_1.jpg"></label>
+													</section>
+												</section>
+												<section class="row">
+													<section class="col-md-5">
+														<input id="3" type="checkbox" name="generos[]">
+														<label for="3"><img style="width:100%;cursor:pointer;" class="thumbnail" src="content/imagens/fotos_perfil/tmp/tmp_profile_1.jpg"></label>
+													</section>
+													<section class="col-md-5">
+														<input id="4" type="checkbox" name="generos[]">
+														<label for="4"><img style="width:100%;cursor:pointer;" class="thumbnail" src="content/imagens/fotos_perfil/tmp/tmp_profile_1.jpg"></label>
+													</section>
+												</section>
+												<section class="row">
+													<button type="button" class="btn btn-primary">Excluir</button>
+												</section>
+											</section>
+										</section>
+									</section>
+								</section>
 							</section>
 						</section>
 					</section>
@@ -597,7 +616,6 @@
 						Autores Desapreciados 
 					-->
 					<section class="col-md-12">
-					<br>
 					<fieldset>
 						<legend>Autores Chatos: &nbsp;&nbsp; <a class="adicionarAutoresC" style="color:grey" title="Clique para adicionar mais um autor"><button type="button" name="plus" id="plus">+</button></a></legend>
 						<section class="col-md-10" style="margin-left:15.8%;">
@@ -642,6 +660,7 @@
 										</section>';
 								}
 							?>
+						</section>
 					</fieldset>
 				</section>
 				<section class="col-md-10 col-md-offset-2">
