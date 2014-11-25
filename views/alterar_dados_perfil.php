@@ -321,8 +321,9 @@
 	$qt_aut = count($autor_id);
 	
 ?>
-<form name="frm_upload" id="frm_upload" class="form-horizontal" enctype="multipart/form-data" method="post" action="">
-	<article id  = "alterar_dados_perfil" class="col-sm-10 col-sm-offset-1">
+
+<article id  = "alterar_dados_perfil" class="col-sm-offset-1 col-sm-10">
+	<form name="frm_upload" id="frm_upload" class="form-horizontal" enctype="multipart/form-data" method="post" action="">
 		<fieldset>
 			<legend>Alterar dados</legend>
 			<section class="row">
@@ -410,92 +411,92 @@
 				<!-- 
 					Gêneros Favoritos 
 				-->
-					<section class="panel panel-default">
-						<section class="panel-heading"><b>Gêneros Favoritos:</b> &nbsp;&nbsp; <a class="adicionarGeneroF" style="color:grey" title="Clique para adicionar mais um gênero"><button type="button" name="plus" class="btn" id="plus"><span class="glyphicon glyphicon-plus"></button></a></section>
-						<section class="panel-body">
-							<section class="col-sm-10 col-sm-offset-1">
-								<section class="row">
-									<section class="col-lg-6">
+			<section class="row">			
+				<section class="panel panel-default">
+					<section class="panel-heading"><b>Gêneros Favoritos:</b> &nbsp;&nbsp; <a class="adicionarGeneroF" style="color:grey" title="Clique para adicionar mais um gênero"><button type="button" name="plus" class="btn" id="plus"><span class="glyphicon glyphicon-plus"></button></a></section>
+					<section class="panel-body">
+						<section class="col-sm-10 col-sm-offset-1">
+							<section class="col-sm-6">
+								<section class="panel panel-default">
+									<section class="panel-heading"><b>Seus Gêneros Favoritos:</b> &nbsp;&nbsp;</section>
+									<section class="panel-body">
 										<section class="row">
-											<section class="col-md-9">
-												<section class="form-group">
-													<input type="text" name = "pesquisa" class="form-control" placeholder="Procurar">
-												</section>
+											<section class="col-sm-6">
+												<input id="1" type="checkbox" name="generos[]">
+												<label for="1"><img style="width:100%;cursor:pointer;" class="thumbnail" src="content/imagens/fotos_perfil/tmp/tmp_profile_1.jpg"></label>
 											</section>
-											<section class="col-md-offset-1">
-												<button type="submit" name = "pesquisar_livro" class="btn btn-default">
-													<span class="glyphicon glyphicon-search"></span>
-												</button>
+											<section class="col-sm-6">
+												<input id="2" type="checkbox" name="generos[]">
+												<label for="2"><img style="width:100%;cursor:pointer;" class="thumbnail" src="content/imagens/fotos_perfil/tmp/tmp_profile_1.jpg"></label>
 											</section>
 										</section>
 										<section class="row">
-											<section class="col-md-5">
-												<input id="a" type="checkbox" name="generos[]">
-												<label for="a"><img style="width:100%;cursor:pointer;" class="thumbnail" src="content/imagens/fotos_perfil/tmp/tmp_profile_1.jpg"></label>
+											<section class="col-sm-6">
+												<input id="3" type="checkbox" name="generos[]">
+												<label for="3"><img style="width:100%;cursor:pointer;" class="thumbnail" src="content/imagens/fotos_perfil/tmp/tmp_profile_1.jpg"></label>
 											</section>
-											<section class="col-md-5">
-												<input id="b" type="checkbox" name="generos[]">
-												<label for="b"><img style="width:100%;cursor:pointer;" class="thumbnail" src="content/imagens/fotos_perfil/tmp/tmp_profile_1.jpg"></label>
-											</section>
-										</section>
-										<section class="row">
-											<section class="col-md-5">
-												<input id="c" type="checkbox" name="generos[]">
-												<label for="c"><img style="width:100%;cursor:pointer;" class="thumbnail" src="content/imagens/fotos_perfil/tmp/tmp_profile_1.jpg"></label>
-											</section>
-											<section class="col-md-5">
-												<input id="d" type="checkbox" name="generos[]">
-												<label for="d"><img style="width:100%;cursor:pointer;" class="thumbnail" src="content/imagens/fotos_perfil/tmp/tmp_profile_1.jpg"></label>
+											<section class="col-sm-6">
+												<input id="4" type="checkbox" name="generos[]">
+												<label for="4"><img style="width:100%;cursor:pointer;" class="thumbnail" src="content/imagens/fotos_perfil/tmp/tmp_profile_1.jpg"></label>
 											</section>
 										</section>
 										<section class="row">
-											<section class="col-md-5">
-												<input id="e" type="checkbox" name="generos[]">
-												<label for="e"><img style="width:100%;cursor:pointer;" class="thumbnail" src="content/imagens/fotos_perfil/tmp/tmp_profile_1.jpg"></label>
-											</section>
-											<section class="col-md-5">
-												<input id="f" type="checkbox" name="generos[]">
-												<label for="f"><img style="width:100%;cursor:pointer;" class="thumbnail" src="content/imagens/fotos_perfil/tmp/tmp_profile_1.jpg"></label>
-											</section>
-										</section>
-										<section class="row">
-											<button type="button" class="btn btn-primary">Adicionar</button>
-										</section>
-									</section>
-									<section class="col-lg-6">
-										<section class="panel panel-default">
-											<section class="panel-heading"><b>Seus Gêneros Favoritos:</b> &nbsp;&nbsp;</section>
-											<section class="panel-body">
-												<section class="row">
-													<section class="col-md-5">
-														<input id="1" type="checkbox" name="generos[]">
-														<label for="1"><img style="width:100%;cursor:pointer;" class="thumbnail" src="content/imagens/fotos_perfil/tmp/tmp_profile_1.jpg"></label>
-													</section>
-													<section class="col-md-5">
-														<input id="2" type="checkbox" name="generos[]">
-														<label for="2"><img style="width:100%;cursor:pointer;" class="thumbnail" src="content/imagens/fotos_perfil/tmp/tmp_profile_1.jpg"></label>
-													</section>
-												</section>
-												<section class="row">
-													<section class="col-md-5">
-														<input id="3" type="checkbox" name="generos[]">
-														<label for="3"><img style="width:100%;cursor:pointer;" class="thumbnail" src="content/imagens/fotos_perfil/tmp/tmp_profile_1.jpg"></label>
-													</section>
-													<section class="col-md-5">
-														<input id="4" type="checkbox" name="generos[]">
-														<label for="4"><img style="width:100%;cursor:pointer;" class="thumbnail" src="content/imagens/fotos_perfil/tmp/tmp_profile_1.jpg"></label>
-													</section>
-												</section>
-												<section class="row">
-													<button type="button" class="btn btn-primary">Excluir</button>
-												</section>
-											</section>
+											<button type="button" class="btn btn-primary center-block">Excluir</button>
 										</section>
 									</section>
 								</section>
 							</section>
+							<section class="col-lg-6">
+								<section class="row">
+									<section class="col-md-9">
+										<section class="input-group">
+											<input type="text" name = "pesquisa" class="form-control" placeholder="Procurar">
+											<span class="input-group-btn">
+												<button type="submit" name = "pesquisar_livro" class="btn btn-default">
+													<span class="glyphicon glyphicon-search"></span>
+												</button>
+											</span>
+										</section>
+									</section>
+								</section>
+								<section class="row">
+									<section class="col-md-5">
+										<input id="a" type="checkbox" name="generos[]">
+										<label for="a"><img style="width:100%;cursor:pointer;" class="thumbnail" src="content/imagens/fotos_perfil/tmp/tmp_profile_1.jpg"></label>
+									</section>
+									<section class="col-md-5">
+										<input id="b" type="checkbox" name="generos[]">
+										<label for="b"><img style="width:100%;cursor:pointer;" class="thumbnail" src="content/imagens/fotos_perfil/tmp/tmp_profile_1.jpg"></label>
+									</section>
+								</section>
+								<section class="row">
+									<section class="col-md-5">
+										<input id="c" type="checkbox" name="generos[]">
+										<label for="c"><img style="width:100%;cursor:pointer;" class="thumbnail" src="content/imagens/fotos_perfil/tmp/tmp_profile_1.jpg"></label>
+									</section>
+									<section class="col-md-5">
+										<input id="d" type="checkbox" name="generos[]">
+										<label for="d"><img style="width:100%;cursor:pointer;" class="thumbnail" src="content/imagens/fotos_perfil/tmp/tmp_profile_1.jpg"></label>
+									</section>
+								</section>
+								<section class="row">
+									<section class="col-md-5">
+										<input id="e" type="checkbox" name="generos[]">
+										<label for="e"><img style="width:100%;cursor:pointer;" class="thumbnail" src="content/imagens/fotos_perfil/tmp/tmp_profile_1.jpg"></label>
+									</section>
+									<section class="col-md-5">
+										<input id="f" type="checkbox" name="generos[]">
+										<label for="f"><img style="width:100%;cursor:pointer;" class="thumbnail" src="content/imagens/fotos_perfil/tmp/tmp_profile_1.jpg"></label>
+									</section>
+								</section>
+								<section class="row">
+									<button type="button" class="btn btn-primary">Adicionar</button>
+								</section>
+							</section>
 						</section>
 					</section>
+				</section>
+			</section>
 				<!-- 
 					Autores Favoritos 
 				-->
@@ -668,5 +669,5 @@
 				</section>
 			</section>
 		</fieldset>	
-	</article>
-</form>
+	</form>
+</article>
