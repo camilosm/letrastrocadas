@@ -65,7 +65,7 @@ CREATE TABLE tbl_livro(
 	isbn VARCHAR(17) NOT NULL,
 	sinopse TEXT NOT NULL,
 	status INT NULL, /* 1 = ativo, 2 = inativo  */
-	querem_ler BIGINT NULL,
+	  BIGINT NULL,
 	lendo BIGINT NULL,
 	lido BIGINT NULL,
 	numero_paginas BIGINT NOT NULL,
@@ -275,6 +275,8 @@ CREATE TABLE tbl_cambio(
 	quantidade_livros INT NOT NULL,
 	data_entrega DATE NULL,
 	tipo INT NOT NULL, /* 1 = cambio e 2 = doação */
+    data_denuncia DATE NULL,
+    denunciado TINYINT NOT NULL,
 	pontuacao SMALLINT NOT NULL,
 	cod_rastreamento VARCHAR(13) NULL,
 	entregue CHAR(3) NULL, /* Sim ou Nao */
@@ -283,7 +285,7 @@ CREATE TABLE tbl_cambio(
 	usuario_resgate INT UNSIGNED NOT NULL,
 	solicitacao_id INT UNSIGNED NOT NULL,
 	PRIMARY KEY(id_cambio),
-	FOREIGN KEY(usuario_disponibilizador) REFERENCES tbl_usuario(id_usuario),
+	FOREIGN KEY(usuario_disponibilizador) a tbl_usuario(id_usuario),
 	FOREIGN KEY(solicitacao_id) REFERENCES tbl_solicitacao_troca(id_solicitacao),
 	FOREIGN KEY(usuario_resgate) REFERENCES tbl_usuario(id_usuario),
 	FOREIGN KEY(lista_livros_id) REFERENCES tbl_lista_livros(id_lista_livros)
@@ -292,6 +294,8 @@ CREATE TABLE tbl_cambio(
 
 /*
  ALTER TABLE tbl_cambio ADD status INT NOT NULL AFTER id_cambio; 
+ ALTER TABLE tbl_cambio ADD data_denuncia DATE NULL AFTER tipo; 
+ ALTER TABLE tbl_cambio ADD denunciado TINYINT NOT NULL AFTER data_denuncia;
  ALTER TABLE tbl_cambio ADD entregue CHAR(3) NULL AFTER msg_codigo_enviada; 
  ALTER TABLE tbl_cambio ADD msg_codigo_enviada CHAR(3) NULL AFTER cod_rastreamento; 
  ALTER TABLE tbl_cambio DROP msg_codigo_enviada; 

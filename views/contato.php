@@ -41,6 +41,7 @@
 <article id  = "body_contato" style = "width:60%;position:relative;left:20%;">
 	<form class="form-horizontal" method = "post" action="<?php echo $_SERVER['REQUEST_URI']; ?>">
 		<fieldset id = "legend_senha">
+
 			<legend>Contato</legend>
 			<?php if(isset($emailSent) && $emailSent): ?>
 			<section class="col-md-6 col-md-offset-3">
