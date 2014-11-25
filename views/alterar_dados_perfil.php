@@ -332,7 +332,6 @@
 					<input type="text" value = "<?=$foto?>" style="visibility:hidden;" name="caminho" id="caminho" class="btn btn-primary btn-sm"/>
 					<input type="file" style="visibility:hidden;" name="file" onchange="UploadFoto();" id="file" class="btn btn-primary btn-sm"/>
 				</section>
-				
 				<section class="col-lg-4">
 					<section class="row">
 						<label for="inputEmail" class="col-md-3 control-label">E-mail</label>
