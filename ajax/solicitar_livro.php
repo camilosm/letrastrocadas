@@ -25,7 +25,7 @@
 			if($creditos > 0)
 			{
 				if($id_usuario != $_GET['usuario'])
-				{			
+				{		
 					$id_lista = $_GET['livro'];
 					$usuario = $_GET['usuario'];
 					

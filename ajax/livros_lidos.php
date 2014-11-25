@@ -59,11 +59,11 @@
 			</section>
 			<section class = "col-lg-4" style = "width:48%;">
 				<textarea class="form-control" rows="9" readonly>
-					'.$sinopse[0].'
+					'.utf8_encode($sinopse[0]).'
 				</textarea>
-			</section> 
+			</section>
 		';
-
+		
 		$caixa_dialogo = array('section' => $retorno);
 				
 		echo json_encode($caixa_dialogo);

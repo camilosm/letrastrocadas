@@ -121,7 +121,6 @@
 				$aspas = "'";
 			}
 ?>
-
 <article id  = "body_cadastra_livro_usu" style="width: 80%; margin-left: 10%;">
 	<fieldset>
 		<form  method="post" action=""  role="search "enctype="multipart/form-data">

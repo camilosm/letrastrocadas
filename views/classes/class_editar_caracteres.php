@@ -54,8 +54,7 @@ class EditarCaracteres
 		$str = preg_replace('/_+/', '', $str);
 		return $str;
 	}
-
-	// Esse é para todos os campos que contenham nome ou textos
+	
 	function Pesquisa($str)
 	{
 		$str = preg_replace('/[^ÁÃÂÉÊÍÎÓÔÕÚÛáãâéêíîóõôúû a-z0-9]/i', '', $str);
@@ -66,7 +65,9 @@ class EditarCaracteres
 
 	function Url($str)
 	{
+		$str = preg_replace('/[^áãâéêíîóòõôúûÁÃÂÉÊÍÎÓÔÕÚÛ a-z0-9]/i', '', $str);
 		$str = preg_replace('/[ ]/ui', '+', $str);
+		$str = preg_replace('/_+/', '', $str);
 		return $str;
 	}
 }
