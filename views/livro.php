@@ -100,8 +100,8 @@
 				$comentarios = $pesquisar_comentario->pesquisar();
 
 ?>
-<section id = "body_livros_autores">
-	<section class="panel panel-default" style = "width:70%; height:60%; position:relative; left:15%;">
+<article id = "body_livros_autores" style="margin-left: 8%;margin-right: 8%;">
+	<section class="panel panel-default">
 		<section class="panel-body">
 			<?php
 
@@ -109,49 +109,70 @@
 				{
 					echo '
 						<section class = "row">
-							<section class = "col-lg-4" style = "width: auto;">	
-								<section class = "bs-component"> 
-									<a class = "thumbnail">
-										<img src = "'.$livro['imagem_livros'].'" alt = "'.utf8_encode($livro['nome']).'" height = "177px" width = "120px">
-									</a>
+							<section class = "col-md-2">
+								<section class = "bs-component" style="width:50%;">
+									<img style="height:177px; width: 130px;" src = "'.$livro['imagem_livros'].'" alt = "'.utf8_encode($livro['nome']).'" height = "177px" width = "120px">
 								</section>
 							</section>
-							<section class = "col-lg-4">
+							<section class = "col-md-3">
 								<a><h3>'.utf8_encode($livro['nome']).'</h3></a>				  
 								<a><h4>'.utf8_encode($livro['Autor']).'</h4></a>
 								<a><h5>'.utf8_encode($livro['Editora']).'</h5></a>
 							</section>
-							<section class = "col-lg-4" style = "width:48%;">
-								<textarea class="form-control" rows="9" style="background-color:white;cursor:default;" readonly>
+							<section class = "col-md-7">
+								<textarea class="form-control" rows="9" style="background-color:white;" readonly>
 									'.utf8_encode($livro['sinopse']).'
 								</textarea>
 							</section> 
 						</section>
 						<br/>
-						<section class = "row">
-							<section class = "col-lg-4">
-								<a><h4>Edição : '.$livro['edicao'].'</h4></a>
-								<a><h4>ISBN 10 : '.utf8_encode($livro['isbn']).'</h4></a>				  
-								<a><h4> ISBN 13 : '.utf8_encode($livro['isbn']).'</h4></a>
-								<a><h4> Nº de páginas : '.utf8_encode($livro['numero_paginas']).'</h4></a>
-								<a><h4> Querem Ler : '.utf8_encode($livro['querem_ler']).'</h4></a>
-								<a><h4> Lendo : '.utf8_encode($livro['lendo']).'</h4></a>
-								<a><h4> Lido : '.utf8_encode($livro['lido']).'</h4></a>
-							</section>
+						<section class="row">
+							<table class="table table-striped table-hover ">
+								<thead>
+									<tr>
+										<th>Outros Dados:</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>ISBN:</td>
+										<td>'.$livro['isbn'].'</td>
+									</tr>
+									<tr class="success">
+										<td>Gênero:</td>
+										<td>'.$livro['Categoria'].'</td>
+									</tr>
+									<tr>
+										<td>Nº de pessoas lendo:</td>
+										<td>'.$livro['lendo'].'</td>
+									</tr>
+									<tr class="success">
+										<td>Nº de pessoas querendo ler:</td>
+										<td>'.$livro['querem_ler'].'</td>
+									</tr>
+									<tr>
+										<td>Nº de pessoas que leram:</td>
+										<td>'.$livro['lido'].'</td>
+									</tr>
+									<tr class="success">
+										<td>Nº de páginas:</td>
+										<td>'.$livro['numero_paginas'].'</td>
+									</tr>
+								</tbody>
+							</table> 
 						</section>
 					';
 				}
 
 				echo '
 					<section class = "row">
-						<section class = "col-lg-10" style="margin-left:7%">
+						<section class = "col-lg-8" style="margin-left:14%;">
 							<section class="panel panel-default">
 								<section class="panel-heading">
 					                <h3 class="panel-title">Cometários</h3>
 					            </section>
 					            <section class="panel-body" style="height:315px;overflow:auto;">
 					';
-					echo '';
 				while($comentario=mysql_fetch_assoc($comentarios))
 				{
 					if($_SESSION['id'] == $comentario['usuario_id'])
@@ -225,7 +246,7 @@
 			?>
 		</section>
 	</section>
-</section>
+</article>
 <?php
 			}
 			else

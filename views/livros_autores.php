@@ -5,7 +5,7 @@
 		// inicio uma requisição
 		$.ajax({
 		// url para o arquivo json.php
-			url : "ajax/livros_autores.php?id="+livro,
+			url : "ajax/abrir_livros.php?id="+livro,
 		// dataType json
 			dataType : "json",
 		// função para o sucesso
@@ -21,7 +21,7 @@
 </script>
 <?php
 	//Verifica se o usuário tem acesso à essa página
-	if($_SESSION['nivel_acesso'] == 1)
+	if(($_SESSION['nivel_acesso'] == 1) OR (empty($_SESSION['nivel_acesso'])))
 	{ 
 		include('classes/class_banco.php');
 		include('classes/class_pesquisar.php');
@@ -41,112 +41,97 @@
 		
 		$quantidade = mysql_num_rows($resultado);
 		
-		$id =array();
-		$nome = array();
-		$imagem = array();
-		$editora = array();
-		$autor = array();
-		$sinopse = array();
-		
-		while($pesquisa=mysql_fetch_assoc($resultado))
+		if($quantidade > 0)
 		{
-			$id[] = $pesquisa['id_livro'];
-			$nome[] = $pesquisa['nome'];
-			$imagem[] = $pesquisa['imagem_livros'];
-			$editora[] = $pesquisa['Editora'];
-			$autor[] = $pesquisa['Autor'];
-			$sinopse[] = $pesquisa['sinopse'];
-			$isbn[] = $pesquisa['isbn'];
-			$querem_ler[] = $pesquisa['querem_ler'];
-			$lido[] = $pesquisa['lido'];
-			$lendo[] = $pesquisa['lendo'];
-			$paginas[] = $pesquisa['numero_paginas'];
-			$categoria[] = $pesquisa['Categoria'];
-		}
-		
-		$aspas = "'";
-		
-		$pesquisar_marcacões = new Pesquisar("tbl_marcacao","tipo","livro_id =".$id[0]." AND usuario_id=".$_SESSION['id']);
-		$resultado_marcacao = $pesquisar_marcacões->pesquisar();
-		$array_marcacao = mysql_fetch_assoc($resultado_marcacao);
-		
-		if($array_marcacao['tipo'] == 1)
-		{
-			$botões = ' 
-					<section class ="btn-group" id="Resultado'.$id[0].'">
-						<button value = "QueroLer" name = "QueroLer" type="button" class="btn btn-primary btn-sm">Quero Ler</button>
-						<button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
-						<ul id = "acoes" class="dropdown-menu">
-							<li><a onClick="AcoesLivro('.$id[0].','.$aspas.'Desmarcar'.$aspas.','.$aspas.'Resultado'.$id[0].''.$aspas.','.$aspas.'QueroLer'.$aspas.');">Desmarcar</a></li>
-							<li><a onClick="AcoesLivro('.$id[0].','.$aspas.'JaLi'.$aspas.','.$aspas.'Resultado'.$id[0].''.$aspas.','.$aspas.'QueroLer'.$aspas.');">Já li</a></li>
-							<li><a onClick="AcoesLivro('.$id[0].','.$aspas.'Lendo'.$aspas.','.$aspas.'Resultado'.$id[0].''.$aspas.','.$aspas.'QueroLer'.$aspas.');">Estou lendo</a></li>
-						</ul>
-					</section>';
-		}
-		else if($array_marcacao['tipo'] == 2)
-		{
-			$botões = ' 
-				<section class ="btn-group" id="Resultado'.$id[0].'">
-					<button value = "JaLi" name = "JaLi" type="button" class="btn btn-primary btn-sm">Já Li</button>
-					<button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
-					<ul id = "acoes" class="dropdown-menu">
-						<li><a onClick="AcoesLivro('.$id[0].','.$aspas.'Desmarcar'.$aspas.','.$aspas.'Resultado'.$id[0].''.$aspas.','.$aspas.'JaLi'.$aspas.');">Desmarcar</a></li>
-						<li><a onClick="AcoesLivro('.$id[0].','.$aspas.'Lendo'.$aspas.','.$aspas.'Resultado'.$id[0].''.$aspas.','.$aspas.'JaLi'.$aspas.');">Estou lendo</a></li>
-						<li><a onClick="AcoesLivro('.$id[0].','.$aspas.'QueroLer'.$aspas.','.$aspas.'Resultado'.$id[0].''.$aspas.','.$aspas.'JaLi'.$aspas.');">Quero Ler</a></li>
-					</ul>
-				</section>';
-		}
-		else if($array_marcacao['tipo'] == 3)
-		{
-			$botões = ' 
-				<section class ="btn-group" id="Resultado'.$id[0].'">
-					<button value = "Lendo" name = "Lendo" type="button" class="btn btn-primary btn-sm">Estou lendo</button>
-					<button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
-					<ul id = "acoes" class="dropdown-menu">
-						<li><a onClick="AcoesLivro('.$id[0].','.$aspas.'Desmarcar'.$aspas.','.$aspas.'Resultado'.$id[0].''.$aspas.','.$aspas.'Lendo'.$aspas.');">Desmarcar</a></li>
-						<li><a onClick="AcoesLivro('.$id[0].','.$aspas.'QueroLer'.$aspas.','.$aspas.'Resultado'.$id[0].''.$aspas.','.$aspas.'Lendo'.$aspas.');">Quero Ler</a></li>
-						<li><a onClick="AcoesLivro('.$id[0].','.$aspas.'JaLi'.$aspas.','.$aspas.'Resultado'.$id[0].''.$aspas.','.$aspas.'Lendo'.$aspas.');">Já li</a></li>
-					</ul>
-				</section>';
-		}
-		else
-		{
-			$botões = '
-					<section class ="btn-group" id="Resultado'.$id[0].'">
-						<button value = "" name = "Eu" type="button" class="btn btn-primary btn-sm">Eu...</button>
-						<button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
-						<ul id = "acoes" class="dropdown-menu">
-							<li><a onClick="AcoesLivro('.$id[0].','.$aspas.'QueroLer'.$aspas.','.$aspas.'Resultado'.$id[0].''.$aspas.','.$aspas.''.$aspas.');">Quero Ler</a></li>
-							<li><a onClick="AcoesLivro('.$id[0].','.$aspas.'JaLi'.$aspas.','.$aspas.'Resultado'.$id[0].''.$aspas.','.$aspas.''.$aspas.');">Já li</a></li>
-							<li><a onClick="AcoesLivro('.$id[0].','.$aspas.'Lendo'.$aspas.','.$aspas.'Resultado'.$id[0].''.$aspas.','.$aspas.''.$aspas.');">Estou lendo</a></li>
-						</ul>
-					</section>';
-		}
-		
-		$livro = $nome[0];
-		
-		$editar_livro = new EditarCaracteres($nome[0]);
-		$livro = $editar_livro->Url($livro);
-
-	}
-	else
-	{	
-		//Emite um alerta (não tá funcioando ¬¬) pois eles não tem acesso a essa página
-		echo "
-			<script type='text/javascript'>
-				alert('Você não tem permissão para acessar essa página');
-			</script>";
-		
-		//Redireciona pra página principal
-		if($_SESSION['nivel_acesso'] == 2)
-		{
-			header("location: ?url=home_admin");
-		}
-		else
-		{
-			header("location: ?url=home_visitante");
-		}
-	}
+			$id =array();
+			$nome = array();
+			$imagem = array();
+			$editora = array();
+			$autor = array();
+			$sinopse = array();
+			
+			while($pesquisa=mysql_fetch_assoc($resultado))
+			{
+				$id[] = $pesquisa['id_livro'];
+				$nome[] = $pesquisa['nome'];
+				$imagem[] = $pesquisa['imagem_livros'];
+				$editora[] = $pesquisa['Editora'];
+				$autor[] = $pesquisa['Autor'];
+				$sinopse[] = $pesquisa['sinopse'];
+				$isbn[] = $pesquisa['isbn'];
+				$querem_ler[] = $pesquisa['querem_ler'];
+				$lido[] = $pesquisa['lido'];
+				$lendo[] = $pesquisa['lendo'];
+				$paginas[] = $pesquisa['numero_paginas'];
+				$categoria[] = $pesquisa['Categoria'];
+			}
+			
+			$aspas = "'";
+			
+			if(!empty($_SESSION['nivel_acesso']))
+			{
+				$pesquisar_marcacões = new Pesquisar("tbl_marcacao","tipo",'livro_id ='.$id[0].' AND usuario_id='.$_SESSION['id']);
+				$resultado_marcacao = $pesquisar_marcacões->pesquisar();
+				$array_marcacao = mysql_fetch_assoc($resultado_marcacao);
+				
+				if($array_marcacao['tipo'] == 1)
+				{
+					$botões = ' 
+							<section class ="btn-group" id="Resultado'.$id[0].'">
+								<button value = "QueroLer" name = "QueroLer" type="button" class="btn btn-primary btn-sm">Quero Ler</button>
+								<button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+								<ul id = "acoes" class="dropdown-menu">
+									<li><a onClick="AcoesLivro('.$id[0].','.$aspas.'Desmarcar'.$aspas.','.$aspas.'Resultado'.$id[0].''.$aspas.','.$aspas.'QueroLer'.$aspas.');">Desmarcar</a></li>
+									<li><a onClick="AcoesLivro('.$id[0].','.$aspas.'JaLi'.$aspas.','.$aspas.'Resultado'.$id[0].''.$aspas.','.$aspas.'QueroLer'.$aspas.');">Já li</a></li>
+									<li><a onClick="AcoesLivro('.$id[0].','.$aspas.'Lendo'.$aspas.','.$aspas.'Resultado'.$id[0].''.$aspas.','.$aspas.'QueroLer'.$aspas.');">Estou lendo</a></li>
+								</ul>
+							</section>';
+				}
+				else if($array_marcacao['tipo'] == 2)
+				{
+					$botões = ' 
+						<section class ="btn-group" id="Resultado'.$id[0].'">
+							<button value = "JaLi" name = "JaLi" type="button" class="btn btn-primary btn-sm">Já Li</button>
+							<button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+							<ul id = "acoes" class="dropdown-menu">
+								<li><a onClick="AcoesLivro('.$id[0].','.$aspas.'Desmarcar'.$aspas.','.$aspas.'Resultado'.$id[0].''.$aspas.','.$aspas.'JaLi'.$aspas.');">Desmarcar</a></li>
+								<li><a onClick="AcoesLivro('.$id[0].','.$aspas.'Lendo'.$aspas.','.$aspas.'Resultado'.$id[0].''.$aspas.','.$aspas.'JaLi'.$aspas.');">Estou lendo</a></li>
+								<li><a onClick="AcoesLivro('.$id[0].','.$aspas.'QueroLer'.$aspas.','.$aspas.'Resultado'.$id[0].''.$aspas.','.$aspas.'JaLi'.$aspas.');">Quero Ler</a></li>
+							</ul>
+						</section>';
+				}
+				else if($array_marcacao['tipo'] == 3)
+				{
+					$botões = ' 
+						<section class ="btn-group" id="Resultado'.$id[0].'">
+							<button value = "Lendo" name = "Lendo" type="button" class="btn btn-primary btn-sm">Estou lendo</button>
+							<button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+							<ul id = "acoes" class="dropdown-menu">
+								<li><a onClick="AcoesLivro('.$id[0].','.$aspas.'Desmarcar'.$aspas.','.$aspas.'Resultado'.$id[0].''.$aspas.','.$aspas.'Lendo'.$aspas.');">Desmarcar</a></li>
+								<li><a onClick="AcoesLivro('.$id[0].','.$aspas.'QueroLer'.$aspas.','.$aspas.'Resultado'.$id[0].''.$aspas.','.$aspas.'Lendo'.$aspas.');">Quero Ler</a></li>
+								<li><a onClick="AcoesLivro('.$id[0].','.$aspas.'JaLi'.$aspas.','.$aspas.'Resultado'.$id[0].''.$aspas.','.$aspas.'Lendo'.$aspas.');">Já li</a></li>
+							</ul>
+						</section>';
+				}
+				else
+				{
+					$botões = '
+							<section class ="btn-group" id="Resultado'.$id[0].'">
+								<button value = "" name = "Eu" type="button" class="btn btn-primary btn-sm">Eu...</button>
+								<button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+								<ul id = "acoes" class="dropdown-menu">
+									<li><a onClick="AcoesLivro('.$id[0].','.$aspas.'QueroLer'.$aspas.','.$aspas.'Resultado'.$id[0].''.$aspas.','.$aspas.''.$aspas.');">Quero Ler</a></li>
+									<li><a onClick="AcoesLivro('.$id[0].','.$aspas.'JaLi'.$aspas.','.$aspas.'Resultado'.$id[0].''.$aspas.','.$aspas.''.$aspas.');">Já li</a></li>
+									<li><a onClick="AcoesLivro('.$id[0].','.$aspas.'Lendo'.$aspas.','.$aspas.'Resultado'.$id[0].''.$aspas.','.$aspas.''.$aspas.');">Estou lendo</a></li>
+								</ul>
+							</section>';
+				}
+			}
+			
+			$livro = $nome[0];
+			
+			$editar_livro = new EditarCaracteres($nome[0]);
+			$livro = $editar_livro->Url($livro);
 ?>
 
 <article id = "wrap" style="margin-left: 8%;" >
@@ -162,7 +147,7 @@
 					<a> <h4> <?php echo utf8_encode($autor[0]); ?> </h4></a>
 					<a> <h5> <?php echo utf8_encode($editora[0]); ?> </h5></a>
 					<a href="?url=pesquisa&nome=<?php echo utf8_encode($livro); ?>"><input type = "button" class="btn btn-primary btn-sm" name = "botao_pesquisar" value = "Pesquisar" /></a>
-					<?php echo $botões; ?>
+					<?php if(!empty($_SESSION['nivel_acesso'])){echo $botões;} ?>
 			</section>
 			<section class = "col-md-6">
 				<textarea style="background-color:white;" class="form-control" rows="9" readonly>
@@ -232,3 +217,24 @@
 		</section>
 	</section>
 </article>
+<?php
+
+		}
+		else
+		{
+			echo '
+					<section class="alert alert-dismissable alert-success" style="width:40%;margin-left:30%;">					  
+						<strong>Esse autor não existe ou não tem livros cadastrados no nosso site! Caso ele exista, entre em contado com nossos administradores para que ele seja adicionado ao nosso acervo!</strong>
+					</section>';
+		}
+	}
+	else
+	{			
+		//Redireciona pra página principal
+		if($_SESSION['nivel_acesso'] == 2)
+		{
+			header("location: ?url=home_admin");
+		}
+	}
+
+?>
