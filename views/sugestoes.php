@@ -166,8 +166,8 @@
 									<section>
 										<center>
 											<a href="?url=livro&livro='.$dados_pesq['id_livro'].'" title = "Clique para ver mais informações sobre o livro"> <h3> '.utf8_encode($dados_pesq['Livro']).'</h3></a>				  
-											<a href="?url=livros_autores" title = "Clique para ver mais livros deste autor"> <h4> '.utf8_encode($dados_pesq['Autor']).' </h4></a>
-											<a href="?url=livros_editora" title = "Clique para ver mais livros desta editora"> <h5> '.utf8_encode($dados_pesq['Editora']).' </h5></a>
+											<a href="?url=livros_autores&autor='.utf8_encode($dados_pesq['Autor']).'" title = "Clique para ver mais livros deste autor"> <h4> '.utf8_encode($dados_pesq['Autor']).' </h4></a>
+											<a href="?url=livros_editora&editora='.utf8_encode($dados_pesq['Editora']).'" title = "Clique para ver mais livros desta editora"> <h5> '.utf8_encode($dados_pesq['Editora']).' </h5></a>
 										</center>
 									</section>
 								</section>';
