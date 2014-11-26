@@ -17,9 +17,9 @@
 		$resultado_trocas = $pesquisar_trocas->pesquisar();
 		
 		echo '
-		<section class="panel panel-default" style="margin-left:5%; width:70%;">
+		<section class="panel panel-default" style="width: 84%; margin-left: 8%;">
 			<section class="panel-heading">
-				<h3 class="panel-title">Suas trocas</h3>
+				<a><h3 class="panel-title">Suas trocas</h3></a>
 			</section>
 			<section class="panel-body">';
 		$ct = 0;
@@ -68,8 +68,8 @@
 			if($trocas['aceito'] != '')
 			{
 				 echo '
-				 <section class="panel-group" id="trocas">
-					<section class="panel panel-default">
+				 <section class="panel-group id="trocas">
+					<section class="panel panel-success">
 						<section class="panel-heading">
 							<h4 class="panel-title">
 								<a data-toggle="collapse" data-parent="#trocas" href="#collapse'.$ct.'">'.utf8_encode($trocas['livro']).' - '.$data_solicitação.'
@@ -81,7 +81,7 @@
 								<p>
 										A sua solicitação de troca foi '.$status.' pelo usuário '.utf8_encode($nome).', dono do livro "'.utf8_encode($trocas['livro']).'".<BR>
 										Sua solicitação foi enviada no dia '.$data_solicitação.' e respondida no dia '.$data_resposta.'.<BR>
-										'.$resposta.'<BR>		
+										'.$resposta.'<BR>
 								</p>
 							</section>
 						</section>
@@ -92,7 +92,7 @@
 			{
 				echo '
 				<section class="panel-group" id="trocas">
-					<section class="panel panel-default">
+					<section class="panel panel-success">
 						<section class="panel-heading">
 							<h4 class="panel-title">
 								<a data-toggle="collapse" data-parent="#trocas" href="#collapse'.$ct.'">'.utf8_encode($trocas['livro']).' - '.$data_solicitação.'

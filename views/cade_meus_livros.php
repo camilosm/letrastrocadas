@@ -14,9 +14,9 @@
 		$resultado_cambios = $pesquisar_cambios->pesquisar();
 		
 		echo '
-		<section class="panel panel-default" style="margin-left:5%; width:70%;">
+		<section class="panel panel-default" style="width: 84%; margin-left: 8%;">
 			<section class="panel-heading">
-				<h3 class="panel-title">WHERE ARE MY DRAGONS</h3>
+				<a><h3 class="panel-title">WHERE ARE MY DRAGONS</h3></a>
 			</section>
 			<section class="panel-body">';
 		$ct = 0;
@@ -54,7 +54,7 @@
 			
 			 echo '
 			 <section class="panel-group" id="cambio">
-				<section class="panel panel-default">
+				<section class="panel panel-success">
 					<section class="panel-heading">
 						<h4 class="panel-title">
 							<a data-toggle="collapse" data-parent="#cambio" href="#collapse'.$ct.'">'.utf8_encode($cambio['livro']).' - '.$cambio['data_operacao'].'
@@ -79,7 +79,6 @@
 		echo '
 			</section>
 		</section>';
-		
 	}
 	else
 	{

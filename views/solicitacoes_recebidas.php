@@ -91,9 +91,9 @@
 		$resultado_antiga = $pesquisar_antiga->pesquisar();
 
 		echo '
-		<section class="panel panel-default" style="margin-left:5%; width:70%;">
+		<section class="panel panel-default" style="width: 84%; margin-left: 8%;">
 			<section class="panel-heading">
-				<h3 class="panel-title">Suas solicitações</h3>
+				<a><h3 class="panel-title">Suas solicitações</h3></a>
 			</section>
 			<section class="panel-body">';
 		$ct = 0;
@@ -119,7 +119,7 @@
 			
 			echo '
 			<section class="panel-group" id="solicitações">
-				<section class="panel panel-default">
+				<section class="panel panel-success">
 					<section class="panel-heading" style="background-color:#D3D3D3;">
 						<h4 class="panel-title">
 							<a data-toggle="collapse" data-parent="#solicitações" href="#collapse'.$ct.'">'.utf8_encode($notificações_pendentes['livro']).' - Pendente
@@ -129,11 +129,9 @@
 					<section id="collapse'.$ct.'" class="panel-collapse collapse '.$colapse.'">
 						<section class="panel-body">
 							<p>
-								<H4>
 								'.utf8_encode($nome).' solicitou seu livro "'.utf8_encode($notificações_pendentes['livro']).'"
 								no dia '.$data_pronta.'<BR>
 								Deseja aceitar?<BR>
-								</H4>
 							</p>
 							<input type = "button" class="btn btn-primary btn-sm" id = "Aceitar_'.$notificações_pendentes['id_solicitacao'].'" onClick="Aceitar('.$aspas.''.$notificações_pendentes['id_solicitacao'].''.$aspas.','.$aspas.''.$notificações_pendentes['lista'].''.$aspas.','.$aspas.''.$notificações_pendentes['usuario'].''.$aspas.')" value = "Aceitar"/>
 							<input type = "button" class="btn btn-primary btn-sm" id = "Recusar_'.$notificações_pendentes['id_solicitacao'].'" onClick="Recusar('.$aspas.''.$notificações_pendentes['id_solicitacao'].''.$aspas.')" value="Recusar"/>
@@ -195,7 +193,7 @@
 			
 			 echo '
 				<section class="panel-group" id="solicitações">
-					<section class="panel panel-default">
+					<section class="panel panel-success">
 						<section class="panel-heading">
 							<h4 class="panel-title">
 								<a data-toggle="collapse" data-parent="#solicitações" href="#collapse'.$ct.'">'.utf8_encode($notificações_antigas['livro']).' - Aceito : '.$notificações_antigas['aceito'].'
@@ -204,13 +202,11 @@
 						</section>
 						<section id="collapse'.$ct.'" class="panel-collapse collapse '.$colapse.'">
 							<section class="panel-body">
-								<H4>
 									<p>
 										'.utf8_encode($nome).' solicitou seu livro "'.utf8_encode($notificações_antigas['livro']).'"
 										no dia '.$data_pronta_solicitada.' e você respondeu no dia '.$data_pronta_respondida.' <BR>
 										'.$codigo.'	
-									</p>										
-								</H4>	
+									</p>
 							</section>
 						</section>
 					</section>
