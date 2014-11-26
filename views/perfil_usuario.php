@@ -7,7 +7,14 @@
 		
 		$id = $_SESSION['id'];
 		
-		$id_outro_usu = $_GET['cod'];
+		if(empty($_GET['cod']))
+		{
+			$id_outro_usu = $_SESSION['id'];
+		}
+		else
+		{
+			$id_outro_usu = $_GET['cod'];
+		}
 		
 		if(isset($_POST['positivo']))
 		{
@@ -29,13 +36,6 @@
 		
 		if ($id == $id_outro_usu)
 		{		
-			$avaliação = '
-					<label> Avaliações: </label>	
-					&nbsp
-					<span class= "glyphicon glyphicon-thumbs-up"></span> <span class = "badge">'.$avaliacoes_positivas.'</span>
-					&nbsp
-					<span class= "glyphicon glyphicon-thumbs-down"></span> <span class = "badge">'.$avaliacoes_negativas.'</span>
-				';
 			/* Pesquisa de dados Básicos usuário */
 			
 		    $pesquisa_dados = new Pesquisar("tbl_usuario","id_usuario,nome,email,foto,idade,avaliacoes_negativas,avaliacoes_positivas,uf,cidade","id_usuario = $id");
@@ -51,6 +51,14 @@
 		    $avaliacoes_positivas = $pesq['avaliacoes_positivas'];
 		    $id_p = $pesq['id_usuario'];
 		    $email_p = $pesq['email'];
+			
+			$avaliação = '
+					<label> Avaliações: </label>	
+					&nbsp
+					<span class= "glyphicon glyphicon-thumbs-up"></span> <span class = "badge">'.$avaliacoes_positivas.'</span>
+					&nbsp
+					<span class= "glyphicon glyphicon-thumbs-down"></span> <span class = "badge">'.$avaliacoes_negativas.'</span>
+				';
 			
 			/* Pesquisa de livros que o usuário disponibilizou */ 
 			
@@ -209,22 +217,22 @@
 			$resul_lendo = $pesquisar_lendo->pesquisar();
 		}
 ?>
-<article id = "body_perfil_usuario" style="width: 80%; margin-left: 10%">
+<article id = "body_perfil_usuario" style="width: 84%; margin-left: 8%;">
 	<section class="panel panel-default">
 		<section class="panel-body">
 			<table class="table table-striped table-hover" style = "table-layout:fixed">
 				<tbody>
 					<tr>
 						<td id = "foto_usuario" rowspan = "3"> <img src = " <?php echo $foto; ?>" width="100%" ></td>
-						<td id = "nome_usuario" colspan = "4"><b>Nome:&nbsp;</b> <?php echo utf8_encode($nome); ?> </td>
+						<td id = "nome_usuario" colspan = "7"><b>Nome:&nbsp;</b> <?php echo utf8_encode($nome); ?> </td>
 					</tr>
 					<tr>
 						<td id = "cidade_usuario" colspan = "2"><b> Cidade:&nbsp;</b> <?php echo utf8_encode($cidade); ?> </td>
 						<td id = "uf_usuario"><b>UF:&nbsp;</b> <?php echo utf8_encode($uf); ?></td>
-						<td id = "idade_usuario"> <b>Idade:&nbsp;</b> <?php  echo utf8_encode($idade);?> </td>
+						<td id = "idade_usuario" colspan = "4"> <b>Idade:&nbsp;</b> <?php  echo utf8_encode($idade);?> </td>
 					</tr>
 					<tr>
-						<td colspan="5">
+						<td colspan="7">
 							<ul class="nav nav-tabs" style="margin-bottom: 15px;">
 								<li class="active"><a href="#livrosdisponiveis" data-toggle="tab"><span class="glyphicon glyphicon-book"></span> Livros Disponiveis</a></li>
 								<li><a href="#jali" data-toggle="tab"><span class="glyphicon glyphicon-book"></span> Já li</a></li>
@@ -232,7 +240,7 @@
 								<li><a href="#lendo" data-toggle="tab"><span class="glyphicon glyphicon-book"></span> Lendo </a></li>
 								<li><a href="#af" data-toggle="tab"><span class="glyphicon glyphicon-user"></span> Autores Favoritos </a></li>
 								<li><a href="#an" data-toggle="tab"><span class="glyphicon glyphicon-user"></span> Autores que não gosto </a></li>
-								<li><a href="#gf" data-toggle="tab"><span class="glyphicon glyphicon-list"></span> Gêmeros Favoritos </a></li>
+								<li><a href="#gf" data-toggle="tab"><span class="glyphicon glyphicon-list"></span> Gêneros Favoritos </a></li>
 								<li><a href="#gn" data-toggle="tab"><span class="glyphicon glyphicon-list"></span> Gêneros que não gosto </a></li>
 							</ul>
 							<section id="myTabContent" class="tab-content">
@@ -349,7 +357,7 @@
 
 										if($qt_gf == 0)
 										{
-											echo 'Nenhum gêmero na lista';
+											echo 'Nenhum gênero na lista';
 										}
 									?>
 									</p>
@@ -376,7 +384,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td colspan = "5"> 				             
+						<td colspan = "7"> 				             
 							<section id = "avaliações" style = "position:relative; left:50%; width:30%;">
 								<?php echo $avaliação; ?>
 							</section>
