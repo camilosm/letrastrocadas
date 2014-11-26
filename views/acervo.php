@@ -69,25 +69,24 @@
 		}
 	}
 ?>
-<article id = "body_pesquisa">
-	<section class="panel panel-default" style="width: 80%; margin-left: 10%;">
-		<section class="panel-heading">
-			<h4>Nosso acervo!</h4>
-		</section>
-		<br>
-		<form action="" method="post">
-			<section class="col-lg-5">
-				<section class="form-group">
-					<input type="text" name = "pesquisa" value="<?php echo $livro;?>" class="form-control" placeholder="Procurar">
-				</section>
-			</section>
-			<section class="col-md-offset-4">
-				<button type="submit" name = "pesquisar_acervo" class="btn btn-default">
-					<span class="glyphicon glyphicon-search"></span>
-				</button>
-			</section>
-		</form>
+<article id = "body_pesquisa" class="col-sm-offset-1 col-sm-10">
+	<section class="panel panel-default">
+		<section class="panel-heading"><h3>Nosso acervo!</h3></section>		
 		<section class="panel panel-body">
+			<form action="" method="post">
+				<section class="row">
+					<section class="col-sm-offset-1 col-sm-10">
+						<section class="input-group">
+							<input type="text" name = "pesquisa" value="<?php echo $livro;?>" class="form-control" placeholder="Procurar">
+							<span class="input-group-btn">
+								<button type="submit" name = "pesquisar_acervo" class="btn btn-default">
+									<span class="glyphicon glyphicon-search"></span>
+								</button>
+							</span>
+						</section>
+					</section>
+				</section>
+			</form>
 			<?php
 				$num_registros = mysql_num_rows($resultado_qt);
 				if ($num_registros != 0)
@@ -138,15 +137,24 @@
 				}
 				else 
 				{
-					echo 'Nenhum resultado foi encontrado';
+					echo '
+						<br>
+						<center>
+							<section class="alert alert-warning col-sm-offset-3 col-sm-6">
+								<h1>Que pena!</h1>
+								<p>Nenhum livro foi encontrado :(
+							</section>
+						</center>
+						';
 				}
 								
 			?>
 			<br>
 			</section>
 				<?php
-					echo '<ul class="pagination" style = "margin-left:40%;">
-							<li class="disabled"><a>«</a></li>';
+					echo '<center>
+							<ul class="pagination">
+								<li class="disabled"><a>«</a></li>';
 
 					for($i=1; $i <= $total_paginas; $i++)
 					{
@@ -166,8 +174,9 @@
 						
 					}
 
-					echo ' <li class="disabled"><a>»</a></li>
-						</ul>';
+					echo ' 		<li class="disabled"><a>»</a></li>
+							</ul>
+						</center>';
 				?>
 		</section>
 	</section>
