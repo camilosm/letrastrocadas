@@ -40,8 +40,24 @@
 			
 		    $pesquisa_dados = new Pesquisar("tbl_usuario","id_usuario,nome,email,foto,idade,avaliacoes_negativas,avaliacoes_positivas,uf,cidade","id_usuario = $id");
 		    $resul_pesquisa = $pesquisa_dados->pesquisar();
-		    $pesq = mysql_fetch_assoc($resul_pesquisa);
 			
+			$pesquisa_disp = new Pesquisar('tbl_cambio','COUNT(id_cambio) AS qt',"usuario_disponibilizador = $id_outro_usu AND status = 3 ");
+		    $resul_disp = $pesquisa_disp->pesquisar();
+			
+			$pesquisa_soli = new Pesquisar('tbl_cambio','COUNT(id_cambio) AS qt',"usuario_resgate = $id_outro_usu AND status = 3 ");
+		    $resul_soli = $pesquisa_soli->pesquisar();
+			
+			$pesquisa_denuncias = new Pesquisar('tbl_denuncias','COUNT(id_denuncias) AS qt',"usuario_denunciado_id = $id_outro_usu");
+		    $resul_denuncias = $pesquisa_denuncias->pesquisar();
+			
+		    $pesq = mysql_fetch_assoc($resul_pesquisa);
+			$dispo = mysql_fetch_assoc($resul_disp);
+			$soli = mysql_fetch_assoc($resul_soli);
+			$denuncia = mysql_fetch_assoc($resul_denuncias);
+		    
+			$qt_denuncias = $denuncia['qt'];
+			$livro_solicitado = $soli['qt'];
+			$livro_dis = $dispo['qt'];
 		    $nome = $pesq['nome'];
 		    $foto = $pesq['foto'];
 		    $idade = $pesq['idade'];
@@ -104,9 +120,24 @@
 			$pesquisa_denuncia = new Pesquisar('tbl_cambio','data_denuncia','(usuario_resgate='.$id.' OR usuario_disponibilizador='.$id.') AND (usuario_resgate='.$id_outro_usu.' OR usuario_disponibilizador='.$id_outro_usu.') AND (denunciado <> 1)');
 			$resultado_denuncia = $pesquisa_denuncia->pesquisar();
 			
+			$pesquisa_disp = new Pesquisar('tbl_cambio','COUNT(id_cambio) AS qt',"usuario_disponibilizador = $id_outro_usu AND status = 3 ");
+		    $resul_disp = $pesquisa_disp->pesquisar();
+			
+			$pesquisa_soli = new Pesquisar('tbl_cambio','COUNT(id_cambio) AS qt',"usuario_resgate = $id_outro_usu AND status = 3 ");
+		    $resul_soli = $pesquisa_soli->pesquisar();
+			
+			$pesquisa_denuncias = new Pesquisar('tbl_denuncias','COUNT(id_denuncias) AS qt',"usuario_denunciado_id = $id_outro_usu");
+		    $resul_denuncias = $pesquisa_denuncias->pesquisar();
+			
 			$pesquisa = mysql_fetch_assoc($resultado_denuncia);
 		    $pesq = mysql_fetch_assoc($resul_pesquisa);
+			$dispo = mysql_fetch_assoc($resul_disp);
+			$soli = mysql_fetch_assoc($resul_soli);
+			$denuncia = mysql_fetch_assoc($resul_denuncias);
 		    
+			$qt_denuncias = $denuncia['qt'];
+			$livro_solicitado = $soli['qt'];
+			$livro_dis = $dispo['qt'];
 			$data_denuncia = $pesquisa['data_denuncia'];
 			$denunciado = $pesquisa['denunciado'];
 			$data_atual = date('Y-m-d');
@@ -224,12 +255,15 @@
 				<tbody>
 					<tr>
 						<td id = "foto_usuario" rowspan = "3"> <img src = " <?php echo $foto; ?>" width="100%" ></td>
-						<td id = "nome_usuario" colspan = "7"><b>Nome:&nbsp;</b> <?php echo utf8_encode($nome); ?> </td>
+						<td id = "nome_usuario" colspan = "2"><b>Nome:&nbsp;</b> <?php echo utf8_encode($nome); ?> </td>
+						<td id = "cidade_usuario" colspan = "2"><b> Cidade:&nbsp;</b> <?php echo utf8_encode($cidade); ?> </td>
+						<td id = "uf_usuario" colspan = "1"><b>UF:&nbsp;</b> <?php echo utf8_encode($uf); ?></td>
+						<td id = "idade_usuario" colspan = "2"> <b>Idade:&nbsp;</b> <?php  echo utf8_encode($idade);?> </td>
 					</tr>
 					<tr>
-						<td id = "cidade_usuario" colspan = "2"><b> Cidade:&nbsp;</b> <?php echo utf8_encode($cidade); ?> </td>
-						<td id = "uf_usuario"><b>UF:&nbsp;</b> <?php echo utf8_encode($uf); ?></td>
-						<td id = "idade_usuario" colspan = "4"> <b>Idade:&nbsp;</b> <?php  echo utf8_encode($idade);?> </td>
+						<td id = "livro_dis" title="Númros de livros disponibilizados por esse usuário que foram trocados" colspan="2">Livros Disponibilizados Trocados:&nbsp;</b><?php echo $livro_dis ?></td>
+						<td id = "livro_sol" title="Número de livros solicitados por esse usuário" colspan="2">Livros Solicitados:&nbsp;</b><?php echo $livro_solicitado ?></td>
+						<td id = "denuncias" title="Quantas denuncias foram feitas contra esse usuário" colspan="2">Quantidade de Denúncias:&nbsp;</b><?php echo $qt_denuncias ?></td>
 					</tr>
 					<tr>
 						<td colspan="7">
