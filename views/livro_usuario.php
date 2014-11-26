@@ -117,7 +117,7 @@
 									</tr>
 									<tr class="success">
 										<td>Gênero:</td>
-										<td>'.$livro['Categoria'].'</td>
+										<td>'.utf8_encode($livro['Categoria']).'</td>
 									</tr>
 									<tr>
 										<td>Nº de pessoas lendo:</td>
@@ -142,7 +142,7 @@
 							<form class="form-horizontal" style="margin-left:8%;margin-right:8%;">
 								<label class="col-lg-2">Estado:</label>
 								<section class="col-md-10">
-									<textarea class="form-control">'.$estado.'</textarea>
+									<textarea class="form-control">'.utf8_encode($livro['estado']).'</textarea>
 								</section><br /><br />
 							</form>
 						</section>
