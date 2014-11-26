@@ -320,7 +320,7 @@
 																<section class = "btn-group">
 																	'.$botões.'
 																</section>
-																<a href="?url=pesquisa&nome='.utf8_encode($livro).'"><input type = "button" class="btn btn-primary btn-xs" name = "veja+" value = "Veja +"/></a>
+																<a href="?url=pesquisa&nome='.utf8_encode($livro).'"><input type = "button" class="btn btn-primary btn-sm" name = "veja+" value = "Veja +"/></a>
 															</section>
 														</center>
 													</section>
