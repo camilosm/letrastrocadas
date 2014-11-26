@@ -40,7 +40,7 @@
 			{
 				$imagens .= '<section class="col-md-4">
 							<a class = "thumbnail" style="width:auto;">
-								<img onMouseOver="aumenta(this)" onMouseOut="diminui(this)" src = "'.$segunda.'" alt = "'.utf8_encode($nome).'" height = "177px" width = "120px"/> 
+								<img src = "'.$segunda.'" alt = "'.utf8_encode($nome).'" height = "177px" width = "120px"/> 
 							</a>
 							</section>';
 			}
@@ -49,7 +49,7 @@
 			{
 				$imagens .= '<section class="col-md-4">
 							<a class = "thumbnail" style="width:auto;">
-								<img onMouseOver="aumenta(this)" onMouseOut="diminui(this)" src = "'.$terceira.'" alt = "'.utf8_encode($nome).'" height = "177px" width = "120px"/> 
+								<img src = "'.$terceira.'" alt = "'.utf8_encode($nome).'" height = "177px" width = "120px"/> 
 							</a>
 							</section>';
 			}
@@ -98,8 +98,8 @@
 							</section>
 						</section>
 						<section class="modal-footer">
-							<button id = "cancelar" type="button" class="btn btn-default" data-dismiss="modal">Não</button>
 							<button id = "confirmar_solicitação" type="button" class="btn btn-primary" onClick="ConfirmarSolicitacao('.$aspas.''.$id.''.$aspas.','.$aspas.''.$id_usuario.''.$aspas.')">Sim</button>
+							<button id = "cancelar" type="button" class="btn btn-default" data-dismiss="modal">Não</button>
 						</section>
 					</section>
 				</section>';

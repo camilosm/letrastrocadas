@@ -200,7 +200,10 @@
 										while($pesq_lista_livro = mysql_fetch_assoc($resul_pesquisa_lista_livros))
 										{
 											$qt++;
-											echo '<img src ="'.$pesq_lista_livro['imagem_livros'].'" alt = "'.$pesq_lista_livro['nome'].'" height = "177px" width = "120px">&nbsp;';
+											echo '
+											<a href="?url=livro_usuario&chave='.$pesq_lista_livro['id_lista_livros'].'">
+												<img src ="'.$pesq_lista_livro['imagem_livros'].'" alt = "'.$pesq_lista_livro['nome'].'" height = "177px" width = "120px">&nbsp;
+											</a>';
 										}
 										if($qt == 0)
 										{
@@ -215,7 +218,8 @@
 										while($pesq_ja_li = mysql_fetch_assoc($resul_ja_li))
 										{
 											$qt_ja_li++;
-											echo '<img src ="'.$pesq_ja_li['imagem_livros'].'" alt = "'.$pesq_ja_li['nome'].'" height = "177px" width = "120px">&nbsp;';
+											echo '>
+											<img src ="'.$pesq_ja_li['imagem_livros'].'" alt = "'.$pesq_ja_li['nome'].'" height = "177px" width = "120px">&nbsp;';
 										}
 										
 										if($qt_ja_li == 0)
