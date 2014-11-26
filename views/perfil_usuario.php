@@ -59,14 +59,33 @@
 			
 			/* Pesquisa de livros marcados como quero ler, lidos, lendo */
 
-			$pesquisar_quero_ler = new Pesquisar("tbl_marcacao JOIN tbl_usuario ON usuario_id = id_usuario JOIN tbl_livro ON livro_id = id_livro"," id_livro,imagem_livros,tbl_livro.nome as Nome"," tipo = 1 AND usuario_id = $id");
+			//Quero Ler
+			$pesquisar_quero_ler = new Pesquisar("tbl_marcacao JOIN tbl_usuario ON usuario_id = id_usuario JOIN tbl_livro ON livro_id = id_livro"," id_livro,imagem_livros,tbl_livro.nome as Nome"," tipo = 1 AND usuario_id = $id_outro_usu");
 			$resul_quero_ler = $pesquisar_quero_ler->pesquisar();	
 
-			$pesquisar_ja_li = new Pesquisar("tbl_marcacao JOIN tbl_usuario ON usuario_id = id_usuario JOIN tbl_livro ON livro_id = id_livro"," id_livro,imagem_livros,tbl_livro.nome as Nome"," tipo = 2 AND usuario_id = $id");
+			//Já li
+			$pesquisar_ja_li = new Pesquisar("tbl_marcacao JOIN tbl_usuario ON usuario_id = id_usuario JOIN tbl_livro ON livro_id = id_livro"," id_livro,imagem_livros,tbl_livro.nome as Nome"," tipo = 2 AND usuario_id = $id_outro_usu");
 			$resul_ja_li = $pesquisar_ja_li->pesquisar();
 
-			$pesquisar_lendo = new Pesquisar("tbl_marcacao JOIN tbl_usuario ON usuario_id = id_usuario JOIN tbl_livro ON livro_id = id_livro"," id_livro,imagem_livros,tbl_livro.nome as Nome"," tipo = 3 AND usuario_id = $id");
+			//Lendo
+			$pesquisar_lendo = new Pesquisar("tbl_marcacao JOIN tbl_usuario ON usuario_id = id_usuario JOIN tbl_livro ON livro_id = id_livro"," id_livro,imagem_livros,tbl_livro.nome as Nome"," tipo = 3 AND usuario_id = $id_outro_usu");
 			$resul_lendo = $pesquisar_lendo->pesquisar();
+			
+			//Gêneros favoritos
+			$pesquisa_generos_fav = new Pesquisar('tbl_generos_favoritos JOIN tbl_categoria ON id_categoria = categoria_id','*',"usuario_id = $id");
+			$res_genero_fav = $pesquisa_generos_fav->pesquisar();
+
+			//Autores favoritos
+			$pesquisa_autor_fav = new Pesquisar('tbl_autores_favoritos JOIN tbl_autor ON id_autor = autor_id','*',"usuario_id = $id");
+			$res_autor_fav = $pesquisa_autor_fav->pesquisar();
+
+			//Gêneros que não gosto
+			$pesquisa_generos_des = new Pesquisar('tbl_generos_desapreciados JOIN tbl_categoria ON id_categoria = genero_id','*',"usuario_id = $id");
+			$res_genero_des = $pesquisa_generos_des->pesquisar();
+
+			//Autores que não gosto
+			$pesquisa_autor_des = new Pesquisar('tbl_autores_desapreciados JOIN tbl_autor ON id_autor = autor_id','*',"usuario_id = $id");
+			$res_autor_des = $pesquisa_autor_des->pesquisar();
 
 		}
 		else if($id != $id_outro_usu)
@@ -124,14 +143,33 @@
 			
 			/* Pesquisa de livros marcados como quero ler, lidos, lendo */
 
+			//Quero Ler
 			$pesquisar_quero_ler = new Pesquisar("tbl_marcacao JOIN tbl_usuario ON usuario_id = id_usuario JOIN tbl_livro ON livro_id = id_livro"," id_livro,imagem_livros,tbl_livro.nome as Nome"," tipo = 1 AND usuario_id = $id_outro_usu");
 			$resul_quero_ler = $pesquisar_quero_ler->pesquisar();	
 
+			//Já li
 			$pesquisar_ja_li = new Pesquisar("tbl_marcacao JOIN tbl_usuario ON usuario_id = id_usuario JOIN tbl_livro ON livro_id = id_livro"," id_livro,imagem_livros,tbl_livro.nome as Nome"," tipo = 2 AND usuario_id = $id_outro_usu");
 			$resul_ja_li = $pesquisar_ja_li->pesquisar();
 
+			//Lendo
 			$pesquisar_lendo = new Pesquisar("tbl_marcacao JOIN tbl_usuario ON usuario_id = id_usuario JOIN tbl_livro ON livro_id = id_livro"," id_livro,imagem_livros,tbl_livro.nome as Nome"," tipo = 3 AND usuario_id = $id_outro_usu");
-			$resul_lendo = $pesquisar_lendo->pesquisar();	
+			$resul_lendo = $pesquisar_lendo->pesquisar();
+			
+			//Gêneros favoritos
+			$pesquisa_generos_fav = new Pesquisar('tbl_generos_favoritos JOIN tbl_categoria ON id_categoria = categoria_id','*',"usuario_id = $id_outro_usu");
+			$res_genero_fav = $pesquisa_generos_fav->pesquisar();
+
+			//Autores favoritos
+			$pesquisa_autor_fav = new Pesquisar('tbl_autores_favoritos JOIN tbl_autor ON id_autor = autor_id','*',"usuario_id = $id_outro_usu");
+			$res_autor_fav = $pesquisa_autor_fav->pesquisar();
+
+			//Gêneros que não gosto
+			$pesquisa_generos_des = new Pesquisar('tbl_generos_desapreciados JOIN tbl_categoria ON id_categoria = genero_id','*',"usuario_id = $id_outro_usu");
+			$res_genero_des = $pesquisa_generos_des->pesquisar();
+
+			//Autores que não gosto
+			$pesquisa_autor_des = new Pesquisar('tbl_autores_desapreciados JOIN tbl_autor ON id_autor = autor_id','*',"usuario_id = $id_outro_usu");
+			$res_autor_des = $pesquisa_autor_des->pesquisar();
 
 			
 		}
@@ -192,6 +230,10 @@
 								<li><a href="#jali" data-toggle="tab"><span class="glyphicon glyphicon-book"></span> Já li</a></li>
 								<li><a href="#queroler" data-toggle="tab"><span class="glyphicon glyphicon-book"></span> Quero Ler</a></li>
 								<li><a href="#lendo" data-toggle="tab"><span class="glyphicon glyphicon-book"></span> Lendo </a></li>
+								<li><a href="#af" data-toggle="tab"><span class="glyphicon glyphicon-user"></span> Autores Favoritos </a></li>
+								<li><a href="#an" data-toggle="tab"><span class="glyphicon glyphicon-user"></span> Autores que não gosto </a></li>
+								<li><a href="#gf" data-toggle="tab"><span class="glyphicon glyphicon-list"></span> Gêmeros Favoritos </a></li>
+								<li><a href="#gn" data-toggle="tab"><span class="glyphicon glyphicon-list"></span> Gêneros que não gosto </a></li>
 							</ul>
 							<section id="myTabContent" class="tab-content">
 								<section class="tab-pane fade active in" id="livrosdisponiveis" style="max-width:100%;overflow:auto;">
@@ -257,7 +299,79 @@
 											echo 'Nenhum livro está disponível';
 										}
 									?>
-								</section>					  
+								</section>	
+								<section class="tab-pane fade" id="af" style="max-width:100%;overflow:auto;">
+									<p>Lista : </p>
+									<p>
+									<?php
+										$qt_af = 0;	
+										while($pesq_af = mysql_fetch_assoc($res_autor_fav))
+										{
+											$qt_af++;
+											echo '- '.utf8_encode($pesq_af['nome']).'<br />';
+										}
+
+										if($qt_af == 0)
+										{
+											echo 'Nenhum autor na lista';
+										}
+									?>
+									</p>
+								</section>	
+								<section class="tab-pane fade" id="an" style="max-width:100%;overflow:auto;">
+									<p>Lista : </p>
+									<p>
+									<?php
+										$qt_an = 0;	
+										while($pesq_an = mysql_fetch_assoc($res_autor_des))
+										{
+											$qt_an++;
+											echo '- '.utf8_encode($pesq_an['nome']).'<br />';
+										}
+
+										if($qt_an == 0)
+										{
+											echo 'Nenhum autor na lista';
+										}
+									?>
+									</p>
+								</section>				
+								<section class="tab-pane fade" id="gf" style="max-width:100%;overflow:auto;">
+									<p>Lista : </p>
+									<p>
+									<?php
+										$qt_gf = 0;	
+										while($pesq_gf = mysql_fetch_assoc($res_genero_fav))
+										{
+											$qt_gf++;
+											echo '- '.utf8_encode($pesq_gf['nome']).'<br />';
+										}
+
+										if($qt_gf == 0)
+										{
+											echo 'Nenhum gêmero na lista';
+										}
+									?>
+									</p>
+								</section>	
+								<section class="tab-pane fade" id="gn" style="max-width:100%;overflow:auto;">
+									<p>Lista : </p>
+									<p>
+									<?php
+										$qt_gn = 0;	
+										while($pesq_gn = mysql_fetch_assoc($res_genero_des))
+										{
+											$qt_gn++;
+											echo '- '.utf8_encode($pesq_gn['nome']).'<br />';
+										}
+
+										if($qt_gn == 0)
+										{
+											echo 'Nenhum gênero na lista';
+										}
+									?>
+									</p>
+								</section>	
 							</section>
 						</td>
 					</tr>
