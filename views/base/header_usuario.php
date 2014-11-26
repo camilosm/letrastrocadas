@@ -35,7 +35,7 @@
 			</form>
 
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="?url=perfil_individual"><span class="glyphicon glyphicon-user"></span>&nbsp Perfil</a></li>
+				<li><a href="?url=perfil_usuario"><span class="glyphicon glyphicon-user"></span>&nbsp Perfil</a></li>
 				<li><a href="?url=duvidas">LT&nbsp<span id="Moedas" class="navbar-right badge">0</span></a></li>
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-globe"></span>&nbsp Site<b class="caret"></b></a>
