@@ -69,13 +69,15 @@
 		}
 	}
 ?>
-<article id = "body_pesquisa" class="col-sm-offset-1 col-sm-10">
-	<section class="panel panel-default">
-		<section class="panel-heading"><h3>Nosso acervo!</h3></section>		
+<article id = "body_pesquisa">
+	<section class="panel panel-default" style="width: 84%; margin-left: 8%;">
+		<section class="panel-heading">
+			<a><h3 class="panel-title">Nosso acervo</h3></a>
+		</section>		
 		<section class="panel panel-body">
-			<form action="" method="post">
-				<section class="row">
-					<section class="col-sm-offset-1 col-sm-10">
+			<section class="row">
+				<form action="" method="post">
+					<section class="col-md-offset-1 col-md-4">
 						<section class="input-group">
 							<input type="text" name = "pesquisa" value="<?php echo $livro;?>" class="form-control" placeholder="Procurar">
 							<span class="input-group-btn">
@@ -85,8 +87,9 @@
 							</span>
 						</section>
 					</section>
-				</section>
-			</form>
+				</form>
+			</section><br />
+			<section class="row">
 			<?php
 				$num_registros = mysql_num_rows($resultado_qt);
 				if ($num_registros != 0)
@@ -105,9 +108,9 @@
 
 						echo '<section class="col-md-6">
 								<section class = "col-md-4">	
-									<section class = "bs-component" style = "margin-left: 10%; maxheight: 177px; width: 120px;"> 
+									<section class = "bs-component" style = "margin-left: 10%;"> 
 										<a href="?url=livro&livro='.$dados_pesq['id_livro'].'" class = "thumbnail">
-											<img src = "'.$dados_pesq['imagem_livros'].'" alt = "'.$dados_pesq['Livro'].'"/> 
+											<img src = "'.$dados_pesq['imagem_livros'].'" alt = "'.$dados_pesq['Livro'].'"  height= 177px; width= 120px; /> 
 										</a>	
 									</section>
 								</section>

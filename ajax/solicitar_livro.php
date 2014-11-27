@@ -1,8 +1,7 @@
 <?php
-
+	session_start();
 	if(isset($_GET['livro']) && isset($_GET['usuario']))
 	{
-		session_start();
 		$id_usuario = $_SESSION['id'];
 		
 		include("../views/classes/class_banco.php");	
