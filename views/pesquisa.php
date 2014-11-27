@@ -100,9 +100,9 @@
 		$aspas = "'";
 ?>
 <article id = "body_pesquisa">
-	<section class="panel panel-default" style="width: 80%; margin-left: 10%;">
+	<section class="panel panel-default" style="width: 84%; margin-left: 8%;">
 		<section class="panel-heading">
-			<h4>Resultados</h4>
+			<a><h3 class="panel-title">Resultado</h3></a>
 		</section>
 		<section class="panel panel-body">
 			<?php
@@ -121,45 +121,45 @@
 								if($array_marcacao['tipo'] == 1)
 								{
 									$botões = ' 
-												<button id = "Resultado'.$dados_pesq['id_livro'].'" value = "QueroLer" name = "QueroLer" type="button" class="btn btn-primary btn-xs">Quero Ler</button>
-												<button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+												<button id = "'.$aspas.'Resultado'.$dados_pesq['id_livro'].''.$aspas.'" value = "QueroLer" name = "QueroLer" type="button" class="btn btn-primary btn-sm">Quero Ler</button>
+												<button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
 												<ul id = "acoes" class="dropdown-menu">
-													<li><a onClick="AcoesLivro('.$dados_pesq['id_livro'].','.$aspas.'Desmarcar'.$aspas.',Resultado'.$dados_pesq['id_livro'].','.$aspas.'QueroLer'.$aspas.');">Desmarcar</a></li>
-													<li><a onClick="AcoesLivro('.$dados_pesq['id_livro'].','.$aspas.'JaLi'.$aspas.',Resultado'.$dados_pesq['id_livro'].','.$aspas.'QueroLer'.$aspas.');">Já li</a></li>
-													<li><a onClick="AcoesLivro('.$dados_pesq['id_livro'].','.$aspas.'Lendo'.$aspas.',Resultado'.$dados_pesq['id_livro'].','.$aspas.'QueroLer'.$aspas.');">Estou lendo</a></li>
+													<li><a onClick="AcoesLivro('.$dados_pesq['id_livro'].','.$aspas.'Desmarcar'.$aspas.','.$aspas.'Resultado'.$dados_pesq['id_livro'].''.$aspas.','.$aspas.'QueroLer'.$aspas.');">Desmarcar</a></li>
+													<li><a onClick="AcoesLivro('.$dados_pesq['id_livro'].','.$aspas.'JaLi'.$aspas.','.$aspas.'Resultado'.$dados_pesq['id_livro'].''.$aspas.','.$aspas.'QueroLer'.$aspas.');">Já li</a></li>
+													<li><a onClick="AcoesLivro('.$dados_pesq['id_livro'].','.$aspas.'Lendo'.$aspas.','.$aspas.'Resultado'.$dados_pesq['id_livro'].''.$aspas.','.$aspas.'QueroLer'.$aspas.');">Estou lendo</a></li>
 												</ul>';
 								}
 								else if($array_marcacao['tipo'] == 2)
 								{
 									$botões = ' 
-											<button id = "Resultado'.$dados_pesq['id_livro'].'" value = "JaLi" name = "JaLi" type="button" class="btn btn-primary btn-xs">Já Li</button>
-											<button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+											<button id = "'.$aspas.'Resultado'.$dados_pesq['id_livro'].''.$aspas.'" value = "JaLi" name = "JaLi" type="button" class="btn btn-primary btn-sm">Já Li</button>
+											<button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
 											<ul id = "acoes" class="dropdown-menu">
-												<li><a onClick="AcoesLivro('.$dados_pesq['id_livro'].','.$aspas.'Desmarcar'.$aspas.',Resultado'.$dados_pesq['id_livro'].','.$aspas.'JaLi'.$aspas.');">Desmarcar</a></li>
-												<li><a onClick="AcoesLivro('.$dados_pesq['id_livro'].','.$aspas.'Lendo'.$aspas.',Resultado'.$dados_pesq['id_livro'].','.$aspas.'JaLi'.$aspas.');">Estou lendo</a></li>
-												<li><a onClick="AcoesLivro('.$dados_pesq['id_livro'].','.$aspas.'QueroLer'.$aspas.',Resultado'.$dados_pesq['id_livro'].','.$aspas.'JaLi'.$aspas.');">Quero Ler</a></li>
+												<li><a onClick="AcoesLivro('.$dados_pesq['id_livro'].','.$aspas.'Desmarcar'.$aspas.','.$aspas.'Resultado'.$dados_pesq['id_livro'].''.$aspas.','.$aspas.'JaLi'.$aspas.');">Desmarcar</a></li>
+												<li><a onClick="AcoesLivro('.$dados_pesq['id_livro'].','.$aspas.'Lendo'.$aspas.','.$aspas.'Resultado'.$dados_pesq['id_livro'].''.$aspas.','.$aspas.'JaLi'.$aspas.');">Estou lendo</a></li>
+												<li><a onClick="AcoesLivro('.$dados_pesq['id_livro'].','.$aspas.'QueroLer'.$aspas.','.$aspas.'Resultado'.$dados_pesq['id_livro'].''.$aspas.','.$aspas.'JaLi'.$aspas.');">Quero Ler</a></li>
 											</ul>';
 								}
 								else if($array_marcacao['tipo'] == 3)
 								{
 									$botões = ' 
-											<button id = "Resultado'.$dados_pesq['id_livro'].'" value = "Lendo" name = "Lendo" type="button" class="btn btn-primary btn-xs">Estou lendo</button>
-											<button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+											<button id = "'.$aspas.'Resultado'.$dados_pesq['id_livro'].''.$aspas.'" value = "Lendo" name = "Lendo" type="button" class="btn btn-primary btn-sm">Estou lendo</button>
+											<button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
 											<ul id = "acoes" class="dropdown-menu">
-												<li><a onClick="AcoesLivro('.$dados_pesq['id_livro'].','.$aspas.'Desmarcar'.$aspas.',Resultado'.$dados_pesq['id_livro'].','.$aspas.'Lendo'.$aspas.');">Desmarcar</a></li>
-												<li><a onClick="AcoesLivro('.$dados_pesq['id_livro'].','.$aspas.'QueroLer'.$aspas.',Resultado'.$dados_pesq['id_livro'].','.$aspas.'Lendo'.$aspas.');">Quero Ler</a></li>
-												<li><a onClick="AcoesLivro('.$dados_pesq['id_livro'].','.$aspas.'JaLi'.$aspas.',Resultado'.$dados_pesq['id_livro'].','.$aspas.'Lendo'.$aspas.');">Já li</a></li>
+												<li><a onClick="AcoesLivro('.$dados_pesq['id_livro'].','.$aspas.'Desmarcar'.$aspas.','.$aspas.'Resultado'.$dados_pesq['id_livro'].''.$aspas.','.$aspas.'Lendo'.$aspas.');">Desmarcar</a></li>
+												<li><a onClick="AcoesLivro('.$dados_pesq['id_livro'].','.$aspas.'QueroLer'.$aspas.','.$aspas.'Resultado'.$dados_pesq['id_livro'].''.$aspas.','.$aspas.'Lendo'.$aspas.');">Quero Ler</a></li>
+												<li><a onClick="AcoesLivro('.$dados_pesq['id_livro'].','.$aspas.'JaLi'.$aspas.','.$aspas.'Resultado'.$dados_pesq['id_livro'].''.$aspas.','.$aspas.'Lendo'.$aspas.');">Já li</a></li>
 											</ul>';
 								}
 								else
 								{
 									$botões = '
-												<button id = "Resultado'.$dados_pesq['id_livro'].'" value = "" name = "Eu" type="button" class="btn btn-primary btn-xs">Eu...</button>
-												<button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+												<button id = "'.$aspas.'Resultado'.$dados_pesq['id_livro'].''.$aspas.'" value = "" name = "Eu" type="button" class="btn btn-primary btn-sm">Eu...</button>
+												<button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
 												<ul id = "acoes" class="dropdown-menu">
-													<li><a onClick="AcoesLivro('.$dados_pesq['id_livro'].','.$aspas.'QueroLer'.$aspas.',Resultado'.$dados_pesq['id_livro'].','.$aspas.''.$aspas.');">Quero Ler</a></li>
-													<li><a onClick="AcoesLivro('.$dados_pesq['id_livro'].','.$aspas.'JaLi'.$aspas.',Resultado'.$dados_pesq['id_livro'].','.$aspas.''.$aspas.');">Já li</a></li>
-													<li><a onClick="AcoesLivro('.$dados_pesq['id_livro'].','.$aspas.'Lendo'.$aspas.',Resultado'.$dados_pesq['id_livro'].','.$aspas.''.$aspas.');">Estou lendo</a></li>
+													<li><a onClick="AcoesLivro('.$dados_pesq['id_livro'].','.$aspas.'QueroLer'.$aspas.','.$aspas.'Resultado'.$dados_pesq['id_livro'].''.$aspas.','.$aspas.''.$aspas.');">Quero Ler</a></li>
+													<li><a onClick="AcoesLivro('.$dados_pesq['id_livro'].','.$aspas.'JaLi'.$aspas.','.$aspas.'Resultado'.$dados_pesq['id_livro'].''.$aspas.','.$aspas.''.$aspas.');">Já li</a></li>
+													<li><a onClick="AcoesLivro('.$dados_pesq['id_livro'].','.$aspas.'Lendo'.$aspas.','.$aspas.'Resultado'.$dados_pesq['id_livro'].''.$aspas.','.$aspas.''.$aspas.');">Estou lendo</a></li>
 												</ul>';
 								}
 						}
@@ -170,39 +170,43 @@
 						$ct++;
 						if(($ct == 1) OR ($ct == 3) OR ($ct == 5))
 						{
-							echo '<section class="row">';
+							echo '<section class="row" style="margin-left:8%;">';
 						}
 						echo '<section class="col-md-6">
-								<section class = "col-md-4">	
-									<section class = "bs-component" style = "margin-left: 10%; maxheight: 177px; width: 120px;"> 
-										<a href="?url=livro&livro='.$dados_pesq["id_livro"].'" class = "thumbnail">
-											<img src = "'.$dados_pesq['imagem_livros'].'" alt = ""/> 
-										</a>	
-									</section>
-								</section>
-								<section class="col-md-4">
-									<section style="">
-										<center>
-											<a href="?url=livro&livro='.$dados_pesq["id_livro"].'" title = "Clique para ver mais informações sobre o livro"> <h3> '.utf8_encode($dados_pesq['NomeLivro']).'</h3></a>				  
-											<a href="?url=livros_autores&autor='.utf8_encode($dados_pesq['NomeAutor']).'" title = "Clique para ver mais livros deste autor"> <h4> '.utf8_encode($dados_pesq['NomeAutor']).' </h4></a>
-											<a href="?url=livros_editora&editora='.utf8_encode($dados_pesq['NomeEditora']).'" title = "Clique para ver mais livros desta editora"> <h5> '.utf8_encode($dados_pesq['NomeEditora']).' </h5></a>
-											<a href="?url=perfil_usuario&cod='.$dados_pesq['id_usuario'].'"> <h4>'.utf8_encode($dados_pesq['NomeUsuario']).' </h4></a>
-										</center>
-									</section>
-								</section>';
-						if(!empty($_SESSION['nivel_acesso']))
-						{
-							echo '<section class="col-md-8">
-									<section style="margin-top: 10%;margin-left: -30%;">
-										<section class = "btn-group">
-											<a href="?url=passo-a-passo-dados-usuario&cod='.$dados_pesq['id_livro'].'"><input type = "button" class="btn btn-primary btn-xs" name = "botao_disponibilizar_livro" value = "Disponibilizar Livro" /></a>		
-											&nbsp;&nbsp;											 
-											<button type = "button" class="btn btn-primary btn-xs dropdown-toggle" id = "solicitar" onClick="SolicitarLivro('.$aspas.''.$dados_pesq["id_lista_livros"].''.$aspas.','.$aspas.''.$dados_pesq['id_usuario'].''.$aspas.')">Solicitar Livro</button>
-											'.$botões.'
+								<section class="row">
+									<section class = "col-md-3">	
+										<section class = "bs-component" style = "margin-left: 10%; maxheight: 177px; width: 120px;"> 
+											<a href="?url=livro&livro='.$dados_pesq["id_livro"].'" class = "thumbnail">
+												<img src = "'.$dados_pesq['imagem_livros'].'" alt = ""/> 
+											</a>	
 										</section>
 									</section>
-								</section>
-							</section>';
+									<section class="col-md-5">
+											<center>
+												<a href="?url=livro&livro='.$dados_pesq["id_livro"].'" title = "Clique para ver mais informações sobre o livro"> <h3> '.utf8_encode($dados_pesq['NomeLivro']).'</h3></a>				  
+												<a href="?url=livros_autores&autor='.utf8_encode($dados_pesq['NomeAutor']).'" title = "Clique para ver mais livros deste autor"> <h4> '.utf8_encode($dados_pesq['NomeAutor']).' </h4></a>
+												<a href="?url=livros_editora&editora='.utf8_encode($dados_pesq['NomeEditora']).'" title = "Clique para ver mais livros desta editora"> <h5> '.utf8_encode($dados_pesq['NomeEditora']).' </h5></a>
+												<a href="?url=perfil_usuario&cod='.$dados_pesq['id_usuario'].'"> <h4>'.utf8_encode($dados_pesq['NomeUsuario']).' </h4></a>
+											</center>
+									</section>
+								</section>';
+									
+						if(!empty($_SESSION['nivel_acesso']))
+						{
+							echo '
+								<section class="row">
+										<section class="col-md-14" style="margin-left:5%;">
+											<section class = "btn-group">
+												<a href="?url=passo-a-passo-dados-usuario&cod='.$dados_pesq['id_livro'].'"><input type = "button" class="btn btn-primary btn-sm" name = "botao_disponibilizar_livro" value = "Disponibilizar Livro" /></a>		
+												&nbsp;&nbsp;											 
+												<button type = "button" class="btn btn-primary btn-sm dropdown-toggle" id = "solicitar" onClick="SolicitarLivro('.$aspas.''.$dados_pesq["id_lista_livros"].''.$aspas.','.$aspas.''.$dados_pesq['id_usuario'].''.$aspas.')">Solicitar Livro</button>
+												<section class ="btn-group" id="Resultado'.$dados_pesq['id_livro'].'">
+													'.$botões.'
+												</section>
+											</section>
+										</section>
+										</section>
+								</section>';
 						}
 						else
 						{

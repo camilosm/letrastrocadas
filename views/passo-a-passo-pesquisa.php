@@ -66,25 +66,27 @@
 			include("classes/class_banco.php");
 			include("classes/class_editar_caracteres.php");
 
-			if((isset($_POST['pesquisar_livro'])) OR (!empty($_GET['pag'])))
+			if((isset($_POST['pesquisar_livro'])) OR (!empty($_GET['pagina'])))
 			{
 				//Instancia e faz conexão com o banco de dados
 				$banco = new Banco();
-
-				if(empty($_GET['pag']))
+				
+				if(empty($_GET['nome']))
 				{
 					$nome = $_POST['pesquisa'];
+					
+					$editar_nome = new EditarCaracteres($nome);
+					$nome = $editar_nome->sanitizeStringNome($_POST['pesquisa']);
 				}
 				else
 				{
 					$nome = $_GET['nome'];
+					
+					$editar_nome = new EditarCaracteres($nome);
+					$nome = $editar_nome->sanitizeStringNome($_GET['nome']);
 				}
-
-				$editar_nome = new EditarCaracteres($nome);
-				$nome = $editar_nome->sanitizeStringNome($_POST['pesquisa']);
-
 				$limite = 8;
-				$pagina = $_GET['pag'];
+				$pagina = $_GET['pagina'];
 
 				if(!$pagina)
 				{
@@ -95,13 +97,13 @@
 				
 				$campos = "id_livro,imagem_livros,livro.nome AS NomeLivro,edicao,autor.nome AS NomeAutor,editora.nome As NomeEditora, categoria.nome As NomeCategoria ";
 				$tabelas = "tbl_livro livro JOIN tbl_editora editora JOIN tbl_autor autor JOIN tbl_categoria categoria ON id_editora = editora_id AND id_autor = autor_id AND id_categoria = categoria_id";
-				$condicao = "livro.nome like '%$nome%' LIMIT $inicio,$limite";
+				$condicao = "livro.nome like '%$nome%' LIMIT $inicio,8";
 
 				$pesquisa_dados = new Pesquisar($tabelas,$campos,$condicao);
 				 
 				$resultado_dados = $pesquisa_dados->pesquisar();
 				
-				$quantidade = new Pesquisar($tabelas,'id_livro',$condicao);
+				$quantidade = new Pesquisar($tabelas,'id_livro',"livro.nome like '%$nome%'");
 				  
 				$resultado_quantidade = $quantidade->pesquisar();
 				$total_registros = mysql_num_rows($resultado_quantidade);
@@ -123,7 +125,7 @@
 ?>
 <article id  = "body_cadastra_livro_usu" style="width: 80%; margin-left: 10%;">
 	<fieldset>
-		<form  method="post" action=""  role="search "enctype="multipart/form-data">
+		<form  method="post" action="?url=passo-a-passo-pesquisa"  role="search "enctype="multipart/form-data">
 			<legend>Pesquise o livro e clique em disponibilizar livro</legend>
 			<section class="row">
 				<section class="col-md-9">
@@ -140,7 +142,7 @@
 		</form>
 		<section class="panel panel-body">
 			<?php
-				if(isset($_POST['pesquisar_livro']))
+				if(isset($_POST['pesquisar_livro']) OR !empty($_GET['pagina']))
 				{
 					$num_registros = mysql_num_rows($resultado_dados);
 					if ($num_registros != 0)
@@ -254,7 +256,6 @@
 						echo 'Nenhum resultado foi encontrado';
 					}
 				}
-								
 			?>
 		</section>
 		<?php
@@ -272,7 +273,7 @@
 					if ($i >= 1 && $i <= $total)
 					{
 						echo '						
-							  <li><a href="?url=passo-a-passo-pesquisa&pag='.$i.'&nome='.$nome.'">'.$i.'</a></li>
+							  <li><a href="?url=passo-a-passo-pesquisa&pagina='.$i.'&nome='.$nome.'">'.$i.'</a></li>
 						';
 					}
 				}
