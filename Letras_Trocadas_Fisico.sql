@@ -284,7 +284,7 @@ CREATE TABLE tbl_cambio(
 	usuario_resgate INT UNSIGNED NOT NULL,
 	solicitacao_id INT UNSIGNED NOT NULL,
 	PRIMARY KEY(id_cambio),
-	FOREIGN KEY(usuario_disponibilizador) a tbl_usuario(id_usuario),
+	FOREIGN KEY(usuario_disponibilizador) REFERENCES tbl_usuario(id_usuario),
 	FOREIGN KEY(solicitacao_id) REFERENCES tbl_solicitacao_troca(id_solicitacao),
 	FOREIGN KEY(usuario_resgate) REFERENCES tbl_usuario(id_usuario),
 	FOREIGN KEY(lista_livros_id) REFERENCES tbl_lista_livros(id_lista_livros)
