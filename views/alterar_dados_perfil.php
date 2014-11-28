@@ -1,4 +1,53 @@
 <script type="text/javascript" >
+	
+	function RemoverGêneroFav(objeto)
+	{
+		var id = $(objeto).attr('id');
+		$.ajax({				
+			url : 'ajax/generos.php?genero='+id+'&acao=Favoritos&eliminar=Eliminar',
+			dataType : 'json',
+			success : function(data){
+				$(objeto).remove();
+			}
+		});
+	}
+	
+	function RemoverGêneroChatos(objeto)
+	{
+		var id = $(objeto).attr('id');
+		$.ajax({				
+			url : 'ajax/generos.php?genero='+id+'&acao=Chatos&eliminar=Eliminar',
+			dataType : 'json',
+			success : function(data){
+				$(objeto).remove();
+			}
+		});
+	}
+	
+	function RemoverAutoresFavoritos(objeto)
+	{
+		var id = $(objeto).attr('id');
+		$.ajax({				
+			url : 'ajax/autores.php?autor='+id+'&acao=Favoritos&eliminar=Eliminar',
+			dataType : 'json',
+			success : function(data){
+				$(objeto).remove();
+			}
+		});
+	}
+	
+	function RemoverAutoresChatos(objeto)
+	{
+		var id = $(objeto).attr('id');
+		$.ajax({				
+			url : 'ajax/autores.php?autor='+id+'&acao=Chatos&eliminar=Eliminar',
+			dataType : 'json',
+			success : function(data){
+				$(objeto).remove();
+			}
+		});
+	}
+	
 	function AdicinoarGêneroFav()
 	{
 		var id = $('#GênerosFavoritos').val();
@@ -8,7 +57,7 @@
 			dataType : 'json',
 			success : function(data){
 				var opcao = document.getElementById("GênerosFavoritos").options[document.getElementById("GênerosFavoritos").selectedIndex].text
-				var texto = '<li class="list-group-item" id="'+id+'">'+opcao+'</li>';
+				var texto = '<li ondblclick="RemoverGêneroFav(this)" class="list-group-item" id="'+id+'">'+opcao+'</li>';
 				$('#GênerosFav').append(texto);
 				$("#GênerosFavoritos option[value='"+id+"']").remove();
 				$("#GênerosChatos option[value='"+id+"']").remove();				
@@ -25,7 +74,7 @@
 			dataType : 'json',
 			success : function(data){
 				var opcao = document.getElementById("AutoresFavoritos").options[document.getElementById("AutoresFavoritos").selectedIndex].text
-				var texto = '<li class="list-group-item" id="'+id+'">'+opcao+'</li>';
+				var texto = '<li ondblclick="RemoverAutoresFavoritos(this)" class="list-group-item" id="'+id+'">'+opcao+'</li>';
 				$('#AutoresFav').append(texto);
 				$("#AutoresFavoritos option[value='"+id+"']").remove();
 				$("#AutoresChatos option[value='"+id+"']").remove();
@@ -42,7 +91,7 @@
 			dataType : 'json',
 			success : function(data){
 				var opcao = document.getElementById("GênerosChatos").options[document.getElementById("GênerosChatos").selectedIndex].text
-				var texto = '<li class="list-group-item" id="'+id+'">'+opcao+'</li>';
+				var texto = '<li ondblclick="RemoverGêneroChatos(this)" class="list-group-item" id="'+id+'">'+opcao+'</li>';
 				$('#GêneroChato').append(texto);
 				$("#GênerosChatos option[value='"+id+"']").remove();
 				$("#GênerosFavoritos option[value='"+id+"']").remove();				
@@ -59,7 +108,7 @@
 			dataType : 'json',
 			success : function(data){
 				var opcao = document.getElementById("AutoresChatos").options[document.getElementById("AutoresChatos").selectedIndex].text
-				var texto = '<li class="list-group-item" id="'+id+'">'+opcao+'</li>';
+				var texto = '<li ondblclick="RemoverAutoresChatos(this)" class="list-group-item" id="'+id+'">'+opcao+'</li>';
 				$('#AutorChato').append(texto);
 				$("#AutoresChatos option[value='"+id+"']").remove();
 				$("#AutoresFavoritos option[value='"+id+"']").remove();
@@ -74,7 +123,7 @@
 				url: 'ajax/upload.php', 
 				type: 'post',					
 				dataType  : "json",
-				success : function( data ){RetornaImagem(data.caminho,data.caminho_a);},
+				success : function( data ){ RetornaImagem(data.caminho,data.caminho_a);},
 				resetForm : false
 			}
 		);	
@@ -162,6 +211,10 @@
 		$resposta = $alterar_dados->alterar();
 		
 		$idade = mysql_query("call calc_idade($id)");
+		
+		echo "<section class='alert alert-dismissable alert-success' style='width:40%;margin-left:30%;'>					  
+				<center><strong>Seus dados foram atualizados!</strong></center>
+			</section>";
 	}
 	
 	//Pega os dados para mostrar no formulário
@@ -237,6 +290,8 @@
 
 	$qt_aut = count($autor_id);
 	
+	$aspas = "'";
+	
 ?>
 
 <article id  = "alterar_dados_perfil" class="col-sm-offset-1 col-sm-10">
@@ -246,7 +301,7 @@
 			<form name="frm_upload" id="frm_upload" class="form-horizontal" enctype="multipart/form-data" method="post" action="">
 				<section class="col-lg-4">
 					<center><label>Se deseja alterar sua foto de perfil, clique na imagem.</label></center>
-					<center><img alt="" id="img_perfil" class = "thumbnail" style="cursor:pointer;" onclick="$('#file').click();" src = "<?=$foto?>"></center>
+					<center><img alt="" id="img_perfil" style="cursor:pointer;width:60%;height:60%;" class = "thumbnail" onclick="$('#file').click();" src = "<?=$foto?>"></center>
 					<input type="text" value = "<?=$foto?>" style="visibility:hidden;" name="caminho" id="caminho" class="btn btn-primary btn-sm"/>
 					<input type="file" style="visibility:hidden;" name="file" onchange="UploadFoto();" id="file" class="btn btn-primary btn-sm"/>
 				</section>
@@ -319,7 +374,7 @@
 					<section class="row">
 						<label for="inputComplemento" class="col-md-4 control-label">Complemento</label>
 						<section class="col-md-8">
-							<input type="text" class="form-control" name = "complemento" id="complemento" placeholder = "Complemento" maxlength = "100" value = "<?php echo utf8_encode($complemento_p); ?>">
+							<input  type="text" class="form-control" name = "complemento" id="complemento" placeholder = "Complemento" maxlength = "100" value = "<?php echo utf8_encode($complemento_p); ?>">
 						</section>
 					</section>
 					<section class="row" style="margin-left:59%;">
@@ -351,6 +406,7 @@
 											?>
 										</select>
 									</section>
+									<p> Selecione seus gêneros favoritos.</p>									
 								</section>
 								<section class="col-md-offset-1">
 									<section class="col-md-offset-1">
@@ -367,11 +423,12 @@
 										<?php
 											while($lista_gf=mysql_fetch_assoc($res_genero_fav))
 											{
-												echo '<li class="list-group-item" id="'.$lista_gf['id_categoria'].'">'.utf8_encode($lista_gf['nome']).'</li>';
+												echo '<li ondblclick="RemoverGêneroFav(this)" class="list-group-item" id="'.$lista_gf['id_categoria'].'">'.utf8_encode($lista_gf['nome']).'</li>';
 											}
 										?>
 									</ul>
 								</section>
+								<p class="text-info"> * Para excluir da sua lista basta clicar duas vezes sobre o nome!</p>
 							</section>
 						</section>
 					</section>
@@ -399,6 +456,7 @@
 											?>
 										</select>
 									</section>
+									<p> Selecione seus autores favoritos.</p>
 								</section>
 								<section class="col-md-offset-1">
 									<section class="col-md-offset-1">
@@ -415,11 +473,12 @@
 										<?php
 											while($lista_af=mysql_fetch_assoc($res_autor_fav))
 											{
-												echo '<li class="list-group-item" id="'.$lista_af['id_autor'].'">'.utf8_encode($lista_af['nome']).'</li>';
+												echo '<li ondblclick="RemoverAutoresFavoritos(this)" class="list-group-item" id="'.$lista_af['id_autor'].'">'.utf8_encode($lista_af['nome']).'</li>';
 											}
 										?>
 									</ul>
 								</section>
+								<p class="text-info"> * Para excluir da sua lista basta clicar duas vezes sobre o nome!</p>
 							</section>
 						</section>
 					</section>
@@ -447,6 +506,7 @@
 											?>
 										</select>
 									</section>
+									<p> Selecione os gêneros que você não gosta de ler.</p>
 								</section>
 								<section class="col-md-offset-1">
 									<section class="col-md-offset-1">
@@ -463,11 +523,12 @@
 										<?php
 											while($lista_gc=mysql_fetch_assoc($res_genero_des))
 											{
-												echo '<li class="list-group-item" id="'.$lista_gc['id_categoria'].'">'.utf8_encode($lista_gc['nome']).'</li>';
+												echo '<li ondblclick="RemoverGêneroChatos(this)" class="list-group-item" id="'.$lista_gc['id_categoria'].'">'.utf8_encode($lista_gc['nome']).'</li>';
 											}
 										?>
 									</ul>
 								</section>
+								<p class="text-info"> * Para excluir da sua lista basta clicar duas vezes sobre o nome!</p>
 							</section>
 						</section>
 					</section>
@@ -495,6 +556,7 @@
 											?>
 										</select>
 									</section>
+									<p> Selecione os autores que você não gosta.</p>
 								</section>
 								<section class="col-md-offset-1">
 									<section class="col-md-offset-1">
@@ -511,11 +573,12 @@
 										<?php
 											while($lista_ac=mysql_fetch_assoc($res_autor_des))
 											{
-												echo '<li class="list-group-item" id="'.$lista_ac['id_autor'].'">'.utf8_encode($lista_ac['nome']).'</li>';
+												echo '<li ondblclick="RemoverAutoresChatos(this)" class="list-group-item" id="'.$lista_ac['id_autor'].'">'.utf8_encode($lista_ac['nome']).'</li>';
 											}
 										?>
 									</ul>
 								</section>
+								<p class="text-info"> * Para excluir da sua lista basta clicar duas vezes sobre o nome!</p>
 							</section>
 						</section>
 					</section>
