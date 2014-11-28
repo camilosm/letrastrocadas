@@ -65,7 +65,6 @@ CREATE TABLE tbl_livro(
 	isbn VARCHAR(17) NOT NULL,
 	sinopse TEXT NOT NULL,
 	status INT NULL, /* 1 = ativo, 2 = inativo  */
-	  BIGINT NULL,
 	lendo BIGINT NULL,
 	lido BIGINT NULL,
 	numero_paginas BIGINT NOT NULL,
