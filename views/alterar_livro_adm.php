@@ -309,8 +309,8 @@
 					<input type="number" class="form-control" value="<?php echo $numero_paginas ;?>" name = "numero_paginas" id="inputNumeros" required placeholder = "Números de páginas" maxlength = "20" min = "0" max = "20000">
 				</section>
 				<section class="col-lg-9 col-lg-offset-2">                    
-					<button style="float:right;" type = "reset" class="btn btn-default">Cancelar</button>
 					<button style="margin-left: 5px; float:right;" type="submit" name = "alterar" class="btn btn-primary">Alterar</button>
+					<button style="float:right;" type = "reset" class="btn btn-default">Cancelar</button>
 				</section>
 			</section>
 		</fieldset>

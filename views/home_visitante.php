@@ -72,7 +72,7 @@
 							<section class="col-lg-4">
 								<section class="bs-component">
 									<a href="?url=livro&livro='.$pesquisa['id_livro'].'" class="thumbnail">
-										<img src="'.$pesquisa['imagem_livros'].'" alt="'.utf8_encode($pesquisa['nome']).'" width="35%"/>
+										<img src="'.$pesquisa['imagem_livros'].'" alt="'.utf8_encode($pesquisa['nome']).'" style="width:120;height:177px;"/>
 										<p align="center">'.utf8_encode($pesquisa['nome']).'</p> 
 									</a>
 								</section>

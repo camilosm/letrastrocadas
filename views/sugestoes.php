@@ -21,11 +21,12 @@
 			
 		//Pesquisa da lista de desejo do site
 		$campos_lista = "id_livro,imagem_livros,livro.nome AS Livro,edicao,autor.nome AS Autor,editora.nome As Editora";
-		$tabelas_lista = "tbl_livro livro INNER JOIN tbl_editora editora INNER JOIN tbl_autor autor INNER JOIN tbl_livros_trocados livos_trocados ON id_editora = editora_id AND id_autor = autor_id ANd id_livro = livro_id";
+		$tabelas_lista = "tbl_lista_livros lista INNER JOIN tbl_livro livro INNER JOIN tbl_editora editora INNER JOIN tbl_autor autor INNER JOIN tbl_livros_trocados livos_trocados ON id_editora = editora_id AND id_autor = autor_id AND id_livro = lista.livro_id AND id_livro = livos_trocados.livro_id";
 		$condição_lista = "autor_id NOT IN (SELECT autor_id FROM tbl_autores_desapreciados WHERE usuario_id = ".$_SESSION['id'].")
 		AND categoria_id NOT IN (SELECT genero_id FROM tbl_generos_desapreciados WHERE usuario_id = ".$_SESSION['id'].") 
 		AND id_livro IN (SELECT DISTINCT livro_id FROM tbl_lista_livros WHERE usuario_id <> ".$_SESSION['id'].") 
 		AND id_livro NOT IN (SELECT DISTINCT livro_id FROM tbl_marcacao where usuario_id = ".$_SESSION['id'].")
+		AND lista.status = 1
 		AND (autor_id IN (SELECT autor_id FROM tbl_autores_favoritos WHERE usuario_id = ".$_SESSION['id'].")
 		OR categoria_id IN (SELECT categoria_id FROM tbl_generos_favoritos WHERE usuario_id = ".$_SESSION['id'].") OR 1=1) 
 		ORDER BY livos_trocados.quantidade LIMIT $limite";
@@ -34,7 +35,7 @@
 		$res = $pesquisar->pesquisar();
 		
 		//Pesquisa a quantidade de livros na lista de desejo no banco de dados
-		$pesquisar_qt = new Pesquisar("tbl_livro livro INNER JOIN tbl_editora editora INNER JOIN tbl_autor autor INNER JOIN tbl_livros_trocados livos_trocados ON id_editora = editora_id AND id_autor = autor_id ANd id_livro = livro_id",
+		$pesquisar_qt = new Pesquisar("tbl_lista_livros lista INNER JOIN tbl_livro livro INNER JOIN tbl_editora editora INNER JOIN tbl_autor autor INNER JOIN tbl_livros_trocados livos_trocados ON id_editora = editora_id AND id_autor = autor_id AND id_livro = lista.livro_id AND id_livro = livos_trocados.livro_id",
 		"COUNT(id_livro) As Quantidade",
 		"autor_id NOT IN (SELECT autor_id FROM tbl_autores_desapreciados WHERE usuario_id = ".$_SESSION['id'].")
 		AND categoria_id NOT IN (SELECT genero_id FROM tbl_generos_desapreciados WHERE usuario_id = ".$_SESSION['id'].") 
