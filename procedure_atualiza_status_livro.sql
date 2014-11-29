@@ -10,15 +10,3 @@ DELIMITER |
 		END ;
 |
 DELIMITER ;
-
-/* Leiam, por favor, LEIAM LEIAM LEIAM PLIZ, usem só a procedure e não a trigger(Tá incompleta)*/
-DEMILITER |
-
-	CREATE TRIGGER TG_atualiza_status_livro AFTER INSERT ON tbl_cambio
-	FOR EACH ROW
-		BEGIN
-				UPDATE tbl_lista_livros SET status = 2
-				WHERE id_lista_livros = NEW.id_lista_livros;
-		END ;
-|
-DELIMITER ;

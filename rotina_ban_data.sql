@@ -1,11 +1,3 @@
-CREATE FUNCTION f_checa_data_ban ()
-		SET @data_ban := (SELECT data FROM tbl_lista_banidos);
-		SELECT id_lista_banidos,usuario_id FROM tbl_lista_banidos 
-		WHERE TO_DAYS(NOW()) - TO_DAYS(@data_ban) <= 30;
-		
-RETURNS INT
-RETURN ;	
-
 DELIMITER |
 CREATE PROCEDURE sp_checa_data_ban ()
 		BEGIN
