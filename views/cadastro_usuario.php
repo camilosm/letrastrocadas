@@ -147,8 +147,8 @@
 					<input type="password" class="form-control" name = "confirmar" id="inputSenha" required maxlength = "16" placeholder = "Digite sua senha novamente">		  
 				</section>
 				<section class="col-md-12 col-md-offset-2">
-					<input type = "reset" class="btn btn-default" value="Limpar"/>
 					<button type="submit" name = "entrar" class="btn btn-primary">Cadastrar</button>
+					<input type = "reset" class="btn btn-default" value="Limpar"/>
 				</section>
 			</section>
 		</fieldset>

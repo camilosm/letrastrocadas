@@ -212,6 +212,8 @@
 		
 		$idade = mysql_query("call calc_idade($id)");
 		
+		$_SESSION['status'] = "4";
+		
 		echo "<section class='alert alert-dismissable alert-success' style='width:40%;margin-left:30%;'>					  
 				<center><strong>Seus dados foram atualizados!</strong></center>
 			</section>";

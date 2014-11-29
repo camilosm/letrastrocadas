@@ -9,7 +9,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand">&nbsp&nbsp&nbsp&nbsp<span class="glyphicon glyphicon-book"></span>&nbsp&nbsp&nbsp&nbsp Bem vindo(a)!</a>
+				<a class="navbar-brand" href="?url=index_usuario">&nbsp&nbsp&nbsp&nbsp<span class="glyphicon glyphicon-book"></span>&nbsp&nbsp&nbsp&nbsp Bem vindo(a)!</a>
 			</section>
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<section class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -22,7 +22,6 @@
 					</button>
 				</form>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="?url=home_visitante"><span class="glyphicon glyphicon-home"></span> Início</a></li>
 					<li><a href="?url=sobre"><span class="glyphicon glyphicon-info-sign"></span> Quem somos</a></li>
 					<li><a href="?url=contato"><span class="glyphicon glyphicon-envelope"></span> Contato</a></li>
 					<li><a href="?url=cadastro_usuario"><span class="glyphicon glyphicon-plus"></span> Cadastre-se</a></li>

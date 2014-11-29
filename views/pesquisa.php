@@ -55,10 +55,10 @@
 		  segunda_foto,
 		  terceira_foto,
 		  usuario.nome AS NomeUsuario",
-		"livro.nome LIKE '%".$texto_pesquisa."%'
+		"lista.status = 1 AND (livro.nome LIKE '%".$texto_pesquisa."%'
 		  OR autor.nome LIKE '%".$texto_pesquisa."%'
 		  OR editora.nome LIKE '%".$texto_pesquisa."%'
-		  OR usuario.nome LIKE '%".$texto_pesquisa."%'
+		  OR usuario.nome LIKE '%".$texto_pesquisa."%')
 		  ORDER BY livro.nome LIMIT $inicio,$limite");
 		 
 		$resultado_dados = $pesquisa_dados->pesquisar();
@@ -221,7 +221,15 @@
 				}
 				else 
 				{
-					echo 'Nenhum resultado foi encontrado';
+					echo '
+						<br>
+						<center>
+							<section class="alert alert-warning col-sm-offset-3 col-sm-6">
+								<h1>Que pena!</h1>
+								<p>Nenhum livro foi encontrado :(
+							</section>
+						</center>
+						';
 				}
 								
 			?>

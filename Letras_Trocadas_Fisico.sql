@@ -4,12 +4,6 @@ SHOW DATABASES;
 
 USE letrastrocadas;
 
-/* 
-	DROP TABLE tbl_lendo;
-	DROP TABLE tbl_lista_desejo;
-	DROP TABLE tbl_leu;
-*/
-
 CREATE TABLE tbl_autor(
 
 	id_autor INT UNSIGNED AUTO_INCREMENT NOT NULL,
@@ -34,8 +28,6 @@ CREATE TABLE tbl_categoria(
 	PRIMARY KEY(id_categoria)
 	
 );
-
-/* ALTER TABLE tbl_categoria ADD creditos INT NOT NULL */
 
 CREATE TABLE tbl_estados(
 
@@ -67,6 +59,7 @@ CREATE TABLE tbl_livro(
 	status INT NULL, /* 1 = ativo, 2 = inativo  */
 	lendo BIGINT NULL,
 	lido BIGINT NULL,
+    querem_ler BIGINT NULL,
 	numero_paginas BIGINT NOT NULL,
 	editora_id INT UNSIGNED NOT NULL,
 	autor_id INT UNSIGNED NOT NULL,
@@ -108,10 +101,6 @@ CREATE TABLE tbl_usuario(
 	PRIMARY KEY(id_usuario)
 	
 );
-
- /*
-ALTER TABLE tbl_usuario DROP genero_favorito;
- */
  
 CREATE TABLE tbl_comentarios(
 
@@ -137,8 +126,6 @@ CREATE TABLE tbl_generos_favoritos(
 
 );
 
-/*ALTER TABLE tbl_generos_favoritos CHANGE id_generos_favotiros id_generos_favoritos INT UNSIGNED AUTO_INCREMENT NOT NULL*/
-
 CREATE TABLE tbl_autores_favoritos(
 
 	id_autores_favoritos INT UNSIGNED AUTO_INCREMENT NOT NULL,
@@ -149,8 +136,6 @@ CREATE TABLE tbl_autores_favoritos(
 	FOREIGN KEY(usuario_id) REFERENCES tbl_usuario(id_usuario)
 
 );
-
-/*ALTER TABLE tbl_autores_favoritos CHANGE id_autores_favotiros id_autores_favoritos INT UNSIGNED AUTO_INCREMENT NOT NULL*/
 
 CREATE TABLE tbl_generos_desapreciados(
 
@@ -210,15 +195,6 @@ CREATE TABLE tbl_notificacoes(
 	
 );
 
-/* ALTER TABLE tbl_notificacoes CHANGE visualizado visualizado VARCHAR(5) NOT NULL;
-   ALTER TABLE tbl_notificacoes ADD tipo INT NOT NULL AFTER id_notificacoes;
-   ALTER TABLE tbl_notificacoes CHANGE mensagem mensagem VARCHAR(50) NOT NULL; 
-   ALTER TABLE tbl_notificacoes CHANGE visualizado visualizado VARCHAR(5) NOT NULL; 
-   ALTER TABLE tbl_notificacoes ADD data_enviada DATETIME NOT NULL AFTER usuario_id;
-*/
-
-/* DROP TABLE tbl_lista_banidos; */
-
 CREATE TABLE tbl_lista_livros(
 	
 	id_lista_livros INT UNSIGNED AUTO_INCREMENT NOT NULL,
@@ -234,10 +210,6 @@ CREATE TABLE tbl_lista_livros(
 	FOREIGN KEY(usuario_id) REFERENCES tbl_usuario(id_usuario)
 	
 );
-
-/* ALTER TABLE tbl_lista_livros ADD creditos INT NOT NULL AFTER usuario_id */
-
-/* Ai pra mudar o banco sem precisar deletar ALTER TABLE tbl_lista_livros CHANGE data_cadastro data_cadastro DATETIME NOT NULL;*/
 
 CREATE TABLE tbl_fotos_livros(
 
@@ -291,16 +263,6 @@ CREATE TABLE tbl_cambio(
 
 );
 
-/*
- ALTER TABLE tbl_cambio ADD status INT NOT NULL AFTER id_cambio; 
- ALTER TABLE tbl_cambio ADD data_denuncia DATE NULL AFTER tipo; 
- ALTER TABLE tbl_cambio ADD denunciado TINYINT NOT NULL AFTER data_denuncia;
- ALTER TABLE tbl_cambio ADD entregue CHAR(3) NULL AFTER msg_codigo_enviada; 
- ALTER TABLE tbl_cambio ADD msg_codigo_enviada CHAR(3) NULL AFTER cod_rastreamento; 
- ALTER TABLE tbl_cambio DROP msg_codigo_enviada; 
-*/
-
-
 CREATE TABLE tbl_livros_trocados(
 
 	id_livros_trocados INT UNSIGNED AUTO_INCREMENT NOT NULL,
@@ -323,23 +285,12 @@ CREATE TABLE tbl_avaliacao(
 
 );
 
-/* ALTER TABLE tbl_denuncias ADD status INT NOT NULL; */
-/* ALTER TABLE tbl_denuncias DROP motivo;*/
-/* ALTER TABLE tbl_denuncias ADD outro_motivo VARCHAR(255) NULL*/
-/* ALTER TABLE tbl_denuncias ADD motivo_id INT UNSIGNED NOT NULL*/
-/* ALTER TABLE tbl_denuncias ADD FOREIGN KEY(motivo_id) REFERENCES tbl_motivos(id_motivo) */
-/* ALTER TABLE tbl_denuncias ADD data DATE NOT NULL; */
-
 CREATE TABLE tbl_motivos(
 
 	id_motivo INT UNSIGNED AUTO_INCREMENT NOT NULL,
 	motivo VARCHAR(255) NOT NULL,
 	PRIMARY KEY(id_motivo)
 );
-
-
-/* ALTER TABLE tbl_motivos CHANGE descricao motivo VARCHAR(255) NOT NULL; */
-/* ALTER TABLE tbl_motivos DROP penalidade; */
 
 CREATE TABLE tbl_roda_procedure_ban(
 	data DATE NOT NULL
@@ -358,7 +309,3 @@ CREATE TABLE tbl_denuncias(
 	FOREIGN KEY(usuario_denunciado_id) REFERENCES tbl_usuario(id_usuario),
 	FOREIGN KEY(usuario_acusador) REFERENCES tbl_usuario(id_usuario)
 );
-
-/* ALTER TABLE tbl_denuncias DROP status; */
-/*ALTER TABLE tbl_denuncias ADD usuario_acusador INT UNSIGNED NOT NULL;*/
-/*DROP TABLE tbl_denuncias*/
