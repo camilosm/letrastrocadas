@@ -1,26 +1,4 @@
 DELIMITER |
-CREATE PROCEDURE sp_pesquisa_adm_usu (IN condicao VARCHAR(100))
-	BEGIN
-
-		SET @cond := CONCAT('%',condicao,'%');
-
-		SELECT
-			*
-		FROM 
-			tbl_usuario JOIN
-
-		WHERE
-			nome like @cond OR
-			email like @cond OR
-			uf like @cond;	
-	END;
-|
-DELIMITER ;
-
-DROP PROCEDURE sp_pesquisa_adm;
-
-DROP PROCEDURE sp_pesquisa_adm_livro;
-DELIMITER |
 CREATE PROCEDURE sp_pesquisa_adm_livro (IN condicao VARCHAR(100))
 	BEGIN
 
