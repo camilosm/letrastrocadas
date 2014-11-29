@@ -37,6 +37,16 @@
 					</section>";
 			}
 			
+			if(isset($_POST['descongelar']))
+			{
+				$alterar_todos = new Alterar('tbl_lista_livros','status=1','usuario_id = '.$_SESSION['id']);
+				$resposta = $alterar_todos->alterar();
+				
+				echo "<section class='alert alert-dismissable alert-success' style='width:40%;margin-left:30%;'>					  
+						<center><strong>Seus livros foram descongelados!</strong></center>
+					</section>";
+			}
+			
 			if(isset($_POST['excluir']))
 			{
 				$id = $_POST['id'];
